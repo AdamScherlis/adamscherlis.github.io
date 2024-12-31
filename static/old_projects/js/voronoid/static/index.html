@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content="Voronoid by Adam Scherlis -- Expand your territory in this colorful multiplayer puzzle game, loosely inspired by graph theory." />
+        <meta name="google-site-verification" content="W5NB_iS9KSQHahUX4YsuJx_z7AVzFs9ZMNiklxK56Ow" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <title>Voronoid</title>
+        <script type="text/javascript" src="processing-1.0.0.min.js"></script>
+        <script type="text/javascript" src="rhill-voronoi-core-min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <style id="cursor" type="text/css"></style>
+        <div id="content">
+            <div id="top">
+                <div id="score"></div>
+                <div id="count"></div>
+            </div>
+            <div id="game">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div id="intro">
+                <div id="title">VORONOID</div>
+                <div id="links"><span id="home" class="links">by <a href="http://adam.scherlis.com/">Adam Scherlis</a></span>
+                <span id="about" class="links"><a href="about.html">About</a> Voronoid</span></div>
+                <p><div class="subtitle">Maximize your territory!</div>
+                Take turns placing your markers anywhere on the game field.
+                <br />The field is carved up into the regions of a <a href="http://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi diagram</a>.
+                <br />The value of each region is proportional to its area.</p>
+                <p><div class="subtitle">Divide and conquer!</div>
+                Each region is worth an extra 50% for each neighboring ally.
+                <br />(EG: A green region touching 4 other green ones is worth triple)
+                <br />Try to divide your opponents' territory, but keep your own together!</p>
+                <br /><br />
+                <form>
+                    <table>
+                        <tr>
+                            <td>(2-6)</td>
+                            <td>(1-20)</td>
+                        </tr>
+                        <tr>
+                            <td class="th">Players:</td>
+                            <td class="th">Rounds:</td>
+                        </tr>
+                        <tr>
+                            <td><input class="short" type="text" name="players" /></td>
+                            <td><input class="short" type="text" name="rounds" /></td>
+                        </tr>
+                    </table>
+                    <br />
+                    <button type="button" onclick="processing.startGame()">PLAY!</button>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="voronoid.js"></script> 
+    </body>
+</html>

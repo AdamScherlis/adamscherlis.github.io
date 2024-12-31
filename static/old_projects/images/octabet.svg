@@ -1,0 +1,59 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="640" height="320" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+<g style="stroke-width: 5; stroke: black; fill: white">
+    <g transform="translate(0,80)">
+        <g transform="translate(80,0)">
+            <circle r="60" />
+            <circle r="30" />
+            <circle r="2.5" />
+        </g>
+        
+        <g transform="translate(240,0)">
+            <circle r="60" />
+            <circle r="30" />
+            <line y1="-30" y2="30" />    
+        </g>
+
+        <g transform="translate(400,0)">
+            <circle r="60" />
+            <circle r="20" />
+            <line y1="20" y2="60" />
+        </g>
+
+        <g transform="translate(560,0)">
+            <circle r="60" />
+            <line y1="-60" y2="60" />
+            <line x1="-60" x2="60" />
+        </g>
+    </g>
+
+    <g transform="translate(0,240)">
+        <g transform="translate(80,0)">
+            <circle cy="-20" r="40" />
+            <circle cy="-20" r="2.5" />
+            <line y1="20" y2="60" />
+        </g>
+
+        <g transform="translate(240,0)">
+            <circle cy="-20" r="40" />
+            <line y1="-60" y2="60" />
+        </g>
+
+        <g transform="translate(400,0)">
+            <circle cy="-30" r="30" />
+            <line y1="0" y2="60" />
+            <line x1="-30" x2="30" y1="30" y2="30" />
+        </g>
+
+        <g transform="translate(560,0)">
+            <line y1="-60" y2="60" />
+            <line x1="-40" x2="40" y1="-20" y2="-20" />
+            <line x1="-40" x2="40" y1="20" y2="20" />
+        </g>
+    </g>
+</g>
+
+</svg>
