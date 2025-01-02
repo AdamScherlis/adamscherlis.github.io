@@ -1,7 +1,7 @@
 import markdown
 import os
 
-md = markdown.Markdown(extensions=['meta', 'mdx_math'], enable_dollar_delimiter=True)
+md = markdown.Markdown(extensions=['meta', 'mdx_math', 'fenced_code'], enable_dollar_delimiter=True)
 
 # create blog directory if it doesn't exist
 os.makedirs("blog", exist_ok=True)
@@ -23,6 +23,9 @@ for post in blog_posts:
     content_html = md.convert(content)
     title = md.Meta.get('title', [None])[0]
     date = md.Meta.get('date', [None])[0]
+    draft = md.Meta.get('draft', [False])[0]
+    if draft:
+        continue
 
     post_html = post_template.format(title=title, date=date, content=content_html)
 
