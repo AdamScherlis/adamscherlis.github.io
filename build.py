@@ -35,7 +35,7 @@ for post in blog_posts:
     with open(f"blog/{post}/index.html", "w") as file:
         file.write(post_html)
 
-    post_bullets.append((date, f"<li><a href='blog/{post}/index.html'>{title}</a> [{date}]</li>"))
+    post_bullets.append((date, f"<li><a href='blog/{post}'>{title}</a> [{date}]</li>"))
 
 post_bullets.sort(key=lambda x: x[0], reverse=True)
 posts_html = "\n".join([post_bullet for _, post_bullet in post_bullets])
