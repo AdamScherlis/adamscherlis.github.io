@@ -32,7 +32,7 @@
 <p>
 <script type="math/tex; mode=display">s_0s_1s_2s_3\cdots</script>
 </p>
-<p>So a small positive number begins <script type="math/tex">+-\cdots</script>, a large negative one begins <script type="math/tex">-+\cdots</script>, etc.</p>
+<p>So a small positive number begins <script type="math/tex">(+-\ldots)</script>, a large negative one begins <script type="math/tex">(-+\ldots)</script>, etc.</p>
 <p>This might not seem like enough information to reconstruct the number, but it is: every additional sign restricts the range of possible values, and any level of precision for a given number can be achieved with enough signs.</p>
 <h2>Gray code and lexicographic ordering</h2>
 <p>Let's stop at three signs' worth of precision for now and see what we have, in order:</p>
@@ -71,6 +71,17 @@
 +  [1 1 0] 1
 ++ [1 1 1] 2
 </code></pre>
+<p>Note that the trailing <script type="math/tex">1000\ldots</script> that we append has a nice semantic interpretation; with infinitely many zeroes appended, it decodes to </p>
+<p>
+<script type="math/tex; mode=display">\pm-++\ldots = \pm 2^{-\infty} = 0</script>
+</p>
+<p>which is what we want an empty sequence to represent anyway.</p>
+<p>So an alternative prescription, if you like mathematical elegance over efficiency, is to append an infinite string of zeroes and take the limit.</p>
+<!-- 
+Similarly, \(000\ldots\) in principle represents \(-\infty\), although the lack of a finite-length encoding for \(111\ldots = \infty\) makes this somewhat less useful.
+
+And in addition to \(1000\ldots = +0\), there's also \(0111\ldots = -0\), so we have the usual fencepost ambiguity of infinite decimals. -->
+
 <h2>Code</h2>
 <p>The prototype implementation is in a notebook <a href="https://github.com/AdamScherlis/notebooks-python/blob/main/math/iterlog_coding.ipynb">here</a>, warts and all. There's also some bonus math which I might explain in a later post.</p>
 <h2>Every 7-bit number</h2>

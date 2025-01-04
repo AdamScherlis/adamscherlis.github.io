@@ -41,7 +41,7 @@ Okay, so what's our proposed format? It's essentially just:
 
 \[s_0s_1s_2s_3\cdots\]
 
-So a small positive number begins \(+-\cdots\), a large negative one begins \(-+\cdots\), etc.
+So a small positive number begins \((+-\ldots)\), a large negative one begins \((-+\ldots)\), etc.
 
 This might not seem like enough information to reconstruct the number, but it is: every additional sign restricts the range of possible values, and any level of precision for a given number can be achieved with enough signs.
 
@@ -89,6 +89,19 @@ This gives us the following values for sequences of up to two signs:
 +  [1 1 0] 1
 ++ [1 1 1] 2
 ```
+
+Note that the trailing \(1000\ldots\) that we append has a nice semantic interpretation; with infinitely many zeroes appended, it decodes to 
+
+\[\pm-++\ldots = \pm 2^{-\infty} = 0\]
+
+which is what we want an empty sequence to represent anyway.
+
+So an alternative prescription, if you like mathematical elegance over efficiency, is to append an infinite string of zeroes and take the limit.
+
+<!-- 
+Similarly, \(000\ldots\) in principle represents \(-\infty\), although the lack of a finite-length encoding for \(111\ldots = \infty\) makes this somewhat less useful.
+
+And in addition to \(1000\ldots = +0\), there's also \(0111\ldots = -0\), so we have the usual fencepost ambiguity of infinite decimals. -->
 
 ## Code
 
