@@ -1,0 +1,40 @@
+<html></html>
+<head>
+    <title>Morse code prosigns</title>
+    <link rel="stylesheet" href="../../style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body>
+    <h2><a href="/">Adam Scherlis</a></h2>
+    <h1>Morse code prosigns</h1>
+    <em>2025-01-04</em>
+<p>It's not technically true that SOS is the universal distress signal in Morse code.</p>
+<p>SOS is a sequence of three letters, <code>... --- ...</code>, with brief pauses between the letters.</p>
+<p>The distress signal is <code>...---...</code>, a signal "letter" composed of nine dots and dashes. It's a <a href="https://en.wikipedia.org/wiki/Prosigns_for_Morse_code">prosign</a>, which is sort of like an ASCII control code. Formally, it should be written <span style="text-decoration:overline;">SOS</span>, with an overbar, which means "the dots and dashes for SOS but without pauses".</p>
+<p>Wikipedia <a href="https://en.wikipedia.org/wiki/SOS">notes</a> that you can also chop up the distress signal into <code>...- --.. .</code>, "VZE", so <span style="text-decoration:overline;">VZE</span> is an equally valid way to write the same prosign.</p>
+<p>Ditto <span style="text-decoration:overline;">3B</span>, <span style="text-decoration:overline;">IETMS</span>, and <span style="text-decoration:overline;">EEETTTEEE</span>.</p>
+<p>So naturally I wrote some code to find fun equivalent abbreviations for hypothetical prosigns.</p>
+<p>There isn't much worth mentioning, algorithmically; just make a hash map with prosigns as keys and words as values, then run through a dictionary and populate it, then sort however you want.</p>
+<p>Some fun results:</p>
+<p><span style="text-decoration:overline;">ABSINTHE</span> = <span style="text-decoration:overline;">PHIALS</span><br />
+<span style="text-decoration:overline;">ACID</span> = <span style="text-decoration:overline;">EMAIL</span><br />
+<span style="text-decoration:overline;">BEER</span> = <span style="text-decoration:overline;">THIN</span><br />
+<span style="text-decoration:overline;">BIOLOGY</span> = <span style="text-decoration:overline;">THEOLOGY</span><br />
+<span style="text-decoration:overline;">BOSS</span> = <span style="text-decoration:overline;">NEWBIE</span><br />
+<a href="https://en.wikipedia.org/wiki/Time_Cube"><span style="text-decoration:overline;">CUBE</span> = <span style="text-decoration:overline;">TRUTH</span></a><br />
+<span style="text-decoration:overline;">DADAISM</span> = <span style="text-decoration:overline;">NEWSBEAT</span><br />
+<span style="text-decoration:overline;">ELECTION</span> = <span style="text-decoration:overline;">FICTION</span><br />
+<span style="text-decoration:overline;">ENWOVEN</span> = <span style="text-decoration:overline;">LOGIC</span><br />
+<span style="text-decoration:overline;">HREF</span> = <span style="text-decoration:overline;">SERVE</span><br />
+<span style="text-decoration:overline;">INTERNET</span> = <span style="text-decoration:overline;">ULTRA</span><br />
+<span style="text-decoration:overline;">MAINE</span> = <span style="text-decoration:overline;">MAUI</span><br />
+<span style="text-decoration:overline;">NAMED</span> = <span style="text-decoration:overline;">XML</span><br />
+<span style="text-decoration:overline;">PERL</span> = <span style="text-decoration:overline;">WILD</span><br />
+<span style="text-decoration:overline;">WEED</span> = <span style="text-decoration:overline;">WINE</span>  </p>
+<p>Inevitably, the best ones were offensive to public morals and basic decency, and have been omitted. Consider it an incentive to write some code yourself.</p>
+<p>And yes, some of these pairs have a lot of trivial overlap. Someone should really implement <a href="https://blog.plover.com/lang/anagram-scoring.html">this algorithm</a> for these things.</p>
+<p>Is this the opposite of an anagram? Different letters but in the same order?</p>
+
+</body>
+</html>
