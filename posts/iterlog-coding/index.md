@@ -3,6 +3,8 @@ title: Iterated log coding
 date: 2025-01-01
 ---
 
+\[\pi = +2^{+2^{+2^{-2^{-2^{+2^{-2^{\cdots}}}}}}}\]
+
 ## Floats with just the sign bits
 
 I've created a new format for encoding real numbers on computers. I'm proud of it! Let's dive in.
