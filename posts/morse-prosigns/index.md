@@ -9,6 +9,8 @@ SOS is a sequence of three letters, `... --- ...`, with brief pauses between the
 
 The distress signal is `...---...`, a signal "letter" composed of nine dots and dashes. It's a [prosign](https://en.wikipedia.org/wiki/Prosigns_for_Morse_code), which is sort of like an ASCII control code. Formally, it should be written <span style="text-decoration:overline;">SOS</span>, with an overbar, which means "the dots and dashes for SOS but without pauses".
 
+(Oddly, [this 80's cult classic](https://www.youtube.com/watch?v=0RfU5r63AXY) has backing vocals singing something like `... ---...`, or S<span style="text-decoration:overline;">OS</span>.)
+
 Wikipedia [notes](https://en.wikipedia.org/wiki/SOS) that you can also chop up the distress signal into `...- --.. .`, "VZE", so <span style="text-decoration:overline;">VZE</span> is an equally valid way to write the same prosign.
 
 Ditto <span style="text-decoration:overline;">3B</span>, <span style="text-decoration:overline;">IETMS</span>, and <span style="text-decoration:overline;">EEETTTEEE</span>.
