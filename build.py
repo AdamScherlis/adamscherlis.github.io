@@ -24,8 +24,6 @@ for post in blog_posts:
     title = md.Meta.get('title', [None])[0]
     date = md.Meta.get('date', [None])[0]
     draft = md.Meta.get('draft', [False])[0]
-    if draft:
-        continue
 
     post_html = post_template.format(title=title, date=date, content=content_html)
 
@@ -35,7 +33,8 @@ for post in blog_posts:
     with open(f"blog/{post}/index.html", "w") as file:
         file.write(post_html)
 
-    post_bullets.append((date, f"<li><a href='blog/{post}'>{title}</a> [{date}]</li>"))
+    if not draft:
+        post_bullets.append((date, f"<li><a href='blog/{post}'>{title}</a> [{date}]</li>"))
 
 post_bullets.sort(key=lambda x: x[0], reverse=True)
 posts_html = "\n".join([post_bullet for _, post_bullet in post_bullets])

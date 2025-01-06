@@ -1,11 +1,12 @@
 ---
 title: Procedurally-generated shapes for laser-cut pendants
 date: 2025-01-05
+draft: True
 ---
 
 I handed out laser-cut pendants this past Burning Man that looked like this:
 
-![wooden pendants in a variety of symmetrical jagged shapes](../assets/shape-pendants/pendants.jpg)
+![wooden pendants in a variety of symmetrical jagged shapes](../../assets/shape-pendants/pendants.jpg)
 
 I made fifty of them, each a unique shape, with rotational symmetry of varying orders.
 
