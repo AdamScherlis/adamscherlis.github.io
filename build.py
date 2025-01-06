@@ -25,6 +25,9 @@ for post in blog_posts:
     date = md.Meta.get('date', [None])[0]
     draft = md.Meta.get('draft', [False])[0]
 
+    if draft == "secret":
+        continue
+
     post_html = post_template.format(title=title, date=date, content=content_html)
 
     # create new-blog directory if it doesn't exist

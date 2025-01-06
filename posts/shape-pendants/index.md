@@ -1,14 +1,13 @@
 ---
-title: Procedurally-generated shapes for laser-cut pendants
+title: Randomly-generated shape pendants
 date: 2025-01-05
-draft: True
 ---
 
 I handed out laser-cut pendants this past Burning Man that looked like this:
 
 ![wooden pendants in a variety of symmetrical jagged shapes](../../assets/shape-pendants/pendants.jpg)
 
-I made fifty of them, each a unique shape, with rotational symmetry of varying orders.
+I made 72 of them, each a unique shape, with rotational symmetry of varying orders.
 
 ## Shapes
 
@@ -34,15 +33,15 @@ Then I fiddled with the hyperparameters (power-law exponent \(\alpha\), highest 
 
 Most laser cutters at hackerspaces seem to be hooked up to computers running LightBurn, which is pretty similar in interface to Inkscape or Adobe Illustrator. It imports SVG seamlessly (often with distance units and layers intact), so I try to keep my workflow inside Python as much as possible, then in Inkscape for any touch-ups or manual steps, and then in LightBurn to set details of cuts and engraving and any last-minute issues I forgot.
 
-For this project, I added the Burning Man logos in Inkscape. Just before the cut, my friend Cody suggested giving them holes for necklaces or keychains, which I added in LightBurn. In hindsight, I wish I'd done both of those in Python, with the hole position chosen automatically. 
+For this project, I added the Burning Man logos in Inkscape. (I also drew them myself, because I didn't like anything I found in SVG.) Just before the cut, my friend Cody suggested giving them holes for necklaces or keychains, which I added in LightBurn. In hindsight, I wish I'd done both of those in Python, with the hole position chosen automatically.
 
 The aftermath: 
 
-![wooden square with jagged symmetrical shapes cut out, with laser cutter visible in background](../assets/shape-pendants/pendants-cut.jpg)
+![wooden square with jagged symmetrical shapes cut out, with laser cutter visible in background](../../assets/shape-pendants/pendants-cut.jpg)
 
 ## Ephemerality?
 
-The photo at the top of the post is apparently the only decent one I took. You'll have to trust me that the pile of fifty pendants looked cool; fifty different people have them now.
+The photo at the top of the post is the only decent one I took. You'll have to trust me that the pile of 72 pendants looked cool; 72 different people have them now.
 
 ## Code
 

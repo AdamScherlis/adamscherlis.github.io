@@ -24,3 +24,8 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* Images */
+img {
+    max-width: 100%;
+}
