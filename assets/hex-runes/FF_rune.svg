@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1.1 2 2.2">
+  <!-- Left curved path - split into 4 segments -->
+  <path d="M 0,-1 L -0.8,-0.5" stroke="#AA0066" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  <path d="M -0.8,-0.5 L 0,0" stroke="#880088" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  <path d="M 0,0 L -0.8,0.5" stroke="#6600AA" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  <path d="M -0.8,0.5 L 0,1" stroke="#4400CC" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  
+  <!-- Right curved path - split into 4 segments -->
+  <path d="M 0,-1 L 0.8,-0.5" stroke="#2200EE" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  <path d="M 0.8,-0.5 L 0,0" stroke="#0022EE" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  <path d="M 0,0 L 0.8,0.5" stroke="#0044CC" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  <path d="M 0.8,0.5 L 0,1" stroke="#0066AA" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  
+  <!-- Straight line (for highest z-order) -->
+  <path d="M 0,-1 L 0,1" stroke="black" fill="none" stroke-width="0.05" stroke-linecap="round"/>
+  
+  <!-- Labels for powers of two -->
+  <text x="-0.8" y="-0.65" text-anchor="end" font-size="0.2" fill="#AA0066">128</text>
+  <text x="-0.8" y="-0.15" text-anchor="end" font-size="0.2" fill="#880088">64</text>
+  <text x="-0.8" y="0.35" text-anchor="end" font-size="0.2" fill="#6600AA">32</text>
+  <text x="-0.8" y="0.85" text-anchor="end" font-size="0.2" fill="#4400CC">16</text>
+  
+  <text x="0.8" y="-0.65" text-anchor="start" font-size="0.2" fill="#2200EE">8</text>
+  <text x="0.8" y="-0.15" text-anchor="start" font-size="0.2" fill="#0022EE">4</text>
+  <text x="0.8" y="0.35" text-anchor="start" font-size="0.2" fill="#0044CC">2</text>
+  <text x="0.8" y="0.85" text-anchor="start" font-size="0.2" fill="#0066AA">1</text>
+</svg>

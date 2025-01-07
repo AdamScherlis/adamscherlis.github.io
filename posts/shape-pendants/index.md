@@ -5,7 +5,7 @@ date: 2025-01-05
 
 I handed out laser-cut pendants this past Burning Man that looked like this:
 
-![wooden pendants in a variety of symmetrical jagged shapes](../../assets/shape-pendants/pendants.jpg)
+![wooden pendants in a variety of symmetrical jagged shapes](../../assets/shape-pendants/pendants.jpg){width="75%"}
 
 I made 72 of them, each a unique shape, with rotational symmetry of varying orders.
 
@@ -37,7 +37,7 @@ For this project, I added the Burning Man logos in Inkscape. (I also drew them m
 
 The aftermath: 
 
-![wooden square with jagged symmetrical shapes cut out, with laser cutter visible in background](../../assets/shape-pendants/pendants-cut.jpg)
+![wooden square with jagged symmetrical shapes cut out, with laser cutter visible in background](../../assets/shape-pendants/pendants-cut.jpg){width="50%"}
 
 ## Ephemerality?
 
