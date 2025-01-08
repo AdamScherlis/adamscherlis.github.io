@@ -1,7 +1,6 @@
 ---
 title: Hex runes
 date: 2025-01-07
-draft: secret
 ---
 
 I blogged about these [in 2022](https://adam.scherlis.com/2022/10/28/cryptic-symbols/) and promised an explanation "soon". Here it is!
