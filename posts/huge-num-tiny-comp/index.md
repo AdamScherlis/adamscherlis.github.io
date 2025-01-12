@@ -1,7 +1,7 @@
 ---
 title: The huge number and tiny computer fandoms
 date: 2025-01-01
-draft: secret
+draft: True
 ---
 
 There are a few online communities of hobbyist mathematicians that I absolutely adore. This post is about a cluster of them with some fun secret connections:
