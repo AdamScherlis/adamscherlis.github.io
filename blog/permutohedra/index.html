@@ -1,0 +1,53 @@
+<html></html>
+<head>
+    <title>A factorial puzzle</title>
+    <link rel="stylesheet" href="../../style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+<body>
+    <h2><a href="/">Adam Scherlis</a></h2>
+    <h1>A factorial puzzle</h1>
+    <em>2025-02-25</em>
+<h2>Problem</h2>
+<p>I saw <a href="https://math.stackexchange.com/questions/5038292/a-factorial-puzzle">this post</a> on Math Stack Exchange recently. Unfortunately, it got closed while I was solving it, so I emailed the OP a summary and am writing it up here.</p>
+<p>In the course of some representation theory research, OP came across a mysterious function that produces, for each <script type="math/tex">n\in\mathbb{N}</script>, a set of <script type="math/tex">(n-1)</script>-tuples of natural numbers of size <script type="math/tex">n!</script>. They give some fairly gnarly Mathematica code to compute it, and ask for a simple characterization. They also list the sets for <script type="math/tex">n=1,2,\dots,5</script>.</p>
+<p>So there's actually three very different puzzles here, with the same answer. In increasing order of sophistication:</p>
+<ol>
+<li>Stare at the given sets until the pattern becomes clear.</li>
+<li>Reverse-engineer and golf the Mathematica code.</li>
+<li>Solve the original representation-theory problem.</li>
+</ol>
+<p>I'm not feeling sophisticated, so we're going to do the first one.</p>
+<h2>Clues</h2>
+<p>There are a couple observations we can make about the given example sets:</p>
+<ol>
+<li>Per OP, they each consist of the vertices of a convex polytope which is combinatorially equivalent to the <a href="https://en.wikipedia.org/wiki/Permutohedron">permutohedron</a>.</li>
+<li>The edges of each polytope have coordinates that are all zero or one (in one orientation).</li>
+</ol>
+<p>As a reminder, the standard <script type="math/tex">(n-1)</script>-dimensional permutohedron is the convex hull of the <script type="math/tex">n!</script> permutations of the vector <script type="math/tex">[1,2,\dots,n]</script>. (These lie in a hyperplane of codimension <script type="math/tex">1</script> in <script type="math/tex">\mathbb{R}^n</script>.)</p>
+<p>In other words, the vertices of the permutohedron are linear combinations of standard basis vectors, with the coefficients of each vector being a permutation of <script type="math/tex">(1,2,\dots,n)</script>.</p>
+<h2>Guess</h2>
+<p>We will wildly conjecture that our mystery function gives a linear transformation of the standard permutohedron. Therefore, its vertices should be linearly combinations of some unknown set of vectors in <script type="math/tex">\mathbb{R}^{n-1}</script>, with the coefficients again being a permutation of <script type="math/tex">(1,2,\dots,n)</script>.</p>
+<p>What do we know about these vectors?</p>
+<p>Consider the standard permutohedron again: every edge is a permutation of the vector <script type="math/tex">[+1, -1, 0, \dots, 0]</script>, which is a difference of two standard basis vectors. These are also the edges of the <script type="math/tex">(n-1)</script>-simplex formed by the standard basis vectors.</p>
+<p>We know that the edges of our polytope are zero-one vectors, which is to say, edges and diagonals of the unit <script type="math/tex">(n-1)</script>-cube. So it would make sense if the unknown vectors are the vertices of some <script type="math/tex">(n-1)</script>-simplex embedded in that cube.</p>
+<p>A little bit of squinting at the first few sets reveals that this <em>almost</em> works, for the simplex with vertices e.g. <script type="math/tex">[0, 0, 0], [0, 0, 1], [0, 1, 1], [1, 1, 1]</script>. It gives the correct shape, but translated away from the origin.</p>
+<p>How do we translate back? Note that there is always one vertex of our polytope which is at least as close to the origin as any other corner along all axes simultaneously. This is the vertex whose coefficients are <script type="math/tex">(n,\dots,2,1)</script> in decreasing order. The coordinates of that vertex are cumulative sums of the coefficients, i.e. triangle numbers.</p>
+<p>So the polytope is just a permutohedron "jammed into the corner" of the positive orthant by a linear transformation, with coordinates given by cumulative sums of permutations with triangle numbers subtracted.</p>
+<h2>Solution</h2>
+<p>In equations:</p>
+<p>The mystery set for <script type="math/tex">n</script> is given by the <script type="math/tex">n!</script> vectors <script type="math/tex">w^\sigma</script> for <script type="math/tex">\sigma\in S_n</script> with components given by
+<script type="math/tex; mode=display">w^\sigma_j = \sum_{i=1}^{j-1}(\sigma(i) - i) \qquad i\in[1..n],j\in[1..(n-1)]</script>
+</p>
+<p>In Python:</p>
+<pre><code class="language-py">import numpy as np
+from itertools import permutations
+
+for perm in permutations(range(n)):
+    print(np.cumsum(np.array(perm) - np.arange(n))[:-1])
+</code></pre>
+
+</body>
+</html>
