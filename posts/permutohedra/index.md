@@ -30,7 +30,7 @@ In other words, the vertices of the permutohedron are linear combinations of sta
 
 ## Guess
 
-We will wildly conjecture that our mystery function gives a linear transformation of the standard permutohedron. Therefore, its vertices should be linearly combinations of some unknown set of vectors in \(\mathbb{R}^{n-1}\), with the coefficients again being a permutation of \((1,2,\dots,n)\).
+We will wildly conjecture that our mystery function gives a linear transformation of the standard permutohedron. Therefore, its vertices should be linear combinations of some unknown set of vectors in \(\mathbb{R}^{n-1}\), with the coefficients again being a permutation of \((1,2,\dots,n)\).
 
 What do we know about these vectors?
 
