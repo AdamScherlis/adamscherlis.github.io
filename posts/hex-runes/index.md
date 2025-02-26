@@ -21,4 +21,4 @@ I have since learned about [Cistercian numerals](https://en.wikipedia.org/wiki/C
 
 ## Code
 
-As usual, there's a [messy notebook](https://github.com/AdamScherlis/notebooks-python/blob/main/codes/hexrunes.ipynb)
+As usual, there's a [messy notebook](https://github.com/AdamScherlis/notebooks-python/blob/main/codes/hexrunes.ipynb).
