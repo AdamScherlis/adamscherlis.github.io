@@ -17,6 +17,8 @@ So there's actually three very different puzzles here, with the same answer. In 
 
 I'm not feeling sophisticated, so we're going to do the first one.
 
+If you want to try it yourself, stop reading here. Spoilers follow.
+
 ## Clues
 
 There are a couple observations we can make about the given example sets:
