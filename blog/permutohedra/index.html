@@ -20,6 +20,7 @@
 <li>Solve the original representation-theory problem.</li>
 </ol>
 <p>I'm not feeling sophisticated, so we're going to do the first one.</p>
+<p>If you want to try it yourself, stop reading here. Spoilers follow.</p>
 <h2>Clues</h2>
 <p>There are a couple observations we can make about the given example sets:</p>
 <ol>
@@ -29,7 +30,7 @@
 <p>As a reminder, the standard <script type="math/tex">(n-1)</script>-dimensional permutohedron is the convex hull of the <script type="math/tex">n!</script> permutations of the vector <script type="math/tex">[1,2,\dots,n]</script>. (These lie in a hyperplane of codimension <script type="math/tex">1</script> in <script type="math/tex">\mathbb{R}^n</script>.)</p>
 <p>In other words, the vertices of the permutohedron are linear combinations of standard basis vectors, with the coefficients of each vector being a permutation of <script type="math/tex">(1,2,\dots,n)</script>.</p>
 <h2>Guess</h2>
-<p>We will wildly conjecture that our mystery function gives a linear transformation of the standard permutohedron. Therefore, its vertices should be linearly combinations of some unknown set of vectors in <script type="math/tex">\mathbb{R}^{n-1}</script>, with the coefficients again being a permutation of <script type="math/tex">(1,2,\dots,n)</script>.</p>
+<p>We will wildly conjecture that our mystery function gives a linear transformation of the standard permutohedron. Therefore, its vertices should be linear combinations of some unknown set of vectors in <script type="math/tex">\mathbb{R}^{n-1}</script>, with the coefficients again being a permutation of <script type="math/tex">(1,2,\dots,n)</script>.</p>
 <p>What do we know about these vectors?</p>
 <p>Consider the standard permutohedron again: every edge is a permutation of the vector <script type="math/tex">[+1, -1, 0, \dots, 0]</script>, which is a difference of two standard basis vectors. These are also the edges of the <script type="math/tex">(n-1)</script>-simplex formed by the standard basis vectors.</p>
 <p>We know that the edges of our polytope are zero-one vectors, which is to say, edges and diagonals of the unit <script type="math/tex">(n-1)</script>-cube. So it would make sense if the unknown vectors are the vertices of some <script type="math/tex">(n-1)</script>-simplex embedded in that cube.</p>
