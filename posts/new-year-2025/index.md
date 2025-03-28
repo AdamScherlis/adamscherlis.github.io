@@ -29,13 +29,13 @@ Defining some notation for triangle and square numbers,
 
 $$
 \begin{align}
-\triangle(n) &:= \frac{n(n+1)}2\\ 
-\square(n) &:= n^2
+\triangle n &:= \frac{n(n+1)}2\\ 
+\square n &:= n^2
 \end{align}
 $$
 
 we can summarize things thus:
 
-$$2025 = \square(\triangle(\square(\triangle(2)))).$$
+$$2025 = \square \triangle \square \triangle 2.$$
 
-This is fairly benign magic; dabblers in the dark arts may wish to try \(\triangle(\square(\triangle(\triangle(2))))\) instead.
+This is fairly benign magic; dabblers in the dark arts may wish to try \(\triangle\square\triangle\triangle 2\) instead.
