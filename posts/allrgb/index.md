@@ -29,7 +29,7 @@ How continuous are these maps? The obvious generalization of our definition of s
 
 On the other hand, continuity alone is pretty weak; we can do better.
 
-The Hilbert curve has the nice property that a interval of length \(r\) of the unit interval gets mapped to a reasonably compact region of area \(r\) in the square, which has a diameter on the order of \(\sqrt r\). This implies the property  \(|f(x)-f(y)| \le C |x-y|{1/2}\), which is called H&ouml;lder continuity (with exponent 1/2).
+The Hilbert curve has the nice property that a interval of length \(r\) of the unit interval gets mapped to a reasonably compact region of area \(r\) in the square, which has a diameter on the order of \(\sqrt r\). This implies the property  \(|f(x)-f(y)| \le C |x-y|^{1/2}\), which is called H&ouml;lder continuity (with exponent 1/2).
 
 Can we use space-filling curves to construct H&ouml;lder-continuous versions of our allRGB images? Not directly. You can chain together Hilbert-curve maps to go down from 2 dimensions to 1 and then back up to 3, but the [gorgeous result](https://allrgb.com/hilbert-curve) is discontinuous everywhere. (You can also do this with [a Z-order curve](https://allrgb.com/z), which has a particularly simple algorithm -- just interleave and deinterleave the bits of your coordinates to get your color components.)
 
