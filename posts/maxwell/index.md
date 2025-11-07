@@ -3,8 +3,6 @@ title: Maxwell's Demon and the Arrow of Time
 date: 2025-11-04
 ---
 
-(Loosely based on a recent conversation with a housemate)
-
 SIMPLICIO: So, I really don't get why Maxwell's demon is supposed to be impossible. Why can't I just attach a wheel to a ratchet, stick it in a gas that's in thermal equilibrium, and wait for a random fluctuation to turn it? It'll keep turning in one direction, and I should be able to harness that to extract at least a little bit of power.
 
 SALVIATI: As it turns out, you can't really build a ratchet at microscopic scale!
