@@ -1,0 +1,52 @@
+---
+title: GPTF-8: A tokenizer-based character encoding
+date: 2025-11-06
+---
+
+There are two steps to any byte-based character encoding.
+
+The first and much more interesting step is the translation from written language -- in all its chaotic glory -- to a fixed inventory of "characters", from which any string can be built up as a sequence. In the modern day, this is almost always delegated to Unicode, a huge list of characters with slots (codepoints) numbered from 0 to 1,114,111 (or `0x10FFFF` in hexadecimal), of which 159,801 are currently assigned actual characters. These characters include Latin letters, typographical symbols, Cyrillic, Greek, hanzi/kanji/hanja, emoji, hieroglyphs, and a bewildering variety of control codes and other special-purpose characters.
+
+The boring step is assigning each character a string of bytes, such that any byte string can be unambiguously interpreted as a sequence of characters.
+
+The boring step is still interesting! In particular, any such encoding can be interpreted as a set of beliefs about how frequent different characters are. The closer this belief is to reality, the more efficient the encoding. (Conversely, you can use frequency statistics to design a Huffman code that's close to optimal for that distribution.)
+
+The most common choice by far is UTF-8, which uses a clever scheme to stay backwards-compatible with ASCII (the old single-byte 128-character format often called "plain text" by Anglophones) while assigning short 2-byte strings to the next 1,920 Unicode characters and longer 3- or 4-byte strings to the remaining ones. Less common is UTF-16 (baked into Windows at a deep level), which requires 2 bytes for an ASCII character, or any of the next 63,360 Unicode characters, and 4 bytes for anything else. You can see the tradeoff here: UTF-8 believes text to be mostly ASCII with occasional other Unicode characters sprinkled in, mostly from the first couple thousand codepoints; UTF-16 believes it to be nearly random Unicode from the Basic Multilingual Plane, with very rare exceptions. (Rare enough in practice, as it turns out, that a large fraction of UTF-16 implementations have bugs related to the 4-byte "astral plane" characters.) UTF-32 believes all Unicode characters are equally common, and accordingly gives each a 4-byte sequence; it doesn't get much use.
+
+But in the year 2025, we have access to much more precise beliefs about text! The best such beliefs (as represented by the weights of pretrained language models) go far beyond mere frequency statistics, and represent complicated conditionals like the probability that a string beginning with "The capital of France is " will end with "Paris". Encodings based on these are currently topping [the charts](https://www.mattmahoney.net/dc/text.html) on efficiency.
+
+Even before a neural net is trained, some weak beliefs about text are baked in at the level of the tokenizer. A tokenizer's vocabulary is, in its own way, much like the Unicode character inventory: it's a set of short strings from which any longer string can be built up. (It's a bit different in that many of the tokens represent substrings of other tokens, but the tokenizer itself provides a canonical way to represent a given string.) These days, token vocabularies are almost always constructed via byte-pair encoding, which does a pretty good job at covering the most frequent text strings; GPT-4o's tokenizer has tokens for " modernization" and " Congressional" (with leading spaces).
+
+Here's a puzzle: Unicode has over 1 million codepoints. GPT-4o's tokenizer, which can represent any Unicode string, has 200,019 tokens in its vocabulary. How does this add up?
+
+As it turns out, GPT's tokenizer (ever since GPT-2) operates on bytes, not Unicode characters. In practice you should interpret those bytes as representing fragments of UTF-8, but in principle you could train a language model with this tokenizer on any byte-oriented data. For the rarer, higher-numbered Unicode characters, there is no token for the full 4-byte UTF-8 sequence, and a single character will be split across multiple tokens. (Back in the GPT-2 days, curly "smart" quotation marks and apostrophes took up two tokens each; GPT-4o has separate tokens for a smart quote vs. a smart quote preceded by a space.)
+
+This allows the tokenizer to represent a more accurate set of beliefs than those baked into UTF-8 or the other Unicode formats. Unlike Unicode, the GPT tokenizer understands that the idea of modernization comes up more often than, say, anything written in the Sidetic language, which has been extinct for over 2,000 years. (But if you do want to write in Sidetic, the tokenizer will happily oblige -- at a rate of four tokens per letter.)
+
+Let's say we want to harness this power, and encode our documents as strings of tokens. We still need to map tokens to bytes. Fortunately, we already have a way of mapping numbered vocab elements to strings of bytes, such that the lower-numbered elements get shorter strings... UTF-8!
+
+(We would get better results from a Huffman code, and I even figured out once how to create a byte-oriented Huffman code, but that would be less funny.)
+
+We can even use Python's built-in UTF-8 encoder, because of the magic of `surrogatepass`. (Cognitive error: look into this at your own risk; there are horrors here of which I have deliberately not spoken.)
+
+Python code:
+
+```py
+import tiktoken
+
+enc = tiktoken.encoding_for_model("gpt-4o")
+
+def gptf8_encode(s: str):
+    toks = enc.encode(s)
+    chrs = ''.join(chr(t) for t in toks)
+    byts = chrs.encode(errors='surrogatepass')
+    return byts
+
+def gptf8_decode(byts: bytes):
+    chrs = byts.decode(errors='surrogatepass')
+    toks = [ord(c) for c in chrs]
+    s = enc.decode(toks)
+    return s
+```
+
+This compresses the raw Markdown of this blog post from 5,877 bytes (in ASCII or UTF-8) down to 3,141.
