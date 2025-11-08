@@ -1,5 +1,5 @@
 ---
-title: Review: *Parsifal* at the SF Opera
+title: Review: Parsifal at the SF Opera
 date: 2025-11-07
 ---
 
