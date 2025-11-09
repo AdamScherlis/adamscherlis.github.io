@@ -10,7 +10,8 @@
     <h2><a href="/">Adam Scherlis</a></h2>
     <h1>n-ary Huffman coding</h1>
     <em>2025-11-08</em>
-<p>Huffman coding is a method for constructing optimal prefix codes! A prefix code is something </p>
+<p>Huffman coding is a method for constructing optimal prefix codes!</p>
+<h2>Codes and trees</h2>
 <p>As previously alluded to on this blog, a code represents an implicit set of beliefs about the frequency distribution of different kinds of text. Longer codewords represent lower implied frequencies. Prefix codes give each symbol in the alphabet a fixed codeword with a fixed length, so the implied beliefs include "the probability of a symbol is independent of whatever came before it"; this is obviously not true, but it simplifies the encoding and decoding process immensely. Prefix codes are designed so that no delimiters are needed between codewords; no codeword is a prefix of another, so it's never ambiguous whether you've reached the end of an encoded symbol.</p>
 <p>You can visualize the codewords of a code with a tree. At every node, you branch in a different direction depending on the next bit (or trit or whatever). Here's an example for Morse code:</p>
 <p><img alt="A tree whose nodes and leaves are annotated with letters, its edges with dots and dashes" src="../../assets/huffman/Morse.jpg" /></p>
@@ -18,7 +19,9 @@
 <p>You can also think of this tree as dividing up probability space. At the top, we have 100% probability of some symbol occurring. This is divided into 50% probability of a symbol whose codeword starts with dash (anything to the left) and 50% for dot (anything to the right). This gets subdivided further as we go down the tree. Note that Morse code keeps the most common letters further up, in the high-probability region, and puts the rarest ones at the bottom, with the low-probability long codewords.</p>
 <p>In the case of Morse code, once we get past the very top, we need to divide up probability at each node between "left", "right", and "output the symbol here and move on to the next letter". In the case of a prefix code things are simpler; no symbols live on the internal nodes, so it's always a 50-50 split between the two child nodes, until you reach the leaves. If we're building a ternary code, our tree will instead split three ways, etc.</p>
 <p>So, given some estimated symbol frequencies, how do we build a tree like this? If the frequencies are all powers of two (or in general, n), it's easy: just make sure each symbol ends up on the appropriate tier. But if not, there will be many ways to approximate the true distribution. We want the tree that provides the shortest expected length for a symbol chosen according to the estimated distribution; this will correspond to the shortest encoded length for a sufficiently long text.</p>
-<p>I haven't seen a good derivation of the n-ary case of Huffman coding anywhere, so here's a proof sketch. I'll state lemmas, followed by the general ideas for their proofs.</p>
+<h2>Huffman coding</h2>
+<p>(I was going to link to a nice friendly intro to Huffman coding here. <a href="https://en.wikipedia.org/wiki/Huffman_coding">Wikipedia</a> has a surprisingly clunky one. Please let me know if you have a better one!)</p>
+<p>I haven't seen a good derivation of the n-ary case of Huffman coding anywhere, so here's a proof (sketch) of optimality that builds up the algorithm in a couple steps. I'll state lemmas, followed by the general ideas for their proofs.</p>
 <p>Let's say we're designing an n-ary code C for an alphabet A of k symbols:</p>
 <p>Lemma: Having at most one incomplete node (with fewer than n children), located at the bottom rung of the tree, is optimal (i.e. never suboptimal).</p>
 <p>Proof idea: If you have an incomplete node further up, you can move a symbol up the tree, improving expected length. If you have multiple incomplete nodes at the bottom, you can shuffle symbols until all but one node is complete (or a node is empty, at which point it becomes a leaf and can take a symbol).</p>

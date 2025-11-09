@@ -3,7 +3,9 @@ title: n-ary Huffman coding
 date: 2025-11-08
 ---
 
-Huffman coding is a method for constructing optimal prefix codes! A prefix code is something 
+Huffman coding is a method for constructing optimal prefix codes!
+
+## Codes and trees
 
 As previously alluded to on this blog, a code represents an implicit set of beliefs about the frequency distribution of different kinds of text. Longer codewords represent lower implied frequencies. Prefix codes give each symbol in the alphabet a fixed codeword with a fixed length, so the implied beliefs include "the probability of a symbol is independent of whatever came before it"; this is obviously not true, but it simplifies the encoding and decoding process immensely. Prefix codes are designed so that no delimiters are needed between codewords; no codeword is a prefix of another, so it's never ambiguous whether you've reached the end of an encoded symbol.
 
@@ -19,7 +21,11 @@ In the case of Morse code, once we get past the very top, we need to divide up p
 
 So, given some estimated symbol frequencies, how do we build a tree like this? If the frequencies are all powers of two (or in general, n), it's easy: just make sure each symbol ends up on the appropriate tier. But if not, there will be many ways to approximate the true distribution. We want the tree that provides the shortest expected length for a symbol chosen according to the estimated distribution; this will correspond to the shortest encoded length for a sufficiently long text.
 
-I haven't seen a good derivation of the n-ary case of Huffman coding anywhere, so here's a proof sketch. I'll state lemmas, followed by the general ideas for their proofs.
+## Huffman coding
+
+(I was going to link to a nice friendly intro to Huffman coding here. [Wikipedia](https://en.wikipedia.org/wiki/Huffman_coding) has a surprisingly clunky one. Please let me know if you have a better one!)
+
+I haven't seen a good derivation of the n-ary case of Huffman coding anywhere, so here's a proof (sketch) of optimality that builds up the algorithm in a couple steps. I'll state lemmas, followed by the general ideas for their proofs.
 
 Let's say we're designing an n-ary code C for an alphabet A of k symbols:
 
