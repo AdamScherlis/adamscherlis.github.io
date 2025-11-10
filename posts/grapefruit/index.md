@@ -19,7 +19,9 @@ You can also get pharmacogenetic testing done, to see whether you're likely to b
 
 The relevant component of grapefruit juice -- or "GFJ", if you want to sound like a hip pharmacodynamicist -- is the furanocoumarins, a class of mildly-toxic chemicals related to coumarin. (Coumarin is present in some kinds of cinnamon; it's also why tonka beans are illegal in the US.) Furanocoumarins can [irreversibly](https://www.bmj.com/content/346/bmj.f1) inhibit CYP enzymes, especially CYP3A4; at that point you have to wait for your liver to produce more enzymes, which takes days.
 
-The effect sizes here are not small. A review by [Hanley et al (2011)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3071161/) demonstrates that for patients drinking moderate amounts of grapefruit juice, the blood concentration (AUC, i.e. integrated over time) is more than doubled for many drugs; in some cases it may increase by a factor of ten (although studies vary a lot). Many of these numbers got asterisks for "administration of GFJ in a manner deemed to be inconsistent with usual dietary consumption"; poking through a few papers, this typically means that they made their research subjects drink glasses of double-strength grapefruit juice three times a day (or "DS GFJ tid", as the kids say) for a few days. There are also some "acute GFJ exposure" annotations. Don't be too reassured; a single glass of single-strength GFJ is enough to have large effects in many cases.
+The effect sizes here are not small. A review by [Hanley et al (2011)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3071161/) demonstrates that for patients drinking moderate amounts of grapefruit juice, the blood concentration (AUC, i.e. integrated over time) is more than doubled for many drugs; in some cases it may increase by a factor of ten (although studies vary a lot). 
+
+On the other hand, many of these numbers got asterisks for "administration of GFJ in a manner deemed to be inconsistent with usual dietary consumption"; poking through a few papers, this typically means that they made their research subjects drink glasses of double-strength grapefruit juice three times a day (or "DS GFJ tid", as the kids say) for a few days. There are also some "acute GFJ exposure" annotations. Don't be too reassured; a single glass of single-strength GFJ is enough to have large effects in many cases. They conclude that "[f]or the majority of patients, complete avoidance of grapefruit juice is unwarranted", but it's not clear to me why they think so.
 
 (Furanocoumarins also inhibit membrane transport proteins; independently of any CYP effects, this can make drugs less effective.)
 
@@ -67,4 +69,4 @@ A lot of lists of grapefruit-affected meds, including on Wikipedia, use CYP3A4 m
 
 ## Conclusion
 
-Maybe we should ban all citrus fruit, just to be safe. Or [maybe it's basically fine](https://pmc.ncbi.nlm.nih.gov/articles/PMC3071161/).
+Maybe we should ban all citrus fruit, just to be safe. Or maybe it's basically fine.
