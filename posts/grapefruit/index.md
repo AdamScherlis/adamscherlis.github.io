@@ -9,7 +9,7 @@ The most common reaction I get, when I bring this up, is "oh yeah, I [had/have] 
 
 What's up with that?
 
-## Furanocoumarins, CPY3A4, and you
+## Furanocoumarins, CYP3A4, and you
 
 There are a handful of cytochrome P450 ("CYP") enzymes in your liver that metabolize a huge variety of pharmaceutical compounds. The big ones are CYP2D6, CYP3A4, CYP3A5, and maybe a couple others.
 
@@ -69,7 +69,7 @@ One of the main furanocoumarins that gets mentioned in this context is bergamott
 
 (The methodology of the paper is interesting. They obtain various beverages from "a local market", but make their *limoncello* by hand; the lemon extract has to sit for a month before it's ready. One has to wonder whether this entire paper is the result of a grad student trying to pass off their hobby as research.)
 
-## Not just CPY3A4?
+## Not just CYP3A4?
 
 Wikipedia casually mentions that "Cytochrome isoforms affected by grapefruit components include CYP1A2, CYP2C9, and CYP2D6, but CYP3A4 is the major CYP enzyme in the intestine."
 
