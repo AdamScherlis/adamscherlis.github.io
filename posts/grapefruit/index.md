@@ -3,7 +3,7 @@ title: The grapefruit juice effect
 date: 2025-11-09
 ---
 
-The medication I'm taking for insomnia interacts badly with grapefruit juice. This isn't much of a issue, yet; the cravings are still manageable. I only dream about grapefruit sometimes. The biggest problem, really, is that a mischievous imp or demon has been going around replacing all of the nonalcoholic drinks at every Bay Area house party with grapefruit Spindrift and *pamplemousse* LaCroix.
+The medication I'm taking for insomnia interacts badly with grapefruit juice. This isn't much of a issue, yet; the cravings are still manageable. I only dream about grapefruit sometimes. I was never the kind of person to [blow my whole budget on the stuff](https://slatestarcodex.com/2014/06/09/minutes-from-the-michigan-rationalist-meetup/). The biggest problem, really, is that a mischievous imp or demon has been going around replacing all of the nonalcoholic drinks at every Bay Area house party with grapefruit Spindrift and *pamplemousse* LaCroix.
 
 The most common reaction I get, when I bring this up, is "oh yeah, I [had/have] to avoid grapefruit because I [was/am] taking [medication]", with a different medication every time.
 
