@@ -17,13 +17,23 @@ Any time you're thinking of taking a medication, I recommend looking up how it's
 
 You can also get pharmacogenetic testing done, to see whether you're likely to be producing an unusually high or low amount of one of these enzymes; this can be translated into dosage adjustments for many (most?) medications. The effect can be in either direction; CYP enzymes convert active forms of some drugs into inactive compounds, but for other drugs they actually convert an inactive precursor into the active form. 
 
-The relevant component of grapefruit juice -- or "GFJ", if you want to sound like a hip pharmacodynamicist -- is the furanocoumarins, a class of mildly-toxic chemicals related to coumarin. (Coumarin is present in some kinds of cinnamon; it's also why tonka beans are illegal in the US.) Furanocoumarins can [irreversibly](https://www.bmj.com/content/346/bmj.f1) inhibit CYP enzymes, especially CYP3A4; at that point you have to wait for your liver to produce more enzymes, which takes days.
-
-The effect sizes here are not small. A review by [Hanley et al (2011)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3071161/) demonstrates that for patients drinking moderate amounts of grapefruit juice, the blood concentration (AUC, i.e. integrated over time) is more than doubled for many drugs; in some cases it may increase by a factor of ten (although studies vary a lot). 
-
-On the other hand, many of these numbers got asterisks for "administration of GFJ in a manner deemed to be inconsistent with usual dietary consumption"; poking through a few papers, this typically means that they made their research subjects drink glasses of double-strength grapefruit juice three times a day (or "DS GFJ tid", as the kids say) for a few days. There are also some "acute GFJ exposure" annotations. Don't be too reassured; a single glass of single-strength GFJ is enough to have large effects in many cases. They conclude that "[f]or the majority of patients, complete avoidance of grapefruit juice is unwarranted", but it's not clear to me why they think so.
+The relevant component of grapefruit juice -- or "GFJ", if you want to sound like a hip pharmacodynamicist -- is the furanocoumarins, a class of mildly-toxic chemicals related to coumarin. (Coumarin is present in some kinds of cinnamon; it's also why tonka beans are illegal in the US.) Furanocoumarins can [irreversibly](https://www.bmj.com/content/346/bmj.f1) inhibit CYP enzymes, especially CYP3A4 and CYP3A5; at that point you have to wait for your body to produce more enzymes, which takes days.
 
 (Furanocoumarins also inhibit membrane transport proteins; independently of any CYP effects, this can make drugs less effective.)
+
+## How real is this?
+
+The effect sizes in the literature are not small. A review by [Hanley et al (2011)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3071161/) demonstrates that for patients drinking moderate amounts of grapefruit juice, the blood concentration (AUC, i.e. integrated over time) is more than doubled for many drugs; in some cases it may increase by a factor of ten (although studies vary a lot).
+
+On the other hand, many of these numbers got asterisks for "administration of GFJ in a manner deemed to be inconsistent with usual dietary consumption"; poking through a few papers, this typically means that they made their research subjects drink glasses of double-strength grapefruit juice three times a day (or "DS GFJ tid", as the kids say) for a few days. There are also some "acute GFJ exposure" annotations. (On the other other hand, even a single glass of single-strength GFJ is often enough to cause an AUC ratio of 2 or more.)
+
+The paper points out a major hole in the usual "GFJ inhibits CYP3A" story: "Grapefruit juice is unique among CYP3A inhibitors because, when consumed in usual dietary volumes, only enteric CYP3A is affected. Therefore, GFJ has no impact on the pharmacokinetics of CYP3A substrate drugs administered intravenously, and does not prolong the plasma half-life of orally administered agents." In other words, grapefruit juice, which in ideal circumstances remains outside your liver, only gets to destroy the CYP enzymes in your gut; this is relevant for some drugs (those that are metabolized very quickly by CYP3A while still in the gut), but not most. 
+
+This seems pretty important! But I'm not sure how to square it with the papers they survey; if most drugs get through the gut without interacting much with CYP3A, I don't see why *any* quantity of GFJ should be expected to have these kinds of effects. They say that "[t]he number of drugs where GFJ causes a strong degree of CYP3A inhibition (AUC ratio ≥ 5) is quite small", but 5 seems like quite a high bar to me.
+
+They end up concluding that "\[f\]or the majority of patients, complete avoidance of grapefruit juice is unwarranted", but I'm not sure I believe them.
+
+I'm pretty confused about this!
 
 ## Not all grapefruit
 
@@ -62,11 +72,12 @@ One of the main furanocoumarins that gets mentioned in this context is bergamott
 Wikipedia casually mentions that "Cytochrome isoforms affected by grapefruit components include CYP1A2, CYP2C9, and CYP2D6, but CYP3A4 is the major CYP enzyme in the intestine."
 
 Diving into the abstract of a paper kind of at random: "Apparent selectivity toward CYP3A4 does occur with the furanocoumarin dimers. In contrast, bergamottin showed rather stronger inhibitory effect on CYP1A2, CYP2C9, CYP2C19, and CYP2D6 than on CYP3A4." ([Tassaneeyakul et al, 2000](https://www.sciencedirect.com/science/article/abs/pii/S0003986100918356?via%3Dihub))
+Hanley et al claim that "Although the FCs inhibit multiple CYP enzymes in vitro, clinically significant inhibition by GFJ has only been unequivocally shown for CYP3A. For example, GFJ does not interact with theophylline (CYP1A2 substrate) or warfarin (CYP2C9 substrate)".
 
-A lot of lists of grapefruit-affected meds, including on Wikipedia, use CYP3A4 metabolism as a major criterion. Based on a couple minutes' worth of research, it looks to me like this might be missing kind of a lot? Maybe you should just assume furanocoumarins affect anything metabolized in the liver? (And let's not forget those membrane transport proteins.)
+A lot of lists of grapefruit-affected meds, including on Wikipedia, use CYP3A4 metabolism as a major criterion. Based on my (shallow) research, it looks like this might be missing kind of a lot? Maybe you should just assume furanocoumarins affect anything metabolized by CYP? (And let's not forget those membrane transport proteins.)
 
 (On the other hand, there are studies on the interaction of grapefruit juice with a wide range of specific drugs, so in many cases you don't need to use CYP enzymes as a proxy.)
 
 ## Conclusion
 
-Maybe we should ban all citrus fruit, just to be safe. Or maybe it's basically fine.
+Maybe we should ban all citrus fruit, just to be safe.
