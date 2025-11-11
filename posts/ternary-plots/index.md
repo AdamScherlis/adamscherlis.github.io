@@ -61,6 +61,8 @@ Sums and differences of the electronegativities of a pair of atoms can be used t
 
 ![bond triangle](../../assets/ternary/van-arkel.jpg)
 
+(Hmm. One could apply that trick to quite a lot of things...)
+
 The baryon decuplet is often drawn in a sort of ternary diagram of quark content -- although the chart slightly predates the idea of quarks:
 
 ![Baryon decuplet](../../assets/ternary/baryons.png)
