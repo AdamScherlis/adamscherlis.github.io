@@ -3,7 +3,7 @@ title: Ternary plots are underrated
 date: 2025-11-10
 ---
 
-My [previous post](https://adam.scherl.is/blog/grapefruit/) contains a ternary plot of citrus fruits. Here it is again ([source](https://commons.wikimedia.org/wiki/File:Citrus_tern_cb_simplified_1.svg)):
+My [post](https://adam.scherl.is/blog/grapefruit/) on the grapefruit-juice effect contains a ternary plot of citrus fruits. Here it is again ([source](https://commons.wikimedia.org/wiki/File:Citrus_tern_cb_simplified_1.svg)):
 
 ![Ternary plot of citrus fruit](../../assets/ternary/citrus.png)
 
