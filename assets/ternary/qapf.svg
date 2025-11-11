@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" height="1000" width="950" id="qapf_pl_all">
+<desc>QAPF diagram plutonic field</desc>
+<!-- This file was created by -xfi-. -->
+<rect height="1000" width="950" fill="white"/>
+<g transform="translate(225,500)">
+<g transform="scale(0.5)">
+<g style="fill:#eee; fill-rule:evenodd; stroke:#888; stroke-width:4; stroke-linecap:butt; stroke-linejoin:miter; display:inline" id="g5">
+<path d="M 0,0 L 100,0 L 120,-43.30127 L 25,-43.30127 L 0,0 z"/>
+<!-- QAP -->
+<path d="M 100,0 L 350,0 L 357.5,-43.30127 L 120,-43.30127 L 100,0 z"/>
+<path d="M 350,0 L 650,0 L 642.5,-43.30127 L 357.5,-43.30127 L 350,0 z"/>
+<path d="M 650,0 L 900,0 L 880,-43.30127 L 642.5,-43.30127 L 650,0 z"/>
+<path d="M 900,0 L 1000,0 L 975,-43.30127 L 880,-43.30127 L 900,0 z"/>
+<path d="M 25,-43.30127 L 120,-43.30127 L 180,-173.20508 L 100,-173.20508 L 25,-43.30127 z"/>
+<path d="M 120,-43.30127 L 357.5,-43.30127 L 380,-173.20508 L 180,-173.20508 L 120,-43.30127 z"/>
+<path d="M 357.5,-43.30127 L 642.5,-43.30127 L 620,-173.20508 L 380,-173.20508 L 357.5,-43.30127 z"/>
+<path d="M 642.5,-43.30127 L 880,-43.30127 L 820,-173.20508 L 620,-173.20508 L 642.5,-43.30127 z"/>
+<path d="M 880,-43.30127 L 975,-43.30127 L 900,-173.20508 L 820,-173.20508 L 880,-43.30127 z"/>
+<path d="M 100,-173.20508 L 180,-173.20508 L 340,-519.61524 L 300,-519.61524 L 100,-173.20508 z"/>
+<g style="stroke:none;">
+<path d="M 180,-173.20508 L 380,-173.20508 L 440,-519.61524 L 340,-519.61524 L 180,-173.20508 z"/>
+<path d="M 380,-173.20508 L 620,-173.20508 L 560,-519.61524 L 440,-519.61524 L 380,-173.20508 z"/>
+</g>
+<path d="M 380,-173.20508 L 440,-519.61524" style="stroke-dasharray: 25,30"/>
+<path id="gr_frame" d="M 180,-173.20508 L 620,-173.20508 L 560,-519.61524 L 340,-519.61524 L 180,-173.20508 z" style="fill:none"/>
+<path d="M 620,-173.20508 L 820,-173.20508 L 660,-519.61524 L 560,-519.61524 L 620,-173.20508 z"/>
+<path d="M 820,-173.20508 L 900,-173.20508 L 700,-519.61524 L 660,-519.61524 L 820,-173.20508 z"/>
+<path d="M 300,-519.61524 L 700,-519.61524 L 550,-779.42286 L 450,-779.42286 L 300,-519.61524 z"/>
+<path d="M 450,-779.42286 L 550,-779.42286 L 500,-866.0254 L 450,-779.42286 z"/>
+<!-- APF -->
+<path d="M 0,0 L 100,0 L 140,86.60254 L 50,86.60254 L 0,0 z"/>
+<path d="M 100,0 L 350,0 L 365,86.60254 L 140,86.60254 L 100,0 z"/>
+<path d="M 350,0 L 650,0 L 635,86.60254 L 500,86.60254 L 365,86.60254 L 350,0 z"/>
+<path d="M 650,0 L 900,0 L 860,86.60254 L 635,86.60254 L 650,0 z"/>
+<path d="M 900,0 L 1000,0 L 950,86.60254 L 860,86.60254 L 900,0 z"/>
+<path d="M 50,86.60254 L 140,86.60254 L 340,519.61524 L 300,519.61524 L 50,86.60254 z"/>
+<path d="M 140,86.60254 L 365,86.60254 L 500,86.60254 L 500,519.61524 L 340,519.61524 L 140,86.60254 z"/>
+<path d="M 500,86.60254 L 635,86.60254 L 860,86.60254 L 827.76688,156.3893 L 660,519.61524 L 500,519.61524 L 500,86.60254 z"/>
+<path d="M 860,86.60254 L 950,86.60254 L 700,519.61524 L 660,519.61524 L 860,86.60254 z"/>
+<path d="M 300,519.61524 L 700,519.61524 L 550,779.42286 L 450,779.42286 L 300,519.61524 z"/>
+<path d="M 450,779.42286 L 550,779.42286 L 500,866.0254 L 450,779.42286 z"/>
+
+<path id="frame_qapf" d="M 0,0 L 500,866.0254 L 1000,0 L 500,-866.0254 L 0,0 z " style="fill:none; stroke:#888; stroke-width:5;"/>
+</g>
+<g style="font-size:36px; text-anchor:start; font-family:Arial" id="g98">
+
+<switch><text x="153.1" y="-888.4" id="trsvg73-ro" systemLanguage="ro"><tspan id="trsvg1-ro">cuarțolite</tspan></text><text x="153.1" y="-888.4" id="trsvg73"><tspan id="trsvg1">quartzolite</tspan></text></switch>
+<g style="text-anchor:middle;">
+<switch><text x="500" y="-640" id="trsvg74-ro" systemLanguage="ro"><tspan id="trsvg2-ro">granitoide</tspan></text><text x="500" y="-640" id="trsvg74"><tspan id="trsvg2">quartz-rich</tspan></text></switch>
+<switch><text x="500" y="-595" id="trsvg75-ro" systemLanguage="ro"><tspan id="trsvg3-ro">bogate în cuarț</tspan></text><text x="500" y="-595" id="trsvg75"><tspan id="trsvg3">granitioids</tspan></text></switch>
+</g>
+<switch><text x="-226.7" y="-483" id="trsvg76-ro" systemLanguage="ro"><tspan id="trsvg4-ro">granite alcali-feldspatice</tspan></text><text x="-226.7" y="-483" id="trsvg76"><tspan id="trsvg4">alkali feldspar granite</tspan></text></switch>
+
+<switch><text x="260" y="-295" id="trsvg77-ro" systemLanguage="ro"><tspan id="trsvg5-ro">sieno-</tspan></text><text x="260" y="-295" id="trsvg77"><tspan id="trsvg5">syeno-</tspan></text></switch>
+<switch><text x="260" y="-250" id="trsvg78"><tspan id="trsvg6">granite</tspan></text></switch>
+
+<g style="text-anchor:middle;">
+<switch><text x="500" y="-295" id="trsvg79"><tspan id="trsvg7">monzo-</tspan></text></switch>
+<switch><text x="500" y="-250" id="trsvg80"><tspan id="trsvg8">granite</tspan></text></switch>
+
+<switch><text x="500" y="-120" id="trsvg81-ro" systemLanguage="ro"><tspan id="trsvg9-ro">monzonite</tspan></text><text x="500" y="-120" id="trsvg81"><tspan id="trsvg9">quartz </tspan></text></switch>
+<switch><text x="500" y="-75" id="trsvg82-ro" systemLanguage="ro"><tspan id="trsvg10-ro">cuarțifere</tspan></text><text x="500" y="-75" id="trsvg82"><tspan id="trsvg10">monzonite</tspan></text></switch>
+
+<switch><text x="500" y="-10" id="trsvg83"><tspan id="trsvg11">monzonite</tspan></text></switch>
+
+<switch><text x="500" y="35" id="trsvg84-ro" systemLanguage="ro"><tspan id="trsvg12-ro">monzonite</tspan></text><text x="500" y="35" id="trsvg84"><tspan id="trsvg12">foid-bearing </tspan></text></switch>
+<switch><text x="500" y="75" id="trsvg85-ro" systemLanguage="ro"><tspan id="trsvg13-ro">cu foide</tspan></text><text x="500" y="75" id="trsvg85"><tspan id="trsvg13">monzonite</tspan></text></switch>
+
+<switch><text x="500" y="643" id="trsvg86"><tspan id="trsvg14">foidolite</tspan></text></switch>
+</g>
+<switch><text x="355" y="-365" id="trsvg87"><tspan id="trsvg15">granite</tspan></text></switch>
+
+<switch><text x="810" y="-740" id="trsvg88"><tspan id="trsvg16">granodiorite</tspan></text></switch>
+
+<switch><text x="930" y="-600" id="trsvg89"><tspan id="trsvg17">tonalite</tspan></text></switch>
+
+<switch><text x="-423" y="-163" id="trsvg90-ro" systemLanguage="ro"><tspan id="trsvg18-ro">sienite alcali-feldspatice</tspan></text><text x="-423" y="-163" id="trsvg90"><tspan id="trsvg18">alkali feldspar syenite</tspan></text></switch>
+
+<switch><text x="172" y="-10" id="trsvg91-ro" systemLanguage="ro"><tspan id="trsvg19-ro">sienite</tspan></text><text x="172" y="-10" id="trsvg91"><tspan id="trsvg19">syenite</tspan></text></switch>
+
+<switch><text x="1147" y="-130" id="trsvg92"><tspan id="trsvg20">monzodiorite, </tspan></text></switch>
+<switch><text x="1147" y="-85" id="trsvg93-ro" systemLanguage="ro"><tspan id="trsvg21-ro">monzogabrouri</tspan></text><text x="1147" y="-85" id="trsvg93"><tspan id="trsvg21">monzogabbro</tspan></text></switch>
+
+<switch><text x="1109" y="44" id="trsvg94"><tspan id="trsvg22">diorite, </tspan></text></switch>
+<switch><text x="1109" y="89" id="trsvg95-ro" systemLanguage="ro"><tspan id="trsvg23-ro">gabrouri,</tspan></text><text x="1109" y="89" id="trsvg95"><tspan id="trsvg23">gabbro, </tspan></text></switch>
+<switch><text x="1109" y="134" id="trsvg96-ro" systemLanguage="ro"><tspan id="trsvg24-ro">anortozite</tspan></text><text x="1109" y="134" id="trsvg96"><tspan id="trsvg24">anorthosite</tspan></text></switch>
+
+<switch><text x="-432" y="-322" id="trsvg97-ro" systemLanguage="ro"><tspan id="trsvg25-ro">sienite alcali-feldspatice cuarțite</tspan></text><text x="-432" y="-322" id="trsvg97"><tspan id="trsvg25">quartz alkali feldspar syenite</tspan></text></switch>
+
+<switch><text x="200" y="-120" id="trsvg98-ro" systemLanguage="ro"><tspan id="trsvg26-ro">sienite</tspan></text><text x="200" y="-120" id="trsvg98"><tspan id="trsvg26">quartz </tspan></text></switch>
+<switch><text x="200" y="-75" id="trsvg99-ro" systemLanguage="ro"><tspan id="trsvg27-ro">cuarțifere</tspan></text><text x="200" y="-75" id="trsvg99"><tspan id="trsvg27">syenite</tspan></text></switch>
+
+<switch><text x="997" y="-470" id="trsvg100-ro" systemLanguage="ro"><tspan id="trsvg28-ro">monzodiorite cuarțifere,</tspan></text><text x="997" y="-470" id="trsvg100"><tspan id="trsvg28">quartz monzodiorite, </tspan></text></switch>
+<switch><text x="997" y="-425" id="trsvg101-ro" systemLanguage="ro"><tspan id="trsvg29-ro">monzogabrouri cuarțifere</tspan></text><text x="997" y="-425" id="trsvg101"><tspan id="trsvg29">quartz-monzogabbro</tspan></text></switch>
+
+<switch><text x="1063" y="-343" id="trsvg102-ro" systemLanguage="ro"><tspan id="trsvg30-ro">dorite,</tspan></text><text x="1063" y="-343" id="trsvg102"><tspan id="trsvg30">quartz diorite, </tspan></text></switch>
+<switch><text x="1063" y="-298" id="trsvg103-ro" systemLanguage="ro"><tspan id="trsvg31-ro">gabrouri,</tspan></text><text x="1063" y="-298" id="trsvg103"><tspan id="trsvg31">quartz gabbro, </tspan></text></switch>
+<switch><text x="1063" y="-253" id="trsvg104-ro" systemLanguage="ro"><tspan id="trsvg32-ro">anortozite</tspan></text><text x="1063" y="-253" id="trsvg104"><tspan id="trsvg32">quartz anorthosite</tspan></text></switch>
+
+
+<switch><text x="-404" y="156" id="trsvg105-ro" systemLanguage="ro"><tspan id="trsvg33-ro">sienite alcali-</tspan></text><text x="-404" y="156" id="trsvg105"><tspan id="trsvg33">foid-bearing </tspan></text></switch>
+<switch><text x="-404" y="201" id="trsvg106-ro" systemLanguage="ro"><tspan id="trsvg34-ro">feldspatice cuarțifere</tspan></text><text x="-404" y="201" id="trsvg106"><tspan id="trsvg34">alkali feldspar syenite</tspan></text></switch>
+
+<switch><text x="150" y="35" id="trsvg107-ro" systemLanguage="ro"><tspan id="trsvg35-ro">sienite</tspan></text><text x="150" y="35" id="trsvg107"><tspan id="trsvg35">foid-bearing </tspan></text></switch>
+<switch><text x="150" y="75" id="trsvg108-ro" systemLanguage="ro"><tspan id="trsvg36-ro">cu foide</tspan></text><text x="150" y="75" id="trsvg108"><tspan id="trsvg36">syenite</tspan></text></switch>
+
+<switch><text x="1005.3202" y="388.52298" id="trsvg109-ro" systemLanguage="ro"><tspan id="trsvg37-ro">monzodiorite cu foide,</tspan></text><text x="1005.3202" y="388.52298" id="trsvg109"><tspan id="trsvg37">foid-bearing monzodiorite</tspan></text></switch> 
+<switch><text x="1005.3202" y="433.52301" id="trsvg110-ro" systemLanguage="ro"><tspan id="trsvg38-ro">monzogabrouri cu foide</tspan></text><text x="1005.3202" y="433.52301" id="trsvg110"><tspan id="trsvg38">foid-bearing monzogabbro</tspan></text></switch>
+
+<switch><text x="1057.1229" y="216.35857" id="trsvg111-ro" systemLanguage="ro"><tspan id="trsvg39-ro">diorite cu foide</tspan></text><text x="1057.1229" y="216.35857" id="trsvg111"><tspan id="trsvg39">foid-bearing diorite, </tspan></text></switch>
+<switch><text x="1057.1229" y="261.35855" id="trsvg112-ro" systemLanguage="ro"><tspan id="trsvg40-ro">gabrouri cu foide</tspan></text><text x="1057.1229" y="261.35855" id="trsvg112"><tspan id="trsvg40">foid-bearing gabbro, </tspan></text></switch>
+<switch><text x="1057.1229" y="306.35855" id="trsvg113-ro" systemLanguage="ro"><tspan id="trsvg41-ro">anortozite cu foide</tspan></text><text x="1057.1229" y="306.35855" id="trsvg113"><tspan id="trsvg41">foid-bearing anorthosite</tspan></text></switch>
+
+<switch><text x="-95" y="408" id="trsvg114-ro" systemLanguage="ro"><tspan id="trsvg42-ro">sienite foidice</tspan></text><text x="-95" y="408" id="trsvg114"><tspan id="trsvg42">foid syenite</tspan></text></switch>
+
+<switch><text x="194" y="167" id="trsvg115-ro" systemLanguage="ro"><tspan id="trsvg43-ro">monzosienite foidice</tspan></text><text x="194" y="167" id="trsvg115"><tspan id="trsvg43">foid monzosyenite</tspan></text></switch>
+
+<switch><text x="508" y="167" id="trsvg116-ro" systemLanguage="ro"><tspan id="trsvg44-ro">monzodiorite foidice</tspan></text><text x="508" y="167" id="trsvg116"><tspan id="trsvg44">foid monzodiorite, </tspan></text></switch>
+<switch><text x="508" y="212" id="trsvg117-ro" systemLanguage="ro"><tspan id="trsvg45-ro">monzogabrouri foidice</tspan></text><text x="508" y="212" id="trsvg117"><tspan id="trsvg45">foid monzogabbro</tspan></text></switch>
+
+<switch><text x="923" y="634" id="trsvg118-ro" systemLanguage="ro"><tspan id="trsvg46-ro">diorite foidice</tspan></text><text x="923" y="634" id="trsvg118"><tspan id="trsvg46">foid diorite, </tspan></text></switch>
+<switch><text x="923" y="679" id="trsvg119-ro" systemLanguage="ro"><tspan id="trsvg47-ro">gabrouri foidice</tspan></text><text x="923" y="679" id="trsvg119"><tspan id="trsvg47">foid gabbro</tspan></text></switch>
+
+</g>
+<g id="text_QAPF" style="font-size:68px; font-family:Arial; text-anchor: middle;">
+<switch><text x="500" y="-900" id="trsvg120"><tspan id="trsvg48">Q</tspan></text></switch>
+<switch><text x="-60" y="20" id="trsvg121"><tspan id="trsvg49">A</tspan></text></switch>
+<switch><text x="1060" y="20" id="trsvg122"><tspan id="trsvg50">P</tspan></text></switch>
+<switch><text x="500" y="950" id="trsvg123"><tspan id="trsvg51">F</tspan></text></switch>
+</g>
+<g style="font-size:38px; font-family:sans-serif;">
+<g style="text-anchor:middle">
+<switch><text y="-30" x="-5" id="trsvg124"><tspan id="trsvg52">5</tspan></text></switch>
+<switch><text y="-30" x="1005" id="trsvg125"><tspan id="trsvg53">5</tspan></text></switch>
+<switch><text y="-160" x="60" id="trsvg126"><tspan id="trsvg54">20</tspan></text></switch>
+<switch><text y="-160" x="940" id="trsvg127"><tspan id="trsvg55">20</tspan></text></switch>
+<switch><text y="-511" x="260" id="trsvg128"><tspan id="trsvg56">60</tspan></text></switch>
+<switch><text y="-511" x="740" id="trsvg129"><tspan id="trsvg57">60</tspan></text></switch>
+<switch><text y="-765" x="410" id="trsvg130"><tspan id="trsvg58">90</tspan></text></switch>
+<switch><text y="-765" x="590" id="trsvg131"><tspan id="trsvg59">90</tspan></text></switch>
+
+<switch><text y="100" x="10" id="trsvg132"><tspan id="trsvg60">10</tspan></text></switch>
+<switch><text y="100" x="990" id="trsvg133"><tspan id="trsvg61">10</tspan></text></switch>
+<switch><text y="530" x="260" id="trsvg134"><tspan id="trsvg62">60</tspan></text></switch>
+<switch><text y="530" x="740" id="trsvg135"><tspan id="trsvg63">60</tspan></text></switch>
+<switch><text y="790" x="410" id="trsvg136"><tspan id="trsvg64">90</tspan></text></switch>
+<switch><text y="790" x="590" id="trsvg137"><tspan id="trsvg65">90</tspan></text></switch>
+</g>
+<switch><text y="-180" x="200" id="trsvg138"><tspan id="trsvg66">10</tspan></text></switch>
+<switch><text y="-180" x="390" id="trsvg139"><tspan id="trsvg67">35</tspan></text></switch>
+<switch><text y="-180" x="625" id="trsvg140"><tspan id="trsvg68">65</tspan></text></switch>
+<switch><text y="-180" x="820" id="trsvg141"><tspan id="trsvg69">90</tspan></text></switch>
+
+<switch><text y="122" x="155" id="trsvg142"><tspan id="trsvg70">10</tspan></text></switch>
+<switch><text y="122" x="505" id="trsvg143"><tspan id="trsvg71">50</tspan></text></switch>
+<switch><text y="122" x="865" id="trsvg144"><tspan id="trsvg72">90</tspan></text></switch>
+</g>
+
+<g style="fill:none; fill-rule:evenodd; stroke:#000000; stroke-width:4; stroke-linecap:butt; stroke-miterlimit:4;" id="g170">
+
+<path d="M 336,-898 C 418,-898 497,-863 497,-808"/>
+<path d="M 128,-494 C 192,-494 238,-430 238,-368"/>
+<path d="M 797,-745 C 691,-745 663,-576 663,-351"/>
+<path d="M 912,-608 C 832,-608 756,-520 756,-365"/>
+<path d="M 41,-333 C 87,-333 98,-227 98,-109"/>
+<path d="M -63,-174 C 3,-174 62,-86 62,-23"/>
+<path d="M 85,47 C -19,42 -150,96 -150,148"/>
+
+<path d="M 983,-463 C 857,-463 721,-252 721,-106"/>
+<path d="M 1111,-128 C 1037,-125 805,-88 762,-21"/>
+<path d="M 762,47 C 828,47 915,396 986,396"/>
+
+<path d="M 1035,-311 C 975,-311 893,-209 893,-106"/>
+<path d="M 937,-24 C 943,19 1037,75 1085,75"/>
+<path d="M 923,44 C 923,126 966,246 1040,246"/>
+<path d="M 161,211 C 163,298 144,396 101,397"/>
+<path d="M 790,312 C 790,446 854,643 902,643"/>
+</g>
+</g>
+</g>
+</svg>

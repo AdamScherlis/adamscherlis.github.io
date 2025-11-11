@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="520px" height="480px" viewBox="0 0 260 240" style="fill-opacity:1;">
+	<defs>
+		<clipPath id="trigon">
+			<polygon points="0,200 200,200 100,26.8"/>
+		</clipPath>
+	</defs>
+	<rect x="0" y="0" width="260" height="240" style="fill:#FFFFFF;stroke:none;"/>
+	<rect x="1" y="1" width="258" height="238" style="fill:#66CCFF;stroke:none;"/>
+	<g transform="translate(30,-8)">
+		<polygon points="0,200 200,200 100,26.8" style="fill:#ffffcc;stroke:#000000;stroke-width:0.3;"/>
+		<g transform="scale(0.94,0.94) translate(-26.2,10.5)">
+			<path d="M 31.32,193.7 194.7,192.4 C 201.2,192.5 209.8,191.9 205.1,188.6 200.4,185.3 124.7,128.1 91.21,90.41 z" style="fill:#FFB056;stroke:#ff0000;stroke-width:0.5;"/>
+			<path d="M 197.1,174.1 L 220.6,214.7" style="stroke:#ff0000;stroke-width:0.5;stroke-linecap:butt;"/>
+		</g>
+		<g id="scalinggrid" style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;">
+			<g>
+				<path d="M   0,200 L   0,210 M   2,200 L   2,204 M   4,200 L   4,204 M   6,200 L   6,204 M   8,200 L   8,204"/>
+				<path d="M  10,200 L  10,207 M  12,200 L  12,204 M  14,200 L  14,204 M  16,200 L  16,204 M  18,200 L  18,204"/>
+				<path d="M  20,200 L  20,210 M  22,200 L  22,204 M  24,200 L  24,204 M  26,200 L  26,204 M  28,200 L  28,204"/>
+				<path d="M  30,200 L  30,207 M  32,200 L  32,204 M  34,200 L  34,204 M  36,200 L  36,204 M  38,200 L  38,204"/>
+				<path d="M  40,200 L  40,210 M  42,200 L  42,204 M  44,200 L  44,204 M  46,200 L  46,204 M  48,200 L  48,204"/>
+				<path d="M  50,200 L  50,207 M  52,200 L  52,204 M  54,200 L  54,204 M  56,200 L  56,204 M  58,200 L  58,204"/>
+				<path d="M  60,200 L  60,210 M  62,200 L  62,204 M  64,200 L  64,204 M  66,200 L  66,204 M  68,200 L  68,204"/>
+				<path d="M  70,200 L  70,207 M  72,200 L  72,204 M  74,200 L  74,204 M  76,200 L  76,204 M  78,200 L  78,204"/>
+				<path d="M  80,200 L  80,210 M  82,200 L  82,204 M  84,200 L  84,204 M  86,200 L  86,204 M  88,200 L  88,204"/>
+				<path d="M  90,200 L  90,207 M  92,200 L  92,204 M  94,200 L  94,204 M  96,200 L  96,204 M  98,200 L  98,204"/>
+				<path d="M 100,200 L 100,210 M 102,200 L 102,204 M 104,200 L 104,204 M 106,200 L 106,204 M 108,200 L 108,204"/>
+				<path d="M 110,200 L 110,207 M 112,200 L 112,204 M 114,200 L 114,204 M 116,200 L 116,204 M 118,200 L 118,204"/>
+				<path d="M 120,200 L 120,210 M 122,200 L 122,204 M 124,200 L 124,204 M 126,200 L 126,204 M 128,200 L 128,204"/>
+				<path d="M 130,200 L 130,207 M 132,200 L 132,204 M 134,200 L 134,204 M 136,200 L 136,204 M 138,200 L 138,204"/>
+				<path d="M 140,200 L 140,210 M 142,200 L 142,204 M 144,200 L 144,204 M 146,200 L 146,204 M 148,200 L 148,204"/>
+				<path d="M 150,200 L 150,207 M 152,200 L 152,204 M 154,200 L 154,204 M 156,200 L 156,204 M 158,200 L 158,204"/>
+				<path d="M 160,200 L 160,210 M 162,200 L 162,204 M 164,200 L 164,204 M 166,200 L 166,204 M 168,200 L 168,204"/>
+				<path d="M 170,200 L 170,207 M 172,200 L 172,204 M 174,200 L 174,204 M 176,200 L 176,204 M 178,200 L 178,204"/>
+				<path d="M 180,200 L 180,210 M 182,200 L 182,204 M 184,200 L 184,204 M 186,200 L 186,204 M 188,200 L 188,204"/>
+				<path d="M 190,200 L 190,207 M 192,200 L 192,204 M 194,200 L 194,204 M 196,200 L 196,204 M 198,200 L 198,204"/>
+				<path d="M 200,200 L 200,210"/>
+				<g clip-path="url(#trigon)">
+					<line x1="0" y1="182.68" x2="200" y2="182.68"/>
+					<line x1="0" y1="165.36" x2="200" y2="165.36"/>
+					<line x1="0" y1="148.04" x2="200" y2="148.04"/>
+					<line x1="0" y1="130.72" x2="200" y2="130.72"/>
+					<line x1="0" y1="113.40" x2="200" y2="113.40"/>
+					<line x1="0" y1="96.08" x2="200" y2="96.08"/>
+					<line x1="0" y1="78.76" x2="200" y2="78.76"/>
+					<line x1="0" y1="61.44" x2="200" y2="61.44"/>
+					<line x1="0" y1="44.11" x2="200" y2="44.11"/>
+				</g>
+			</g>
+			<g transform="rotate(120,100,142.265)">
+				<path d="M   0,200 L   0,210 M   2,200 L   2,204 M   4,200 L   4,204 M   6,200 L   6,204 M   8,200 L   8,204"/>
+				<path d="M  10,200 L  10,207 M  12,200 L  12,204 M  14,200 L  14,204 M  16,200 L  16,204 M  18,200 L  18,204"/>
+				<path d="M  20,200 L  20,210 M  22,200 L  22,204 M  24,200 L  24,204 M  26,200 L  26,204 M  28,200 L  28,204"/>
+				<path d="M  30,200 L  30,207 M  32,200 L  32,204 M  34,200 L  34,204 M  36,200 L  36,204 M  38,200 L  38,204"/>
+				<path d="M  40,200 L  40,210 M  42,200 L  42,204 M  44,200 L  44,204 M  46,200 L  46,204 M  48,200 L  48,204"/>
+				<path d="M  50,200 L  50,207 M  52,200 L  52,204 M  54,200 L  54,204 M  56,200 L  56,204 M  58,200 L  58,204"/>
+				<path d="M  60,200 L  60,210 M  62,200 L  62,204 M  64,200 L  64,204 M  66,200 L  66,204 M  68,200 L  68,204"/>
+				<path d="M  70,200 L  70,207 M  72,200 L  72,204 M  74,200 L  74,204 M  76,200 L  76,204 M  78,200 L  78,204"/>
+				<path d="M  80,200 L  80,210 M  82,200 L  82,204 M  84,200 L  84,204 M  86,200 L  86,204 M  88,200 L  88,204"/>
+				<path d="M  90,200 L  90,207 M  92,200 L  92,204 M  94,200 L  94,204 M  96,200 L  96,204 M  98,200 L  98,204"/>
+				<path d="M 100,200 L 100,210 M 102,200 L 102,204 M 104,200 L 104,204 M 106,200 L 106,204 M 108,200 L 108,204"/>
+				<path d="M 110,200 L 110,207 M 112,200 L 112,204 M 114,200 L 114,204 M 116,200 L 116,204 M 118,200 L 118,204"/>
+				<path d="M 120,200 L 120,210 M 122,200 L 122,204 M 124,200 L 124,204 M 126,200 L 126,204 M 128,200 L 128,204"/>
+				<path d="M 130,200 L 130,207 M 132,200 L 132,204 M 134,200 L 134,204 M 136,200 L 136,204 M 138,200 L 138,204"/>
+				<path d="M 140,200 L 140,210 M 142,200 L 142,204 M 144,200 L 144,204 M 146,200 L 146,204 M 148,200 L 148,204"/>
+				<path d="M 150,200 L 150,207 M 152,200 L 152,204 M 154,200 L 154,204 M 156,200 L 156,204 M 158,200 L 158,204"/>
+				<path d="M 160,200 L 160,210 M 162,200 L 162,204 M 164,200 L 164,204 M 166,200 L 166,204 M 168,200 L 168,204"/>
+				<path d="M 170,200 L 170,207 M 172,200 L 172,204 M 174,200 L 174,204 M 176,200 L 176,204 M 178,200 L 178,204"/>
+				<path d="M 180,200 L 180,210 M 182,200 L 182,204 M 184,200 L 184,204 M 186,200 L 186,204 M 188,200 L 188,204"/>
+				<path d="M 190,200 L 190,207 M 192,200 L 192,204 M 194,200 L 194,204 M 196,200 L 196,204 M 198,200 L 198,204"/>
+				<path d="M 200,200 L 200,210"/>
+				<g clip-path="url(#trigon)">
+					<line x1="0" y1="182.68" x2="200" y2="182.68"/>
+					<line x1="0" y1="165.36" x2="200" y2="165.36"/>
+					<line x1="0" y1="148.04" x2="200" y2="148.04"/>
+					<line x1="0" y1="130.72" x2="200" y2="130.72"/>
+					<line x1="0" y1="113.40" x2="200" y2="113.40"/>
+					<line x1="0" y1="96.08" x2="200" y2="96.08"/>
+					<line x1="0" y1="78.76" x2="200" y2="78.76"/>
+					<line x1="0" y1="61.44" x2="200" y2="61.44"/>
+					<line x1="0" y1="44.11" x2="200" y2="44.11"/>
+				</g>
+			</g>
+			<g transform="rotate(-120,100,142.265)">
+				<path d="M   0,200 L   0,210 M   2,200 L   2,204 M   4,200 L   4,204 M   6,200 L   6,204 M   8,200 L   8,204"/>
+				<path d="M  10,200 L  10,207 M  12,200 L  12,204 M  14,200 L  14,204 M  16,200 L  16,204 M  18,200 L  18,204"/>
+				<path d="M  20,200 L  20,210 M  22,200 L  22,204 M  24,200 L  24,204 M  26,200 L  26,204 M  28,200 L  28,204"/>
+				<path d="M  30,200 L  30,207 M  32,200 L  32,204 M  34,200 L  34,204 M  36,200 L  36,204 M  38,200 L  38,204"/>
+				<path d="M  40,200 L  40,210 M  42,200 L  42,204 M  44,200 L  44,204 M  46,200 L  46,204 M  48,200 L  48,204"/>
+				<path d="M  50,200 L  50,207 M  52,200 L  52,204 M  54,200 L  54,204 M  56,200 L  56,204 M  58,200 L  58,204"/>
+				<path d="M  60,200 L  60,210 M  62,200 L  62,204 M  64,200 L  64,204 M  66,200 L  66,204 M  68,200 L  68,204"/>
+				<path d="M  70,200 L  70,207 M  72,200 L  72,204 M  74,200 L  74,204 M  76,200 L  76,204 M  78,200 L  78,204"/>
+				<path d="M  80,200 L  80,210 M  82,200 L  82,204 M  84,200 L  84,204 M  86,200 L  86,204 M  88,200 L  88,204"/>
+				<path d="M  90,200 L  90,207 M  92,200 L  92,204 M  94,200 L  94,204 M  96,200 L  96,204 M  98,200 L  98,204"/>
+				<path d="M 100,200 L 100,210 M 102,200 L 102,204 M 104,200 L 104,204 M 106,200 L 106,204 M 108,200 L 108,204"/>
+				<path d="M 110,200 L 110,207 M 112,200 L 112,204 M 114,200 L 114,204 M 116,200 L 116,204 M 118,200 L 118,204"/>
+				<path d="M 120,200 L 120,210 M 122,200 L 122,204 M 124,200 L 124,204 M 126,200 L 126,204 M 128,200 L 128,204"/>
+				<path d="M 130,200 L 130,207 M 132,200 L 132,204 M 134,200 L 134,204 M 136,200 L 136,204 M 138,200 L 138,204"/>
+				<path d="M 140,200 L 140,210 M 142,200 L 142,204 M 144,200 L 144,204 M 146,200 L 146,204 M 148,200 L 148,204"/>
+				<path d="M 150,200 L 150,207 M 152,200 L 152,204 M 154,200 L 154,204 M 156,200 L 156,204 M 158,200 L 158,204"/>
+				<path d="M 160,200 L 160,210 M 162,200 L 162,204 M 164,200 L 164,204 M 166,200 L 166,204 M 168,200 L 168,204"/>
+				<path d="M 170,200 L 170,207 M 172,200 L 172,204 M 174,200 L 174,204 M 176,200 L 176,204 M 178,200 L 178,204"/>
+				<path d="M 180,200 L 180,210 M 182,200 L 182,204 M 184,200 L 184,204 M 186,200 L 186,204 M 188,200 L 188,204"/>
+				<path d="M 190,200 L 190,207 M 192,200 L 192,204 M 194,200 L 194,204 M 196,200 L 196,204 M 198,200 L 198,204"/>
+				<path d="M 200,200 L 200,210"/>
+				<g clip-path="url(#trigon)">
+					<line x1="0" y1="182.68" x2="200" y2="182.68"/>
+					<line x1="0" y1="165.36" x2="200" y2="165.36"/>
+					<line x1="0" y1="148.04" x2="200" y2="148.04"/>
+					<line x1="0" y1="130.72" x2="200" y2="130.72"/>
+					<line x1="0" y1="113.40" x2="200" y2="113.40"/>
+					<line x1="0" y1="96.08" x2="200" y2="96.08"/>
+					<line x1="0" y1="78.76" x2="200" y2="78.76"/>
+					<line x1="0" y1="61.44" x2="200" y2="61.44"/>
+					<line x1="0" y1="44.11" x2="200" y2="44.11"/>
+				</g>
+			</g>
+		</g>
+		<g id="scalingtext" style="fill:#000000; stroke:none; font-size:4px;">
+			<g style="text-anchor:start;">
+				<text x="201" y="210">0</text>
+				<text x="181" y="210">10</text>
+				<text x="161" y="210">20</text>
+				<text x="141" y="210">30</text>
+				<text x="121" y="210">40</text>
+				<text x="101" y="210">50</text>
+				<text x="81" y="210">60</text>
+				<text x="61" y="210">70</text>
+				<text x="41" y="210">80</text>
+				<text x="21" y="210">90</text>
+				<text x="1" y="210">100</text>
+			</g>
+			<g transform="translate(10,-5)" style="text-anchor:start;">
+				<text x="100" y="26.80">0</text>
+				<text x="110" y="44.11">10</text>
+				<text x="120" y="61.44">20</text>
+				<text x="130" y="78.76">30</text>
+				<text x="140" y="96.08">40</text>
+				<text x="150" y="113.40">50</text>
+				<text x="160" y="130.72">60</text>
+				<text x="170" y="148.04">70</text>
+				<text x="180" y="165.36">80</text>
+				<text x="190" y="182.68">90</text>
+				<text x="200" y="200.00">100</text>
+			</g>
+			<g transform="translate(-10,-5)" style="text-anchor:end;">
+				<text x="100" y="26.80">100</text>
+				<text x="90" y="44.11">90</text>
+				<text x="80" y="61.44">80</text>
+				<text x="70" y="78.76">70</text>
+				<text x="60" y="96.08">60</text>
+				<text x="50" y="113.40">50</text>
+				<text x="40" y="130.72">40</text>
+				<text x="30" y="148.04">30</text>
+				<text x="20" y="165.36">20</text>
+				<text x="10" y="182.68">10</text>
+				<text x="0" y="200.00">0</text>
+			</g>
+		</g>
+		<line x1="200" y1="200" x2="0" y2="130" clip-path="url(#trigon)" style="fill:none;stroke:#ff0000;stroke-width:0.7;"/>
+		<line x1="100" y1="26.8" x2="158" y2="200" clip-path="url(#trigon)" style="fill:none;stroke:#0000ff;stroke-width:0.7;"/>
+		<g transform="translate(149,173)">
+			<path d="M -4,-4 L 4,4 M -4,4 L 4,-4" style="fill:none; stroke:#ffffff; stroke-width:1.5; stroke-linecap:butt;"/>
+			<path d="M -4,-4 L 4,4 M -4,4 L 4,-4" style="fill:none; stroke:#774422; stroke-width:1.0; stroke-linecap:butt;"/>
+		</g>
+		<g transform="translate(155,191)">
+			<path d="M -4,-4 L 4,4 M -4,4 L 4,-4" style="fill:none; stroke:#ffffff; stroke-width:1.5; stroke-linecap:butt;"/>
+			<path d="M -4,-4 L 4,4 M -4,4 L 4,-4" style="fill:none; stroke:#774422; stroke-width:1.0; stroke-linecap:butt;"/>
+		</g>
+		<g transform="translate(100,225)">
+			<polygon points="-40,-12 40,-12 40,4 -40,4" style="fill:#ffffff; stroke:#000000; stroke-width:0.8; stroke-linejoin:round;"/>
+		</g>
+		<g transform="translate(185,70)">
+			<polygon points="-32,-10 32,-10 32,15 -32,15" style="fill:#ffffff; stroke:#000000; stroke-width:0.8; stroke-linejoin:round;"/>
+		</g>
+		<g transform="translate(15,70)">
+			<polygon points="-32,-10 32,-10 32,15 -32,15" style="fill:#ffffff; stroke:#000000; stroke-width:0.8; stroke-linejoin:round;"/>
+		</g>
+
+
+		<switch>
+			<g systemLanguage="de" style="font-family:Arial,sans-serif; text-anchor:middle; stroke:none; font-size:7px;">
+				<text transform="rotate(75,140,141)" x="140" y="141" style="fill:#0000ff; stroke:none; font-size:5px; font-weight:bold;">Luftline</text>
+				<text transform="rotate(20,90,160)" x="90" y="160" style="fill:#ff0000; stroke:none; font-size:5px;">stöchiometrische Linie</text>
+				<text x="80" y="180" style="fill:#994400;">Brennbare Mischungen</text>
+				<text x="185" y="220" style="fill:#994400;">LOC  12% Vol. Sauerstoff</text>
+				<text x="160" y="170" style="fill:#000000; font-weight:bold;">UEL</text>
+				<text x="145" y="197" style="fill:#000000; font-weight:bold;">LEL</text>
+				<g style="fill:#000000; stroke:none; font-family:Arial,sans-serif; text-anchor:middle; font-size:12px;">
+					<text x="100" y="225">Sauerstoff</text>
+					<text x="185" y="70">Inertgas</text>
+					<text x="185" y="81">(Stickstoff)</text>
+					<text x="15" y="70">Kraftstoff</text>
+					<text x="15" y="81">(Methan)</text>
+				</g>
+			</g>
+			<g systemLanguage="en" style="stroke:none; font-family:Arial,sans-serif; text-anchor:middle;">
+				<text transform="rotate(75,140,141)" x="140" y="141" style="fill:#0000ff; stroke:none; font-size:5px; font-weight:bold;">airline</text>
+				<text transform="rotate(20,90,160)" x="90" y="160" style="fill:#ff0000; stroke:none; font-size:5px;">stoichiometric line</text>
+				<text x="80" y="180" style="fill:#994400; font-size:8px;">Flammable mixtures</text>
+				<text x="190" y="216" style="fill:#994400; font-size:4px;">LOC 12% vol oxygen</text>
+				<text x="160" y="170" style="fill:#000000; font-size:7px; font-weight:bold;">UEL</text>
+				<text x="145" y="197" style="fill:#000000; font-size:7px; font-weight:bold;">LEL</text>
+				<g style="fill:#000000; stroke:none; font-family:Arial,sans-serif; text-anchor:middle; font-size:12px;">
+					<text x="100" y="225">Oxygen</text>
+					<text x="185" y="70">Inert gas</text>
+					<text x="185" y="81">(nitrogen)</text>
+					<text x="15" y="70">Fuel</text>
+					<text x="15" y="81">(methane)</text>
+				</g>
+			</g>
+			<g systemLanguage="ru" style="stroke:none; font-size:7px; text-anchor:middle; font-family:'Times New Roman';">
+				<text transform="rotate(75,140,141)" x="140" y="141" style="fill:#0000ff; font-weight:bold;">воздух</text>
+				<text transform="rotate(20,90,160)" x="90" y="160" style="fill:#ff0000;">линия стехиометрии</text>
+				<text x="80" y="180" style="fill:#994400;">Горючие смеси</text>
+				<text x="190" y="216" style="fill:#994400;">ПК 12 об.% кислорода</text>
+				<text x="160" y="170" style="fill:#000000; font-weight:bold;">ВПВ</text>
+				<text x="145" y="197" style="fill:#000000; font-weight:bold;">НПВ</text>
+				<g style="fill:#000000; font-size:12px;">
+					<text x="100" y="225">Кислород</text>
+					<text x="185" y="70">Инертный</text>
+					<text x="185" y="81">газ (азот)</text>
+					<text x="15" y="70">Топливо</text>
+					<text x="15" y="81">(метан)</text>
+				</g>
+			</g>
+		</switch>
+	</g>
+	<text style="font-size:3px;fill:#000000;stroke:none;font-family:sans-serif;text-anchor:end;" x="258" y="238">wikiwayman/Power.corrupts 2018/2009 GNU FDL</text>
+</svg>
