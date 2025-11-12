@@ -65,7 +65,8 @@ I don't think this simple model captures everything that's bad about inequality;
 It also leads directly to a class of inequality metrics that are fairly easy to define and calculate, and which can be adjust to fit any utility function. Given a function \(U\) and a mean income \(\mu\) we can define two metrics:
 
 \(a = 1 - U^{-1}(\mathbf E_y[U(y)]) / \mu\)
-\(b = U(\mu) - \mathbf E_y[U(y)]
+
+\(b = U(\mu) - \mathbf E_y[U(y)]\)
 
 where \(y\) is the income of an individual and \(\mathbf E_y\) is the average over all individuals.
 
