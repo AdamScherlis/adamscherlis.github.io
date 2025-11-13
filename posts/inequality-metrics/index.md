@@ -1,7 +1,6 @@
 ---
 title: Utilitarian inequality metrics
 date: 2025-11-11
-draft: secret
 --- 
 
 TL;DR: Use Atkinson with \(\epsilon = 1\) or generalized entropy with \(\alpha=0\).
@@ -18,7 +17,7 @@ An inequality metric collapses this variety down to a single number. In the proc
 
 I think the most popular indices (especially Gini) make bad assumptions, and some others -- notably the Atkinson and generalized-entropy metrics -- make assumptions that are about as good as we could hope for.
 
-In this post I'm going to argue for a somewhat broader class of inequality metrics, which I call "utilitarian". In a future post I'll argue for the Atkinson and GE indices in particular.
+In this post I argue for a somewhat broader class of inequality metrics, which I call "utilitarian". In a future post I'll argue for the Atkinson and GE indices in particular.
 
 ## Why not Gini?
 
