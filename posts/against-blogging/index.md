@@ -1,6 +1,7 @@
 ---
 title: Why you shouldn't write a blog post every day for a month
 date: 2025-11-02
+draft: secret
 ---
 
 Until yesterday, I believed that the only reason not to write blog posts was opportunity cost. "I could spend the next hour writing a blog post very quickly," I would tell myself, "but then I can't spend that hour on anything else." It didn't occur to me that writing a blog post under severe time constraints might have other costs.
