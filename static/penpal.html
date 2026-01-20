@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Penpa to Google Sheets Converter</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+<style>
+body {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+h1, p, button, input, .info, .error, .separator {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+h1 { margin-bottom: 10px; }
+.input-area {
+    margin: 20px 0;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    background: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover { background: #3367d6; }
+.output-area {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 4px;
+}
+.separator {
+    font-family: monospace;
+    font-size: 16px;
+    color: #666;
+    user-select: text;
+    margin: 10px 0;
+}
+table {
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+td {
+    width: 32px;
+    height: 32px;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+}
+td.inside {
+    border: 1px solid #ccc;
+}
+.error {
+    color: #d93025;
+    padding: 10px;
+    background: #fce8e6;
+    border-radius: 4px;
+}
+.info {
+    color: #666;
+    font-size: 13px;
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<h1>Penpa Liberator</h1>
+<p>Paste a Penpa URL to extract cell colors and edge colors as an HTML table you can copy into Google Sheets.</p>
+
+<div class="input-area">
+    <input type="text" id="urlInput" placeholder="Paste Penpa URL here (e.g., https://swaroopg92.github.io/penpa-edit/#m=edit&p=...)">
+    <button onclick="convert()">Convert</button>
+</div>
+
+<div id="output" class="output-area" style="display: none;">
+    <p><strong>Select and copy the table below (including the ------- lines for easy selection):</strong></p>
+    <div id="result"></div>
+</div>
+
+
+<script>
+// Penpa color codes for SURFACE (cell) colors
+const SURFACE_COLOR_MAP = {
+    0: null, 1: '#444444', 2: '#b3ffb3', 3: '#cccccc', 4: '#000000',
+    5: '#c0e0ff', 6: '#ffa3a3', 7: '#ffffa3', 8: '#999999', 9: '#ffb3ff',
+    10: '#ffcc80', 11: '#cc99ff', 12: '#eecab1'
+};
+
+// Penpa color codes for LINE/EDGE colors
+const LINE_COLOR_MAP = {
+    0: null, 1: '#000000', 2: '#000000', 3: '#208020', 4: '#000000',
+    5: '#999999', 6: '#999999', 7: '#777777', 8: '#ff0000', 9: '#187bcd', 10: '#000000'
+};
+
+// Compression substitutions
+const COMPRESS_SUB = [
+    ["z", "zZ"], ['"qa"', "z9"], ['"pu_q"', "zQ"], ['"pu_a"', "zA"],
+    ['"grid"', "zG"], ['"edit_mode"', "zM"], ['"surface"', "zS"],
+    ['"line"', "zL"], ['"lineE"', "zE"], ['"wall"', "zW"], ['"cage"', "zC"],
+    ['"number"', "zN"], ['"symbol"', "zY"], ['"special"', "zP"],
+    ['"board"', "zB"], ['"command_redo"', "zR"], ['"command_undo"', "zU"],
+    ['"command_replay"', "z8"], ['"numberS"', "z1"], ['"freeline"', "zF"],
+    ['"freelineE"', "z2"], ['"thermo"', "zT"], ['"arrows"', "z3"],
+    ['"direction"', "zD"], ['"squareframe"', "z0"], ['"polygon"', "z5"],
+    ['"deletelineE"', "z4"], ['"killercages"', "z6"], ['"nobulbthermo"', "z7"],
+    ['"__a"', "z_"], ["null", "zO"]
+];
+
+function decompressSubstitutions(text) {
+    for (let i = COMPRESS_SUB.length - 1; i >= 0; i--) {
+        text = text.split(COMPRESS_SUB[i][1]).join(COMPRESS_SUB[i][0]);
+    }
+    return text;
+}
+
+function decodePenpaUrl(url) {
+    const hashStr = url.split('#')[1];
+    if (!hashStr) throw new Error('No hash fragment in URL');
+
+    const pIndex = hashStr.indexOf('p=');
+    if (pIndex === -1) throw new Error('No p parameter in URL');
+
+    let endIndex = hashStr.indexOf('&', pIndex + 2);
+    if (endIndex === -1) endIndex = hashStr.length;
+
+    const data = hashStr.substring(pIndex + 2, endIndex);
+
+    // Decode base64
+    const binaryStr = atob(data);
+    const bytes = new Uint8Array(binaryStr.length);
+    for (let i = 0; i < binaryStr.length; i++) {
+        bytes[i] = binaryStr.charCodeAt(i);
+    }
+
+    // Decompress with pako (raw inflate)
+    const inflated = pako.inflateRaw(bytes, { to: 'string' });
+
+    return decompressSubstitutions(inflated);
+}
+
+function parsePenpaData(text) {
+    const lines = text.split('\n');
+    const header = lines[0].split(',');
+
+    // Parse frame data (line 6, index 5)
+    let frame = [];
+    try {
+        frame = JSON.parse(lines[5]);
+    } catch(e) {}
+
+    return {
+        gridType: header[0],
+        nx: parseInt(header[1]),
+        ny: parseInt(header[2]),
+        puQ: JSON.parse(lines[3]),
+        frame: frame
+    };
+}
+
+function cellIndexToCoord(index, nx0) {
+    const row = Math.floor(index / nx0);
+    const col = index % nx0;
+    return { gridRow: row - 2, gridCol: col - 2 };
+}
+
+function edgeToGridCoords(edgeKey, nx, ny) {
+    const [p1, p2] = edgeKey.split(',').map(Number);
+    const nx0 = nx + 4;
+    const cellCount = nx0 * (ny + 4);
+
+    const v1_idx = p1 - cellCount;
+    const v2_idx = p2 - cellCount;
+
+    const v1_col = v1_idx % nx0;
+    const v1_row = Math.floor(v1_idx / nx0);
+    const v2_col = v2_idx % nx0;
+    const v2_row = Math.floor(v2_idx / nx0);
+
+    const isHorizontal = v1_row === v2_row;
+    const isVertical = v1_col === v2_col;
+
+    if (isHorizontal) {
+        const minCol = Math.min(v1_col, v2_col);
+        // Shift down and right by 1 to correct fencepost error
+        return { type: 'horizontal', row: v1_row - 2 + 1, col: minCol - 2 + 1 };
+    } else if (isVertical) {
+        const minRow = Math.min(v1_row, v2_row);
+        // Shift down and right by 1 to correct fencepost error
+        return { type: 'vertical', row: minRow - 2 + 1, col: v1_col - 2 + 1 };
+    }
+    return null;
+}
+
+function convert() {
+    const url = document.getElementById('urlInput').value.trim();
+    const outputDiv = document.getElementById('output');
+    const resultDiv = document.getElementById('result');
+
+    if (!url) {
+        resultDiv.innerHTML = '<p class="error">Please enter a Penpa URL</p>';
+        outputDiv.style.display = 'block';
+        return;
+    }
+
+    try {
+        const text = decodePenpaUrl(url);
+        const data = parsePenpaData(text);
+        const { nx, ny, puQ, frame } = data;
+        const nx0 = nx + 4;
+
+        // Create grids for colors, borders, and numbers
+        const cellColors = Array(ny).fill(null).map(() => Array(nx).fill(null));
+        const cellBorders = Array(ny).fill(null).map(() =>
+            Array(nx).fill(null).map(() => ({ top: null, left: null, bottom: null, right: null }))
+        );
+        const cellNumbers = Array(ny).fill(null).map(() => Array(nx).fill(null));
+
+        // Extract surface colors
+        if (puQ && puQ.surface) {
+            for (const [indexStr, colorCode] of Object.entries(puQ.surface)) {
+                const { gridRow, gridCol } = cellIndexToCoord(parseInt(indexStr), nx0);
+                if (gridRow >= 0 && gridRow < ny && gridCol >= 0 && gridCol < nx) {
+                    cellColors[gridRow][gridCol] = SURFACE_COLOR_MAP[colorCode] || null;
+                }
+            }
+        }
+
+        // Extract edge colors
+        if (puQ && puQ.lineE) {
+            for (const [edgeKey, colorCode] of Object.entries(puQ.lineE)) {
+                const edgeInfo = edgeToGridCoords(edgeKey, nx, ny);
+                if (edgeInfo) {
+                    const color = LINE_COLOR_MAP[colorCode];
+                    const { row, col, type } = edgeInfo;
+
+                    if (type === 'horizontal') {
+                        if (row >= 0 && row < ny && col >= 0 && col < nx) {
+                            cellBorders[row][col].top = color;
+                        }
+                        if (row > 0 && col >= 0 && col < nx) {
+                            cellBorders[row - 1][col].bottom = color;
+                        }
+                    } else if (type === 'vertical') {
+                        if (row >= 0 && row < ny && col >= 0 && col < nx) {
+                            cellBorders[row][col].left = color;
+                        }
+                        if (row >= 0 && row < ny && col > 0) {
+                            cellBorders[row][col - 1].right = color;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Extract numbers
+        if (puQ && puQ.number) {
+            for (const [indexStr, numData] of Object.entries(puQ.number)) {
+                const { gridRow, gridCol } = cellIndexToCoord(parseInt(indexStr), nx0);
+                if (gridRow >= 0 && gridRow < ny && gridCol >= 0 && gridCol < nx) {
+                    // numData format: ["value", style, size] - we just need the value
+                    const value = Array.isArray(numData) ? numData[0] : numData;
+                    cellNumbers[gridRow][gridCol] = value;
+                }
+            }
+        }
+
+        // Parse centerlist from frame data to determine box borders
+        // The frame array is delta-encoded: each value (after first) is added to previous
+        // This gives us the list of cell indices that are "inside" the puzzle
+        let centerlist = new Set();
+        if (frame && frame.length > 0) {
+            let accumulated = frame[0];
+            centerlist.add(accumulated);
+            for (let i = 1; i < frame.length; i++) {
+                accumulated += frame[i];
+                centerlist.add(accumulated);
+            }
+        }
+
+        // Convert centerlist indices to grid coordinates and create a set of inside cells
+        const insideCells = new Set();
+        for (const idx of centerlist) {
+            const { gridRow, gridCol } = cellIndexToCoord(idx, nx0);
+            if (gridRow >= 0 && gridRow < ny && gridCol >= 0 && gridCol < nx) {
+                insideCells.add(`${gridRow},${gridCol}`);
+            }
+        }
+
+        // Determine box borders: thick border where inside cell meets outside cell or grid edge
+        // Only apply if we have a non-trivial centerlist (not all cells)
+        const hasBox = insideCells.size > 0 && insideCells.size < nx * ny;
+        if (hasBox) {
+            for (let row = 0; row < ny; row++) {
+                for (let col = 0; col < nx; col++) {
+                    const isInside = insideCells.has(`${row},${col}`);
+                    if (isInside) {
+                        // Check each neighbor - if neighbor is outside or edge, add thick border
+                        // Top
+                        if (row === 0 || !insideCells.has(`${row-1},${col}`)) {
+                            if (!cellBorders[row][col].top) cellBorders[row][col].top = '#000000';
+                        }
+                        // Bottom
+                        if (row === ny-1 || !insideCells.has(`${row+1},${col}`)) {
+                            if (!cellBorders[row][col].bottom) cellBorders[row][col].bottom = '#000000';
+                        }
+                        // Left
+                        if (col === 0 || !insideCells.has(`${row},${col-1}`)) {
+                            if (!cellBorders[row][col].left) cellBorders[row][col].left = '#000000';
+                        }
+                        // Right
+                        if (col === nx-1 || !insideCells.has(`${row},${col+1}`)) {
+                            if (!cellBorders[row][col].right) cellBorders[row][col].right = '#000000';
+                        }
+                    }
+                }
+            }
+        }
+
+        // Generate HTML table
+        let html = '<div class="separator">-------</div>\n<table>\n';
+
+        for (let row = 0; row < ny; row++) {
+            html += '<tr>';
+            for (let col = 0; col < nx; col++) {
+                const bgColor = cellColors[row][col];
+                const borders = cellBorders[row][col];
+                const number = cellNumbers[row][col];
+                const isInside = !hasBox || insideCells.has(`${row},${col}`);
+                const styles = [];
+
+                if (bgColor) styles.push(`background-color: ${bgColor}`);
+
+                // Apply borders (box borders are already added to cellBorders)
+                if (borders.top) {
+                    styles.push(`border-top: 3px solid ${borders.top}`);
+                }
+                if (borders.left) {
+                    styles.push(`border-left: 3px solid ${borders.left}`);
+                }
+                if (borders.bottom) {
+                    styles.push(`border-bottom: 3px solid ${borders.bottom}`);
+                }
+                if (borders.right) {
+                    styles.push(`border-right: 3px solid ${borders.right}`);
+                }
+
+                const style = styles.length > 0 ? ` style="${styles.join('; ')}"` : '';
+                const cellClass = isInside ? ' class="inside"' : '';
+                const content = number !== null ? number : '';
+                html += `<td${cellClass}${style}>${content}</td>`;
+            }
+            html += '</tr>\n';
+        }
+
+        html += '</table>\n<div class="separator">-------</div>';
+
+        resultDiv.innerHTML = html;
+        outputDiv.style.display = 'block';
+
+    } catch (err) {
+        resultDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
+        outputDiv.style.display = 'block';
+    }
+}
+
+// Allow Enter key to trigger conversion
+document.getElementById('urlInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') convert();
+});
+</script>
+
+</body>
+</html>
