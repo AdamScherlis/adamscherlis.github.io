@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quine Game</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Courier New', monospace;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background: #fafafa;
+    color: #222;
+  }
+  h1 { margin-bottom: 4px; }
+  #subtitle { color: #666; margin-bottom: 20px; }
+  #level-info {
+    background: #eee;
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  #forbidden-list {
+    margin-top: 6px;
+    color: #b00;
+    font-weight: bold;
+  }
+  textarea {
+    width: 100%;
+    height: 200px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    tab-size: 4;
+  }
+  textarea:focus { outline: none; border-color: #888; }
+  #controls { margin: 10px 0; display: flex; gap: 10px; align-items: center; }
+  button {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 8px 20px;
+    border: 2px solid #222;
+    background: #222;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover { background: #444; }
+  button:disabled { background: #999; border-color: #999; cursor: not-allowed; }
+  #spinner { display: none; color: #666; }
+  #output-section { margin-top: 16px; }
+  #output-label { font-weight: bold; margin-bottom: 4px; }
+  #output {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    min-height: 40px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+  }
+  #result {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: none;
+  }
+  #result.success { background: #d4edda; color: #155724; }
+  #result.failure { background: #f8d7da; color: #721c24; }
+  #result.error { background: #fff3cd; color: #856404; }
+  #diff-view {
+    margin-top: 8px;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  #diff-view .match { color: #888; }
+  #diff-view .mismatch { background: #f5c6cb; color: #721c24; padding: 1px 2px; border-radius: 2px; }
+  #diff-view .missing { background: #ffeeba; color: #856404; padding: 1px 2px; border-radius: 2px; }
+  .stderr { color: #c00; }
+  .stdout { color: #000; }
+
+  #node-picker {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #e8f4e8;
+    border-radius: 4px;
+    display: none;
+  }
+  #node-picker h3 { margin-bottom: 8px; }
+  #node-buttons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  #node-buttons button {
+    font-size: 12px;
+    padding: 4px 10px;
+    background: #fff;
+    color: #222;
+    border: 1px solid #888;
+  }
+  #node-buttons button:hover { background: #ddd; }
+
+  #share-section {
+    margin-top: 16px;
+    display: none;
+  }
+  #share-section input {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+  #loading-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(250,250,250,0.95);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #666; z-index: 100;
+  }
+</style>
+</head>
+<body>
+
+<div id="loading-overlay">Loading Python runtime...</div>
+
+<h1>Quine Game</h1>
+<p id="subtitle">Write a Python program that prints its own source code.</p>
+
+<div id="level-info">
+  <span id="level-text">Level 1</span>: Write a quine.
+  <div id="forbidden-list"></div>
+</div>
+
+<textarea id="code" placeholder="Write your Python code here..." spellcheck="false"></textarea>
+
+<div id="controls">
+  <button id="run-btn" disabled>Run</button>
+  <span id="spinner">Running...</span>
+</div>
+
+<div id="output-section">
+  <div id="output-label">Output:</div>
+  <div id="output"></div>
+</div>
+
+<div id="result"></div>
+
+<div id="node-picker">
+  <h3>Choose a feature to forbid:</h3>
+  <p>These are the language features used in your quine. Pick one to ban for the next level.</p>
+  <div id="node-buttons"></div>
+</div>
+
+<div id="ast-section" style="display:none; margin-top: 16px;">
+  <details>
+    <summary style="cursor:pointer; font-weight:bold;">AST</summary>
+    <pre id="ast-dump" style="background:#fff; border:1px solid #ddd; border-radius:4px; padding:10px; margin-top:6px; font-size:12px; max-height:400px; overflow:auto;"></pre>
+  </details>
+</div>
+
+<div id="share-section">
+  <strong>Challenge a friend:</strong>
+  <input id="share-url" readonly onclick="this.select()">
+</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js"></script>
+<script>
+const NODE_DESCRIPTIONS = {
+  // AST node types
+  "Add": "addition (+)",
+  "And": "boolean 'and'",
+  "AnnAssign": "annotated assignment (x: int = ...)",
+  "Assert": "assert statement",
+  "Assign": "assignment (=)",
+  "AsyncFor": "async for loop",
+  "AsyncFunctionDef": "async function definition",
+  "AsyncWith": "async with statement",
+  "Attribute": "attribute access (obj.attr)",
+  "AugAssign": "augmented assignment (+=, etc.)",
+  "Await": "await expression",
+  "BinOp": "binary operation (+, -, *, etc.)",
+  "BitAnd": "bitwise AND (&)",
+  "BitOr": "bitwise OR (|)",
+  "BitXor": "bitwise XOR (^)",
+  "BoolOp": "boolean operation (and/or)",
+  "Break": "break statement",
+  "Call": "function call",
+  "ClassDef": "class definition",
+  "Compare": "comparison (==, <, etc.)",
+  "Continue": "continue statement",
+  "Del": "del context",
+  "Delete": "delete statement",
+  "Dict": "dict literal ({...})",
+  "DictComp": "dict comprehension",
+  "Div": "division (/)",
+  "Eq": "equality (==)",
+  "ExceptHandler": "except clause",
+  "Expr": "expression statement",
+  "FloorDiv": "floor division (//)",
+  "For": "for loop",
+  "FormattedValue": "f-string expression",
+  "FunctionDef": "function definition",
+  "GeneratorExp": "generator expression",
+  "Global": "global statement",
+  "Gt": "greater than (>)",
+  "GtE": "greater or equal (>=)",
+  "If": "if statement/expression",
+  "IfExp": "ternary (x if cond else y)",
+  "Import": "import statement",
+  "ImportFrom": "from...import statement",
+  "In": "membership test (in)",
+  "Invert": "bitwise NOT (~)",
+  "Is": "identity test (is)",
+  "IsNot": "identity test (is not)",
+  "JoinedStr": "f-string",
+  "Lambda": "lambda expression",
+  "List": "list literal ([...])",
+  "ListComp": "list comprehension",
+  "LShift": "left shift (<<)",
+  "Lt": "less than (<)",
+  "LtE": "less or equal (<=)",
+  "MatMult": "matrix multiply (@)",
+  "Mod": "modulo (%)",
+  "Module": "module (top-level)",
+  "Mult": "multiplication (*)",
+  "Name": "variable name",
+  "NamedExpr": "walrus operator (:=)",
+  "Nonlocal": "nonlocal statement",
+  "Not": "boolean not",
+  "NotEq": "not equal (!=)",
+  "NotIn": "not in",
+  "Or": "boolean 'or'",
+  "Pass": "pass statement",
+  "Pow": "exponentiation (**)",
+  "Raise": "raise statement",
+  "Return": "return statement",
+  "RShift": "right shift (>>)",
+  "Set": "set literal",
+  "SetComp": "set comprehension",
+  "Slice": "slice (a[1:2])",
+  "Starred": "star expression (*x)",
+  "Store": "store context",
+  "Sub": "subtraction (-)",
+  "Subscript": "subscript (a[b])",
+  "Try": "try statement",
+  "TryStar": "try/except* statement",
+  "Tuple": "tuple",
+  "UAdd": "unary plus (+x)",
+  "UnaryOp": "unary operation",
+  "USub": "unary minus (-x)",
+  "While": "while loop",
+  "With": "with statement",
+  "Yield": "yield expression",
+  "YieldFrom": "yield from expression",
+  // Literal subtypes (refined from Constant)
+  "literal:str": "string literal",
+  "literal:int": "int literal",
+  "literal:float": "float literal",
+  "literal:bytes": "bytes literal",
+  "literal:bool": "bool literal (True/False)",
+  "literal:None": "None literal",
+  "literal:ellipsis": "ellipsis literal (...)",
+  // Built-in function calls
+  "builtin:repr": "repr()",
+  "builtin:print": "print()",
+  "builtin:chr": "chr()",
+  "builtin:ord": "ord()",
+  "builtin:str": "str()",
+  "builtin:int": "int()",
+  "builtin:len": "len()",
+  "builtin:exec": "exec()",
+  "builtin:eval": "eval()",
+  "builtin:compile": "compile()",
+  "builtin:format": "format()",
+  "builtin:type": "type()",
+  "builtin:getattr": "getattr()",
+  "builtin:setattr": "setattr()",
+  "builtin:hasattr": "hasattr()",
+  "builtin:open": "open()",
+  "builtin:input": "input()",
+  "builtin:map": "map()",
+  "builtin:filter": "filter()",
+  "builtin:zip": "zip()",
+  "builtin:enumerate": "enumerate()",
+  "builtin:range": "range()",
+  "builtin:sorted": "sorted()",
+  "builtin:reversed": "reversed()",
+  "builtin:list": "list()",
+  "builtin:tuple": "tuple()",
+  "builtin:dict": "dict()",
+  "builtin:set": "set()",
+  "builtin:bytes": "bytes()",
+  "builtin:bool": "bool()",
+  "builtin:float": "float()",
+  "builtin:hex": "hex()",
+  "builtin:oct": "oct()",
+  "builtin:bin": "bin()",
+  "builtin:abs": "abs()",
+  "builtin:round": "round()",
+  "builtin:min": "min()",
+  "builtin:max": "max()",
+  "builtin:sum": "sum()",
+  "builtin:any": "any()",
+  "builtin:all": "all()",
+  "builtin:isinstance": "isinstance()",
+  "builtin:issubclass": "issubclass()",
+  "builtin:id": "id()",
+  "builtin:hash": "hash()",
+  "builtin:callable": "callable()",
+  "builtin:iter": "iter()",
+  "builtin:next": "next()",
+  "builtin:super": "super()",
+  "builtin:property": "property()",
+  "builtin:staticmethod": "staticmethod()",
+  "builtin:classmethod": "classmethod()",
+  "builtin:__import__": "__import__()",
+  "builtin:vars": "vars()",
+  "builtin:dir": "dir()",
+  "builtin:globals": "globals()",
+  "builtin:locals": "locals()",
+  "builtin:breakpoint": "breakpoint()",
+};
+
+// Nodes that are structural/unavoidable and not interesting to ban
+const BORING_NODES = new Set([
+  "Module", "Expression", "Constant",
+]);
+
+let pyodide = null;
+let forbiddenNodes = [];
+let currentLevel = 1;
+
+function loadStateFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const nodes = params.get("forbidden");
+  if (nodes) {
+    forbiddenNodes = nodes.split(",").filter(n => n.length > 0);
+    currentLevel = forbiddenNodes.length + 1;
+  }
+}
+
+function updateURL() {
+  const url = new URL(window.location);
+  if (forbiddenNodes.length > 0) {
+    url.searchParams.set("forbidden", forbiddenNodes.join(","));
+  } else {
+    url.searchParams.delete("forbidden");
+  }
+  window.history.replaceState({}, "", url);
+}
+
+function updateLevelDisplay() {
+  document.getElementById("level-text").textContent = "Level " + currentLevel;
+  const fl = document.getElementById("forbidden-list");
+  if (forbiddenNodes.length === 0) {
+    fl.textContent = "";
+  } else {
+    fl.innerHTML = "Forbidden: " + forbiddenNodes.map(n => {
+      const desc = NODE_DESCRIPTIONS[n];
+      return desc ? `<span title="${n}">${n} (${desc})</span>` : n;
+    }).join(", ");
+  }
+  updateShareLink();
+}
+
+function updateShareLink() {
+  const section = document.getElementById("share-section");
+  if (forbiddenNodes.length > 0) {
+    section.style.display = "block";
+    const url = new URL(window.location);
+    url.searchParams.set("forbidden", forbiddenNodes.join(","));
+    document.getElementById("share-url").value = url.toString();
+  } else {
+    section.style.display = "none";
+  }
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function showDiff(source, output) {
+  const div = document.createElement("div");
+  div.id = "diff-view";
+
+  // Find first difference
+  const maxLen = Math.max(source.length, output.length);
+  let firstDiff = -1;
+  for (let i = 0; i < maxLen; i++) {
+    if (source[i] !== output[i]) { firstDiff = i; break; }
+  }
+  if (firstDiff === -1) return ""; // no diff
+
+  // Show context around first difference
+  const contextBefore = 20;
+  const contextAfter = 30;
+  const start = Math.max(0, firstDiff - contextBefore);
+  const end = Math.min(maxLen, firstDiff + contextAfter);
+
+  let html = "<div style='margin-top:8px'>";
+  html += "First mismatch at position " + firstDiff + ":<br><br>";
+
+  html += "<strong>Expected (source):</strong><br>";
+  html += "<code>";
+  if (start > 0) html += "...";
+  for (let i = start; i < Math.min(end, source.length); i++) {
+    const ch = escapeHtml(source[i] === "\n" ? "\u21b5\n" : source[i]);
+    if (i === firstDiff) {
+      html += '<span class="mismatch">' + ch + '</span>';
+    } else if (i > firstDiff) {
+      html += '<span class="missing">' + ch + '</span>';
+    } else {
+      html += '<span class="match">' + ch + '</span>';
+    }
+  }
+  if (firstDiff >= source.length) {
+    html += '<span class="mismatch">(end of source)</span>';
+  }
+  html += "</code><br><br>";
+
+  html += "<strong>Got (output):</strong><br>";
+  html += "<code>";
+  if (start > 0) html += "...";
+  for (let i = start; i < Math.min(end, output.length); i++) {
+    const ch = escapeHtml(output[i] === "\n" ? "\u21b5\n" : output[i]);
+    if (i === firstDiff) {
+      html += '<span class="mismatch">' + ch + '</span>';
+    } else if (i > firstDiff) {
+      html += '<span class="missing">' + ch + '</span>';
+    } else {
+      html += '<span class="match">' + ch + '</span>';
+    }
+  }
+  if (firstDiff >= output.length) {
+    html += '<span class="mismatch">(end of output)</span>';
+  }
+  html += "</code>";
+  html += "</div>";
+
+  return html;
+}
+
+async function runCode() {
+  const code = document.getElementById("code").value;
+  const outputEl = document.getElementById("output");
+  const resultEl = document.getElementById("result");
+  const runBtn = document.getElementById("run-btn");
+  const spinner = document.getElementById("spinner");
+  const picker = document.getElementById("node-picker");
+
+  outputEl.innerHTML = "";
+  resultEl.style.display = "none";
+  resultEl.className = "";
+  picker.style.display = "none";
+  document.getElementById("ast-section").style.display = "none";
+  runBtn.disabled = true;
+  spinner.style.display = "inline";
+
+  try {
+    // First, check for forbidden features
+    if (forbiddenNodes.length > 0) {
+      const checkResult = await pyodide.runPythonAsync(`
+import ast, json
+
+code = ${JSON.stringify(code)}
+forbidden = set(${JSON.stringify(forbiddenNodes)})
+
+_result = {"ok": True}
+try:
+    tree = ast.parse(code)
+    found = set()
+    for node in ast.walk(tree):
+        name = type(node).__name__
+        # Check plain AST node type
+        if name in forbidden:
+            found.add(name)
+        # Check literal subtypes (Constant -> literal:str, etc.)
+        if isinstance(node, ast.Constant):
+            v = node.value
+            if v is True or v is False:
+                tag = "literal:bool"
+            elif v is None:
+                tag = "literal:None"
+            elif v is ...:
+                tag = "literal:ellipsis"
+            else:
+                tag = "literal:" + type(v).__name__
+            if tag in forbidden:
+                found.add(tag)
+        # Check builtin function calls
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            tag = "builtin:" + node.func.id
+            if tag in forbidden:
+                found.add(tag)
+    if found:
+        _result = {"error": "forbidden", "nodes": sorted(found)}
+except SyntaxError:
+    pass  # let the execution handle syntax errors
+
+json.dumps(_result)
+`);
+      const parsed = JSON.parse(checkResult);
+      if (parsed.error === "forbidden") {
+        resultEl.style.display = "block";
+        resultEl.className = "error";
+        resultEl.innerHTML = "Forbidden feature(s) detected: <strong>" +
+          parsed.nodes.map(n => {
+            const desc = NODE_DESCRIPTIONS[n];
+            return desc ? `${n} (${desc})` : n;
+          }).join(", ") + "</strong>. Remove them to proceed.";
+        return;
+      }
+    }
+
+    // Run the code, capturing stdout and stderr
+    const result = await pyodide.runPythonAsync(`
+import sys, io, json
+
+code = ${JSON.stringify(code)}
+stdout_capture = io.StringIO()
+stderr_capture = io.StringIO()
+
+old_stdout = sys.stdout
+old_stderr = sys.stderr
+sys.stdout = stdout_capture
+sys.stderr = stderr_capture
+
+error_msg = None
+try:
+    exec(compile(code, "<quine>", "exec"))
+except Exception as e:
+    print(f"{type(e).__name__}: {e}", file=stderr_capture)
+    error_msg = str(e)
+finally:
+    sys.stdout = old_stdout
+    sys.stderr = old_stderr
+
+json.dumps({
+    "stdout": stdout_capture.getvalue(),
+    "stderr": stderr_capture.getvalue(),
+    "error": error_msg,
+})
+`);
+
+    const { stdout, stderr, error } = JSON.parse(result);
+
+    // Display output
+    let outputHtml = "";
+    if (stderr) {
+      outputHtml += '<span class="stderr">' + escapeHtml(stderr) + '</span>';
+    }
+    if (stdout) {
+      outputHtml += '<span class="stdout">' + escapeHtml(stdout) + '</span>';
+    }
+    if (!stdout && !stderr) {
+      outputHtml = '<span style="color:#999">(no output)</span>';
+    }
+    outputEl.innerHTML = outputHtml;
+
+    // Check quine condition: accept stdout matching code, or code + "\n"
+    // since print() adds a trailing newline and real Python files end with one
+    const isQuine = stdout === code || stdout === code + "\n";
+    if (error) {
+      resultEl.style.display = "block";
+      resultEl.className = "failure";
+      resultEl.innerHTML = "Program raised an error.";
+    } else if (isQuine) {
+      // Success!
+      resultEl.style.display = "block";
+      resultEl.className = "success";
+      resultEl.textContent = "Quine detected! You passed Level " + currentLevel + "!";
+      showNodePicker(code);
+    } else {
+      resultEl.style.display = "block";
+      resultEl.className = "failure";
+      resultEl.innerHTML = "Output does not match source!" + showDiff(code, stdout);
+    }
+
+    // Show AST dump
+    try {
+      const astText = await pyodide.runPythonAsync(`
+import ast
+code = ${JSON.stringify(code)}
+tree = ast.parse(code)
+ast.dump(tree, indent=2)
+`);
+      document.getElementById("ast-dump").textContent = astText;
+      document.getElementById("ast-section").style.display = "block";
+    } catch (_) {}
+
+  } catch (e) {
+    resultEl.style.display = "block";
+    resultEl.className = "failure";
+    resultEl.innerHTML = "Execution error: " + escapeHtml(String(e));
+  } finally {
+    runBtn.disabled = false;
+    spinner.style.display = "none";
+  }
+}
+
+async function showNodePicker(code) {
+  const picker = document.getElementById("node-picker");
+  const buttons = document.getElementById("node-buttons");
+  buttons.innerHTML = "";
+
+  // Get all features (AST nodes, literal subtypes, builtin calls) used in the code
+  const result = await pyodide.runPythonAsync(`
+import ast, json
+code = ${JSON.stringify(code)}
+tree = ast.parse(code)
+features = set()
+for node in ast.walk(tree):
+    features.add(type(node).__name__)
+    # Literal subtypes
+    if isinstance(node, ast.Constant):
+        v = node.value
+        if v is True or v is False:
+            features.add("literal:bool")
+        elif v is None:
+            features.add("literal:None")
+        elif v is ...:
+            features.add("literal:ellipsis")
+        else:
+            features.add("literal:" + type(v).__name__)
+    # Builtin function calls
+    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+        features.add("builtin:" + node.func.id)
+json.dumps(sorted(features))
+`);
+
+  const usedNodes = JSON.parse(result);
+  const pickable = usedNodes.filter(n =>
+    !BORING_NODES.has(n) && !forbiddenNodes.includes(n) && NODE_DESCRIPTIONS[n]
+  );
+
+  if (pickable.length === 0) {
+    picker.style.display = "block";
+    buttons.innerHTML = "<em>No more nodes to forbid &mdash; you've mastered this!</em>";
+    return;
+  }
+
+  picker.style.display = "block";
+
+  for (const node of pickable) {
+    const btn = document.createElement("button");
+    const desc = NODE_DESCRIPTIONS[node];
+    btn.textContent = desc ? `${node} (${desc})` : node;
+    btn.title = node;
+    btn.addEventListener("click", () => {
+      forbiddenNodes.push(node);
+      currentLevel++;
+      updateURL();
+      updateLevelDisplay();
+      picker.style.display = "none";
+      document.getElementById("result").style.display = "none";
+      document.getElementById("output").innerHTML = "";
+    });
+    buttons.appendChild(btn);
+  }
+}
+
+// Tab key support in textarea
+document.getElementById("code").addEventListener("keydown", (e) => {
+  if (e.key === "Tab") {
+    e.preventDefault();
+    const ta = e.target;
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    ta.value = ta.value.substring(0, start) + "    " + ta.value.substring(end);
+    ta.selectionStart = ta.selectionEnd = start + 4;
+  }
+});
+
+// Ctrl+Enter to run
+document.getElementById("code").addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    if (!document.getElementById("run-btn").disabled) {
+      runCode();
+    }
+  }
+});
+
+document.getElementById("run-btn").addEventListener("click", runCode);
+
+// Init
+(async () => {
+  loadStateFromURL();
+  updateLevelDisplay();
+  pyodide = await loadPyodide();
+  document.getElementById("loading-overlay").style.display = "none";
+  document.getElementById("run-btn").disabled = false;
+})();
+</script>
+</body>
+</html>
