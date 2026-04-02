@@ -83,8 +83,8 @@
     line-height: 1.4;
   }
   #diff-view .match { color: #888; }
-  #diff-view .mismatch { background: #f5c6cb; color: #721c24; padding: 1px 2px; border-radius: 2px; }
-  #diff-view .missing { background: #ffeeba; color: #856404; padding: 1px 2px; border-radius: 2px; }
+  #diff-view .mismatch { background: #d00; color: #fff; border-radius: 2px; }
+  #diff-view .missing { color: #999; }
   .stderr { color: #c00; }
   .stdout { color: #000; }
 
@@ -388,8 +388,10 @@ function escapeHtml(s) {
 }
 
 function showDiff(source, output) {
-  const div = document.createElement("div");
-  div.id = "diff-view";
+  // Strip one trailing newline from output since we accept it as matching
+  if (output.endsWith("\n") && !source.endsWith("\n")) {
+    output = output.slice(0, -1);
+  }
 
   // Find first difference
   const maxLen = Math.max(source.length, output.length);
@@ -405,7 +407,7 @@ function showDiff(source, output) {
   const start = Math.max(0, firstDiff - contextBefore);
   const end = Math.min(maxLen, firstDiff + contextAfter);
 
-  let html = "<div style='margin-top:8px'>";
+  let html = "<div id='diff-view'>";
   html += "First mismatch at position " + firstDiff + ":<br><br>";
 
   html += "<strong>Expected (source):</strong><br>";
@@ -567,8 +569,12 @@ json.dumps({
 
     // Check quine condition: accept stdout matching code, or code + "\n"
     // since print() adds a trailing newline and real Python files end with one
-    const isQuine = stdout === code || stdout === code + "\n";
-    if (error) {
+    const isQuine = (stdout === code || stdout === code + "\n") && code.length > 0;
+    if (code.length === 0) {
+      resultEl.style.display = "block";
+      resultEl.className = "failure";
+      resultEl.innerHTML = "The empty program is not a quine. Nice try!";
+    } else if (error) {
       resultEl.style.display = "block";
       resultEl.className = "failure";
       resultEl.innerHTML = "Program raised an error.";
