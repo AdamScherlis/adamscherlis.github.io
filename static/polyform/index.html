@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 04:30
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 05:08
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -750,13 +750,37 @@ new data.</p>
 <tr><td>6</td><td>22</td><td>0</td><td>0</td><td>9</td><td>7</td><td>0</td><td>—</td><td>6</td><td>0</td></tr>
 <tr><td>7</td><td>42</td><td>0</td><td>0</td><td>0</td><td>1</td><td>8</td><td>2:5&ensp;4:2&ensp;6:1</td><td>33</td><td>0</td></tr>
 <tr><td>8</td><td>112</td><td>0</td><td>28</td><td>18</td><td>33</td><td>0</td><td>—</td><td>33</td><td>0</td></tr>
-<tr><td>9</td><td>252</td><td>1</td><td>0</td><td>0</td><td>16</td><td>8</td><td>2:6&ensp;4:2</td><td>226</td><td>1</td></tr>
+<tr><td>9</td><td>252</td><td>1</td><td>0</td><td>0</td><td>16</td><td>9</td><td>2:6&ensp;4:2&ensp;<b>10:1</b></td><td>226</td><td>0</td></tr>
 <tr><td>10</td><td>650</td><td>9</td><td>0</td><td>102</td><td>116</td><td>1</td><td>2:1</td><td>422</td><td>0</td></tr>
 <tr><td>11</td><td>1584</td><td>42</td><td>0</td><td>0</td><td>1</td><td>45</td><td>2:42&ensp;4:3</td><td>1496</td><td>0</td></tr>
 <tr><td>12</td><td>4091</td><td>170</td><td>194</td><td>405</td><td>278</td><td>53</td><td>2:53</td><td>2991</td><td>0</td></tr>
 <tr><td>13</td><td>10369</td><td>617</td><td>0</td><td>0</td><td>203</td><td>44</td><td>2:42&ensp;4:2</td><td>9505</td><td>0</td></tr>
 </table>
 </div>
+<p class="note"><b>Isohedral number 10 — the project record, on nine triangles.</b> The n&#8202;=&#8202;9
+row's lone holdout survived every sweep: no tiling with k&#8202;≤&#8202;4, and unlike almost every
+other unresolved shape in the project it also refused to be proven a non-tiler — its surrounds run
+to depth 6 and show no sign of stopping. That combination is the star's signature, and for a few
+hours it was the project's new flagship mystery. It is instead the highest-k tile here: the SAT
+orbit search returns <b>MIN-K&#8202;=&#8202;10</b>, with the cover cross-checked as an exact torus
+partition (40 tiles per fundamental domain in ten orbits of 36 cells each) and independently
+re-verified by expanding the 40 representatives back onto the torus — all 360 cells covered exactly
+once, no duplicates. It is a plain chevron of nine quarter-square triangles, it tiles the plane, and
+every tiling of it needs at least ten orbits of tiles.</p>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:0 0 8rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/tetrakis9-open.svg" alt="The 10-anisohedral tetrakis chevron" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 18rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/chevron-10orbit-tiling.png" alt="Ten-orbit tiling by the chevron" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The chevron and a minimal tiling of it, coloured by orbit —
+ten classes of tile. The previous record in this project was 8 (two 10-hexes and a 13-iamond, found the same night);
+before that, 6. Drawing this figure exposed a rendering bug worth recording: a square window of sublattice coefficients
+covers only a thin sliver of the plane when the lattice basis is skewed, so the first renders showed a correct tiling
+full of phantom holes — the same Gauss-reduction pitfall the decorated validator hit in July, in a new place.</div>
+</div>
+
 <p class="note">The family wastes no time: a non-tiling shape already exists at <b>three cells</b> (one
 of the two tricells, matching the drafters' early start), and no shape has a hole through
 n&#8202;=&#8202;8. Then n&#8202;=&#8202;7 compresses the project's
