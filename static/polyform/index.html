@@ -159,7 +159,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 01:45
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 02:05
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1645,24 +1645,32 @@ doubling, and a pre-filter lemma that does more than the search does.</p>
 
 <h2><span class="stage">Stage 17</span>Roadmap</h2>
 <ul class="roadmap">
-<li><span class="status run">to probe</span><span class="what"><b>The new frontier, round 2: three open shapes</b>
+<li><span class="status run">running</span><span class="what"><b>The rest of the marking taxonomy</b>
+  <span class="d">The arrow rule (Stage 16) was one of exactly four possible edge-marking types. Sweeps of the other two new ones — the <b>S-tab</b> (ρ-symmetric: self-matching, mirror-swapping) and the fully asymmetric four-label tab — are running on the hexagon, domino, triangle and L-tromino, along with mixed schemes that give different edges different types. Open question: does anything beat the arrow hexagon's k&#8202;=&#8202;5?</span></span></li>
+<li><span class="status run">running</span><span class="what"><b>A second hundred-fold</b>
+  <span class="d">Classification is ~100× faster than it was on 31 July (algorithmic pocket fixes ×12, then a compiled neighbour kernel ×8–11). In flight: a compiled kernel for the k-orbit exact cover (the remaining Python hot spot, ~50% of classify and all of the decoration sweeps), and phase 3 of the C pipeline, which fuses the 180°/isohedral tests into the enumerator so the majority class never reaches Python at all.</span></span></li>
+<li><span class="status run">running</span><span class="what"><b>Myers's algorithm, reimplemented for comparison</b>
+  <span class="d">A faithful implementation of the class-based backtracking search described on Myers's page, validated shape-for-shape against our exact-cover engine on the 7- to 9-ominoes, then benchmarked head to head on the same machine — to find out honestly where each approach wins, and what a hybrid would look like.</span></span></li>
+<li><span class="status pend">next</span><span class="what"><b>Higher kmax everywhere</b>
+  <span class="d">Every decoration sweep so far stopped at k&#8202;≤&#8202;4 or 6 for cost reasons; the parity lemma means the identity-mirror sweeps only need re-searching on their parity-eligible unresolved entries, and the compiled cover search should make k&#8202;≤&#8202;8 routine. The same applies to the plain families, where kmax&#8202;4 is the current default.</span></span></li>
+<li><span class="status pend">next</span><span class="what"><b>The frontier tables</b>
+  <span class="d">Each family is being pushed until its largest row holds 10k–100k free shapes. Landed so far: ominoes n&#8202;=&#8202;12 (63,600 shapes, Myers-exact) and hexes n&#8202;=&#8202;9; iamonds to 14, kites 11, polypons 17, tetrakis 13 and the rest are queued behind the speed work.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>The new frontier, round 2: three open shapes</b>
   <span class="d">All three closed within the hour: the free 7-cell tetrakis polyabolo is <b>6-anisohedral</b> — the smallest-area member of the isohedral-number-6 club (now twenty-four shapes, five families); the free 10-iamond is a proven non-tiler (SAT surrounds exhaust at depth 4, matching Myers); the open one-sided 11-rhombille keeps its ancestor's <b>k&#8202;=&#8202;6 one-sided</b> (k&#8202;≤&#8202;5 exhausted), so its chiral notching carries the isohedral-number-6 corollary.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>Arrow decorations break the ceiling</b>
+  <span class="d">Predicted, then confirmed: dropping the symmetric-notch assumption dissolves the parity lemma and lifts a single hexagon from k&#8202;=&#8202;1 to <b>k&#8202;=&#8202;5</b>. All 138 anisohedral verdicts oracle-verified (Stage 16).</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>Decoration engine, third audit (v3)</b>
-  <span class="d">Fixed (label-class placement identity, seed-based orbit decoding) and fully re-swept; every positive re-verified by the brute-force orbit-count oracle (160/160 exact). Verdict: all k&#8202;≥&#8202;3 decoration claims were phantoms — the true ceiling everywhere tested is k&#8202;=&#8202;2, and all eleven unit prototiles are decoration-rigid.</span></span></li>
+  <span class="d">Fixed (label-class placement identity, seed-based orbit decoding) and fully re-swept; every positive re-verified by the brute-force orbit-count oracle (160/160 exact). Verdict: all k&#8202;≥&#8202;3 symmetric-notch claims were phantoms — under that rule the ceiling is k&#8202;=&#8202;2 and all eleven unit prototiles are decoration-rigid.</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>The new frontier: kite 10 / hex 8 / rhombille 13</b>
-  <span class="d">All twenty-one probes closed: kite n&#8202;=&#8202;10 gave two 6-anisohedral kites and the turtle; all nine octahexes are proven non-tilers (hex n&#8202;=&#8202;8 fully matches Myers); the nine 13-rhombilles split five 6-anisohedral / four non-tilers. Isohedral-number-6 club: twenty-three shapes (twenty-four after the tetrakis probe below).</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>SAT for the k-orbit search itself</b>
-  <span class="d">Delivered: per-group UNSAT queries with cardinality bounds; validated on five known min-k cases; the star&#8217;s exclusion extended to k&#8202;≤&#8202;18 in ~7 minutes (the old engine took 4.3 CPU-hours for k&#8202;≤&#8202;15, which is now DRAT-certified). Exclusion sweeps should move to SAT; the backtracking engine stays for cheap positives.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>Fourth subtlety: &#8220;bogus orbits&#8221; audit</b>
-  <span class="d">The SAT work uncovered that wrap-around placements whose torus footprint is fixed setwise can enter covers that double-cover the plane — a false-<i>positive</i> risk only. The audit is done: all 37 stored anisohedral examples across every family were re-derived by the SAT engine with bogus orbits forbidden and plane-level cross-checks; every minimum matched its published k exactly (<code>results/audit_positive_examples.log</code>).</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>The star 10-rhombille</b>
-  <span class="d">Settled: proven non-tiler, aligned Heesch number exactly 3 — depth-3 surround found and depth-4 refuted by the SAT surround engine (see the rhombille stage). The project&#8217;s flagship question, closed.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>The deep heptahexes</b>
-  <span class="d">All five unresolved heptahexes proven non-tilers by SAT surround exhaustion (depths 2&#8211;4), matching Myers. Polyhex n&#8202;=&#8202;7 fully resolved.</span></span></li>
-<li><span class="status pend">superseded</span><span class="what"><b>Decoration sweeps, v2</b>
-  <span class="d">All sweeps were rerun under the window-fixed validator — but the third audit (above) then showed the search can also <i>reject</i> genuine covers, so v2&#8217;s spectra (domino {1,&#8202;3}, trominoes {1,&#8202;2,&#8202;4}, O-tetromino {1,&#8202;2,&#8202;3}, hexagon k&#8202;=&#8202;3) stand only as upper-bound data pending v3.</span></span></li>
+  <span class="d">All twenty-one probes closed: kite n&#8202;=&#8202;10 gave two 6-anisohedral kites and the turtle; all nine octahexes are proven non-tilers (hex n&#8202;=&#8202;8 fully matches Myers); the nine 13-rhombilles split five 6-anisohedral / four non-tilers.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>SAT for the surround and k-orbit searches</b>
+  <span class="d">Both delivered: surround existence (~500× on exhaustive verdicts; it settled the star) and periodic exclusion (the star's k&#8202;≤&#8202;15 fell from 4.3 CPU-hours to seven minutes, and reached k&#8202;≤&#8202;18). The hat and the turtle are now excluded to k&#8202;≤&#8202;14.</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>DRAT-checked UNSAT proofs</b>
-  <span class="d">Done: the star&#8217;s depth-4 refutation (both universes) and all five heptahex exhaustions carry DRAT proofs verified by <code>drat-trim</code>, with negative controls. One gotcha for posterity: pysat&#8217;s cadical bindings accept <code>with_proof=True</code> but silently emit empty proofs — the pipeline hard-fails on that and uses glucose42.</span></span></li>
+  <span class="d">The star's depth-4 refutation (both universes) and all five heptahex exhaustions carry DRAT proofs verified by <code>drat-trim</code>, with negative controls. One gotcha for posterity: pysat's cadical bindings accept <code>with_proof=True</code> but silently emit empty proofs — the pipeline hard-fails on that and uses glucose42.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>Fourth subtlety: &#8220;bogus orbits&#8221; audit</b>
+  <span class="d">A wrap-around placement whose torus footprint is merely setwise-stabilized can enter a cover that double-covers the plane — false-positive risk only. All 37 stored anisohedral examples were re-derived with such orbits forbidden; every minimum matched its published k.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>The star 10-rhombille</b>
+  <span class="d">Proven non-tiler, aligned Heesch number exactly 3 — depth-3 surround found and depth-4 refuted. The project's flagship question, closed.</span></span></li>
 </ul>
 
 <h2>How the engine works</h2>
