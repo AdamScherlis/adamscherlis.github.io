@@ -1,0 +1,8 @@
+<svg width="34" height="34" viewBox="-14 -14 128 128"><style>
+ .sh{fill:#e7eef4;stroke:#33638a}
+ .sh2{fill:#f5ecd8;stroke:#33638a}
+ @media (prefers-color-scheme: dark){
+  .sh{fill:#1d2b38;stroke:#7aaccf}
+  .sh2{fill:#33290f;stroke:#7aaccf}
+ }
+</style><polygon points="63,100 37,100 5,68 50,18 95,68" class="sh" fill="none" stroke-width="7"/></svg>

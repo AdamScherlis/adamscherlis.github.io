@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.60 -5.80 5.70 7.26" width="100%"><style>
+ .sh{fill:#e7eef4;stroke:#33638a}
+ .sh2{fill:#f5ecd8;stroke:#33638a}
+ @media (prefers-color-scheme: dark){
+  .sh{fill:#1d2b38;stroke:#7aaccf}
+  .sh2{fill:#33290f;stroke:#7aaccf}
+ }
+</style>
+<polygon points="0.000,-0.000 3.000,-0.000 1.500,-0.866" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="3.000,-0.000 1.500,-2.598 1.500,-0.866" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="1.500,-2.598 4.500,-2.598 3.000,-3.464" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="4.500,-2.598 3.000,-5.196 3.000,-3.464" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="0.000,-0.000 1.500,0.866 3.000,-0.000" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="3.000,-0.000 3.000,-1.732 1.500,-2.598" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="1.500,-2.598 3.000,-1.732 4.500,-2.598" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="4.500,-2.598 4.500,-4.330 3.000,-5.196" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="3.000,-0.000 4.500,-2.598 3.000,-1.732" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="3.000,-0.000 4.500,-0.866 4.500,-2.598" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+</svg>

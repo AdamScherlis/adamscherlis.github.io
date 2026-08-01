@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.60 -4.93 11.70 18.52" width="100%"><style>
+ .sh{fill:#e7eef4;stroke:#33638a}
+ .sh2{fill:#f5ecd8;stroke:#33638a}
+ @media (prefers-color-scheme: dark){
+  .sh{fill:#1d2b38;stroke:#7aaccf}
+  .sh2{fill:#33290f;stroke:#7aaccf}
+ }
+</style>
+<polygon points="0.000,3.464 1.500,4.330 3.000,3.464 3.000,-0.000 0.000,1.732" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="1.500,7.794 4.500,6.062 4.500,4.330 3.000,3.464 1.500,4.330" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="3.000,3.464 4.500,4.330 6.000,3.464 6.000,1.732 3.000,-0.000" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="6.000,1.732 7.500,0.866 7.500,-0.866 6.000,-1.732 3.000,-0.000" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="6.000,-1.732 7.500,-0.866 10.500,-2.598 7.500,-4.330 6.000,-3.464" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="1.500,11.258 3.000,12.124 4.500,11.258 4.500,9.526 1.500,7.794" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="4.500,9.526 6.000,8.660 6.000,6.928 4.500,6.062 1.500,7.794" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="4.500,6.062 6.000,6.928 9.000,5.196 6.000,3.464 4.500,4.330" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="6.000,3.464 9.000,5.196 9.000,1.732 7.500,0.866 6.000,1.732" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+<polygon points="4.500,11.258 7.500,12.990 7.500,9.526 6.000,8.660 4.500,9.526" class="sh2" stroke-width="0.09" stroke-linejoin="round"/>
+</svg>
