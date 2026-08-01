@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polyform Tiling — How the Algorithms Work</title>
+<style>
+:root {
+  --paper: #faf9f6;
+  --ink: #1f2833;
+  --muted: #5d6b7a;
+  --rule: #d8d5cc;
+  --accent: #33638a;
+  --accent-soft: #e7eef4;
+  --ok: #2e7d4f;
+  --ok-soft: #e4f0e8;
+  --pend: #96690f;
+  --pend-soft: #f5ecd8;
+  --card: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #151a20;
+    --ink: #e6e8ea;
+    --muted: #98a4b0;
+    --rule: #313a44;
+    --accent: #7aaccf;
+    --accent-soft: #1d2b38;
+    --ok: #6fbf8f;
+    --ok-soft: #1c2f24;
+    --pend: #d3a34a;
+    --pend-soft: #33290f;
+    --card: #1b222a;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #151a20; --ink: #e6e8ea; --muted: #98a4b0; --rule: #313a44;
+  --accent: #7aaccf; --accent-soft: #1d2b38; --ok: #6fbf8f; --ok-soft: #1c2f24;
+  --pend: #d3a34a; --pend-soft: #33290f; --card: #1b222a;
+}
+:root[data-theme="light"] {
+  --paper: #faf9f6; --ink: #1f2833; --muted: #5d6b7a; --rule: #d8d5cc;
+  --accent: #33638a; --accent-soft: #e7eef4; --ok: #2e7d4f; --ok-soft: #e4f0e8;
+  --pend: #96690f; --pend-soft: #f5ecd8; --card: #ffffff;
+}
+
+html { background: var(--paper); }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  line-height: 1.55;
+  font-size: 17px;
+}
+main { max-width: 60rem; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+
+header.masthead {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1.1rem;
+  margin-bottom: 2rem;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap;
+}
+.masthead h1 {
+  font-size: 1.9rem; margin: 0; font-weight: 600; letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.masthead .sub {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  color: var(--muted); font-size: 0.85rem; margin-top: 0.35rem;
+}
+.cells { display: flex; gap: 10px; align-items: center; padding-bottom: 0.2rem; }
+.cells svg { display: block; }
+.cells .lbl {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); text-align: center; margin-top: 3px;
+}
+
+h2 {
+  font-size: 1.25rem; font-weight: 600; margin: 2.6rem 0 0.4rem;
+  text-wrap: balance;
+}
+h2 .stage {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); display: block; margin-bottom: 0.15rem;
+}
+p { max-width: 42rem; }
+p.note { color: var(--muted); font-size: 0.92rem; max-width: 42rem; }
+a { color: var(--accent); }
+
+.status {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  display: inline-block; padding: 0.1rem 0.55rem; border-radius: 99px;
+  font-size: 0.72rem; letter-spacing: 0.04em; font-weight: 600;
+  vertical-align: 0.12em;
+}
+.status.ok { background: var(--ok-soft); color: var(--ok); }
+.status.pend { background: var(--pend-soft); color: var(--pend); }
+.status.run { background: var(--accent-soft); color: var(--accent); }
+
+.tablewrap { overflow-x: auto; margin: 1rem 0 0.4rem; }
+table {
+  border-collapse: collapse;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.86rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 34rem;
+}
+caption {
+  caption-side: top; text-align: left; font-size: 0.78rem;
+  color: var(--muted); padding-bottom: 0.4rem; letter-spacing: 0.03em;
+}
+th, td { padding: 0.32rem 0.7rem; text-align: right; }
+th {
+  font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600;
+  border-bottom: 1.5px solid var(--ink);
+}
+td { border-bottom: 1px solid var(--rule); }
+tr:hover td { background: var(--accent-soft); }
+th:first-child, td:first-child { text-align: left; }
+
+.legend {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem;
+}
+
+.method {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 1.1rem 1.4rem; margin-top: 1rem; max-width: 44rem;
+}
+.method p { font-size: 0.95rem; margin: 0.5rem 0; }
+code {
+  font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+  font-size: 0.85em; background: var(--accent-soft); padding: 0.05em 0.3em;
+  border-radius: 3px;
+}
+footer {
+  margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--rule);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  color: var(--muted); font-size: 0.78rem;
+}
+
+/* --- additions for this page ------------------------------------------ */
+.fig {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 1rem; margin-top: 1rem; max-width: 44rem;
+}
+.fig.wide { max-width: 56rem; }
+.fig img, .fig > svg { width: 100%; height: auto; display: block; border-radius: 4px; }
+.fig .legend { margin-top: 0.5rem; }
+td.lft, th.lft { text-align: left; }
+.pipe text, .cor text {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+.pipe .t { font-size: 12px; font-weight: 600; fill: var(--ink); }
+.pipe .s { font-size: 10px; fill: var(--muted); }
+.pipe .yn { font-size: 9.5px; fill: var(--muted); }
+.pipe .b { fill: var(--card); stroke: var(--rule); }
+.pipe .w { stroke: var(--muted); fill: none; stroke-width: 1.3; }
+.pipe .pok { fill: var(--ok-soft); }
+.pipe .tok { font-size: 11px; font-weight: 600; fill: var(--ok); }
+.pipe .ppd { fill: var(--pend-soft); }
+.pipe .tpd { font-size: 11px; font-weight: 600; fill: var(--pend); }
+.pipe .pac { fill: var(--accent-soft); }
+.pipe .tac { font-size: 11px; font-weight: 600; fill: var(--accent); }
+.cor .t { font-size: 12px; fill: var(--muted); }
+.cor .n { font-size: 12px; font-weight: 600; fill: var(--ink); }
+</style>
+
+<main>
+<header class="masthead">
+  <div>
+    <h1>Polyform tiling &mdash; how the algorithms work</h1>
+    <div class="sub">the machinery behind the <a href="./">validation ledger</a>: from integer cell codes to DRAT certificates &middot; July 2026</div>
+  </div>
+  <div class="cells" aria-hidden="true">
+    <div>
+      <svg width="34" height="34" viewBox="-4 -4 108 108"><rect x="0" y="0" width="100" height="100" fill="none" stroke="var(--accent)" stroke-width="7"/></svg>
+      <div class="lbl">omino</div>
+    </div>
+    <div>
+      <svg width="34" height="34" viewBox="-12 -12 124 124"><polygon points="0,100 100,100 100,42 50,14" fill="none" stroke="var(--accent)" stroke-width="7"/></svg>
+      <div class="lbl">kite</div>
+    </div>
+    <div>
+      <svg width="34" height="34" viewBox="-14 -14 128 128"><polygon points="63,100 37,100 5,68 50,18 95,68" fill="none" stroke="var(--accent)" stroke-width="7"/></svg>
+      <div class="lbl">cairo</div>
+    </div>
+  </div>
+</header>
+
+<p>
+The <a href="./">results page</a> reports what this project found: complete tiling
+classifications for polyforms on all eleven Laves grids, validated against
+<a href="https://www.polyomino.org.uk/mathematics/polyform-tiling/">Joseph Myers's tables</a>
+where tables exist and extended to seven families where they don't. This page explains
+<i>how</i> &mdash; the algorithms, the data structures, and the proofs, written for a reader who
+knows what a symmetry group is but has never seen tiling-classification software. Everything
+described here is implemented in a few thousand lines of Python (plus a SAT solver and a
+proof checker); nothing uses floating point, and every geometric fact the engine relies on is
+machine-checked at startup.
+</p>
+
+<h2><span class="stage">Part 1 &middot; the question</span>What &ldquo;tiles the plane&rdquo; means, and how simply</h2>
+
+<p>
+A <b>polyform</b> is a finite set of cells of a fixed periodic grid &mdash; squares, hexagons,
+kites, Cairo pentagons &mdash; glued edge to edge. It <b>tiles the plane</b> if congruent copies
+(rotations and reflections allowed, all aligned to the same grid) can cover the plane with no
+gaps and no overlaps. That single yes/no question hides a hierarchy of <i>how simply</i> a shape
+tiles, and the hierarchy is what gets classified. The measuring stick is the
+<b>isohedral number</b>: in a tiling, the symmetry group of the whole tiling acts on the tiles,
+carving them into orbits; a tiling is <b>k-isohedral</b> if it has k orbits, and a shape's
+isohedral number is the smallest k over all its tilings. If every copy is
+&ldquo;the same tile seen from the same angle&rdquo; &mdash; one orbit &mdash; the tiling is
+<b>isohedral</b> (k&#8202;=&#8202;1). A shape whose <i>best</i> tiling needs k&#8202;&ge;&#8202;2
+orbits is <b>k-anisohedral</b>: it tiles, but only inhomogeneously, with copies playing
+genuinely different roles. Below isohedral sit two even simpler classes worth splitting out,
+because they admit fast special-purpose tests: tiling by <b>translations alone</b>, and tiling by
+translations plus a single <b>180&deg; rotation</b> (the engine's version of the Conway-criterion
+class). At the other extreme a shape may be a proven <b>non-tiler</b> &mdash; or it may sit in the
+gap that makes the subject interesting.
+</p>
+
+<figure class="fig wide" style="margin-top:1.2rem;">
+<svg class="pipe" viewBox="0 0 900 208" role="img" aria-label="The classification pipeline: holes, translation, 180 degrees, isohedral, non-tiler proof, k-orbit search, unresolved">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 9 5 L 0 9 z" fill="var(--muted)"/></marker></defs>
+<g>
+<rect class="b" x="6" y="22" width="112" height="44" rx="7"/>
+<text class="t" x="62" y="41" text-anchor="middle">holes?</text>
+<text class="s" x="62" y="56" text-anchor="middle">flood fill &middot; &sect;3</text>
+<rect class="b" x="150" y="22" width="112" height="44" rx="7"/>
+<text class="t" x="206" y="41" text-anchor="middle">translations?</text>
+<text class="s" x="206" y="56" text-anchor="middle">torus transversal &middot; &sect;4</text>
+<rect class="b" x="294" y="22" width="112" height="44" rx="7"/>
+<text class="t" x="350" y="41" text-anchor="middle">180&deg; rotation?</text>
+<text class="s" x="350" y="56" text-anchor="middle">p2 quotient &middot; &sect;4</text>
+<rect class="b" x="438" y="22" width="112" height="44" rx="7"/>
+<text class="t" x="494" y="41" text-anchor="middle">isohedral?</text>
+<text class="s" x="494" y="56" text-anchor="middle">1-orbit cover &middot; &sect;4</text>
+<rect class="b" x="582" y="22" width="112" height="44" rx="7"/>
+<text class="t" x="638" y="41" text-anchor="middle">provably no tiling?</text>
+<text class="s" x="638" y="56" text-anchor="middle">coronas, SAT &middot; &sect;5&ndash;6</text>
+<rect class="b" x="726" y="22" width="112" height="44" rx="7"/>
+<text class="t" x="782" y="41" text-anchor="middle">k = 2 &hellip; k<tspan font-size="8" dy="2">max</tspan><tspan dy="-2">?</tspan></text>
+<text class="s" x="782" y="56" text-anchor="middle">k-orbit cover &middot; &sect;4, 6</text>
+<line class="w" x1="118" y1="44" x2="146" y2="44" marker-end="url(#ah)"/>
+<line class="w" x1="262" y1="44" x2="290" y2="44" marker-end="url(#ah)"/>
+<line class="w" x1="406" y1="44" x2="434" y2="44" marker-end="url(#ah)"/>
+<line class="w" x1="550" y1="44" x2="578" y2="44" marker-end="url(#ah)"/>
+<line class="w" x1="694" y1="44" x2="722" y2="44" marker-end="url(#ah)"/>
+<text class="yn" x="132" y="38" text-anchor="middle">no</text>
+<text class="yn" x="276" y="38" text-anchor="middle">no</text>
+<text class="yn" x="420" y="38" text-anchor="middle">no</text>
+<text class="yn" x="564" y="38" text-anchor="middle">no</text>
+<text class="yn" x="708" y="38" text-anchor="middle">no</text>
+<line class="w" x1="62" y1="66" x2="62" y2="98" marker-end="url(#ah)"/>
+<line class="w" x1="206" y1="66" x2="206" y2="98" marker-end="url(#ah)"/>
+<line class="w" x1="350" y1="66" x2="350" y2="98" marker-end="url(#ah)"/>
+<line class="w" x1="494" y1="66" x2="494" y2="98" marker-end="url(#ah)"/>
+<line class="w" x1="638" y1="66" x2="638" y2="98" marker-end="url(#ah)"/>
+<line class="w" x1="782" y1="66" x2="782" y2="98" marker-end="url(#ah)"/>
+<text class="yn" x="72" y="86">yes</text>
+<text class="yn" x="216" y="86">yes</text>
+<text class="yn" x="360" y="86">yes</text>
+<text class="yn" x="504" y="86">yes</text>
+<text class="yn" x="648" y="86">yes</text>
+<text class="yn" x="792" y="86">yes</text>
+<rect class="ppd" x="30" y="102" width="64" height="24" rx="12"/>
+<text class="tpd" x="62" y="118" text-anchor="middle">hole</text>
+<rect class="pok" x="152" y="102" width="108" height="24" rx="12"/>
+<text class="tok" x="206" y="118" text-anchor="middle">translation</text>
+<rect class="pok" x="308" y="102" width="84" height="24" rx="12"/>
+<text class="tok" x="350" y="118" text-anchor="middle">180&deg;</text>
+<rect class="pok" x="448" y="102" width="92" height="24" rx="12"/>
+<text class="tok" x="494" y="118" text-anchor="middle">isohedral</text>
+<rect class="ppd" x="586" y="102" width="104" height="24" rx="12"/>
+<text class="tpd" x="638" y="118" text-anchor="middle">non-tiler</text>
+<rect class="pok" x="714" y="102" width="136" height="24" rx="12"/>
+<text class="tok" x="782" y="118" text-anchor="middle">k-anisohedral</text>
+<line class="w" x1="782" y1="126" x2="782" y2="152" marker-end="url(#ah)"/>
+<text class="yn" x="774" y="144" text-anchor="end">none found, and no proof either</text>
+<rect class="pac" x="676" y="156" width="212" height="24" rx="12" stroke="var(--accent)" stroke-dasharray="4 3" fill="var(--accent-soft)"/>
+<text class="tac" x="782" y="172" text-anchor="middle">unresolved &mdash; the aperiodic signature</text>
+<text class="s" x="10" y="150">Each verdict excludes everything to its left, so the hierarchy is a partition:</text>
+<text class="s" x="10" y="166">hole &middot; translation &middot; 180&deg; &middot; isohedral &middot; k-anisohedral (min k) &middot; non-tiler &middot; unresolved.</text>
+<text class="s" x="10" y="188">A shape that survives everything &mdash; surrounds keep existing, no k-isohedral tiling at any</text>
+<text class="s" x="10" y="202">searched k &mdash; lands in the dashed pill. The hat and the turtle both did, blind.</text>
+</svg>
+<figcaption class="legend">The classifier pipeline, in the exact order the code runs it
+(<code>classify.py</code>). Cheap boundary-free tests go first; the expensive machinery only sees
+survivors. The dashed pill is not a failure mode but a finding: a shape whose coronas never stop
+but which tiles at no searched k is exactly what an aperiodic monotile looks like to a computer
+&mdash; Myers notes his programs would &ldquo;run for ever&rdquo; on one; this engine reports the
+evidence and stops.</figcaption>
+</figure>
+
+<p>
+The section numbers in the diagram are the plan of this page: shapes must first be enumerated
+(&sect;3) on a grid the engine can reason about exactly (&sect;2); tilings are found by an
+algebraic reduction to finite exact-cover problems (&sect;4); non-tilings are proved by a
+combinatorial search over coronas (&sect;5); both searches were later handed to a SAT solver with
+proof logging (&sect;6); decorations extend the whole pipeline to Wang-style matching rules
+(&sect;7); and &sect;8 is honest about performance against Myers's twenty-year-old C programs.
+</p>
+
+<h2><span class="stage">Part 2 &middot; the substrate</span>One engine, eleven grids</h2>
+
+<p>
+Classical polyomino code hard-wires the square lattice into every loop. This project instead
+treats the grid &mdash; the <b>base tiling</b> &mdash; as <i>data</i>. A backend describes one
+periodic tiling of the plane in purely combinatorial, integer terms:
+</p>
+<div class="method">
+<p><b>Cells are integer points.</b> Every cell is encoded injectively as a point of
+Z&sup2; (its <i>code</i>). A translation lattice L (spanned by two code vectors
+t&#8321;, t&#8322;) acts by addition, and finitely many <i>residues</i> represent the cell classes
+modulo L &mdash; one for the square grid, six kite classes, three rhombille classes.</p>
+<p><b>Symmetries are affine integer maps.</b> Every symmetry of the base tiling acts on codes as
+p &#8614; Mp + v, with M drawn from a finite point group and v &equiv; a fixed offset
+<code>aspect_base[M]</code> modulo L. The offsets matter: in non-symmorphic tilings
+(Cairo's p4g, the rhombille's p6m about a hexagon centre) a rotation or reflection only exists
+<i>composed with</i> a fractional translation, and the offset table is where that lives.</p>
+<p><b>Each cell has an exact polygon</b> with integer vertices in a second coordinate system.
+Edge and vertex adjacency are <i>derived</i> from the polygons by scanning which nearby cells
+share an edge or corner &mdash; never hand-entered.</p>
+<p><b>The axioms are machine-checked.</b> <code>validate()</code> verifies that residues decompose
+correctly, that the cell polygons exactly partition a fundamental domain (by shoelace area,
+in integers), that adjacency is symmetric, and that every claimed symmetry maps cells to cells
+preserving both adjacency relations, with closure under composition and inverse. A new grid is
+&ldquo;supported&rdquo; the moment its codes, matrices and polygons pass this audit.</p>
+</div>
+
+<figure class="fig wide">
+<img src="figs/algo-grids.svg" alt="Three Laves grids with integer cell codes: square grid, kite tiling with codes 4h plus m_d, rhombille tiling with codes twice the rhombus centre" loading="lazy">
+<figcaption class="legend">Three of the eleven backends, drawn from their own
+<code>cell_verts</code> tables. Polyominoes: the code <i>is</i> the cell. Polykites
+([3.4.6.4]): six kites meet at each lattice vertex h, and kite d at h gets code
+4h&#8202;+&#8202;m<sub>d</sub> in axial coordinates &mdash; the six m<sub>d</sub> are distinct
+mod 4, so decoding is a table lookup. Polyrhombilles ([3.6.3.6]): a rhombus is coded by twice its
+centre, giving residues (1,1), (1,4), (4,1) mod 6. One lattice step t&#8321; is drawn in each
+panel; note it is +(1,0) on codes for the square grid but +(4,0) and +(6,0) on the finer-grained
+code lattices.</figcaption>
+</figure>
+
+<p>
+All eleven <a href="https://en.wikipedia.org/wiki/Laves_tiling">Laves tilings</a> run through
+this one interface: square, triangular, hexagonal, kite [3.4.6.4], Cairo [3.3.4.3.4],
+rhombille [3.6.3.6], floret [3.3.3.3.6], prismatic [3.3.3.4.4], tetrakis [4.8.8] (whose
+tan-pair regions are the classical polyaboloes), kisrhombille [4.6.12] and triakis [3.12.12].
+Every algorithm in the rest of this page &mdash; enumeration, group enumeration, exact cover,
+corona search, SAT encodings &mdash; is written once, against the interface. There is also one
+<i>view</i>: <code>direct_view(B)</code> copies a backend and deletes the determinant&#8722;1
+matrices from its point group, which is the entire implementation of &ldquo;Spectre mode&rdquo;
+(one-sided shapes, reflection-free tilings).
+</p>
+<p class="note">
+Genericity earned its keep immediately: the engine's first real bug was kite-specific. On the
+square grid every integer translation of a candidate neighbour placement is a symmetry of the
+grid, so a placement test that forgets to ask &ldquo;is this isometry actually a symmetry of the
+base tiling?&rdquo; cannot fail there &mdash; on the kite grid it silently admits impossible
+neighbours. The fix (an explicit <code>is_symmetry</code> check on every placement) is invisible
+on ominoes and load-bearing everywhere else.
+</p>
+
+<h2><span class="stage">Part 3 &middot; enumeration</span>Counting shapes without repeating yourself</h2>
+
+<p>
+Before classifying shapes one must list them &mdash; every <i>free</i> polyform of size n,
+exactly once. The engine uses <b>Redelmeier's algorithm</b>, the standard for polyomino counting
+since 1981, generalised to any backend. Grow shapes cell by cell from a root, keeping a list of
+<i>untried</i> frontier cells; at each step, take the next untried cell, add it, recurse with the
+frontier extended by its new neighbours, then remove it and <i>permanently ban it</i> within this
+subtree. The ban is the whole trick: every fixed shape (shape up to translation) is generated by
+exactly one path through the tree, so nothing is generated twice and no isomorphism test is ever
+run during enumeration. Two backend-aware details replace the classic square-grid shortcuts: the
+root ranges over the residue classes (a kite shape can start on any of the six kite types), and
+&ldquo;cells before the root&rdquo; are banned in code order to prevent translated duplicates.
+</p>
+
+<figure class="fig wide">
+<img src="figs/algo-enum-tree.svg" alt="Redelmeier enumeration tree for polyominoes up to size 3, showing shared prefixes and canonical aspects" loading="lazy">
+<figcaption class="legend">The full enumeration tree for n&#8202;&le;&#8202;3 on the square grid
+(engine-verified: these are exactly its six fixed trominoes). Each edge adds one cell (gold) from
+the parent's untried list; the two subtrees share the root prefix and never produce the same
+fixed shape. Free shapes are then picked out by <i>canonical aspect</i>: a leaf is kept iff its
+translation-normalised form is the lexicographically smallest among all its rotations and
+reflections (green rings) &mdash; the L survives once out of four aspects, the I once out of
+two.</figcaption>
+</figure>
+
+<p>
+The canonical-aspect step deserves a remark, because Myers makes the same design choice for the
+same reason and says so: checking canonicity per shape is <i>not</i> the fastest way to count
+free polyforms (Redelmeier's own symmetry bookkeeping is), but when every surviving shape is
+about to pay for a full tiling classification, discarding non-canonical aspects early is far
+cheaper than classifying each shape eight or twelve times and untangling the overcount
+afterwards. Two more pieces round out this stage. <b>Holes</b>: flood-fill the complement of the
+shape inside a margin-padded bounding box from the rim; any unreached complement cell certifies a
+bounded hole, and holey shapes are classified instantly (a shape with a hole cannot tile &mdash;
+on these grids no single polyform fits inside its own hole boundary the right number of times,
+and Myers's hierarchy simply lists them separately). <b>Parallelism</b>: the tree is split at
+depth two into independent (root, second-cell) branches, each replayable in isolation &mdash;
+which is also a preview of &sect;8, because the tree's shared prefixes are exactly the structure
+a faster engine would exploit for classification itself, not just for counting.
+</p>
+
+<h2><span class="stage">Part 4 &middot; finding tilings</span>Periodic tilings are finite exact covers</h2>
+
+<p>
+Here is the engine's central idea. A periodic, grid-aligned tiling by a shape P has a wallpaper
+symmetry group G that is a subgroup of the base tiling's symmetry group W. Fix G and ask: what
+does a tiling with symmetry <i>exactly containing</i> G look like, seen through G's own eyes? The
+translations in G form a finite-index sublattice &Lambda; of the grid's lattice L, so the plane's
+cells collapse to a finite <b>quotient torus</b> &mdash; cells modulo &Lambda;, of which there are
+(index of &Lambda;) &times; (number of residues). A placement of P anywhere in the plane projects
+to a set of torus cells; the images of that placement under G's finitely many coset
+representatives form its <b>orbit</b>, and the orbit's projection is the <b>orbit mask</b>. The
+key identity, in both directions:
+</p>
+<div class="method">
+<p><b>A k-isohedral tiling with symmetry group G exists if and only if some k orbit masks
+exactly partition the torus.</b> Given such an exact cover, expanding the k placements through G
+and &Lambda; tiles the plane with k orbits of tiles; conversely any k-isohedral tiling, read
+modulo its own symmetry group, <i>is</i> such a cover. Minimising k over all candidate groups G
+therefore computes the isohedral number. Infinite geometry has become finite combinatorics.</p>
+</div>
+<p>
+For this to be an algorithm, the candidate groups must be enumerable. A subgroup
+G&#8202;&le;&#8202;W with translation sublattice &Lambda; of index m is determined by three finite
+pieces of data: a subgroup Q of the point group (which linear parts occur), a Q-invariant
+sublattice &Lambda; (a Hermite-normal-form basis), and an <b>offset cocycle</b>
+u:&#8202;Q&#8202;&rarr;&#8202;L/&Lambda; assigning each linear part its translational component,
+subject to the coherence condition
+u<sub>M&#8321;M&#8322;</sub>&#8202;=&#8202;N<sub>M&#8321;</sub>u<sub>M&#8322;</sub>&#8202;+&#8202;u<sub>M&#8321;</sub>&#8202;+&#8202;c(M&#8321;,M&#8322;)
+mod &Lambda; (the constant c absorbs the base tiling's own fractional offsets). Two groups
+differing by a coboundary &mdash; conjugation by a translation &mdash; give the same tilings, so
+cocycles are canonicalised modulo coboundaries, and whole groups modulo conjugacy in W. The
+enumeration depends only on (backend, m) and is cached; each group precomputes its coset
+representatives' permutation action on the torus. This is textbook group cohomology doing
+concrete work: the cocycle condition is <i>why</i> glide reflections and offset rotations come out
+right on p4g and p6m grids without any special-casing.
+</p>
+<p>
+The search itself (<code>isohedral.py</code>) is a lazy exact-cover backtracker: branch on the
+first uncovered torus cell, generate only the placements covering <i>that</i> cell, take each
+compatible orbit mask, recurse. Placements whose G-images partially overlap themselves are
+rejected outright (their orbit is geometrically impossible), and two admissibility filters prune
+groups before any search runs: an orbit with stabiliser of order s contributes exactly
+n&middot;|Q|/s cells, so |Q|, m, n and the shape's own symmetry order must satisfy a counting
+identity (&ldquo;stabiliser profiles&rdquo;); and an asymmetric shape can never live in a group
+where a non-identity element fixes a torus cell, since that element would have to be a symmetry
+of the tile covering it. The two fast pre-tests in the pipeline are degenerate cases of the same
+picture, cheap enough to skip group enumeration entirely: P tiles by <b>translations</b> iff its
+cells are a transversal of the torus for some index-(n/c) sublattice, and by <b>180&deg;</b> iff
+P plus a rotated copy is a transversal on the index-(2n/c) quotient with the half-turn adjoined.
+</p>
+
+<figure class="fig wide">
+<img src="figs/algo-torus-cover.svg" alt="The 2-anisohedral octomino: shape, its mirror image, the group, a tiling patch with torus classes labelled, and the two orbit masks covering all 32 classes exactly once" loading="lazy">
+<figcaption class="legend">The whole of &sect;4 in one genuine example, computed by the engine and
+drawn from its output: the <b>2-anisohedral octomino</b> (the smallest polyomino that tiles only
+inhomogeneously &mdash; Myers's first anisohedral entry). Its minimal group G has point part
+{1,&#8202;&rho;} and a sublattice &Lambda; of index 32, so the torus has 32 cell classes, and
+class(x,y)&#8202;=&#8202;x&#8202;&#8722;&#8202;3y mod 32 &mdash; the numbers written inside one
+fundamental domain of the tiling. Each orbit (blue = copies of P, orange = copies of the mirror
+P&prime;, dark/light = the two half-turn-related placements within an orbit) covers 16 of the 32
+classes; the two orbit-mask rows below cover every class exactly once, and expanding those four
+placements through G and &Lambda; is the tiling shown. No single orbit mask covers the torus for
+any candidate group &mdash; that exhaustive failure at k&#8202;=&#8202;1 is the <i>proof</i> the
+shape is anisohedral, not just the absence of a find.</figcaption>
+</figure>
+
+<p class="note">
+One honest subtlety, discovered by this project's own cross-checking (&sect;7): a placement that
+wraps far enough around a small torus can have an orbit mask that a group element stabilises
+<i>setwise</i> without stabilising the placement itself. Such a &ldquo;bogus orbit&rdquo; passes
+the mask-disjointness test yet expands to a configuration that covers the plane twice. It can
+only ever create false <i>positives</i> (phantom tilings), never false exclusions; a systematic
+audit re-derived all 37 stored anisohedral examples with bogus orbits forbidden and every
+published minimum k survived exactly.
+</p>
+<p>
+<b>How Myers does it, for contrast.</b> His programs search tilings tile-by-tile: start a tile in
+class 1, try neighbours in known or new classes, let the tiling's symmetries force copies, and
+backtrack on contradiction &mdash; a search whose states are partial tilings-with-markings, with
+the boundary criteria (Conway's criterion and the translation criterion) as the fast pre-tests.
+The exact-cover-over-enumerated-groups formulation here shares no code path, no search order and
+no intermediate representation with that. When the two approaches print identical tables for
+tens of thousands of shapes &mdash; and they do, through n&#8202;=&#8202;10 on ominoes and four
+validated families &mdash; the agreement is evidence about the mathematics, not about one
+program.
+</p>
+
+<h2><span class="stage">Part 5 &middot; proving non-tiling</span>Coronas, exhaustion, and Heesch numbers</h2>
+
+<p>
+Failure to find a tiling proves nothing &mdash; most shapes that don't tile need a different kind
+of argument, and it is Myers's argument, implemented in <code>nontiler.py</code> in four
+escalating stages. First, the <b>possible-neighbour list</b>: every placement of P that touches a
+fixed central copy without overlapping it and without enclosing a <i>pocket</i> that provably
+cannot be filled (a bounded region whose area isn't a positive multiple of n cannot be tiled by
+copies of P, so any pair of tiles enclosing one is impossible in any tiling). Second,
+<b>arc-consistency pruning</b>: neighbour Y dies if some cell adjacent to P could no longer be
+covered by any surviving neighbour disjoint from Y &mdash; if placing Y strangles the ring, Y
+appears in no tiling. Iterate to a fixed point; if some ring cell ends up uncoverable outright,
+P is a non-tiler with no search at all, which is how most non-tilers actually fall. Third,
+<b>corona elimination</b>: enumerate the complete surrounds (<i>coronas</i>) of the centre; a
+neighbour that appears in none of them can never occur next to <i>any</i> copy of P, so delete it
+everywhere and repeat &mdash; no coronas at all is again an immediate proof.
+</p>
+
+<figure class="fig">
+<svg class="cor" viewBox="0 0 500 224" role="img" aria-label="Concentric coronas around a centre tile, defining surround depth">
+<rect x="28" y="16" width="192" height="192" rx="16" fill="var(--accent-soft)" opacity="0.35" stroke="var(--rule)"/>
+<rect x="52" y="40" width="144" height="144" rx="12" fill="var(--accent-soft)" opacity="0.7" stroke="var(--rule)"/>
+<rect x="76" y="64" width="96" height="96" rx="9" fill="var(--accent-soft)" stroke="var(--rule)"/>
+<rect x="100" y="88" width="48" height="48" rx="6" fill="var(--accent)"/>
+<text class="n" x="124" y="117" text-anchor="middle" fill="var(--paper)" style="fill:var(--paper)">P</text>
+<text class="t" x="124" y="77" text-anchor="middle">corona 1</text>
+<text class="t" x="124" y="55" text-anchor="middle">corona 2</text>
+<text class="t" x="124" y="32" text-anchor="middle">corona 3</text>
+<text class="n" x="256" y="52">depth-3 surround exists</text>
+<text class="t" x="256" y="72">= centre and every tile at corona</text>
+<text class="t" x="256" y="90">distance &le; 2 is completely surrounded</text>
+<text class="n" x="256" y="126">no depth-d surround exists</text>
+<text class="t" x="256" y="146">= P cannot tile the plane</text>
+<text class="t" x="256" y="172">(a tiling would contain surrounds</text>
+<text class="t" x="256" y="190">of every depth around every tile)</text>
+</svg>
+<figcaption class="legend">Surround depth is measured on the touch graph of tiles, not in cells:
+a depth-d surround is a finite patch in which the centre and every tile within corona distance
+d&#8722;1 has its entire neighbourhood ring covered. The engine's searcher memoises pair
+compatibility by relative isometry and recomputes exact distances by BFS, so a returned patch
+really has the property &mdash; and a fully exhausted search really rules it out.</figcaption>
+</figure>
+
+<p>
+Fourth, for the survivors, the <b>depth-d surround search</b>: try to build the patch of the
+figure using only surviving neighbour relations, checked for every touching pair. If no depth-d
+surround exists for some d, P is a non-tiler &mdash; a tiling would contain one around every tile.
+The search is exponential in the corona depth (branching factor: dozens of placements per
+frontier cell), which is precisely the tail that &sect;6's SAT engine now owns.
+</p>
+<p>
+The same machinery, run with different settings, computes <b>Heesch numbers</b> &mdash; the
+maximum number of times a non-tiler can be fully wrapped in coronas &mdash; but with a crucial
+soundness switch. All the reductions above assume the configuration extends to a <i>tiling of the
+plane</i>; a finite surround has no such obligation, and a neighbour pruned as
+&ldquo;impossible in any tiling&rdquo; may be exactly what completes a third corona.
+Myers flags this himself: the neighbour-list optimisations are
+&ldquo;fundamentally incompatible with computing Heesch numbers.&rdquo; So certified Heesch
+<i>lower</i> bounds (&ldquo;a depth-3 surround exists&rdquo;) are computed on the <b>raw,
+unpruned</b> candidate universe, where any found patch is genuine; and an exact Heesch number
+additionally needs exhaustion &mdash; &ldquo;no depth-4 surround&rdquo; &mdash; over that same raw
+universe. Exhaustion over the pruned lists proves non-tiling; only exhaustion over the raw lists
+pins the Heesch number.
+</p>
+
+<figure class="fig">
+<img src="figs/star-surround-d3.png" alt="The star 10-rhombille wrapped in three complete coronas, its maximal surround" loading="lazy">
+<figcaption class="legend">Everything in this section, on one shape: the star 10-rhombille's
+maximal surround &mdash; centre (dark), three complete coronas (blues), outer filler tiles
+(gold) that support the third corona without being surrounded themselves. Arc-consistency and
+corona elimination could not kill the star; the recursive depth-3 search burned 95 million nodes
+without an answer; the SAT engine of &sect;6 found this 88-tile patch in 0.2&#8202;s and then
+proved no fourth corona exists &mdash; so the star's aligned Heesch number is exactly 3, and it
+is a non-tiler.</figcaption>
+</figure>
+
+<h2><span class="stage">Part 6 &middot; the SAT pivot</span>Teaching an industrial solver the two hard searches</h2>
+
+<p>
+By late July the project's two remaining walls were the same wall twice: a deep backtracking
+search re-deriving the same local contradictions in exponentially many contexts. That is the
+problem class modern <b>CDCL SAT solvers</b> were built for &mdash; conflict-driven clause
+learning turns every dead end into a learned clause, a reusable lemma pruning the entire rest of
+the tree, where the hand-rolled DFS re-discovers it branch by branch. Both searches were
+re-encoded as propositional formulas; the recursive engines remain as validators and for cheap
+positive cases.
+</p>
+<div class="method">
+<p><b>Surround existence as SAT</b> (<code>scripts/sat_surround.py</code>). One Boolean variable
+x<sub>i</sub> per candidate placement, over a universe provably closed under everything the DFS
+could reach (the BFS closure of the centre under the alive-both-ways neighbour relation, to
+depth d). Clauses: the centre is asserted; each grid cell carries an <b>at-most-one</b>
+constraint over the placements covering it (pairwise for &le;&#8202;6 coverers, Sinz sequential
+encoding beyond); each <i>touching</i> pair whose relative isometry fails the neighbour test gets
+a binary conflict clause; and level variables, only ever forced upward, propagate corona
+distance so that every tile within distance d&#8722;1 must have its ring covered. SAT decodes to
+a patch that is independently re-verified; UNSAT is the same claim the DFS's
+&ldquo;exhausted&rdquo; verdict makes, over the same universe.</p>
+<p><b>k-orbit exclusion as SAT</b> (<code>scripts/sat_isohedral.py</code>). Per candidate group
+G: one variable per distinct orbit mask, an <b>exactly-one</b> constraint per torus cell
+(at-least-one plus at-most-one &mdash; strictly stronger propagation than the DFS's pairwise
+disjointness), and a totalizer <b>cardinality bound</b>: at most K<sub>G</sub> orbits selected.
+One UNSAT query then excludes <i>every</i> admissible k&#8202;&le;&#8202;K<sub>G</sub> for that
+group at once; on SAT the bound is tightened clause by clause until the group's exact minimum
+appears. Positives are decoded to concrete placements and re-verified at plane level (with bogus
+orbits detected and, if needed, forbidden and re-solved); the minimum over groups is the
+isohedral number.</p>
+<p><b>DRAT certificates.</b> A refutation is only as trustworthy as the code that produced it
+&mdash; unless the solver logs a <b>DRAT proof</b>, a checkable derivation of the empty clause
+that the independent checker <code>drat-trim</code> (a ~3,000-line C program, no shared code)
+verifies clause by clause. Every load-bearing UNSAT in the project &mdash; the star's depth-4
+refutation in both candidate universes, all five heptahex exhaustions, the star's full
+k&#8202;&le;&#8202;15 exclusion (180 per-group refutations) &mdash; carries a verified DRAT log,
+with negative controls (delete a core lemma, watch verification fail). The verdicts now rest on
+the <i>encodings</i>, which are small, documented, and cross-validated against the recursive
+engines in both directions &mdash; not on trusting any search. One field note for posterity:
+pysat's cadical binding accepts <code>with_proof=True</code> and silently emits empty proofs;
+the pipeline hard-fails on empty logs and certifies with glucose42.</p>
+</div>
+
+<div class="tablewrap">
+<table>
+<caption>What the pivot bought, on the project's hardest instances (same machine, same candidate universes)</caption>
+<tr><th class="lft">question</th><th class="lft">recursive engine</th><th class="lft">SAT engine</th><th class="lft">certificate</th></tr>
+<tr><td>star: depth-3 surround</td><td class="lft">95M nodes on 7 cores, hours, inconclusive</td><td class="lft">found in 0.2&#8202;s (88-tile patch)</td><td class="lft">patch re-verified by the DFS engine</td></tr>
+<tr><td>star: depth-4 surround</td><td class="lft">out of reach</td><td class="lft">UNSAT in 7&#8202;s &rarr; Heesch = 3, non-tiler</td><td class="lft">DRAT, both universes + second solver</td></tr>
+<tr><td>star: k-isohedral exclusion</td><td class="lft">k &le; 15 in 4.3 CPU-h</td><td class="lft">k &le; 18 in 7 min</td><td class="lft">DRAT for all 180 group refutations, k &le; 15</td></tr>
+<tr><td>hat: k-isohedral exclusion</td><td class="lft">k &le; 7</td><td class="lft">k &le; 14 in 30&#8202;s</td><td class="lft">positive controls (finds known min-k cases)</td></tr>
+<tr><td>turtle: k-isohedral exclusion</td><td class="lft">k &le; 8</td><td class="lft">k &le; 14 in 45&#8202;s</td><td class="lft">same, plus Heesch &ge; 7 via SAT surrounds</td></tr>
+<tr><td>5 heptahexes + 9 octahexes, unresolved</td><td class="lft">node budgets hit, parked</td><td class="lft">exhausted at depths 2&ndash;4, seconds each</td><td class="lft">DRAT; matches Myers's non-tiler counts</td></tr>
+</table>
+</div>
+<p class="note">On the nine cross-validation cases where both engines finished, verdicts agree in
+both directions with roughly 500&times; speedups on exhaustive answers. The division of labour
+that emerged: SAT owns exclusions and deep exhaustions, the recursive engine keeps cheap
+positives, seeded warm starts, and its role as an independent check on every SAT-found
+patch.</p>
+
+<h2><span class="stage">Part 7 &middot; decorations</span>Bumps, dents, a parity lemma &mdash; and three audits</h2>
+
+<p>
+The Spectre monotile works by <i>edge decoration</i>: chiral notches that force which neighbours
+may meet. The engine models this with Wang-style labels on boundary edges: label 0 matches
+itself, labels 1 and 2 are bump/dent partners matching only each other, and a
+<i>mirror map</i> applied under reflections makes a notch chiral (a reflected bump no longer
+mates). A decorated shape's placement compatibility depends only on the relative isometry of two
+copies, so the entire &sect;4&ndash;5 machinery lifts: the neighbour filter drops label-clashing
+placements before pruning even starts, and the exact-cover validator accepts only covers whose
+seams match everywhere. The question the machinery answers: <b>can a matching rule raise a
+shape's isohedral number?</b>
+</p>
+<p>
+Most decorations never reach a search, because of a <b>parity lemma</b>. Suppose the mirror map
+is the identity and a decoration carries b bumps and d dents of one pair, b&#8202;&ne;&#8202;d.
+In any tiling every bump lies on an edge shared with a neighbour, where it must meet a dent,
+and vice versa &mdash; so bumps and dents pair up bijectively across shared edges. A disc
+containing N tiles then holds Nb bumps and Nd dents, matched to each other except along the
+disc's O(&radic;N) boundary. As N grows this forces b&#8202;=&#8202;d &mdash; so an unbalanced
+decoration tiles at <i>no</i> k whatsoever, and on an eight-edge shape this one count dismisses
+5,454 of 6,561 three-label decorations before any search runs.
+</p>
+<p>
+The honest story of this subsystem, though, is that <b>it took three audits to earn its
+numbers</b>, and the audit trail is the most instructive thing on this page. The v1 sweeps
+published a &ldquo;4-anisohedral&rdquo; decorated L-tromino; a reader looking at the figure
+noticed bump discs <i>overlapping</i> &mdash; bump-meets-bump contacts no valid tiling could
+contain. The validator's window over lattice translates was fixed-size in Hermite coordinates,
+and skewed sublattice bases let genuinely touching tiles escape it: phantom tilings,
+a <i>too-permissive</i> bug. v2 fixed the window and re-swept; a reader then noticed the new
+&ldquo;4-orbit&rdquo; figure <i>looked</i> transitive &mdash; and brute force agreed: orbit count
+1. Placements had been identified by cell footprint, which conflates mirror aspects of a
+symmetric shape whose labels differ; the decoder could pick the label-wrong aspect and
+<i>reject</i> genuine covers, silently inflating every k: a <i>too-strict</i> bug, invisible to
+every test that only checks accepted answers. The v3 engine keys placements by label class,
+decodes orbits from per-orbit seed isometries through the group action &mdash; and every positive
+is re-verified by a brute-force <b>orbit-count oracle</b> that recomputes the found tiling's full
+decorated symmetry group from scratch: 160 of 160 k&#8202;=&#8202;2 verdicts exact.
+</p>
+
+<figure class="fig">
+<img src="figs/decorated-l-tromino-2orbit.svg" alt="A 2-orbit tiling by a decorated L-tromino, with one disc marking each matched bump/dent edge" loading="lazy">
+<figcaption class="legend">The surviving truth, drawn: a minimal 2-orbit tiling of an L-tromino
+carrying a single bump/dent pair on two of its eight edges &mdash; one of exactly eighty such
+decorations. Each disc marks a matched edge, coloured by the bump-carrier's orbit. The
+undecorated L-tromino tiles by translation; the decoration provably doubles its isohedral number,
+and the oracle confirms no compatible tiling does better. Note what this figure genre earned: a
+figure exposed the v1 bug, a figure exposed the v2 bug.</figcaption>
+</figure>
+
+<p>
+The v3 verdict is duller and firmer than either buggy version's: all eleven Laves unit
+prototiles are <b>decoration-rigid</b> (every 3-label bump/dent decoration leaves them isohedral
+or kills tiling outright &mdash; including the hexagon, whose prized v2
+&ldquo;k&#8202;=&#8202;3&rdquo; was a phantom), the domino is rigid too, and the L-tromino,
+I-tromino and O-tetromino each own a genuine population of 2-anisohedral decorations (80, 48, 32
+of 6,561). No edge-matching decoration of any shape tested exceeds k&#8202;=&#8202;2. Two further
+audit episodes bracket these: an instrumentation audit (search-cap hits had been misreadable as
+found surrounds) and the &sect;4 bogus-orbit audit, both ending in clean re-derivations. The
+lesson this project would pass on: every one of the four bugs was caught by an <i>independent
+artifact</i> &mdash; a figure, an oracle, a second engine &mdash; contradicting the search code,
+never by the search code testing itself. Compute everything twice, and draw it.
+</p>
+
+<h2><span class="stage">Part 8 &middot; performance</span>The honest gap, decomposed</h2>
+
+<p>
+Time for the uncomfortable comparison. This engine classifies a cairo 9-cell shape in about
+12.5&#8202;ms on a current laptop (after a 3.6&times; profiling win in the pocket check), which
+extrapolates to roughly 3 CPU-hours for all 868,238 free 12-cairos &mdash; matching what the runs
+actually took. Myers's tables classify <i>every free polyomino through
+n&#8202;=&#8202;25</i> &mdash; about 2.56&#8202;&times;&#8202;10&sup1;&sup2; shapes &mdash; and he
+computed them in feasible time two decades ago. At 12.5&#8202;ms per shape that workload costs
+on the order of a thousand CPU-years: the per-shape gap is a factor of
+<b>10&#8309;&ndash;10&#8310;</b>, and it decomposes into three unequal parts.
+</p>
+<div class="tablewrap">
+<table>
+<caption>Where the orders of magnitude live (from the 2026-07-31 profiling notes)</caption>
+<tr><th class="lft">source</th><th>factor</th><th class="lft">what it is</th></tr>
+<tr><td>language constant</td><td>~50&ndash;100&times;</td><td class="lft">Python objects and dicts vs. C bitboards; buys nothing mathematically</td></tr>
+<tr><td><b>architecture</b></td><td>~10&sup2;&ndash;10&#8308;&times;</td><td class="lft">classifying every shape from scratch vs. fusing classification into the enumeration tree</td></tr>
+<tr><td>algorithmic tails</td><td>&mdash;</td><td class="lft">deep surrounds, high-k exclusion: this engine now <i>wins</i> these via SAT+DRAT, but they are rare, so the average barely moves</td></tr>
+</table>
+</div>
+<p>
+Within a single classification the profile is lopsided: Redelmeier enumeration is amortised
+O(n) per fixed shape and negligible; the arc-consistency fixpoint is cheap; exact cover on the
+tiny k&#8202;&le;&#8202;4 tori is negligible. Around 90% of the time goes into building the
+possible-neighbour context: O(a&middot;n&sup2;) candidate placements (a = aspects), each paying
+an O(n&sup2;) bounding-box flood fill for the pocket check &mdash; O(a&middot;n&#8308;)-ish per
+shape. That is the wall between the current engine and pushing every family two sizes deeper,
+and the queued fixes are ranked by return: restrict the pocket flood to the perimeter band a
+placement actually disturbs (expected 3&ndash;10&times;), bitboard the flood fills
+(5&ndash;20&times;), and only then consider heavier surgery.
+</p>
+<p>
+The heavier surgery is the architectural one, and it is worth stating precisely because it is
+what &ldquo;Myers-scale&rdquo; means. His programs interleave classification with Redelmeier's
+tree: a child shape is its parent plus one cell, so neighbour lists, boundary criteria and
+filter state can be maintained <i>incrementally</i>, the way the enumeration itself already
+shares prefixes (&sect;3). The average shape then costs microseconds of inherited-filter
+updates, and the expensive machinery of &sect;&sect;4&ndash;5 runs only on the small residue
+that survives &mdash; whereas this engine pays full price per shape, by design, in exchange for
+an engine that is grid-generic, auditable, and pluggable (the same per-shape interface is what
+let SAT, decorations and Spectre mode drop in cleanly). Where each side wins, today: Myers's
+architecture wins throughput and always will; this engine wins breadth (eleven grids from one
+code path), the hard tails (a 4.3 CPU-hour exclusion re-done in seven minutes, surrounds his
+heuristics must time out on), and certification (DRAT logs replace trust in search code). The
+planned next step is an honest same-machine benchmark of a faithful reimplementation of
+Myers's class-based backtracking &mdash; and, if the frontier hunger persists, fusing this
+engine's cheap filters into its own enumeration tree, which is the one change that moves the
+architecture row of the table.
+</p>
+
+<footer>
+Companion to the <a href="./">validation ledger</a> &middot; engine: <code>~/src/polyform</code>,
+branch <code>engine</code> &middot; Python; SAT via PySAT (glucose42/cadical), UNSAT proofs
+checked by <code>drat-trim</code> &middot; algorithms after J. Myers, <i>Polyform tiling</i>,
+polyomino.org.uk (retrieved 29 July 2026), except where noted &middot; all figures drawn from
+engine output.
+</footer>
+</main>
+</html>
