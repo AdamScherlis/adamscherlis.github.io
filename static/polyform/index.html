@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 08:33
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 09:02
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1628,6 +1628,37 @@ winner: route by difficulty, exact cover first and the class search as tail-brea
 of his devices we cannot currently exploit — possible-neighbour bitmaps used <i>inside</i> the
 search, and forced-tile propagation read as unit propagation over class-relative surround
 variables.</p>
+
+<h2><span class="stage">Stage 19 · new results</span>The shape of two and a half million answers <span class="status ok">every family, one picture</span></h2>
+<p class="note">Twelve families, 2.5 million classifications, and one question worth asking of all of
+them at once: <b>what fraction of shapes actually tile the plane, and how does that change with
+size?</b> Twelve series is far past what any honest categorical palette can carry, so each family
+gets its own panel; within a panel the only colour is odd versus even size, because that turns out
+to be the story.</p>
+<div style="max-width:44rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/tiling-rate-by-family.svg" alt="Small multiples: percentage of shapes that tile, by family and size" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">Percentage of free shapes of each size that tile the plane (rows with fewer than
+20 shapes omitted). The four classical families decline smoothly; the Laves families built from several cells per
+translation unit oscillate violently, and the oscillation is not noise.</div>
+</div>
+<p class="note">The top row behaves the way intuition says it should. Polyominoes, polyhexes and
+polyiamonds decline smoothly — bigger shapes are likelier to be awkward, and the curve slides from
+&#8220;almost everything tiles&#8221; toward &#8220;almost nothing does.&#8221; The exotic grids do
+something else entirely: <b>polypons swing between 1% and 36%, tetrakis polyaboloes between 0% and
+71%</b>, size after size, in a sawtooth that persists to the largest rows computed.</p>
+<p class="note"><b>The sawtooth is arithmetic, not luck.</b> Each of these grids has <i>c</i> cells
+per translation unit — three rhombi to a hexagon, four quarter-squares to a square, six pons to a
+triangle — and a k-orbit tiling must cover a quotient torus of exactly <i>c</i>·<i>m</i> cells with
+<i>k</i>·<i>n</i> cells of shape. So a shape of size <i>n</i> can only tile with <i>k</i> orbits
+when <b><i>c</i> divides <i>k</i>·<i>n</i></b>. For an isohedral tiling that means <i>c</i> must
+divide <i>n</i> outright; allowing two orbits relaxes it to <i>c</i>/2. Sizes that fail the
+divisibility test lose whole classes of tiling before the search begins, and the tiling rate
+collapses — polypons (<i>c</i>&#8202;=&#8202;6) peak at n&#8202;=&#8202;12, 15 and 18, tetrakis
+polyaboloes (<i>c</i>&#8202;=&#8202;4) at 8, 10 and 12, polyrhombilles (<i>c</i>&#8202;=&#8202;3) at
+9 and 12. The classical grids have <i>c</i>&#8202;=&#8202;1 or 2 and so have almost nothing to
+fail. The condition is not an observation about the pictures; it is the admissibility test the
+engine applies before enumerating a single group, and the sawtooth is that one line of arithmetic
+made visible across a million shapes.</p>
 
 <h2>How the engine works</h2>
 <div class="method">
