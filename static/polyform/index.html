@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 06:08
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 07:28
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1480,6 +1480,34 @@ decorations. The S-curves are the tabs themselves — each carried onto itself b
 its edge's midpoint, which is why one fits another. 202 profiles here, every one derived
 independently from both neighbours and agreeing.</div>
 </div>
+<p class="note"><b>Why the hexagon, and not something bigger.</b> The obvious way to look for
+more than five orbits is a bigger tile — more edges, more constraints to force with. It fails, and
+the way it fails is the most informative result in this section. A two-cell dihex (ten edges) and a
+three-cell trihex (twelve edges) were both sampled in the density band where the hexagon's high-k
+decorations live: <b>95% and 98% of those decorations admit no tiling at all</b>, and the survivors
+reach only k&#8202;=&#8202;2 and k&#8202;=&#8202;1. Plotting every arrow sweep against edge count
+shows why:</p>
+<div class="tablewrap">
+<table>
+<caption>Maximum forced isohedral number against edge count, arrow rule. Multi-cell rows are random samples of the density band (260 and 160 canonical classes), so their maxima are lower bounds; every prototile row is exhaustive.</caption>
+<tr><th>edges</th><th>shapes</th><th>max k</th><th>no tiling at all</th></tr>
+<tr><td>3</td><td>triangle, tan, drafter, pon</td><td>1</td><td>0–67%</td></tr>
+<tr><td>4</td><td>square, kite, rhombus</td><td>1–2</td><td>0–67%</td></tr>
+<tr><td>5</td><td>Cairo, floret, prismatic pentagons</td><td>1–2</td><td>81–96%</td></tr>
+<tr><td><b>6</b></td><td><b>hexagon</b></td><td><b>5</b></td><td>54%</td></tr>
+<tr><td>10</td><td>dihex (sampled)</td><td>2</td><td>95%</td></tr>
+<tr><td>12</td><td>trihex (sampled)</td><td>1</td><td>98%</td></tr>
+</table>
+</div>
+<p class="note">Each marked edge is a constraint. Too few and nothing can be forced — every arrow
+decoration of a three-edge prototile still tiles isohedrally, all 27 of them. Too many and almost
+nothing survives: the multi-cell shapes are drowned in constraints, and their few tilers are the
+loosely-marked ones that force nothing. <b>Six edges is the peak</b>, and on these eleven grids the
+hexagon is the only prototile with more than five, which may be the whole explanation for why it
+stands alone. A tempting middle hypothesis — that the hexagon wins on symmetry, having the largest
+symmetry group of any prototile here — is refuted by the trihex, which has more symmetry than the
+dihex and performs worse. So the search for a shape beating five orbits should look sideways at
+six-to-eight-edge shapes on other grids, not upward at bigger tiles.</p>
 <p class="note">Mixing types on one tile is expressible too — the engine's pairing and mirror are
 arbitrary label maps, so each marking type simply occupies its own range of labels, and a single
 shape can carry a jigsaw tab on one edge, an arrow on the next and an S-tab on a third. That sweep
