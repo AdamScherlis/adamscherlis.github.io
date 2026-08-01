@@ -120,6 +120,7 @@ th {
 td { border-bottom: 1px solid var(--rule); }
 tr:hover td { background: var(--accent-soft); }
 td.match { color: var(--ok); font-weight: 600; text-align: center; }
+td.part { color: var(--pend); font-weight: 600; text-align: center; }
 td.miss { color: #b3372f; font-weight: 700; text-align: center; }
 th:first-child, td:first-child { text-align: left; }
 
@@ -159,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 03:03
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 03:30
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -189,6 +190,15 @@ polyhexes and polyiamonds are validated cell-for-cell against Myers's published 
 same code then classifies eight families with no published tiling classification — polycairos,
 polyrhombilles, polyflorets, polyprisms, polyaboloes, tetrakis polyaboloes, polydrafters and
 polypons.
+</p>
+<p>
+The ledger currently stands at <b>1&#8202;936&#8202;200</b> free shapes and
+<b>532&#8202;633</b> one-sided ones — 2&#8202;468&#8202;833 classifications across the twelve
+families, all but sixty-two of them settled either as a tiling of some minimum isohedral number or as
+a proof that none exists — plus the hat and the turtle, whose refusal to settle is itself the answer.
+Among them are <b>3&#8202;726 anisohedral shapes</b> (3&#8202;409 free, 317 one-sided): tiles that tile
+the plane, but never in a way that treats every copy alike. Forty of the free ones need four orbits and
+twenty-four need six.
 </p>
 
 <h2><span class="stage">Stage 1 · complete</span>Enumeration, symmetry &amp; holes <span class="status ok">validated</span></h2>
@@ -256,10 +266,10 @@ certified <b>Heesch lower bounds</b> by depth-d surround search on unpruned neig
 three non-tiling heptominoes, two have Heesch ≥ 1 and one — the plus-with-tail — cannot even
 be surrounded once (Heesch 0), matching the known values.</p>
 
-<h2><span class="stage">Stage 4 · complete</span>Polykites <span class="status ok">n ≤ 10 validated</span></h2>
+<h2><span class="stage">Stage 4 · complete</span>Polykites <span class="status ok">n ≤ 11 validated</span></h2>
 <p class="note">The [3.4.6.4] Laves (kite) backend passes its machine-checked group axioms; free
 counts match Myers exactly (1, 2, 4, 10, 27, 85, 262, 873). Classification agrees with Myers's
-kite tables at <b>every entry</b> through n&#8202;=&#8202;8, including the famously sparse structure —
+kite tables at <b>every entry</b> through n&#8202;=&#8202;11, including the famously sparse structure —
 no translation or 180°-only tilings except at multiples of the residue count, the lone
 3-anisohedral 5-kite, and exactly one shape the classifier cannot resolve at n&#8202;=&#8202;8 (see below).
 Kites found this engine's first bug: neighbour placements must be genuine symmetries of the
@@ -278,6 +288,7 @@ Laves tiling, which is invisible on the square grid where every integer translat
 <tr><td>8</td><td>873</td><td>28</td><td>0</td><td>0</td><td>37</td><td>2&#8202;+&#8202;hat</td><td>3:2&ensp;∞:hat</td><td>805</td><td>1</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>2917</td><td>141</td><td>0</td><td>356</td><td>399</td><td>0</td><td>—</td><td>2021</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>10</td><td>10011</td><td>702</td><td>0</td><td>0</td><td>0</td><td>14&#8202;+&#8202;turtle</td><td>3:12&ensp;6:2&ensp;∞:turtle</td><td>9294</td><td>1</td><td class="match">✓</td></tr>
+<tr><td>11</td><td>34561</td><td>3187</td><td>0</td><td>0</td><td>0</td><td>2</td><td>3:2</td><td>31372</td><td>0</td><td class="match">✓</td></tr>
 </table>
 </div>
 <p class="note"><b>The n&#8202;=&#8202;10 row (added 31 July) is a triple event.</b> First, agreement
@@ -291,6 +302,14 @@ kites join the rhombilles, florets and polypons in the isohedral-number-6 club �
 for any k&#8202;≤&#8202;14 (SAT exclusion sweep, 45&#8202;s), yet the SAT surround engine finds coronas to depth 7 in seconds
 (certified Heesch lower bound ≥&#8202;7). Myers's tables contain exactly two aperiodic polykites;
 the engine has now rediscovered both, each as the unique unresolved shape of its size.</p>
+<p class="note"><b>n&#8202;=&#8202;11 (added 1 August) is the family at its most austere</b>, and the first
+new row here to come back fully resolved with no probes needed. Of <b>34&#8202;561</b> free 11-kites,
+3&#8202;187 have holes, <b>31&#8202;372 are proven non-tilers</b>, and exactly <b>two</b> shapes tile
+the plane at all — both 3-anisohedral, neither of them isohedral, translation-tiling or 180°-tiling.
+Every column matches Myers, k-breakdown included. That ratio — two tilers in thirty-four thousand
+shapes, and not one of them simple — is characteristic of the kite grid rather than of size: kites
+have already produced whole sizes with nothing isohedral (n&#8202;=&#8202;5, 10, 11) and their
+anisohedral shapes cluster hard at k&#8202;=&#8202;3, which is where both 11-kites land.</p>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem;">
 <div style="flex:1 1 8rem; min-width:0;">
 <img src="figs/kite10-aniso6-a.svg" alt="kite10 aniso6 a" style="width:100%; height:auto; display:block;" loading="lazy"/>
@@ -335,11 +354,11 @@ now rediscovered both of the known aperiodic polykites blind.</p>
 <h2><span class="stage">Stage 6 · complete</span>Polyhexes &amp; polyiamonds <span class="status ok">validated vs Myers</span></h2>
 <p class="note">The remaining two classical families round out the validation arc: the hexagonal and
 triangular backends replicate two more of Myers's table sets. Full free classifications now stand at
-n&#8202;≤&#8202;8 for polyhexes and n&#8202;≤&#8202;10 for polyiamonds, and <b>every resolved entry
+n&#8202;≤&#8202;10 for polyhexes and n&#8202;≤&#8202;14 for polyiamonds, and <b>every resolved entry
 matches Myers's published columns</b>.</p>
 <div class="tablewrap">
 <table>
-<caption>Complete classification of free polyhexes, ours vs. Myers (all rows match)</caption>
+<caption>Complete classification of free polyhexes, ours vs. Myers (every resolved entry matches; see n = 10)</caption>
 <tr><th>n</th><th>free</th><th>holes</th><th>translation</th><th>180°</th><th>isohedral</th><th>anisohedral</th><th>k-breakdown</th><th>non-tilers</th><th>match</th></tr>
 <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>—</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>—</td><td>0</td><td class="match">✓</td></tr>
@@ -350,10 +369,16 @@ matches Myers's published columns</b>.</p>
 <tr><td>7</td><td>333</td><td>2</td><td>60</td><td>197</td><td>33</td><td>4</td><td>2:3&ensp;3:1</td><td>37</td><td class="match">✓</td></tr>
 <tr><td>8</td><td>1448</td><td>13</td><td>209</td><td>721</td><td>88</td><td>36</td><td>2:27&ensp;3:7&ensp;4:2</td><td>381</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>6572</td><td>67</td><td>387</td><td>2717</td><td>611</td><td>73</td><td>2:66&ensp;3:5&ensp;4:2</td><td>2708&#8202;+&#8202;9</td><td class="match">✓</td></tr>
+<tr><td>10</td><td>30490</td><td>404</td><td>1054</td><td>8211</td><td>1803</td><td>256</td><td>2:226&ensp;3:26&ensp;4:4</td><td>18719&#8202;+&#8202;43</td><td class="part">✓*</td></tr>
 </table>
 </div>
 <p class="legend">The non-tiler totals at n&#8202;=&#8202;6, 7, 8 include 1, 5 and 9 shapes the batch sweeps
-left unresolved, each since proven a non-tiler (see below); with those probes the columns are exact at every entry.</p>
+left unresolved, each since proven a non-tiler (see below); with those probes the columns are exact at every entry.
+&#8220;A&#8202;+&#8202;B&#8221; means A non-tilers proven, B shapes still unresolved at kmax&#8202;4.
+<b>✓*</b> at n&#8202;=&#8202;10 flags the one row that is not yet a clean match: every column agrees with
+Myers through k&#8202;=&#8202;4, but he counts 258 anisohedral and 18&#8202;760 non-tilers, so exactly two of
+our 43 unresolved shapes are tilers he places at k&#8202;=&#8202;8 — beyond this sweep's reach, not in
+conflict with it.</p>
 <p class="note">The hexes put up the best fight of any validation family. The last hexahex holdout was
 proven a non-tiler by a two-hour exhaustive depth-5 surround search. At n&#8202;=&#8202;7, three deep
 non-tilers were proven at depth 5; the last two had hit their node budgets inconclusively and were
@@ -367,9 +392,22 @@ Heesch number over the engine's raw candidate universe: <b>2, 2, 3, 2, 2</b> (in
 isohedral, all <b>36 anisohedral</b> shapes (27 2-, 7 3-, 2 4-anisohedral), and all <b>381
 non-tilers</b>, the last nine of which fell to SAT surround exhaustion in seconds apiece
 (depths 2&#8211;3, <code>results/probe_octahex_sat.log</code>).</p>
+<p class="note"><b>n&#8202;=&#8202;10 (added 1 August, 72&#8202;minutes) is the largest hex row here and the
+most interesting.</b> All <b>30&#8202;490</b> free 10-hexes were swept: 404 holes, 1&#8202;054 translation
+tilers, 8&#8202;211 by 180°, 1&#8202;803 isohedral, <b>256 anisohedral</b> — 226 2-, 26 3- and <b>four
+4-anisohedral</b>, the family's largest crop of isohedral number 4 and the largest at any single size
+outside the polycairos — 18&#8202;719 proven non-tilers, and <b>43 shapes still unresolved</b> at
+kmax&#8202;4. Every column agrees with Myers through k&#8202;=&#8202;4. The 43 are the informative part:
+his totals (258 anisohedral, 18&#8202;760 non-tilers) say that 41 of them are non-tilers our surround
+search has not yet closed, and that the other <b>two are 8-anisohedral</b>. If the probes now running
+confirm them, they would be the first shapes in the project with isohedral number above 6 — the current
+ceiling, held by twenty-four shapes across five families — and they are joined in that prospect by a
+single 13-iamond in the next table, which Myers likewise puts at k&#8202;=&#8202;8. Both sit at
+k&#8202;=&#8202;8 in his tables and at &#8220;unresolved&#8221; in ours, which is exactly the honest
+state: our sweeps exclude k&#8202;≤&#8202;4 and prove nothing beyond it.</p>
 <div class="tablewrap">
 <table>
-<caption>Complete classification of free polyiamonds, ours vs. Myers (every resolved entry matches)</caption>
+<caption>Complete classification of free polyiamonds, ours vs. Myers (every resolved entry matches; see n = 13)</caption>
 <tr><th>n</th><th>free</th><th>holes</th><th>translation</th><th>180°</th><th>isohedral</th><th>anisohedral</th><th>k-breakdown</th><th>non-tilers</th><th>unresolved</th><th>match</th></tr>
 <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>—</td><td>0</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>—</td><td>0</td><td>0</td><td class="match">✓</td></tr>
@@ -381,17 +419,34 @@ non-tilers</b>, the last nine of which fell to SAT surround exhaustion in second
 <tr><td>8</td><td>66</td><td>0</td><td>24</td><td>32</td><td>10</td><td>0</td><td>—</td><td>0</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>160</td><td>1</td><td>0</td><td>111</td><td>22</td><td>6</td><td>2:5&ensp;4:1</td><td>20</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>10</td><td>448</td><td>4</td><td>62</td><td>200</td><td>54</td><td>25</td><td>2:23&ensp;3:1&ensp;4:1</td><td>103</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>11</td><td>1186</td><td>25</td><td>0</td><td>462</td><td>52</td><td>53</td><td>2:43&ensp;3:8&ensp;4:2</td><td>593</td><td>1</td><td class="match">✓</td></tr>
+<tr><td>12</td><td>3334</td><td>108</td><td>291</td><td>1162</td><td>534</td><td>47</td><td>2:38&ensp;3:8&ensp;4:1</td><td>1192</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>13</td><td>9235</td><td>450</td><td>0</td><td>1875</td><td>523</td><td>96</td><td>2:85&ensp;3:9&ensp;4:2</td><td>6287</td><td>4</td><td class="part">✓*</td></tr>
+<tr><td>14</td><td>26166</td><td>1713</td><td>539</td><td>4195</td><td>1339</td><td>281</td><td>2:274&ensp;3:7</td><td>18099</td><td>0</td><td class="match">✓</td></tr>
 </table>
 </div>
 <p class="note">The iamonds are gentler but end on a cliffhanger. Exactly one heptiamond fails to tile
 (the V), then <b>every one of the 66 octiamonds tiles the plane</b> — the largest non-tiler-free size
 in any family here. Anisohedry arrives late and hard: the first anisohedral polyiamonds are six
 enneiamonds, and one of them skips k&#8202;=&#8202;3 entirely to land at <b>4-anisohedral</b>. At
-n&#8202;=&#8202;10 (new coverage this run, 31 July) all 25 anisohedral shapes match Myers's count, with
-a 3- and another 4-anisohedral among them — and one 10-iamond remains <b>unresolved</b>: no
-k&#8202;≤&#8202;4 tiling exists, Myers's tables say it is a non-tiler, but our surround proof is still
-pending (it is queued in the roadmap; until it lands the row matches Myers at every resolved
-entry).</p>
+n&#8202;=&#8202;10 all 25 anisohedral shapes match Myers's count, with a 3- and another 4-anisohedral
+among them, and the last unresolved 10-iamond has since been proven a non-tiler by SAT surround
+exhaustion at depth 4 — agreeing with Myers, and closing the row.</p>
+<p class="note"><b>Four new rows (1 August) take the iamonds to n&#8202;=&#8202;14</b>, and the family
+turns out to be the steadiest performer on the page: 39&#8202;921 shapes classified at
+n&#8202;=&#8202;11&#8211;14, three of the four rows matching Myers at <i>every</i> column including both
+k-breakdowns, and only five shapes left open in total. The texture changes size by size rather than
+drifting. At n&#8202;=&#8202;11 anisohedry briefly <b>outnumbers isohedry</b> — 53 anisohedral shapes
+against 52 isohedral, a photo finish of a kind this page rarely sees at a size where both columns are
+well populated — and two of the 53 are 4-anisohedral. n&#8202;=&#8202;12 reverts to type (534
+isohedral, 47 anisohedral). n&#8202;=&#8202;13
+adds two more 4-anisohedral shapes and leaves <b>four</b> unresolved, of which Myers's totals (97
+anisohedral, 6&#8202;290 non-tilers) identify three as non-tilers and one as <b>8-anisohedral</b> — the
+iamond twin of the two 10-hexes above. Then n&#8202;=&#8202;14 is the family's biggest and blandest
+row: 281 anisohedral shapes, <b>274 of them merely 2-anisohedral</b> and the remaining seven at
+k&#8202;=&#8202;3, with <b>not a single 4-anisohedral 14-iamond</b> and nothing unresolved — an exact
+match with Myers at every column, and a reminder that the high-k shapes thin out with size rather
+than accumulating.</p>
 
 <h2><span class="stage">Stage 7 · new results</span>Polycairos <span class="status ok">terra incognita, classified</span></h2>
 <p class="note">The Cairo backend models the tiling as the dual of the snub square tiling on an
@@ -583,12 +638,24 @@ the tiling's symmetry group is translations only, and no aligned tiling of this 
 (k ≤ 5 exhausted). Verified overlap-free from the exact-cover solution.</div>
 </div>
 
-<h2><span class="stage">Stage 10 · new results</span>Polyprisms <span class="status ok">classified n ≤ 9</span></h2>
+<h2><span class="stage">Stage 10 · new results</span>Polyprisms <span class="status ok">classified n ≤ 10</span></h2>
 <p class="note"><b>Polyprisms</b> (prismatic pentagonal, [3.3.3.4.4] Laves, cmm; counts match the
 known 1, 3, 5, 20, 56, 225) are the friendliest family yet — the single pentagon tiles by 180°, the first
 non-tiler appears only at n&#8202;=&#8202;4, and n&#8202;=&#8202;7 brings the first 3-anisohedral polyprism.
 At n&#8202;=&#8202;9 the anisohedral count triples (42, including a second 3-anisohedral shape) and
-the family stays fully resolved — no unresolved polyprism exists through n&#8202;=&#8202;9.</p>
+the family stays fully resolved — <b>no unresolved polyprism exists through n&#8202;=&#8202;10</b>,
+and none ever has: every polyprism the engine has enumerated was settled by the batch sweep alone,
+with no deep probe ever needed.</p>
+<p class="note">The n&#8202;=&#8202;10 row (added 1 August) is the family's largest and by some distance
+the cheapest big row on the page: all <b>55&#8202;231</b> free 10-prisms classified in
+<b>29&#8202;seconds</b>, four times the shapes of the n&#8202;=&#8202;9 row for three seconds more
+runtime. It stays hospitable at scale, too — <b>13&#8202;858 of the 55&#8202;231 tile</b>
+(1&#8202;159 by translation, 11&#8202;517 by 180°, 1&#8202;104 isohedral, 78 anisohedral) against
+38&#8202;845 non-tilers, where the similarly sized kite and floret rows at n&#8202;=&#8202;11 manage
+two tilers and none respectively. The anisohedral spectrum flattens completely: all
+<b>78 are 2-anisohedral</b>, so the family's ceiling is still the lone 3-anisohedral shapes of
+n&#8202;=&#8202;7 and 9, and the even/odd rhythm holds — translation tilings exist at every even size
+and at none of the odd ones, through n&#8202;=&#8202;10.</p>
 <div class="tablewrap">
 <table>
 <caption>Complete classification of free polyprisms — this work</caption>
@@ -602,6 +669,7 @@ the family stays fully resolved — no unresolved polyprism exists through n&#82
 <tr><td>7</td><td>819</td><td>11</td><td>0</td><td>498</td><td>14</td><td>14</td><td>2:13 3:1</td><td>282</td><td>0</td></tr>
 <tr><td>8</td><td>3333</td><td>75</td><td>319</td><td>1449</td><td>112</td><td>3</td><td>2:3</td><td>1375</td><td>0</td></tr>
 <tr><td>9</td><td>13336</td><td>454</td><td>0</td><td>4390</td><td>214</td><td>42</td><td>2:41 3:1</td><td>8236</td><td>0</td></tr>
+<tr><td>10</td><td>55231</td><td>2528</td><td>1159</td><td>11517</td><td>1104</td><td>78</td><td>2:78</td><td>38845</td><td>0</td></tr>
 </table>
 </div>
 
@@ -638,14 +706,16 @@ kisrhombille ([4.6.12]) grid — classified in Stage 13. The n&#8202;=&#8202;11 
 fully resolved) brings the family's largest anisohedral crop yet: 105 shapes, five of them
 3-anisohedral.</p>
 
-<h2><span class="stage">Stage 12 · new family</span>Tetrakis polyaboloes — quarter-square cells <span class="status ok">classified n ≤ 8</span></h2>
+<h2><span class="stage">Stage 12 · new family</span>Tetrakis polyaboloes — quarter-square cells <span class="status ok">classified n ≤ 13</span></h2>
 <p class="note">Stage 11 glued the [4.8.8] grid's cells into tans; drop the pairing and the single
 <b>quarter-square triangle</b> becomes the cell, giving the kisquadrille substrate its native polyform
 family — <b>tetrakis polyaboloes</b> (poly-[4.8²]-tiles), where the division of a tan into two tetrakis
 cells is significant. Free counts (1, 2, 2, 6, 8, 22, 42, 112) match
 <a href="https://oeis.org/A197465">OEIS A197465</a> — a sequence contributed by Myers himself — and
 one-sided counts (1, 2, 3, 8, 14, 36, 80, 206) match <a href="https://oeis.org/A197466">A197466</a>,
-both at every computed term. The tiling classification below appears to be new data.</p>
+both at every term either sequence publishes; the engine's free continuation to n&#8202;=&#8202;13
+reads 252, 650, 1&#8202;584, 4&#8202;091, 10&#8202;369. The tiling classification below appears to be
+new data.</p>
 <div class="tablewrap">
 <table>
 <caption>Complete classification of free tetrakis polyaboloes — this work (kmax = 4)</caption>
@@ -658,6 +728,11 @@ both at every computed term. The tiling classification below appears to be new d
 <tr><td>6</td><td>22</td><td>0</td><td>0</td><td>9</td><td>7</td><td>0</td><td>—</td><td>6</td><td>0</td></tr>
 <tr><td>7</td><td>42</td><td>0</td><td>0</td><td>0</td><td>1</td><td>8</td><td>2:5&ensp;4:2&ensp;6:1</td><td>33</td><td>0</td></tr>
 <tr><td>8</td><td>112</td><td>0</td><td>28</td><td>18</td><td>33</td><td>0</td><td>—</td><td>33</td><td>0</td></tr>
+<tr><td>9</td><td>252</td><td>1</td><td>0</td><td>0</td><td>16</td><td>8</td><td>2:6&ensp;4:2</td><td>226</td><td>1</td></tr>
+<tr><td>10</td><td>650</td><td>9</td><td>0</td><td>102</td><td>116</td><td>1</td><td>2:1</td><td>422</td><td>0</td></tr>
+<tr><td>11</td><td>1584</td><td>42</td><td>0</td><td>0</td><td>1</td><td>45</td><td>2:42&ensp;4:3</td><td>1496</td><td>0</td></tr>
+<tr><td>12</td><td>4091</td><td>170</td><td>194</td><td>405</td><td>278</td><td>53</td><td>2:53</td><td>2991</td><td>0</td></tr>
+<tr><td>13</td><td>10369</td><td>617</td><td>0</td><td>0</td><td>203</td><td>44</td><td>2:42&ensp;4:2</td><td>9505</td><td>0</td></tr>
 </table>
 </div>
 <p class="note">The family wastes no time: a non-tiling shape already exists at <b>three cells</b> (one
@@ -671,6 +746,26 @@ resolved as the find of the batch: a <b>6-anisohedral</b> 7-cell tile (k&#8202;�
 <b>smallest-area isohedral-number-6 shape in the project</b>, it brings the club to twenty-four
 shapes, and tetrakis is the <b>fifth</b> Laves family to reach six orbits. At n&#8202;=&#8202;8
 normal service resumes: 28 translation tilers, 33 isohedral, and nothing anisohedral at all.</p>
+<p class="note"><b>Five new rows (1 August) take the family to n&#8202;=&#8202;13 — 16&#8202;946 further
+shapes — and turn n&#8202;=&#8202;7 from a curiosity into a pattern.</b> The grid splits its behaviour
+by parity, cleanly and in both directions at once. Through n&#8202;=&#8202;13 <b>not one odd-size
+tetrakis polyabolo tiles by translation or by 180° rotation</b> — every such tiling in the family
+lives at an even size — and, inversely, <b>every 4-anisohedral shape lives at an odd size</b>: two at
+n&#8202;=&#8202;7, two at 9, <b>three at 11</b> and two at 13, against none at all at n&#8202;=&#8202;8,
+10 or 12. The even sizes are where the family is ordinary (n&#8202;=&#8202;10: 116 isohedral shapes and
+a single 2-anisohedral one in 650; n&#8202;=&#8202;12: 194 translation tilers, 278 isohedral, and all 53
+anisohedral shapes at k&#8202;=&#8202;2), and the odd sizes are where it is strange
+(n&#8202;=&#8202;11: <b>one</b> isohedral shape in 1&#8202;584, and 45 anisohedral ones).</p>
+<p class="note"><b>Nine of the project's forty free 4-anisohedral shapes are now tetrakis
+polyaboloes</b> — second only to the eleven polycairos, and drawn from a census of 17&#8202;141 shapes
+against the Cairo family's 1.14&#8202;million. Per shape it is not close: the two densest
+4-anisohedral rows anywhere on this page are both tetrakis, n&#8202;=&#8202;7 at one shape in 21 and
+n&#8202;=&#8202;9 at one in 126, ahead of the enneiamonds' one in 160 and the heptacairos' one in 390,
+and even the family's thinnest row (n&#8202;=&#8202;13, one in 5&#8202;184) sits mid-table. Whatever
+makes a quarter-square triangle hard to tile transitively does not wash out with size. One shape is
+still open: a 9-cell tetrakis polyabolo with no k&#8202;≤&#8202;4 tiling and no non-tiling proof —
+exactly the profile the 7-cell shape had before it resolved as 6-anisohedral, which is reason enough
+to queue it for deep probes rather than guess.</p>
 <div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
 <img src="figs/tetrakis7-6orbit-tiling.png" alt="6-orbit tiling by the 6-anisohedral 7-cell tetrakis polyabolo" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
 <div class="legend" style="margin-top:0.5rem">The minimal (6-orbit) tiling of the 6-anisohedral 7-cell tetrakis polyabolo,
@@ -688,8 +783,8 @@ colored by orbit — verified overlap-free over 588 tiles. No tiling of this 1¾
 <img src="figs/tetrakis7-6aniso.svg" alt="tetrakis7 6aniso" style="width:100%; height:auto; display:block;" loading="lazy"/>
 </div>
 <div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The three notable 7-cell tetrakis polyaboloes.
-Left and middle: the two <b>4-anisohedral</b> shapes — anisohedry enters this family at n = 7, and these two jump straight to isohedral number 4.
-Right (tinted): the family's only <b>unresolved</b> shape — no tiling with k ≤ 4 orbits, non-tiling unproven.</div>
+Left and middle: the first two of the family's nine <b>4-anisohedral</b> shapes — anisohedry enters here at n = 7, and these two jump straight to isohedral number 4.
+Right (tinted): the shape that resisted classification at n = 7, since resolved as the <b>6-anisohedral</b> tile whose tiling is drawn above.</div>
 </div>
 <div class="tablewrap">
 <table>
@@ -713,11 +808,11 @@ k&#8202;=&#8202;2, so every minimal 4-orbit tiling must mix mirror-image copies 
 eleven 4-anisohedral polycairos. At n&#8202;=&#8202;7 only six of the 80 one-sided shapes tile the plane
 at all, every one of them 2-anisohedral.</p>
 
-<h2><span class="stage">Stage 13 · new results</span>Polydrafters (kisrhombille) <span class="status ok">free n ≤ 12, one-sided n ≤ 12</span></h2>
+<h2><span class="stage">Stage 13 · new results</span>Polydrafters (kisrhombille) <span class="status ok">free n ≤ 13, one-sided n ≤ 12</span></h2>
 <p class="note">The kisrhombille ([4.6.12] Laves) tiling of 30-60-90 triangles — drafter country. This
 family is <b>edge-to-edge</b> polydrafters (cells joined along full shared grid edges; the classical
 polydrafter census also counts other contacts). Like florets, the grid is hostile: no 5- or (below)
-odd-one-sided drafter tiles. Maximum anisohedral number found through n&#8202;=&#8202;12: <b>3</b> (seven 3-anisohedral 10-drafters) — so no ≥6-anisohedral shape here either, in either mode. Strikingly, not one 11-drafter tiles; tiling resumes at n&#8202;=&#8202;12, where all eight anisohedral shapes are 2-anisohedral.</p>
+odd-one-sided drafter tiles. Maximum anisohedral number found through n&#8202;=&#8202;13: <b>3</b> (seven 3-anisohedral 10-drafters) — so no ≥6-anisohedral shape here either, in either mode. Strikingly, not one 11-drafter tiles; tiling resumes at n&#8202;=&#8202;12, where all eight anisohedral shapes are 2-anisohedral.</p>
 <div class="tablewrap">
 <table>
 <caption>Free edge-to-edge polydrafters — this work</caption>
@@ -734,6 +829,7 @@ odd-one-sided drafter tiles. Maximum anisohedral number found through n&#8202;=&
 <tr><td>10</td><td>1026</td><td>93</td><td>0</td><td>0</td><td>0</td><td>7</td><td>3:7</td><td>926</td><td>0</td></tr>
 <tr><td>11</td><td>2440</td><td>301</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>2139</td><td>0</td></tr>
 <tr><td>12</td><td>6077</td><td>948</td><td>89</td><td>168</td><td>559</td><td>8</td><td>2:8</td><td>4305</td><td>0</td></tr>
+<tr><td>13</td><td>14926</td><td>2830</td><td>0</td><td>0</td><td>0</td><td>3</td><td>2:3</td><td>12092</td><td>1</td></tr>
 </table>
 </div>
 <div class="tablewrap">
@@ -767,14 +863,24 @@ depends on reflected copies, and parity has nothing to do with it. One-sided til
 at n&#8202;=&#8202;12 (161 translation, 325 by 180°, 173 isohedral) with nothing anisohedral — the
 eight 2-anisohedral free 12-drafters all lose their tilings too, so in Spectre mode this family has
 yet to produce a single anisohedral shape.</p>
+<p class="note">The free n&#8202;=&#8202;13 row (1 August) makes the family's arithmetic visible. Of
+<b>14&#8202;926</b> free 13-drafters, 2&#8202;830 have holes, 12&#8202;092 are proven non-tilers, one is
+unresolved, and <b>exactly three tile the plane</b> — all three 2-anisohedral, none isohedral. The
+empty translation and 180° columns are not luck: a drafter is one of twelve cells per hexagon, so a
+translation tiling needs n divisible by 12 and a 180° tiling needs n divisible by 6, which is why
+those two columns are blank at every size on this page except n&#8202;=&#8202;6 and 12. What is
+genuinely hostile is everything else — zero isohedral 13-drafters at all, where n&#8202;=&#8202;12 had
+559 — so the family alternates between the ordinary and the barren from one size to the next rather
+than settling down.</p>
 
-<h2><span class="stage">Stage 14 · new results</span>Polypons (triakis triangular) — the last Laves tiling <span class="status ok">free n ≤ 14, one-sided n ≤ 14</span></h2>
+<h2><span class="stage">Stage 14 · new results</span>Polypons (triakis triangular) — the last Laves tiling <span class="status ok">free n ≤ 17, one-sided n ≤ 14</span></h2>
 <p class="note">The triakis triangular ([3.12.12] Laves) tiling splits each triangle of the regular
 triangular tiling into three 30-30-120 obtuse triangles; its polyforms are the classical
 <b>polypons</b>, and this backend completes the set — all eleven Laves tilings now run on the one
-engine. Enumeration is validated externally at every point computed: free counts match
+engine. Enumeration is validated externally through n&#8202;=&#8202;14: free counts match
 <a href="https://oeis.org/A057784">OEIS A057784</a> (1, 2, 2, 4, 4, 10, 13, 29, 47, 100, 181, 383,
-738, 1539) and one-sided counts match <a href="https://oeis.org/A151531">A151531</a> exactly. But we
+738, 1539) and one-sided counts match <a href="https://oeis.org/A151531">A151531</a> exactly; the
+engine continues 3&#8202;087, 6&#8202;419, 13&#8202;135 at n&#8202;=&#8202;15&#8211;17. But we
 found no published <b>tiling classification</b> of polypons in either mode, so the tables below appear
 to be new data.</p>
 <div class="tablewrap">
@@ -795,6 +901,9 @@ to be new data.</p>
 <tr><td>12</td><td>383</td><td>2</td><td>34</td><td>11</td><td>91</td><td>0</td><td>—</td><td>245</td><td>0</td></tr>
 <tr><td>13</td><td>738</td><td>9</td><td>0</td><td>0</td><td>25</td><td>0</td><td>—</td><td>704</td><td>0</td></tr>
 <tr><td>14</td><td>1539</td><td>35</td><td>0</td><td>0</td><td>26</td><td>9</td><td>2:4 3:4 6:1</td><td>1469</td><td>0</td></tr>
+<tr><td>15</td><td>3087</td><td>105</td><td>0</td><td>62</td><td>187</td><td>5</td><td>2:5</td><td>2728</td><td>0</td></tr>
+<tr><td>16</td><td>6419</td><td>302</td><td>0</td><td>0</td><td>101</td><td>6</td><td>2:1 3:5</td><td>6009</td><td>1</td></tr>
+<tr><td>17</td><td>13135</td><td>801</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>12333</td><td>1</td></tr>
 </table>
 </div>
 <p class="note">The family runs the project's whole dramatic arc in miniature. A <b>total wipeout at
@@ -814,8 +923,22 @@ isohedral-or-nothing, before n&#8202;=&#8202;14 brings <b>nine</b> anisohedral s
 3-anisohedral, and a resistant since proven the family's <b>fourth 6-anisohedral</b> tile
 (k ≤ 5 exhausted, 6-orbit tiling verified). With the sixteen rhombilles, the 10-floret and the two 10-kites, the
 project now has <b>twenty-four</b> shapes of isohedral number 6, across five Laves families (the 7-cell tetrakis of Stage 12 being the latest and smallest) — and
-every free polypon through n&#8202;=&#8202;14, and every one-sided one through n&#8202;=&#8202;14, is
+every free polypon through n&#8202;=&#8202;15, and every one-sided one through n&#8202;=&#8202;14, is
 resolved.</p>
+<p class="note"><b>Three more free rows (1 August) push the polypons to n&#8202;=&#8202;17, the deepest
+size reached in any family here</b>, and the family finishes as it began — by running out of tilings.
+n&#8202;=&#8202;15 is its most conventional row yet (187 isohedral shapes, 62 tiling by 180°, five
+anisohedral, all 2-anisohedral, nothing unresolved). n&#8202;=&#8202;16 tightens: 101 isohedral among
+6&#8202;419, and six anisohedral shapes of which <b>five are 3-anisohedral</b> — the family's largest
+crop at k&#8202;=&#8202;3 — with one shape left open. Then <b>n&#8202;=&#8202;17 is a second total
+wipeout</b>: of 13&#8202;135 free 17-pons, 801 have holes, <b>12&#8202;333 are proven non-tilers, and
+not one of the rest is known to tile</b> — no translation, no 180°, nothing isohedral, nothing
+anisohedral, a single unresolved shape holding the row open. As with the drafters the empty
+translation and 180° columns are arithmetic rather than luck: a pon is one of six cells per rhombus,
+so translation tilings need n divisible by 6 and 180° tilings need n divisible by 3, which is exactly
+where the two columns are nonzero (n&#8202;=&#8202;6, 12 and n&#8202;=&#8202;3, 9, 12, 15). What
+n&#8202;=&#8202;17 shows beyond that is a family that never becomes hospitable with size: the
+isohedral column, 91 shapes strong at n&#8202;=&#8202;12, goes 25, 26, 187, 101, <b>0</b>.</p>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem;">
 <div style="flex:1 1 5.5rem; min-width:0;">
 <img src="figs/decapon-3aniso.svg" alt="decapon 3aniso" style="width:100%; height:auto; display:block;" loading="lazy"/>
@@ -888,11 +1011,15 @@ externally: polyominoes match <a href="https://oeis.org/A000988">A000988</a>, po
 <a href="https://oeis.org/A006534">A006534</a>, at every computed term.</p>
 <p class="note">A uniform result with a single exception: <b>all eleven 4-anisohedral polycairos
 (n = 7, 9, 11) are Spectre-mode non-tilers in both chiralities</b> — every minimal 4-orbit tiling in the
-Cairo family depends on reflections — and the pattern is project-wide. Of the <b>nineteen</b> free
-4-anisohedral shapes now known across six families (one nonomino, eleven polycairos, two octahexes, an
-enneiamond and a 10-iamond, one enneabolo, and the two 7-cell tetrakis shapes of Stage 12), exactly one
-— <b>the 4-anisohedral nonomino</b> — keeps a reflection-free four-orbit tiling; every other one is a
-proven Spectre-mode non-tiler. Banning reflections can also push the other way, <i>raising</i> isohedral
+Cairo family depends on reflections — and the pattern is project-wide. The census of free
+4-anisohedral shapes now stands at <b>forty</b> across six families — four polyominoes, eight
+polyhexes, seven polyiamonds, eleven polycairos, one enneabolo and nine tetrakis polyaboloes (the new
+1 August rows more than doubled it) — of which <b>nineteen</b> have been put through Spectre mode: the
+twelve at sizes their family's one-sided sweep reaches, plus the seven 11-cairos settled by targeted
+probes. Of
+those nineteen, exactly one — <b>the 4-anisohedral nonomino</b> — keeps a reflection-free four-orbit
+tiling; every other one is a proven Spectre-mode non-tiler. The remaining twenty-one all sit at sizes
+beyond the current one-sided frontier and are untested. Banning reflections can also push the other way, <i>raising</i> isohedral
 numbers: four one-sided 10-cairos and four one-sided 10-iamonds — the chiralities of two
 free-<i>isohedral</i> 10-cairos and two free-isohedral 10-iamonds — vault from k&#8202;=&#8202;1
 straight to <b>4-anisohedral</b>, the first one-sided 4-anisohedral shapes in either family; a
@@ -1292,6 +1419,8 @@ doubling, and a pre-filter lemma that does more than the search does.</p>
 
 <h2><span class="stage">Stage 17</span>Roadmap</h2>
 <ul class="roadmap">
+<li><span class="status run">running</span><span class="what"><b>The new frontier, round 3: 62 open shapes</b>
+  <span class="d">The 1 August rows reopened the ledger. Still unresolved at kmax&#8202;4: <b>43 10-hexes</b> and 9 9-hexes, <b>four 13-iamonds</b> and one 11-iamond, one 12-omino, one 9-cell tetrakis polyabolo, one 13-drafter, and one polypon each at n&#8202;=&#8202;16 and 17. Myers's tables settle the validated families in advance — the 12-omino, 41 of the 43 10-hexes and three of the four 13-iamonds are non-tilers, and the remaining three shapes are <b>8-anisohedral</b>, which would be the first isohedral numbers above 6 anywhere in this project. The five shapes in the new families have no external answer at all. Exact k&#8202;=&#8202;5 searches are running on the 10-hexes now; the non-tiling half is SAT surround work. (The hat and the turtle are excluded here: their &#8220;unresolved&#8221; is the answer.)</span></span></li>
 <li><span class="status run">running</span><span class="what"><b>The rest of the marking taxonomy</b>
   <span class="d">The arrow rule (Stage 16) was one of exactly four possible edge-marking types. Sweeps of the other two new ones — the <b>S-tab</b> (ρ-symmetric: self-matching, mirror-swapping) and the fully asymmetric four-label tab — are running on the hexagon, domino, triangle and L-tromino, along with mixed schemes that give different edges different types. Open question: does anything beat the arrow hexagon's k&#8202;=&#8202;5?</span></span></li>
 <li><span class="status run">running</span><span class="what"><b>A second hundred-fold</b>
@@ -1300,8 +1429,8 @@ doubling, and a pre-filter lemma that does more than the search does.</p>
   <span class="d">Done and written up as Stage 18: identical verdicts on 1,762 shapes, and a clean split — his class-based search wins the tail (and so the total, by 5–16×), ours wins the median shape by 4–7× and keeps certificate-friendly refutations. Hybrid design noted.</span></span></li>
 <li><span class="status pend">next</span><span class="what"><b>Higher kmax everywhere</b>
   <span class="d">Every decoration sweep so far stopped at k&#8202;≤&#8202;4 or 6 for cost reasons; the parity lemma means the identity-mirror sweeps only need re-searching on their parity-eligible unresolved entries, and the compiled cover search should make k&#8202;≤&#8202;8 routine. The same applies to the plain families, where kmax&#8202;4 is the current default.</span></span></li>
-<li><span class="status pend">next</span><span class="what"><b>The frontier tables</b>
-  <span class="d">Each family is being pushed until its largest row holds 10k–100k free shapes. Landed so far: ominoes n&#8202;=&#8202;12 (63,600 shapes, Myers-exact) and hexes n&#8202;=&#8202;9; iamonds to 14, kites 11, polypons 17, tetrakis 13 and the rest are queued behind the speed work.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>The frontier tables</b>
+  <span class="d">Goal: every family pushed until its largest row holds 10k–100k free shapes. <b>Done — all twelve are now in or above that band.</b> Landed 1 August: hexes n&#8202;=&#8202;10 (30,490), iamonds 14 (26,166), kites 11 (34,561), prisms 10 (55,231), drafters 13 (14,926), tetrakis 13 (10,369) and polypons 17 (13,135, the deepest size on the page), on top of ominoes 12 (63,600). The four families already in or above the band — polycairos n&#8202;=&#8202;12 (868,238), polyflorets 11 (213,951), polyrhombilles 13 (54,620) and polyaboloes 11 (46,476) — were deliberately left alone. What remains is depth in the <i>other</i> direction: the one-sided tables still trail their free counterparts by one to five sizes in nine families (tetrakis widest, at 8 vs 13).</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>The new frontier, round 2: three open shapes</b>
   <span class="d">All three closed within the hour: the free 7-cell tetrakis polyabolo is <b>6-anisohedral</b> — the smallest-area member of the isohedral-number-6 club (now twenty-four shapes, five families); the free 10-iamond is a proven non-tiler (SAT surrounds exhaust at depth 4, matching Myers); the open one-sided 11-rhombille keeps its ancestor's <b>k&#8202;=&#8202;6 one-sided</b> (k&#8202;≤&#8202;5 exhausted), so its chiral notching carries the isohedral-number-6 corollary.</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>Arrow decorations break the ceiling</b>
