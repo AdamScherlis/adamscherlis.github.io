@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:14
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:16
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1354,6 +1354,29 @@ partition (40 tiles per fundamental domain in ten orbits of 36 cells each) and i
 re-verified by expanding the 40 representatives back onto the torus — all 360 cells covered exactly
 once, no duplicates. It is a plain chevron of nine quarter-square triangles, it tiles the plane, and
 every tiling of it needs at least ten orbits of tiles.</p>
+<p class="note"><b>Can the chevron be made honest?</b> That k&#8202;=&#8202;10 is stated for
+tilings aligned to the tetrakis grid, the convention used throughout this page — and as a free
+polygon, ignoring the grid, the chevron is merely isohedral. The standard repair is to carve the
+boundary: replace straight edges with interlocking profiles so that only the intended contacts fit,
+making alignment a consequence of the shape rather than an assumption. For this tile the repair
+runs into a specific obstruction, and it is worth stating because it is not obvious.</p>
+<p class="note">Of the four marking types, only three can be carved at all (see
+<a href="#taxonomy">the taxonomy</a>): jigsaw tabs, S-tabs, and lopsided asymmetric tabs. Of those,
+the <b>S-tab is the only one that distinguishes a tile from its mirror image</b> — an S meets an S,
+while a reflected tile presents a Z, and the two refuse. That is exactly the property one wants for
+pinning down placements. But the chevron's minimal tiling is <b>half reflected</b>: of the forty
+tiles in its fundamental domain, twenty are direct and twenty are mirror images, and the shape does
+not tile one-sided <i>at all</i> — banning reflections kills every tiling with k&#8202;≤&#8202;12.
+So on every edge where the tiling mates a tile with its own reflection, an S-tab is inadmissible,
+and only mirror-blind jigsaw tabs remain — precisely the notch that cannot tell the two apart.
+The carving that would enforce alignment is the carving that destroys the tiling.</p>
+<p class="note">This is not a proof that no notched chevron exists: mirror-neutral tabs still fix
+which edge meets which and with what polarity, which constrains placements considerably, and it
+remains open whether that alone rules out the unaligned isohedral tiling. It does mean the obvious
+construction fails, and it explains why the k&#8202;=&#8202;10 keeps its alignment caveat here
+rather than being quietly promoted to an unmarked-tile record. The same caveat, honestly, applies
+to every anisohedral number on this page — as it does to the classical polyomino literature, which
+also classifies with respect to a grid.</p>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
 <div style="flex:0 0 8rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
 <img src="figs/tetrakis9-open.svg" alt="The 10-anisohedral tetrakis chevron" style="width:100%; height:auto; display:block;" loading="lazy"/>
