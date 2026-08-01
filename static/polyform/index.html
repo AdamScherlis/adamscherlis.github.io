@@ -129,6 +129,25 @@ th:first-child, td:first-child { text-align: left; }
   font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem;
 }
 
+h2 { scroll-margin-top: 0.8rem; }
+
+.toc {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 1.1rem 1.4rem 1.2rem; margin: 1.8rem 0 0.5rem; max-width: 46rem;
+  font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.87rem;
+  display: grid; gap: 1rem 1.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.toc .part .n {
+  font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); display: block;
+}
+.toc .part .h { font-weight: 600; margin-bottom: 0.15rem; }
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc li { padding: 0.09rem 0; line-height: 1.35; }
+.toc a { color: var(--muted); text-decoration: none; }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
 .roadmap { list-style: none; padding: 0; margin: 1rem 0; max-width: 46rem;
   font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.92rem; }
 .roadmap li {
@@ -160,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 11:24
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:10
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -201,7 +220,62 @@ the plane, but never in a way that treats every copy alike. Forty of the free on
 twenty-four need six.
 </p>
 
-<h2><span class="stage">Stage 1 · complete</span>Enumeration, symmetry &amp; holes <span class="status ok">validated</span></h2>
+<nav class="toc" aria-label="Contents">
+<div class="part"><span class="n">Part I</span><div class="h">Replication</div>
+<ul>
+<li><a href="#enumeration">Enumeration, symmetry &amp; holes</a></li>
+<li><a href="#translation-180">Translation &amp; 180° tilings</a></li>
+<li><a href="#polyominoes">Polyominoes, fully classified</a></li>
+<li><a href="#polykites">Polykites</a></li>
+<li><a href="#polyhexes-polyiamonds">Polyhexes &amp; polyiamonds</a></li>
+</ul></div>
+<div class="part"><span class="n">Part II</span><div class="h">New families</div>
+<ul>
+<li><a href="#polycairos">Polycairos</a></li>
+<li><a href="#polyrhombilles">Polyrhombilles</a></li>
+<li><a href="#polyflorets">Polyflorets</a></li>
+<li><a href="#polyprisms">Polyprisms</a></li>
+<li><a href="#polyaboloes">Polyaboloes</a></li>
+<li><a href="#tetrakis">Tetrakis polyaboloes</a></li>
+<li><a href="#polydrafters">Polydrafters</a></li>
+<li><a href="#polypons">Polypons</a></li>
+<li><a href="#tiling-rate">All twelve families, one picture</a></li>
+</ul></div>
+<div class="part"><span class="n">Part III</span><div class="h">One-sided (Spectre mode)</div>
+<ul>
+<li><a href="#spectre-mode">Reflections banned</a></li>
+<li><a href="#one-sided-tables">The one-sided tables</a></li>
+</ul></div>
+<div class="part"><span class="n">Part IV</span><div class="h">The hard shapes</div>
+<ul>
+<li><a href="#hat-turtle">The hat and the turtle</a></li>
+<li><a href="#star">The star 10-rhombille</a></li>
+<li><a href="#records">The records: k = 8 and k = 10</a></li>
+<li><a href="#leaderboard">The ten most stubborn tiles</a></li>
+<li><a href="#probe-ledger">The two-stage probe and the ledger</a></li>
+</ul></div>
+<div class="part"><span class="n">Part V</span><div class="h">Decorations</div>
+<ul>
+<li><a href="#decorations">Wang decorations</a></li>
+<li><a href="#arrows">Arrows, and the broken ceiling</a></li>
+<li><a href="#taxonomy">The taxonomy of edge markings</a></li>
+<li><a href="#design-space">The design space</a></li>
+<li><a href="#decoration-sweeps">Deeper sweeps, and the oracle&#8217;s bug</a></li>
+</ul></div>
+<div class="part"><span class="n">Part VI</span><div class="h">Method &amp; performance</div>
+<ul>
+<li><a href="#engine">How the engine works</a></li>
+<li><a href="#head-to-head">Two algorithms, measured</a></li>
+<li><a href="#speed">The speed work</a></li>
+<li><a href="#audit-trail">The audit trail</a></li>
+</ul></div>
+<div class="part"><span class="n">Part VII</span><div class="h">Roadmap</div>
+<ul>
+<li><a href="#roadmap">Open questions, and what is running</a></li>
+</ul></div>
+</nav>
+
+<h2 id="enumeration"><span class="stage">Part I · replication</span>Enumeration, symmetry &amp; holes <span class="status ok">validated</span></h2>
 <p class="note">Redelmeier enumeration of fixed shapes with canonical-aspect deduplication to free shapes;
 hole detection by complement flood-fill. Agrees with Myers (and OEIS A000105) at every point tested.</p>
 <div class="tablewrap">
@@ -215,8 +289,7 @@ hole detection by complement flood-fill. Agrees with Myers (and OEIS A000105) at
 <tr><td>10</td><td>4&#8202;655</td><td>4&#8202;655</td><td>195</td><td>195</td><td class="match">✓</td></tr>
 </table>
 </div>
-
-<h2><span class="stage">Stage 2 · complete</span>Translation &amp; 180° tilings <span class="status ok">validated</span></h2>
+<h2 id="translation-180"><span class="stage">Part I · replication</span>Translation &amp; 180° tilings <span class="status ok">validated</span></h2>
 <p class="note">A lattice tiling exists iff the tile is a transversal of the cells modulo some
 index-<i>n/c</i> sublattice (Hermite-normal-form enumeration); a p2 tiling likewise on the
 index-<i>2n/c</i> quotient with a 180° rotation adjoined. Matches all four of Myers's columns,
@@ -233,8 +306,7 @@ including the subtle translation-only shapes (first at n&#8202;=&#8202;9).</p>
 <tr><td>10</td><td>522</td><td>2&#8202;181</td><td>520</td><td>2</td><td class="match">✓</td></tr>
 </table>
 </div>
-
-<h2><span class="stage">Stage 3 · complete</span>Full classification: isohedral, anisohedral, non-tilers <span class="status ok">n ≤ 10 validated</span></h2>
+<h2 id="polyominoes"><span class="stage">Part I · replication</span>Polyominoes: isohedral, anisohedral, non-tilers <span class="status ok">n ≤ 12 validated</span></h2>
 <p class="note">Candidate wallpaper subgroups of the base tiling's symmetry group are enumerated
 as (point subgroup, invariant sublattice, offset cocycle) triples modulo conjugacy; a k-isohedral
 tiling is a k-orbit exact cover of the quotient torus. Non-tiling is proved separately by
@@ -243,7 +315,7 @@ possible-neighbour arc-consistency pruning, corona elimination, and a depth-d su
 number below matches Myers's tables</b> — all 4&#8202;655 10-ominoes in 204&#8202;s on 8 cores.
 Rows n&#8202;=&#8202;11 and 12 (added 1 August) come from the new fused C+Python pipeline —
 enumeration, hole detection and translation tilings retired in C at ~10⁸ shapes/s, survivors
-finished by the Python engine — 17,073 shapes in 150&#8202;s and 63,600 in 13&#8202;minutes, matching
+finished by the Python engine — 17&#8202;073 shapes in 150&#8202;s and 63&#8202;600 in 13&#8202;minutes, matching
 Myers at every column including both anisohedral k-breakdowns. An entry like
 &#8220;35&#8202;487&#8202;+&#8202;1&#8221; means that many non-tilers proven, plus one shape still
 unresolved at kmax&#8202;4 (Myers lists it among his non-tilers; the totals agree).</p>
@@ -265,13 +337,13 @@ certified <b>Heesch lower bounds</b> by depth-d surround search on unpruned neig
 (the pruned lists used for non-tiling proofs are unsound for Heesch, as Myers notes): of the
 three non-tiling heptominoes, two have Heesch ≥ 1 and one — the plus-with-tail — cannot even
 be surrounded once (Heesch 0), matching the known values.</p>
-
-<h2><span class="stage">Stage 4 · complete</span>Polykites <span class="status ok">n ≤ 11 validated</span></h2>
+<h2 id="polykites"><span class="stage">Part I · replication</span>Polykites <span class="status ok">n ≤ 11 validated</span></h2>
 <p class="note">The [3.4.6.4] Laves (kite) backend passes its machine-checked group axioms; free
 counts match Myers exactly (1, 2, 4, 10, 27, 85, 262, 873). Classification agrees with Myers's
 kite tables at <b>every entry</b> through n&#8202;=&#8202;11, including the famously sparse structure —
 no translation or 180°-only tilings except at multiples of the residue count, the lone
-3-anisohedral 5-kite, and exactly one shape the classifier cannot resolve at n&#8202;=&#8202;8 (see below).
+3-anisohedral 5-kite, and exactly one shape the classifier cannot resolve at n&#8202;=&#8202;8 —
+the <a href="#hat-turtle">hat</a>.
 Kites found this engine's first bug: neighbour placements must be genuine symmetries of the
 Laves tiling, which is invisible on the square grid where every integer translation is one.</p>
 <div class="tablewrap">
@@ -324,34 +396,7 @@ anisohedral shapes cluster hard at k&#8202;=&#8202;3, which is where both 11-kit
 Left and middle: the first <b>6-anisohedral</b> polykites (k ≤ 5 exhausted, 6-orbit tilings found). Right: <b>the turtle</b>,
 rediscovered the same way the hat was — no k-isohedral tiling for any k ≤ 8, coronas to depth 7 and counting.</div>
 </div>
-
-<h2><span class="stage">Stage 5 · complete</span>The hat, rediscovered <span class="status ok">aperiodicity evidence</span></h2>
-<div style="display:flex; gap:1.5rem; align-items:flex-start; flex-wrap:wrap; margin-top:1rem;">
-<div style="flex:0 0 200px; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/hat.svg" alt="hat" style="width:100%; height:auto; display:block;" loading="lazy"/>
-</div>
-<div style="flex:1 1 22rem; min-width:0;">
-<p style="margin-top:0">Classifying all 873 free 8-kites left <b>exactly one shape unresolved</b> — and it
-is the <b>hat</b>, the aperiodic monotile of Smith, Myers, Kaplan and Goodman-Strauss (2023). The
-engine wasn't told about it; it simply survived every classification the engine knows, which is
-precisely the computational signature of aperiodicity Myers describes:</p>
-<ul style="font-size:0.95rem; margin:0.4rem 0 0; padding-left:1.2rem;">
-<li><b>It tiles locally:</b> surrounds (coronas) exist to depth 6 and counting — a certified
-Heesch lower bound of 6, with no failure in sight (the true value is ∞, since it tiles the plane).</li>
-<li><b>But never periodically:</b> exhaustive search over all candidate wallpaper subgroups finds
-<b>no tiling with isohedral number k for any k ≤ 14</b> (originally k ≤ 7 by exact-k backtracking;
-the SAT exclusion engine later swept k ≤ 14 in thirty seconds — positive controls: the engine
-finds the 4-anisohedral nonomino and 3-anisohedral kites).</li>
-</ul>
-<p class="note">A shape that surrounds indefinitely but admits no k-isohedral tiling at any
-searched k is either aperiodic or extraordinarily anisohedral — Myers's programs would "run
-for ever" on it; ours reports it unresolved and hands over exactly this evidence. The same
-signature has since singled out <b>the turtle</b> among the 10-kites (Stage 4) — the engine has
-now rediscovered both of the known aperiodic polykites blind.</p>
-</div>
-</div>
-
-<h2><span class="stage">Stage 6 · complete</span>Polyhexes &amp; polyiamonds <span class="status ok">validated vs Myers</span></h2>
+<h2 id="polyhexes-polyiamonds"><span class="stage">Part I · replication</span>Polyhexes &amp; polyiamonds <span class="status ok">validated vs Myers</span></h2>
 <p class="note">The remaining two classical families round out the validation arc: the hexagonal and
 triangular backends replicate two more of Myers's table sets. Full free classifications now stand at
 n&#8202;≤&#8202;10 for polyhexes and n&#8202;≤&#8202;14 for polyiamonds, and <b>every resolved entry
@@ -381,7 +426,7 @@ non-tilers and <b>two shapes of isohedral number 8</b>, exactly as his totals pr
 <p class="note">The hexes put up the best fight of any validation family. The last hexahex holdout was
 proven a non-tiler by a two-hour exhaustive depth-5 surround search. At n&#8202;=&#8202;7, three deep
 non-tilers were proven at depth 5; the last two had hit their node budgets inconclusively and were
-parked — until the SAT surround engine (built for the star, Stage 8) settled all five unresolved
+parked — until the SAT surround engine (built for the star, <a href="#star">Part IV</a>) settled all five unresolved
 heptahexes as proven non-tilers in seconds (surrounds exhaust at depths 2&#8211;4, each with a
 DRAT-certified refutation), matching Myers exactly. A follow-up SAT sweep then pinned each one's exact
 Heesch number over the engine's raw candidate universe: <b>2, 2, 3, 2, 2</b> (in
@@ -396,37 +441,8 @@ most interesting.</b> All <b>30&#8202;490</b> free 10-hexes were swept: 404 hole
 tilers, 8&#8202;211 by 180°, 1&#8202;803 isohedral, <b>256 anisohedral</b> — 226 2-, 26 3- and <b>four
 4-anisohedral</b>, the family's largest crop of isohedral number 4 and the largest at any single size
 outside the polycairos — 18&#8202;719 proven non-tilers, and <b>43 shapes still unresolved</b> at
-kmax&#8202;4 — and those 43 turned out to hold the best find of the night.</p>
-<p class="note"><b>Two 10-hexes of isohedral number 8.</b> Myers's totals said 41 of the 43 were
-non-tilers and two were 8-anisohedral, so the probe was a race between two engines over shapes
-neither sweep had settled. Running the expensive k-search on all 43 was projecting hours, so the
-probe was reordered by cost rather than by curiosity: <b>SAT surround exhaustion first</b>, which
-proves non-tiling in seconds and duly killed 44 of the 47 candidates across both families, leaving
-three. Only those three went to the k&#8202;≤&#8202;8 orbit search — and all three came back
-<b>MIN-K&#8202;=&#8202;8</b>, each with its cover cross-checked as an exact torus partition and
-decoded to a genuine plane tiling. Two are the 10-hexes below; the third is the 13-iamond in the
-next table. They are the first shapes in this project with isohedral number above 6, they lift the
-record by two at a stroke, and both families' rows now match Myers at every column.</p>
-<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
-<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/hex10-8aniso-a.svg" alt="First 8-anisohedral 10-hex" style="width:100%; height:auto; display:block;" loading="lazy"/>
-</div>
-<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/hex10-8aniso-b.svg" alt="Second 8-anisohedral 10-hex" style="width:100%; height:auto; display:block;" loading="lazy"/>
-</div>
-<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/iamond13-8aniso.svg" alt="8-anisohedral 13-iamond" style="width:100%; height:auto; display:block;" loading="lazy"/>
-</div>
-<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The three shapes of isohedral number 8: two 10-hexes and a
-13-iamond. Each tiles the plane, but every tiling needs at least eight orbits of tiles — the highest isohedral number in
-this project, two above the previous ceiling of 6 held by twenty-four shapes across five families.</div>
-</div>
-<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
-<img src="figs/hex10-8orbit-tiling.png" alt="8-orbit tiling by the first 8-anisohedral 10-hex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
-<div class="legend" style="margin-top:0.5rem">A minimal tiling of the first 8-anisohedral 10-hex, coloured by orbit —
-eight classes of tile, twenty tiles to a class in the fundamental domain, verified overlap-free across 784 tiles. No tiling
-of this shape uses fewer than eight orbits.</div>
-</div>
+kmax&#8202;4 — and those 43 turned out to hold the best find of the night —
+see <a href="#records">the isohedral-number records</a>.</p>
 <div class="tablewrap">
 <table>
 <caption>Complete classification of free polyiamonds, ours vs. Myers (every resolved entry matches; see n = 13)</caption>
@@ -464,13 +480,12 @@ well populated — and two of the 53 are 4-anisohedral. n&#8202;=&#8202;12 rever
 isohedral, 47 anisohedral). n&#8202;=&#8202;13
 adds two more 4-anisohedral shapes and, among its four initially unresolved shapes, the
 <b>8-anisohedral 13-iamond</b> — three proven non-tilers and one tile of isohedral number 8, the
-iamond twin of the two 10-hexes above (both confirmed by the two-stage probe described there). Then n&#8202;=&#8202;14 is the family's biggest and blandest
+iamond twin of the two 10-hexes (both confirmed by the same <a href="#records">two-stage probe</a>). Then n&#8202;=&#8202;14 is the family's biggest and blandest
 row: 281 anisohedral shapes, <b>274 of them merely 2-anisohedral</b> and the remaining seven at
 k&#8202;=&#8202;3, with <b>not a single 4-anisohedral 14-iamond</b> and nothing unresolved — an exact
 match with Myers at every column, and a reminder that the high-k shapes thin out with size rather
 than accumulating.</p>
-
-<h2><span class="stage">Stage 7 · new results</span>Polycairos <span class="status ok">terra incognita, classified</span></h2>
+<h2 id="polycairos"><span class="stage">Part II · new families</span>Polycairos <span class="status ok">terra incognita, classified</span></h2>
 <p class="note">The Cairo backend models the tiling as the dual of the snub square tiling on an
 exact integer lattice (four pentagon aspects, p4g symmetry with its glide offsets handled by the
 group cocycles). Free polycairo counts match <a href="https://oeis.org/A159866">OEIS A159866</a>
@@ -513,8 +528,7 @@ banned. Heesch scan of the non-tilers: maximum certified lower bound 2 (two hept
 by orbit of the tiling's symmetry group — rendered from the exact-cover solution and verified overlap-free over 392 tiles.
 No tiling of this shape uses fewer than four orbits.</div>
 </div>
-
-<h2><span class="stage">Stage 8 · new results</span>Polyrhombilles <span class="status ok">another new family</span></h2>
+<h2 id="polyrhombilles"><span class="stage">Part II · new families</span>Polyrhombilles <span class="status ok">another new family</span></h2>
 <p class="note">The rhombille ([3.6.3.6] Laves, "tumbling blocks") backend: 60°/120° rhombi, three
 per hexagon, p6m with all point maps carrying lattice-fraction offsets. Free counts match the known
 polyrhombille sequence (1, 1, 3, 4, 12, 27, 78, 208). The classification below is again new data.</p>
@@ -553,43 +567,6 @@ k&#8202;=&#8202;3 or 6, never 2, 4, or 5 (indeed <b>no 10-rhombille tiles isohed
 k&#8202;=&#8202;2 reappears at the even size 12, yet at n&#8202;=&#8202;13 the six ceiling holds —
 five of the thirteen anisohedral shapes reach it, and the four resistant shapes that don't tile
 were each dispatched by SAT surround exhaustion at depth 3.</p>
-<p class="note"><b>Resolved (30 July, afternoon): the star does not tile.</b> As a free 20-iamond it
-tiles by mere translation, but aligned to the rhombille grid it is a <b>proven non-tiler with
-Heesch number exactly 3</b> — and, as a posthumous consistency check, a SAT version of the k-orbit
-search has since pushed its periodic exclusion from k&#8202;≤&#8202;15 (4.3 CPU-hours of
-backtracking) to <b>k&#8202;≤&#8202;18 in seven minutes</b>, with every group refutation through
-k&#8202;=&#8202;15 DRAT-certified. The proof came from a new attack: encode depth-d surround existence
-as SAT (placements as variables; per-cell at-most-one; corona coverage forced level by level) and
-hand it to a CDCL solver. Where the recursive search had burned 95M nodes across seven cores
-without finishing even one of thirty top-level branches, <code>cadical</code> settles depth 3
-<b>in 0.2 seconds</b>: a surround exists (88 tiles — the patch below, independently verified and
-re-certified by the original search engine as a warm start). Depth 4 is <b>UNSAT in 7 seconds</b>
-(confirmed by a second solver, and identical over the raw un-pruned candidate universe): no
-depth-4 surround exists, so the star cannot tile, and its aligned Heesch number is exactly 3 —
-between the two coronas everyone could find and the four nobody could. The SAT method agrees with
-the recursive engine on every validation case, in both directions, with ~500&times; speedups on
-exhaustive verdicts. And the negative direction is now <b>machine-certified</b>: the depth-4
-refutation (in both the pruned and raw candidate universes) carries a DRAT proof log verified by
-the independent checker <code>drat-trim</code>, so the verdict rests only on the encoding (itself
-cross-validated against the recursive engine) and a 3&#8202;000-line C checker — not on solver trust.
-At that moment every shape then computed, in every family, stood resolved except the hat — whose
-&#8220;unresolved&#8221; verdict is itself the right answer, being the computational signature of the
-aperiodic monotile. The frontier has since moved: new rows at kite n&#8202;=&#8202;10 (where the same
-signature found the turtle), hex n&#8202;=&#8202;8 and rhombille n&#8202;=&#8202;13 opened fresh
-unresolved shapes, and the SAT probes working through them have so far only added tilers and
-non-tilers, no new mysteries — and the nine 13-rhombilles have since resolved too: five
-6-anisohedral, four proven non-tilers, nothing open in the family.</p>
-<div style="max-width:22rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem; text-align:center;">
-<img src="figs/star-10rhombille.svg" alt="star 10rhombille" style="width:100%; height:auto; display:block;" loading="lazy"/>
-<div class="legend" style="margin-top:0.5rem; text-align:left;">The star 10-rhombille: tiles the plane by
-translation as a free 20-iamond, but rhombille-aligned it is a proven non-tiler with Heesch number exactly 3.</div>
-</div>
-
-<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
-<img src="figs/star-surround-d3.png" alt="The star 10-rhombille surrounded by three complete coronas &#8212; its maximal surround" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
-<div class="legend" style="margin-top:0.5rem">The star&#8217;s maximal surround, found by the SAT engine in 0.2&#8202;s: the center (dark) wrapped in three complete coronas (blues), with outer filler tiles (gold/orange) supporting the third. No fourth corona exists (UNSAT, 7&#8202;s) — Heesch number 3, hence a non-tiler.</div>
-</div>
-
 <div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
 <img src="figs/pentarhombille-unresolved-trio.svg" alt="pentarhombille unresolved trio" style="width:100%; height:auto; display:block;" loading="lazy"/>
 <div class="legend" style="margin-top:0.5rem">The unresolved pentarhombilles as first found (left, middle still open; right since resolved as the 6-anisohedral shape). Each tiles the plane only by breaking alignment with the underlying rhombille grid.</div>
@@ -601,14 +578,13 @@ translation as a free 20-iamond, but rhombille-aligned it is a proven non-tiler 
 colored by orbit — its symmetry group is translations only, and no aligned tiling of this five-rhombus shape has fewer
 than six orbits. Verified overlap-free from the exact-cover solution.</div>
 </div>
-
-<h2><span class="stage">Stage 9 · new results</span>Polyflorets — a chiral family <span class="status ok">classified n ≤ 11</span></h2>
+<h2 id="polyflorets"><span class="stage">Part II · new families</span>Polyflorets — a chiral family <span class="status ok">classified n ≤ 11</span></h2>
 <p class="note">The floret pentagonal ([3.3.3.3.6] Laves) tiling is <b>chiral</b> — its symmetry group
 p6 contains no reflections — so polyflorets are one-sided: mirror images are genuinely different
 shapes. The backend models the dual snub trihexagonal tiling exactly, via the index-7 Loeschian
 sublattice ⟨(2,1),(−1,3)⟩ of the triangular lattice. Three free dominoes, as predicted by the
 snub tiling's three p6 edge orbits. (The polyhex and polyiamond backends that complete the Myers
-validation arc have their own tables in Stage 6.)</p>
+validation arc have their own tables in <a href="#polyhexes-polyiamonds">Part I</a>.)</p>
 <div class="tablewrap">
 <table>
 <caption>Complete classification of free (one-sided) polyflorets — this work (kmax 4 plus deep probes at n = 10)</caption>
@@ -636,12 +612,12 @@ survivor is simple: one is the family's first <b>3-anisohedral</b> floret, and t
 <b>6-anisohedral</b> — the kmax-4 classification left it unresolved, an exact k&#8202;=&#8202;5 search
 then excluded five orbits, and a 6-orbit tiling was found and verified overlap-free (below). That
 ties the pentarhombille record for the highest isohedral number in the project (matched again by
-four polypons in Stage 14) — this time on the chiral p6 grid, where aligned tilings can never use
+four polypons, <a href="#polypons">below</a>) — this time on the chiral p6 grid, where aligned tilings can never use
 reflections at all.</p>
 <p class="note">And n&#8202;=&#8202;11 completes the collapse: of <b>213&#8202;951</b> free 11-florets,
 <b>not one tiles the plane</b> — 37&#8202;159 have holes and the remaining 176&#8202;792 are all proven
-non-tilers, with nothing unresolved. The same n&#8202;=&#8202;11 dead zone strikes the drafters and
-the polypons (Stages 13–14).</p>
+non-tilers, with nothing unresolved. The same n&#8202;=&#8202;11 dead zone strikes the <a href="#polydrafters">drafters</a> and
+the <a href="#polypons">polypons</a>.</p>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
 <div style="flex:1 1 13rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
 <img src="figs/floret10-3aniso.svg" alt="floret10 3aniso" style="width:100%; height:auto; display:block;" loading="lazy"/>
@@ -659,8 +635,7 @@ and the 6-anisohedral 10-floret (right, tinted).</div>
 the tiling's symmetry group is translations only, and no aligned tiling of this shape has fewer than six orbits
 (k ≤ 5 exhausted). Verified overlap-free from the exact-cover solution.</div>
 </div>
-
-<h2><span class="stage">Stage 10 · new results</span>Polyprisms <span class="status ok">classified n ≤ 10</span></h2>
+<h2 id="polyprisms"><span class="stage">Part II · new families</span>Polyprisms <span class="status ok">classified n ≤ 10</span></h2>
 <p class="note"><b>Polyprisms</b> (prismatic pentagonal, [3.3.3.4.4] Laves, cmm; counts match the
 known 1, 3, 5, 20, 56, 225) are the friendliest family yet — the single pentagon tiles by 180°, the first
 non-tiler appears only at n&#8202;=&#8202;4, and n&#8202;=&#8202;7 brings the first 3-anisohedral polyprism.
@@ -694,8 +669,7 @@ and at none of the odd ones, through n&#8202;=&#8202;10.</p>
 <tr><td>10</td><td>55231</td><td>2528</td><td>1159</td><td>11517</td><td>1104</td><td>78</td><td>2:78</td><td>38845</td><td>0</td></tr>
 </table>
 </div>
-
-<h2><span class="stage">Stage 11 · new results</span>Polyaboloes (kisquadrille tans) <span class="status ok">classified n ≤ 11</span></h2>
+<h2 id="polyaboloes"><span class="stage">Part II · new families</span>Polyaboloes (kisquadrille tans) <span class="status ok">classified n ≤ 11</span></h2>
 <p class="note">Classical polyaboloes are built from <b>tans</b> — half-square right triangles — and a tan
 is exactly a pair of tetrakis-square ("kisquadrille") quarter-triangles glued along a half-diagonal. So
 polyaboloes enumerate as tan-pair regions on the [4.8.8] Laves substrate (deduped by union: the two
@@ -724,12 +698,12 @@ this grid</b>: exhaustive sweeps of all 3&#8202;743 enneaboloes (kmax 6) and all
 Spectre mode (kmax 7) find a maximum anisohedral number of <b>4</b> with reflections (a single
 4-anisohedral enneabolo) and only <b>2</b> without — no ≥6-anisohedral enneabolo exists under
 kisquadrille-aligned tilings in either convention. If the reported example is real, it likely lives on the
-kisrhombille ([4.6.12]) grid — classified in Stage 13. The n&#8202;=&#8202;11 row (46&#8202;476 shapes,
+kisrhombille ([4.6.12]) grid — classified
+<a href="#polydrafters">below</a>. The n&#8202;=&#8202;11 row (46&#8202;476 shapes,
 fully resolved) brings the family's largest anisohedral crop yet: 105 shapes, five of them
 3-anisohedral.</p>
-
-<h2><span class="stage">Stage 12 · new family</span>Tetrakis polyaboloes — quarter-square cells <span class="status ok">classified n ≤ 13</span></h2>
-<p class="note">Stage 11 glued the [4.8.8] grid's cells into tans; drop the pairing and the single
+<h2 id="tetrakis"><span class="stage">Part II · new families</span>Tetrakis polyaboloes — quarter-square cells <span class="status ok">classified n ≤ 13</span></h2>
+<p class="note">The <a href="#polyaboloes">previous section</a> glued the [4.8.8] grid's cells into tans; drop the pairing and the single
 <b>quarter-square triangle</b> becomes the cell, giving the kisquadrille substrate its native polyform
 family — <b>tetrakis polyaboloes</b> (poly-[4.8²]-tiles), where the division of a tan into two tetrakis
 cells is significant. Free counts (1, 2, 2, 6, 8, 22, 42, 112) match
@@ -756,29 +730,6 @@ new data.</p>
 <tr><td>12</td><td>4091</td><td>170</td><td>194</td><td>405</td><td>278</td><td>53</td><td>2:53</td><td>2991</td><td>0</td></tr>
 <tr><td>13</td><td>10369</td><td>617</td><td>0</td><td>0</td><td>203</td><td>44</td><td>2:42&ensp;4:2</td><td>9505</td><td>0</td></tr>
 </table>
-</div>
-<p class="note"><b>Isohedral number 10 — the project record, on nine triangles.</b> The n&#8202;=&#8202;9
-row's lone holdout survived every sweep: no tiling with k&#8202;≤&#8202;4, and unlike almost every
-other unresolved shape in the project it also refused to be proven a non-tiler — its surrounds run
-to depth 6 and show no sign of stopping. That combination is the star's signature, and for a few
-hours it was the project's new flagship mystery. It is instead the highest-k tile here: the SAT
-orbit search returns <b>MIN-K&#8202;=&#8202;10</b>, with the cover cross-checked as an exact torus
-partition (40 tiles per fundamental domain in ten orbits of 36 cells each) and independently
-re-verified by expanding the 40 representatives back onto the torus — all 360 cells covered exactly
-once, no duplicates. It is a plain chevron of nine quarter-square triangles, it tiles the plane, and
-every tiling of it needs at least ten orbits of tiles.</p>
-<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
-<div style="flex:0 0 8rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/tetrakis9-open.svg" alt="The 10-anisohedral tetrakis chevron" style="width:100%; height:auto; display:block;" loading="lazy"/>
-</div>
-<div style="flex:1 1 18rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/chevron-10orbit-tiling.png" alt="Ten-orbit tiling by the chevron" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
-</div>
-<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The chevron and a minimal tiling of it, coloured by orbit —
-ten classes of tile. The previous record in this project was 8 (two 10-hexes and a 13-iamond, found the same night);
-before that, 6. Drawing this figure exposed a rendering bug worth recording: a square window of sublattice coefficients
-covers only a thin sliver of the plane when the lattice basis is skewed, so the first renders showed a correct tiling
-full of phantom holes — the same Gauss-reduction pitfall the decorated validator hit in July, in a new place.</div>
 </div>
 
 <p class="note">The family wastes no time: a non-tiling shape already exists at <b>three cells</b> (one
@@ -808,10 +759,9 @@ against the Cairo family's 1.14&#8202;million. Per shape it is not close: the tw
 4-anisohedral rows anywhere on this page are both tetrakis, n&#8202;=&#8202;7 at one shape in 21 and
 n&#8202;=&#8202;9 at one in 126, ahead of the enneiamonds' one in 160 and the heptacairos' one in 390,
 and even the family's thinnest row (n&#8202;=&#8202;13, one in 5&#8202;184) sits mid-table. Whatever
-makes a quarter-square triangle hard to tile transitively does not wash out with size. One shape is
-still open: a 9-cell tetrakis polyabolo with no k&#8202;≤&#8202;4 tiling and no non-tiling proof —
-exactly the profile the 7-cell shape had before it resolved as 6-anisohedral, which is reason enough
-to queue it for deep probes rather than guess.</p>
+makes a quarter-square triangle hard to tile transitively does not wash out with size. The family's one long-open shape turned out
+to hold the project's record isohedral number — see <a href="#records">the isohedral-number
+records</a>.</p>
 <div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
 <img src="figs/tetrakis7-6orbit-tiling.png" alt="6-orbit tiling by the 6-anisohedral 7-cell tetrakis polyabolo" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
 <div class="legend" style="margin-top:0.5rem">The minimal (6-orbit) tiling of the 6-anisohedral 7-cell tetrakis polyabolo,
@@ -853,8 +803,7 @@ chirality</b>: the one-sided sweep resolves all 80 seven-cell shapes and finds n
 k&#8202;=&#8202;2, so every minimal 4-orbit tiling must mix mirror-image copies — the same fate as the
 eleven 4-anisohedral polycairos. At n&#8202;=&#8202;7 only six of the 80 one-sided shapes tile the plane
 at all, every one of them 2-anisohedral.</p>
-
-<h2><span class="stage">Stage 13 · new results</span>Polydrafters (kisrhombille) <span class="status ok">free n ≤ 13, one-sided n ≤ 12</span></h2>
+<h2 id="polydrafters"><span class="stage">Part II · new families</span>Polydrafters (kisrhombille) <span class="status ok">free n ≤ 15, one-sided n ≤ 12</span></h2>
 <p class="note">The kisrhombille ([4.6.12] Laves) tiling of 30-60-90 triangles — drafter country. This
 family is <b>edge-to-edge</b> polydrafters (cells joined along full shared grid edges; the classical
 polydrafter census also counts other contacts). Like florets, the grid is hostile: no 5- or (below)
@@ -920,8 +869,7 @@ those two columns are blank at every size on this page except n&#8202;=&#8202;6 
 genuinely hostile is everything else — zero isohedral 13-drafters at all, where n&#8202;=&#8202;12 had
 559 — so the family alternates between the ordinary and the barren from one size to the next rather
 than settling down.</p>
-
-<h2><span class="stage">Stage 14 · new results</span>Polypons (triakis triangular) — the last Laves tiling <span class="status ok">free n ≤ 17, one-sided n ≤ 14</span></h2>
+<h2 id="polypons"><span class="stage">Part II · new families</span>Polypons (triakis triangular) — the last Laves tiling <span class="status ok">free n ≤ 19, one-sided n ≤ 14</span></h2>
 <p class="note">The triakis triangular ([3.12.12] Laves) tiling splits each triangle of the regular
 triangular tiling into three 30-30-120 obtuse triangles; its polyforms are the classical
 <b>polypons</b>, and this backend completes the set — all eleven Laves tilings now run on the one
@@ -972,7 +920,7 @@ n&#8202;=&#8202;12 normalizes (34 translation, 11 180°-only, 91 isohedral) and 
 isohedral-or-nothing, before n&#8202;=&#8202;14 brings <b>nine</b> anisohedral shapes: four 2-, four
 3-anisohedral, and a resistant since proven the family's <b>fourth 6-anisohedral</b> tile
 (k ≤ 5 exhausted, 6-orbit tiling verified). With the sixteen rhombilles, the 10-floret and the two 10-kites, the
-project now has <b>twenty-four</b> shapes of isohedral number 6, across five Laves families (the 7-cell tetrakis of Stage 12 being the latest and smallest) — and
+project now has <b>twenty-four</b> shapes of isohedral number 6, across five Laves families (the 7-cell <a href="#tetrakis">tetrakis polyabolo</a> being the latest and smallest) — and
 every free polypon through n&#8202;=&#8202;15, and every one-sided one through n&#8202;=&#8202;14, is
 resolved.</p>
 <p class="note"><b>Three more free rows (1 August) push the polypons to n&#8202;=&#8202;17, the deepest
@@ -1045,16 +993,51 @@ both conventions, and then n&#8202;=&#8202;14 produces the family's first one-si
 3-anisohedral when reflections are allowed, its isohedral number climbing one notch when they are
 banned. The fourth 6-anisohedral polypon is not so lucky: its six-orbit tiling needs reflected
 copies, and its one-sided versions are proven non-tilers.</p>
-
-<h2><span class="stage">Stage 15 · new results</span>Spectre mode: reflections banned <span class="status ok">eleven families</span></h2>
+<h2 id="tiling-rate"><span class="stage">Part II · new families</span>The shape of two and a half million answers <span class="status ok">every family, one picture</span></h2>
+<p class="note">Twelve families, 2.5 million classifications, and one question worth asking of all of
+them at once: <b>what fraction of shapes actually tile the plane, and how does that change with
+size?</b> Twelve series is far past what any honest categorical palette can carry, so each family
+gets its own panel; within a panel the only colour is odd versus even size, because that turns out
+to be the story.</p>
+<div style="max-width:44rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/tiling-rate-by-family.svg" alt="Small multiples: percentage of shapes that tile, by family and size" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">Percentage of free shapes of each size that tile the plane (rows with fewer than
+20 shapes omitted). The four classical families decline smoothly; the Laves families built from several cells per
+translation unit oscillate violently, and the oscillation is not noise.</div>
+</div>
+<p class="note">The top row behaves the way intuition says it should. Polyominoes, polyhexes and
+polyiamonds decline smoothly — bigger shapes are likelier to be awkward, and the curve slides from
+&#8220;almost everything tiles&#8221; toward &#8220;almost nothing does.&#8221; The exotic grids do
+something else entirely: <b>polypons swing between 1% and 36%, tetrakis polyaboloes between 0% and
+71%</b>, size after size, in a sawtooth that persists to the largest rows computed.</p>
+<p class="note"><b>The sawtooth is arithmetic, not luck.</b> Each of these grids has <i>c</i> cells
+per translation unit — three rhombi to a hexagon, four quarter-squares to a square, six pons to a
+triangle — and a tiling has to cover a quotient torus of exactly <i>c</i>·<i>m</i> cells using
+whole copies of an <i>n</i>-cell shape. Counting the copies gives the constraint the engine checks
+before it enumerates a single group: <b><i>c</i> must divide <i>n</i>·<i>T</i></b>, where <i>T</i>
+is a sum of <i>k</i> terms of the form <i>q</i>/<i>s</i> — <i>q</i> the order of the tiling group's
+point group, <i>s</i> the order of an orbit's stabiliser. The exact arithmetic matters less than
+its shape: <i>T</i> ranges over a sparse set of integers, so when <i>n</i> shares no factor with
+<i>c</i> whole classes of candidate group vanish before any search begins, and when <i>n</i> is a
+multiple of <i>c</i> they all survive. Sizes divisible by <i>c</i> are therefore systematically
+richer in tilings, and the effect is enormous: polypons (<i>c</i>&#8202;=&#8202;6) go from 0.0% of
+17-pons tiling to <b>6.9% at n&#8202;=&#8202;18</b> and back to 0.5% at 19; tetrakis polyaboloes
+(<i>c</i>&#8202;=&#8202;4) from 0.2% at n&#8202;=&#8202;15 to <b>7.2% at n&#8202;=&#8202;16</b>, a
+thirty-six-fold jump between neighbouring sizes. Those three rows were computed <i>after</i> this
+paragraph was written, which makes them a fair test rather than a fitted story. The classical grids
+have <i>c</i>&#8202;=&#8202;1 or 2 and almost nothing to fail, which is why their curves are
+smooth. One caveat kept in view: the drafters (<i>c</i>&#8202;=&#8202;12) do not follow the pattern
+cleanly — their local peak at n&#8202;=&#8202;14 is not a multiple of 12 — so divisibility gates
+the <i>opportunity</i> to tile without determining the outcome.</p>
+<h2 id="spectre-mode"><span class="stage">Part III · one-sided</span>Spectre mode: reflections banned <span class="status ok">eleven families</span></h2>
 <p class="note">Chiral edge notches (as on the Spectre) enforce grid alignment <i>and</i> orientation, so
 classification under <b>direct isometries only</b> — rotations and translations, shapes one-sided — is the
 version realizable by an honest unmarked notched tile, with no grid caveat. <b>Eleven of the project's
 twelve families now carry explicit one-sided classifications</b>: the eight tables below (polyominoes,
 polyhexes, polyiamonds, polycairos, polykites, polyrhombilles, polyaboloes, polyprisms) plus the
-one-sided tables kept with their families in Stages 12&#8211;14 (tetrakis polyaboloes, polydrafters,
-polypons). The twelfth family needs no separate table at all: the floret grid is <b>chiral</b> (p6, no
-reflections to ban), so polyflorets are intrinsically one-sided and their main table in Stage 9 already
+one-sided tables kept with their families in <a href="#tetrakis">Part II</a> (tetrakis polyaboloes,
+polydrafters, polypons). The twelfth family needs no separate table at all: the floret grid is <b>chiral</b> (p6, no
+reflections to ban), so polyflorets are intrinsically one-sided and their main table (<a href="#polyflorets">Part II</a>) already
 <i>is</i> their Spectre classification. Where one-sided enumerations are published the counts validate
 externally: polyominoes match <a href="https://oeis.org/A000988">A000988</a>, polyhexes
 <a href="https://oeis.org/A006535">A006535</a>, and polyiamonds
@@ -1073,28 +1056,14 @@ beyond the current one-sided frontier and are untested. Banning reflections can 
 numbers: four one-sided 10-cairos and four one-sided 10-iamonds — the chiralities of two
 free-<i>isohedral</i> 10-cairos and two free-isohedral 10-iamonds — vault from k&#8202;=&#8202;1
 straight to <b>4-anisohedral</b>, the first one-sided 4-anisohedral shapes in either family; a
-2-anisohedral enneiamond doubles to 4; and a 3-anisohedral 14-pon climbs to 4 (Stage 14). The older
+2-anisohedral enneiamond doubles to 4; and a 3-anisohedral 14-pon climbs to 4 (<a href="#polypons">polypons</a>). The older
 highlights stand: the <b>6-anisohedral pentarhombille survives unchanged</b> (its minimal tiling is
 translations-only), so its notched version is an unmarked tile with isohedral number 6; the two
 long-unresolved pentarhombilles are <b>Spectre-mode non-tilers in both chiralities</b> (exact
 direct-Heesch numbers 1 and 2) — any aligned tiling they admit must mix mirror-image copies; and all
 five isohedral heptaboloes lose their tilings when reflections are banned (their one-sided versions are
 non-tilers or 2-anisohedral).</p>
-<p class="note"><b>The one-sided hat is a proven non-tiler.</b> Running the polykites in Spectre
-mode (below) resolves every one-sided shape through n&#8202;=&#8202;8 — including the hat, whose one-sided
-version is killed by the surround search. This independently establishes the known fact that every aligned
-hat tiling must contain reflected hats (which is why the Spectre required the equilateral Tile(1,1), not a
-polykite). The 3-anisohedral 5-kite likewise needs reflections: all 48 one-sided 5-kites are non-tilers.</p>
-<p class="note"><b>And now the one-sided turtle is too.</b> The kite table's new rows (31 July) first
-produce the family's earliest anisohedral one-sided shapes — five 2-anisohedral 9-kites among
-5&#8202;787 — and then a <b>total wipeout at n&#8202;=&#8202;10</b>: of 19&#8202;901 one-sided 10-kites,
-1&#8202;384 have holes and the remaining 18&#8202;517 are all proven non-tilers. Not one tiles. In
-particular the one-sided <b>turtle</b> falls to the same surround argument that killed the one-sided
-hat, independently confirming that every aligned turtle tiling must contain reflected turtles —
-consistent with the 2023 finding that in the whole Tile(a,&#8202;b) family only the equilateral
-Tile(1,1), the Spectre, tiles without reflections. The two free 6-anisohedral 10-kites are one-sided
-non-tilers as well: their six-orbit tilings need mirror copies.</p>
-
+<h2 id="one-sided-tables"><span class="stage">Part III · one-sided</span>The one-sided tables, family by family <span class="status ok">eight tables</span></h2>
 <div class="tablewrap">
 <table>
 <caption>One-sided polyominoes, direct isometries only (kmax = 4; free column = A000988 at every entry)</caption>
@@ -1133,7 +1102,7 @@ n&#8202;=&#8202;9 the two 4-anisohedral entries are exactly the two chiralities 
 <p class="note">One-sided pentahexes manage something rare: an anisohedral shape at a size with
 <b>zero non-tilers</b> — all 33 tile, one of them only 2-anisohedrally. The n&#8202;=&#8202;7 non-tiler
 count includes two shapes the batch sweep left unresolved: they are the two chiralities of the free
-heptahex with Heesch number exactly 3, a proven non-tiler (Stage 6) — and a shape with no tiling at all
+heptahex with Heesch number exactly 3, a proven non-tiler (<a href="#polyhexes-polyiamonds">Part I</a>) — and a shape with no tiling at all
 certainly has no reflection-free one, so both inherit its verdict. The two 4-anisohedral octahexes
 lose everything one-sided (no one-sided octahex exceeds k&#8202;=&#8202;3).</p>
 
@@ -1196,6 +1165,20 @@ here banning reflections doesn't kill the tiling, it quadruples the orbit count.
 <tr><td>10</td><td>19901</td><td>1384</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>18517</td><td>0</td></tr>
 </table>
 </div>
+<p class="note"><b>The one-sided hat is a proven non-tiler.</b> Running the polykites in Spectre
+mode (table above) resolves every one-sided shape through n&#8202;=&#8202;8 — including the hat, whose one-sided
+version is killed by the surround search. This independently establishes the known fact that every aligned
+hat tiling must contain reflected hats (which is why the Spectre required the equilateral Tile(1,1), not a
+polykite). The 3-anisohedral 5-kite likewise needs reflections: all 48 one-sided 5-kites are non-tilers.</p>
+<p class="note"><b>And now the one-sided turtle is too.</b> The kite table's new rows (31 July) first
+produce the family's earliest anisohedral one-sided shapes — five 2-anisohedral 9-kites among
+5&#8202;787 — and then a <b>total wipeout at n&#8202;=&#8202;10</b>: of 19&#8202;901 one-sided 10-kites,
+1&#8202;384 have holes and the remaining 18&#8202;517 are all proven non-tilers. Not one tiles. In
+particular the one-sided <b>turtle</b> falls to the same surround argument that killed the one-sided
+hat, independently confirming that every aligned turtle tiling must contain reflected turtles —
+consistent with the 2023 finding that in the whole Tile(a,&#8202;b) family only the equilateral
+Tile(1,1), the Spectre, tiles without reflections. The two free 6-anisohedral 10-kites are one-sided
+non-tilers as well: their six-orbit tilings need mirror copies.</p>
 <div class="tablewrap">
 <table>
 <caption>One-sided polyrhombilles, direct isometries only (kmax = 6 through n = 10, 4 beyond)</caption>
@@ -1263,397 +1246,128 @@ isohedral column is empty — every one-sided 11-abolo that tiles at all does so
 symmetry is the half-turn, so every reflection-free tiling is of translation or p2 type — and empirically
 through n&#8202;=&#8202;9 there are no anisohedral one-sided polyprisms at all. At odd sizes even
 translation drops out: all 8&#8202;765 one-sided 9-prism tilers tile by 180°.</p>
-
-<h2><span class="stage">Stage 16 · new results</span>Wang decorations: bump/dent matching rules <span class="status ok">third audit closed · v3 oracle-verified</span></h2>
-<p class="note">The engine supports <b>edge decorations</b>: every boundary edge of a shape carries
-a label — 0 is neutral (matches itself), labels 1 and 2 are bump/dent partners that match only
-each other, exactly the Wang-tile mechanism behind the Spectre&#8217;s notches. The question this
-machinery answers: <b>what do decorations do to a shape&#8217;s isohedral number?</b> It took three
-audits to earn a trustworthy answer.</p>
-<p class="note"><b>How this section was wrong twice.</b> The first release showed a decorated
-L-tromino &#8220;4-anisohedral&#8221; tiling with overlapping bump discs; a reader flagged it, and
-the overlaps turned out to be bump-meets-bump contacts in a phantom tiling — the validator&#8217;s
-translate window missed touching pairs under skewed sublattice bases (too <i>permissive</i>). The
-v2 rerun fixed that and was promptly caught the other way: a reader observed that the new
-&#8220;4-orbit&#8221; figure looked transitive, and brute force agreed — orbit count 1. Placements
-had been identified by cell footprint, which conflates the mirror aspects of a symmetric shape;
-the decoder could pick the label-wrong aspect and <i>reject</i> genuine covers, silently inflating
-every k (too <i>strict</i>). The v3 engine keys placements by label class, decodes orbits from
-seeds by the group action, keeps the independent patch-level post-check on every success — and
-every positive below has been re-verified by a brute-force <b>orbit-count oracle</b> that computes
-the found tiling&#8217;s full decorated symmetry group from scratch: 160 of 160 k&#8202;=&#8202;2
-verdicts exact, zero violations.</p>
-<p class="note"><b>The parity lemma</b> (unchanged, and doing most of the work): with the identity
-mirror action, a decoration whose bump-count differs from its dent-count for any bump/dent pair
-tiles at no k whatsoever — bumps and dents must pair up across shared edges, and every tile
-carries the same labels. On an eight-edge shape this dismisses 5&#8202;454 of 6&#8202;561 three-label
-decorations before any search runs.</p>
-<p class="note"><b>The v3 truth is more rigid than either wrong version.</b> All eleven Laves unit
-prototiles — the hexagon included, contrary to v2&#8217;s prized &#8220;k&#8202;=&#8202;3
-hexagon&#8221; — are <b>decoration-rigid</b>: every 3-label bump/dent decoration either leaves the
-prototile isohedral or kills every tiling within the search bound; nothing in between. (The
-rhombus keeps its clean geometric rule: it tiles iff each edge pair meeting at a wide corner is
-self-compatible.) The polyominoes manage exactly one notch of the ladder: the domino is rigid
-too ({1}), while the L-tromino, I-tromino and O-tetromino each have a genuine population of
-<b>2-anisohedral</b> decorations (80, 48 and 32 of 6&#8202;561) — a bump/dent rule can double the
-isohedral number of a translation-friendly shape, and, as far as every sound sweep so far can
-see, <b>no 3-label decoration of any shape tested exceeds k&#8202;=&#8202;2</b>. Richer alphabets
-don&#8217;t help: 5-label sweeps (two independent bump/dent pairs) of the hexagon and domino
-produce more isohedral decorations and nothing anisohedral at all. The open question flipped:
-earlier drafts asked whether the hexagon&#8217;s &#8220;ceiling of 3&#8221; was real; the real
-question is whether <i>any</i> edge-matching decoration of <i>any</i> polyform can beat 2 — and
-if one can, how large it has to be.</p>
-<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
-<img src="figs/decorated-l-tromino-2orbit.svg" alt="A 2-orbit tiling by the decorated L-tromino: one bump and one dent on two of eight edges, matched discs marking each paired edge" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
-<div class="legend" style="margin-top:0.5rem">Genuine at last: a minimal <b>2-orbit</b> decorated
-L-tromino tiling — labels (0,&#8202;0,&#8202;0,&#8202;0,&#8202;0,&#8202;0,&#8202;1,&#8202;2), a
-single bump and dent on two of eight edges (sorted-edge order), one of the eighty 2-anisohedral
-decorations in <code>decor-L-tromino-v3</code>. One disc per matched edge, in the bump-carrier&#8217;s
-orbit colour; the undecorated shape tiles by translation, and the oracle confirms no tiling
-compatible with this decoration has fewer than two orbits.</div>
+<h2 id="hat-turtle"><span class="stage">Part IV · the hard shapes</span>The hat and the turtle <span class="status ok">aperiodicity evidence</span></h2>
+<div style="display:flex; gap:1.5rem; align-items:flex-start; flex-wrap:wrap; margin-top:1rem;">
+<div style="flex:0 0 200px; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/hat.svg" alt="hat" style="width:100%; height:auto; display:block;" loading="lazy"/>
 </div>
-<div class="tablewrap">
-<table>
-<caption>v3 decoration spectra, oracle-verified — decorations counted by minimum orbit number; &#8220;no k ≤ kmax&#8221; entries are not further resolved. All counts from results/decor-*-v3.json; parity-ineligible decorations are included in the &#8220;no k&#8221; column.</caption>
-<tr><th>shape</th><th>edges</th><th>labels</th><th>decorations</th><th>k = 1</th><th>k = 2</th><th>no k ≤ kmax</th><th>kmax</th></tr>
-<tr><td>triangle (iamond)</td><td>3</td><td>3</td><td>27</td><td>7</td><td>—</td><td>20</td><td>6</td></tr>
-<tr><td>square</td><td>4</td><td>3</td><td>81</td><td>19</td><td>—</td><td>62</td><td>6</td></tr>
-<tr><td>Cairo pentagon</td><td>5</td><td>3</td><td>243</td><td>15</td><td>—</td><td>228</td><td>6</td></tr>
-<tr><td>rhombus (rhombille)</td><td>4</td><td>3</td><td>81</td><td>9</td><td>—</td><td>72</td><td>8</td></tr>
-<tr><td>kite</td><td>4</td><td>3</td><td>81</td><td>9</td><td>—</td><td>72</td><td>6</td></tr>
-<tr><td>floret pentagon</td><td>5</td><td>3</td><td>243</td><td>9</td><td>—</td><td>234</td><td>6</td></tr>
-<tr><td>prismatic pentagon</td><td>5</td><td>3</td><td>243</td><td>9</td><td>—</td><td>234</td><td>6</td></tr>
-<tr><td>tan (abolo)</td><td>3</td><td>3</td><td>27</td><td>3</td><td>—</td><td>24</td><td>6</td></tr>
-<tr><td>drafter (kisrhombille)</td><td>3</td><td>3</td><td>27</td><td>1</td><td>—</td><td>26</td><td>6</td></tr>
-<tr><td>pon (triakis)</td><td>3</td><td>3</td><td>27</td><td>3</td><td>—</td><td>24</td><td>6</td></tr>
-<tr><td>hexagon</td><td>6</td><td>3</td><td>729</td><td>129</td><td>—</td><td>600</td><td>6</td></tr>
-<tr><td>hexagon</td><td>6</td><td>5</td><td>15625</td><td>785</td><td>—</td><td>14840</td><td>6</td></tr>
-<tr><td>domino</td><td>6</td><td>3</td><td>729</td><td>137</td><td>—</td><td>592</td><td>6</td></tr>
-<tr><td>domino</td><td>6</td><td>5</td><td>15625</td><td>881</td><td>—</td><td>14744</td><td>6</td></tr>
-<tr><td>L-tromino</td><td>8</td><td>3</td><td>6561</td><td>423</td><td>80</td><td>6058</td><td>4</td></tr>
-<tr><td>I-tromino</td><td>8</td><td>3</td><td>6561</td><td>581</td><td>48</td><td>5932</td><td>4</td></tr>
-<tr><td>O-tetromino</td><td>8</td><td>3</td><td>6561</td><td>707</td><td>32</td><td>5822</td><td>4</td></tr>
-</table>
-</div>
-<h3 style="font-size:1.05rem; font-weight:600; margin:2rem 0 0.3rem;">Arrows: reflect a bump into a dent, and the ceiling breaks</h3>
-<p class="note">Every sweep above uses the <b>identity mirror</b>: a reflected bump is still a bump.
-That single modelling choice is what powers the parity lemma — and, it turns out, what caps the
-isohedral numbers. Give the notches an <b>asymmetric profile</b> instead, so that a reflected bump
-reads as a dent (mirror&#8202;:&#8202;1&#8202;↔&#8202;2, the natural physical model of an arrowhead
-notch), and the parity argument evaporates: a reflected tile carries swapped bump and dent counts,
-so unbalanced decorations can balance their census by mixing chiralities. The prediction was
-logged before running the sweep — and the sweep breaks the ceiling wide open.</p>
-<p class="note">Of the 729 three-label arrow decorations of a <b>single regular hexagon</b>: 195
-tile isohedrally, 102 are 2-anisohedral, <b>12 are 4-anisohedral, and 24 are 5-anisohedral</b> —
-against a hard ceiling of k&#8202;=&#8202;1 for the same hexagon under identity mirror. Every one
-of the 138 anisohedral verdicts was re-derived by the brute-force orbit-count oracle, with zero
-violations. A plain hexagon, marked only with notches, forced into five orbits: the humblest
-prototile in plane geometry, made as anisohedral as anything in this project. (Curiously k=3 is
-absent, and the domino — 729 arrow decorations — stays entirely isohedral, all 729 of them: the
-mechanism is not simply &#8220;more freedom everywhere&#8221;.)</p>
-<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
-<div style="flex:1 1 15rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/arrow-hex-5orbit.svg" alt="arrow hex 5orbit" style="width:100%; height:auto; display:block;" loading="lazy"/>
-<div class="legend" style="margin-top:0.4rem">k&#8202;=&#8202;5: labels (0,&#8202;0,&#8202;1,&#8202;1,&#8202;1,&#8202;2)</div>
-</div>
-<div style="flex:1 1 15rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
-<img src="figs/arrow-hex-4orbit.svg" alt="arrow hex 4orbit" style="width:100%; height:auto; display:block;" loading="lazy"/>
-<div class="legend" style="margin-top:0.4rem">k&#8202;=&#8202;4: labels (0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;2)</div>
-</div>
-<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">Arrow-decorated regular hexagons forced into five and four
-orbits (colours = orbits of the tiling's symmetry group). Each grey arrowhead is one matched notch pair, drawn <i>on</i> the
-shared edge and pointing along it — neutral, because under the arrow rule the marking belongs to the edge rather than to
-either tile: label&#8202;1 points along a tile's counter-clockwise boundary, label&#8202;2 against it, so two tiles fit exactly
-when their markings agree as absolute directions in the plane. (The renderer computes each arrow twice, once from each side,
-and asserts the two agree — 171 and 157 edges here, no disagreements.) Reflecting a tile reverses its boundary orientation
-and so swaps bump for dent, which is precisely why these tilings can mix chiralities — impossible under the symmetric-notch
-rule, where every decorated hexagon is isohedral or nothing. Both verified by the orbit-count oracle.</div>
-</div>
-<div class="tablewrap">
-<table>
-<caption>Arrow (mirror-swapping) decorations vs. symmetric notches — minimum orbit number k. Arrow counts from results/decor-*-arrow.json, all k ≥ 2 entries oracle-verified.</caption>
-<tr><th>shape</th><th>mirror rule</th><th>decorations</th><th>k = 1</th><th>k = 2</th><th>k = 4</th><th>k = 5</th><th>no k ≤ kmax</th></tr>
-<tr><td>hexagon</td><td>identity (bump stays bump)</td><td>729</td><td>129</td><td>—</td><td>—</td><td>—</td><td>600</td></tr>
-<tr><td>hexagon</td><td><b>arrow (bump ↔ dent)</b></td><td>729</td><td>195</td><td>102</td><td><b>12</b></td><td><b>24</b></td><td>396</td></tr>
-<tr><td>domino</td><td>identity</td><td>729</td><td>137</td><td>—</td><td>—</td><td>—</td><td>592</td></tr>
-<tr><td>domino</td><td>arrow</td><td>729</td><td>729</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
-</table>
-</div>
-<h3 style="font-size:1.05rem; font-weight:600; margin:2rem 0 0.3rem;">The complete taxonomy of edge markings</h3>
-<p class="note">The arrow rule is not an ad-hoc variant: it is one of exactly four possibilities,
-and working out why says what the whole decorated-tiling game consists of. A marking on a shared
-edge is recorded by each adjacent tile in its own frame — boundary traversal direction, interior on
-the left. Neighbouring frames differ by <b>ρ</b>, the half-turn about the edge midpoint, so
-&#8220;these two tiles fit&#8221; means exactly <i>your record is mine turned by ρ</i>; and placing
-a tile by a reflection acts on records by <b>σ<sub>⊥</sub></b>, reflection across the edge's
-perpendicular bisector. So the symmetry subgroup of the marking's own profile, inside
-{1,&#8202;ρ,&#8202;σ<sub>∥</sub>,&#8202;σ<sub>⊥</sub>}, determines the matching rule completely:</p>
-<div class="tablewrap">
-<table>
-<caption>The four edge-marking types. &#8220;Pairing&#8221; is which label a label must meet; &#8220;mirror&#8221; is what reflection does to a label.</caption>
-<tr><th>profile symmetry</th><th>physical form</th><th>pairing</th><th>mirror</th><th>hexagon spectrum</th></tr>
-<tr><td>σ<sub>⊥</sub></td><td>classic jigsaw tab</td><td>bump ↔ dent</td><td>identity</td><td>{1}</td></tr>
-<tr><td>σ<sub>∥</sub></td><td>arrow along the edge</td><td>bump ↔ dent</td><td>swaps</td><td><b>{1, 2, 4, 5}</b></td></tr>
-<tr><td>ρ</td><td>S-shaped tab</td><td><b>self-matching</b></td><td>swaps</td><td>{1, 2}</td></tr>
-<tr><td>none</td><td>fully asymmetric tab</td><td>ρ (4 labels)</td><td>σ<sub>⊥</sub></td><td>{1, 2}</td></tr>
-</table>
-</div>
-<p class="note">The <b>S-tab</b> is the ρ-symmetric row and the one that feels least like the others:
-because its profile is carried onto itself by the half-turn, an S-tab fits <i>another S-tab</i> —
-the same tile rotated 180° — rather than a complementary partner. Its mirror image is a Z-tab, which
-it refuses. So its pairing is the identity, a combination no sweep in this project had ever used.
-Of the hexagon's 729 three-label S-tab decorations, <b>615 tile isohedrally, 12 are 2-anisohedral,
-and 102 admit no tiling at all</b> — permissive where the arrow rule is demanding, and capped far
-below the arrow rule's k&#8202;=&#8202;5. Self-matching markings, it turns out, mostly get out of
-their own way.</p>
-<div style="max-width:30rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
-<img src="figs/stab-hex-2orbit.svg" alt="Hexagons with S-shaped tabs forced into two orbits" style="width:100%; height:auto; display:block;" loading="lazy"/>
-<div class="legend" style="margin-top:0.5rem">S-tabs at work: hexagons with labels
-(0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;1), forced into two orbits. Here the grey marking is
-drawn as the profile itself — an S-curve across the shared edge, carried onto itself by the
-half-turn about the edge's midpoint, which is exactly why one S-tab fits another. As with the
-arrows, the renderer derives each curve independently from both neighbours and asserts they
-coincide (95 edges here, no disagreements).</div>
-</div>
-<p class="note"><b>Only the hexagon budges — again, but differently.</b> Sweeping every
-three-label arrow decoration of all eleven Laves prototiles (kmax&#8202;6, 729 decorations each
-for the six-edge shapes, fewer for the rest; all 186 anisohedral verdicts oracle-verified) leaves
-the hexagon alone at the top. Six prototiles can be pushed to <b>k&#8202;=&#8202;2</b> — the Cairo
-and prismatic pentagons and the rhombus join it there — but nothing else reaches 4 or 5. And four
-prototiles are utterly unmoved: <b>every</b> arrow decoration of the triangle, the square, the tan
-and the drafter still tiles isohedrally, not one of them even losing the ability to tile. The
-pattern from the symmetric-notch sweeps survives in sharper form: decoration is a lever, and the
-hexagon is the only prototile with enough edges and enough symmetry to be moved a long way by
-it.</p>
-<div class="tablewrap">
-<table>
-<caption>Arrow decorations of all eleven Laves prototiles — minimum orbit number k, kmax 6. Every k ≥ 2 entry verified by the orbit-count oracle. Counts from results/decor-arrow-unit-*.json and decor-unit-hex-arrow.json.</caption>
-<tr><th>prototile</th><th>edges</th><th>decorations</th><th>k = 1</th><th>k = 2</th><th>k = 4</th><th>k = 5</th><th>no k ≤ 6</th></tr>
-<tr><td>triangle (iamond)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
-<tr><td>square</td><td>4</td><td>81</td><td>81</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
-<tr><td><b>hexagon</b></td><td>6</td><td>729</td><td>195</td><td>102</td><td><b>12</b></td><td><b>24</b></td><td>396</td></tr>
-<tr><td>Cairo pentagon</td><td>5</td><td>243</td><td>15</td><td>6</td><td>—</td><td>—</td><td>222</td></tr>
-<tr><td>rhombus (rhombille)</td><td>4</td><td>81</td><td>9</td><td>24</td><td>—</td><td>—</td><td>48</td></tr>
-<tr><td>kite</td><td>4</td><td>81</td><td>27</td><td>—</td><td>—</td><td>—</td><td>54</td></tr>
-<tr><td>floret pentagon</td><td>5</td><td>243</td><td>9</td><td>—</td><td>—</td><td>—</td><td>234</td></tr>
-<tr><td>prismatic pentagon</td><td>5</td><td>243</td><td>27</td><td>18</td><td>—</td><td>—</td><td>198</td></tr>
-<tr><td>tan (abolo)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
-<tr><td>drafter (kisrhombille)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
-<tr><td>pon (triakis)</td><td>3</td><td>27</td><td>9</td><td>—</td><td>—</td><td>—</td><td>18</td></tr>
-</table>
-</div>
-<p class="note"><b>Postscript on the oracle itself (1 August).</b> While making these sweeps
-faster, the oracle's own command-line driver turned out to be rebuilding each decoration <i>without
-its mirror map</i> — harmless for the symmetric-notch sweeps it was written for, but it would have
-declared every arrow, S-tab and four-label result a violation had it been the tool used on them.
-It wasn't: those verdicts were produced by drivers that passed the mirror correctly. The driver is
-now fixed, and every mirror-swapping sweep on this page has been re-checked through it — arrow
-hexagon 138 positives, five-label arrow 612, four-label 108, S-tab hexagon 12, S-tab L-tromino 38,
-<b>zero violations</b>. No number here moved; the checker was broken, not the results. It is
-recorded because a verification tool that silently passes the wrong problem is the most dangerous
-object in a project like this one.</p>
-<p class="note"><b>Every ceiling here has now been tested two orbits higher than it was
-found.</b> A spectrum that stops at k&#8202;=&#8202;2 because the sweep stopped at
-kmax&#8202;4 is not the same claim as a spectrum that stops at k&#8202;=&#8202;2 with
-k&#8202;=&#8202;3 through 8 excluded, and until this morning most of the numbers on this page
-were the first kind. Re-running everything at <b>kmax&#8202;8</b> — the three polyomino jigsaw
-sweeps that stopped at 4, and nineteen more that stopped at 6, covering all eleven unit prototiles
-under both the jigsaw and arrow rules, the domino, and both S-tab sweeps — changes <b>not one
-entry</b>. The L-tromino is still {1,&#8202;2}, the hexagon still tops out at 5 under arrows and 3
-under jigsaw notches, the rhombus and the Cairo and prismatic pentagons still reach exactly 2. The
-ceilings are properties of the shapes, not of the search budget.</p>
-<p class="note"><b>A sweep-wide economy.</b> Every sweep above was, until this morning,
-re-searching decorations it had already answered: two decorations related by a symmetry of the
-shape, or by a global relabelling that commutes with the pairing and mirror maps, pose the same
-problem and must have the same minimum k. Quotienting by both groups before searching costs a few
-seconds of bookkeeping and cuts the work by <b>14×</b> on the hexagon and <b>38×</b> on the
-four-label scheme — verified by reproducing the arrow-hexagon spectrum exactly, decoration for
-decoration. Sweeps that had been priced at four hours now run in fifteen minutes, which is what
-made the four-label sweeps affordable at all.</p>
-<p class="note"><b>The ceiling belongs to the marking type; the alphabet only sets abundance.</b>
-Three further sweeps settle how these rules relate. The <i>four-label fully asymmetric</i> tab — the
-richest type in the taxonomy — reaches only <b>k&#8202;=&#8202;2</b> on the hexagon
-({1: 989, 2: 108}, and 14&#8202;528 of its 15,625 decorations admit no tiling at all): richness buys
-non-tilers, not orbits. A <i>five-label arrow</i> alphabet (two independent arrow pairs) keeps the
-arrow ceiling exactly — still k&#8202;=&#8202;5, nothing at 6 — but finds <b>four times as many</b>
-high-k decorations (48 at k&#8202;=&#8202;4 and 48 at k&#8202;=&#8202;5, against 12 and 24 with
-one pair). And pushing the three-label arrow hexagon to <b>kmax&#8202;8</b> leaves its spectrum
-untouched: no decoration of a hexagon reaches 6, 7 or 8 orbits, and the 396 that fail to tile fail
-at every k&#8202;≤&#8202;8. So the profile's symmetry class fixes how high a shape can be driven,
-while extra label pairs of the same type only multiply the solutions at that height.</p>
-<p class="note">The shape matters as much as the marking, though. The S-tab, capped at
-k&#8202;=&#8202;2 on the hexagon, reaches <b>k&#8202;=&#8202;3</b> on the L-tromino
-(3&#8202;159 isohedral, 30 at k&#8202;=&#8202;2, 8 at k&#8202;=&#8202;3, 3&#8202;364 with no tiling at
-k&#8202;≤&#8202;4) — eight decorations that force three orbits on a shape which, undecorated, tiles
-by translation.</p>
-<div style="max-width:30rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
-<img src="figs/stab-ltromino-3orbit.svg" alt="L-trominoes with S-shaped tabs forced into three orbits" style="width:100%; height:auto; display:block;" loading="lazy"/>
-<div class="legend" style="margin-top:0.5rem">Three orbits from S-tabs alone: the L-tromino with
-labels (0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;1,&#8202;0,&#8202;0), one of eight such
-decorations. The S-curves are the tabs themselves — each carried onto itself by the half-turn about
-its edge's midpoint, which is why one fits another. 202 profiles here, every one derived
-independently from both neighbours and agreeing.</div>
-</div>
-<p class="note"><b>Why the hexagon, and not something bigger.</b> The obvious way to look for
-more than five orbits is a bigger tile — more edges, more constraints to force with. It fails, and
-the way it fails is the most informative result in this section. A two-cell dihex (ten edges) and a
-three-cell trihex (twelve edges) were both sampled in the density band where the hexagon's high-k
-decorations live: <b>95% and 98% of those decorations admit no tiling at all</b>, and the survivors
-reach only k&#8202;=&#8202;2 and k&#8202;=&#8202;1. Each marked edge is a constraint, and past a
-point constraints stop buying orbits and start buying non-tilers.</p>
-<div class="tablewrap">
-<table>
-<caption>Maximum forced isohedral number under the arrow rule, against both edge count and the order of the shape's symmetry group. Multi-cell rows are random samples of the density band (260 and 160 canonical classes), so their maxima are lower bounds; every prototile row is exhaustive.</caption>
-<tr><th>shape</th><th>edges</th><th>symmetries</th><th>max k</th></tr>
-<tr><td><b>hexagon</b></td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td></tr>
-<tr><td>square domino</td><td>6</td><td>4</td><td>1</td></tr>
-<tr><td>dihex (sampled)</td><td>10</td><td>4</td><td>2</td></tr>
-<tr><td>trihex (sampled)</td><td>12</td><td>6</td><td>1</td></tr>
-<tr><td>square</td><td>4</td><td>8</td><td>1</td></tr>
-<tr><td>triangle</td><td>3</td><td>6</td><td>1</td></tr>
-<tr><td>rhombus</td><td>4</td><td>4</td><td>2</td></tr>
-<tr><td>Cairo / prismatic pentagons</td><td>5</td><td>2</td><td>2</td></tr>
-<tr><td>kite, tan, drafter, pon, floret</td><td>3–5</td><td>1–2</td><td>1</td></tr>
-</table>
-</div>
-<p class="note"><b>A tautology that turned into an engine check.</b> The retraction above named
-the experiment that would settle things: find a second shape with both properties. Searching all
-eleven grids turned up an irresistible-looking candidate — <b>six triangles merged into a regular
-hexagon</b>, same six edges, same twelve symmetries, but living on the finer triangular grid where
-it can sit at offsets the hexagonal grid forbids. It reaches k&#8202;=&#8202;5 with the same
-winning labels, and it was briefly reported here as an independent reproduction of the record.
-<b>It is nothing of the kind</b>, as a reader pointed out: all tilings of the plane by regular
-hexagons are the honeycomb — hexagons cannot be offset the way squares can, since a shifted row
-leaves gaps — so every hexagon in every tiling sits on the honeycomb no matter how fine the grid
-beneath it. The extra placements of a <i>single</i> hexagon buy no extra <i>tilings</i>. It is the
-same decorated problem restated, and its answer was guaranteed before it was computed.</p>
-<p class="note">What the exercise is worth keeping for is a different kind of check. Two backends
-with different cell shapes, different residue counts, different symmetry bookkeeping and different
-code paths produced spectra that agree <b>decoration for decoration</b> — 195 isohedral, 102 at
-k&#8202;=&#8202;2, 12 at k&#8202;=&#8202;4, 24 at k&#8202;=&#8202;5, 396 with no tiling — and the
-triangular run went to kmax&#8202;8, so it independently reconfirms that nothing appears at
-k&#8202;=&#8202;7 or 8. That is a strong consistency test of the engine, and no evidence at all
-about decorations. The design-space corner still holds exactly one shape.</p>
-<p class="note">The companion test cuts the other way. The <b>2&#8202;×&#8202;2 square</b> has eight
-edges and eight symmetries — the first shape tested to clear both thresholds without being a
-hexagon — and it is edge-transitive besides. Every one of 150 sampled decorations still tiles
-<b>isohedrally</b>. So the two thresholds are necessary and manifestly not sufficient, and the
-tidy story that survives is a short one: on these eleven grids the only shape anyone has pushed
-past two orbits is the regular hexagon, in either of its realizations. And the last candidate class settles the question: these grids <i>do</i>
-build shapes with twelve symmetries and twelve edges — six rhombi merged into a hexagram, six kites
-into a rosette — and for both of them <b>every single one of 140 sampled decorations admits no
-tiling at all</b>. Maximum symmetry with more edges is not a better hexagon; it is a wall. So the
-peak is real: six edges is where a marking rule can still be satisfied while forcing five orbits,
-and one edge-pair more begins the collapse that ends in total extinction by twelve.</p>
-<div class="tablewrap">
-<table>
-<caption>The full sweep of the design space, arrow rule. Multi-cell rows are density-band samples (60–260 canonical classes each), so their maxima are lower bounds and their non-tiling fractions are estimates.</caption>
-<tr><th>shape</th><th>edges</th><th>symmetries</th><th>max k</th><th>no tiling</th></tr>
-<tr><td>triangle, tan, drafter, pon</td><td>3</td><td>1–6</td><td>1</td><td>0–67%</td></tr>
-<tr><td>square, kite, rhombus</td><td>4</td><td>2–8</td><td>1–2</td><td>0–67%</td></tr>
-<tr><td>Cairo, floret, prismatic pentagons</td><td>5</td><td>1–2</td><td>1–2</td><td>81–96%</td></tr>
-<tr><td><b>hexagon</b> (hex grid)</td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td><td>54%</td></tr>
-<tr><td><b>hexagon</b> (six triangles)</td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td><td>43%</td></tr>
-<tr><td>square domino</td><td>6</td><td>4</td><td>1</td><td>0%</td></tr>
-<tr><td>2 × 2 square</td><td>8</td><td>8</td><td>1</td><td>0%</td></tr>
-<tr><td>dihex</td><td>10</td><td>4</td><td>2</td><td>95%</td></tr>
-<tr><td>trihex</td><td>12</td><td>6</td><td>1</td><td>98%</td></tr>
-<tr><td>six rhombi; six kites</td><td>12</td><td>12</td><td>—</td><td><b>100%</b></td></tr>
-</table>
-</div>
-<p class="note"><b>And an honest retraction.</b> An earlier version of this section claimed the
-driver was edge count alone, on the grounds that the trihex has a larger symmetry group than the
-dihex yet performs worse. That comparison is <i>confounded</i> — the trihex has more edges as well
-as more symmetry — and the table above contains its own refutation: the square domino has exactly
-the hexagon's six edges and a quarter of its symmetry, and not one of its 729 arrow decorations
-forces more than a single orbit. At fixed edge count, symmetry matters enormously. Conversely the
-square prototile has eight symmetries and only four edges, and also forces nothing. What the data
-actually supports is narrower and duller: <b>the hexagon is the only shape tested with both six or
-more edges and a symmetry group of order eight or more</b>, and both deficiencies — too few edges,
-too little symmetry — are individually fatal. With a single specimen in that corner, the two
-effects cannot be separated. Finding a second shape with both properties, on any grid, is the
-experiment that would settle it.</p>
-<p class="note">Mixing types on one tile is expressible too — the engine's pairing and mirror are
-arbitrary label maps, so each marking type simply occupies its own range of labels, and a single
-shape can carry a jigsaw tab on one edge, an arrow on the next and an S-tab on a third. That sweep
-is the obvious next one, along with two-cell shapes under the arrow rule, where the hexagon's
-k&#8202;=&#8202;5 record might finally be beaten.</p>
-
-<p class="note">The domino row is the counterpoint worth keeping in view: under the arrow rule every
-single one of its 729 decorations tiles isohedrally — the extra freedom that lets the hexagon climb
-to five orbits lets the domino escape every constraint. Whether the hexagon's k&#8202;=&#8202;5 is a
-new ceiling or just the first rung is open; the sweeps of larger shapes are queued.</p>
-
-<p class="note">A methodological coda: v1&#8217;s bug could only accept too much, v2&#8217;s could
-only reject too much, and each produced a plausible-looking mathematical narrative — spectra with
-&#8220;gaps&#8221;, a special hexagon — that dissolved under an independent check the search code
-had no hand in. The surviving facts are duller and firmer: rigidity everywhere, one honest
-doubling, and a pre-filter lemma that does more than the search does.</p>
-
-<h2><span class="stage">Stage 17</span>Roadmap</h2>
-<ul class="roadmap">
-<li><span class="status run">running</span><span class="what"><b>Higher than ten?</b>
-  <span class="d">Isohedral number 10 arrived from a shape nobody was looking at — the last unresolved entry in the whole project. Since sweeps run at kmax&#8202;4, every new frontier row deposits fresh candidates in its unresolved pool, and the two-stage probe (cheap surround exhaustion, then the SAT orbit search on survivors) now empties that pool for a few minutes of compute. Tetrakis n&#8202;=&#8202;14–15, polypons 18, drafters 14 and tans 12 are computing now, chosen because the small families have produced every record so far.</span></span></li>
-<li><span class="status run">running</span><span class="what"><b>Can two cells beat five orbits?</b>
-  <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves prototile passes 2. The obvious next question is whether a two-cell shape goes higher: the dihex has ten edges and 59,049 arrow decorations, which was unaffordable this morning and is a ninety-minute sweep now that the validator is 23× faster.</span></span></li>
-<li><span class="status pend">next</span><span class="what"><b>Mixed markings on one tile</b>
-  <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an S-tab on a third — the engine's pairing and mirror are arbitrary label maps, so mixed schemes just occupy disjoint label ranges. 117,649 decorations on a hexagon, now within reach.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>Tables reconciled against the probe ledger</b>
-  <span class="d">Sweeps write their unresolved lists once and never revisit them, so rows kept displaying shapes the deep probes had settled hours earlier — spotted by a reader. <code>scripts/reconcile_page.py</code> now diffs every row against <code>results/resolutions.json</code>: 108 shapes left open by sweeps, 108 settled, 0 unprobed. Four stale rows corrected and the newest polypon and drafter rows added.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>Every unresolved shape in the project</b>
-  <span class="d">All 103 settled: 82 non-tilers, 15 at k&#8202;=&#8202;6, three at k&#8202;=&#8202;8, one at k&#8202;=&#8202;10 — and the hat and the turtle, where &#8220;unresolved&#8221; is the right answer. A ledger (<code>results/resolutions.json</code>) now records verdicts, because the sweep files never learn that a probe has closed a shape.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>The isohedral-number record: 6 → 8 → 10</b>
-  <span class="d">Two 10-hexes and a 13-iamond at k&#8202;=&#8202;8 (confirming Myers's tables, which is how we knew to look), then the 9-cell tetrakis chevron at <b>k&#8202;=&#8202;10</b>. Both covers cross-checked as exact torus partitions and re-verified by hand.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>The decoration taxonomy, swept and verified</b>
-  <span class="d">Four marking types, all four swept: the profile's symmetry class sets the ceiling (arrow 5, S-tab 2, four-label 2, jigsaw 1) and the alphabet size only scales abundance. Every anisohedral verdict re-derived by the orbit-count oracle — including a re-run through the fixed driver after its mirror bug surfaced.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>The second hundred-fold</b>
-  <span class="d">Classification is ~100× faster than 31 July (pocket-check algorithmics ×12, compiled neighbour kernel ×8–11); decoration sweeps a further 4.5–23.6× on top, all algorithmic; the k-orbit search compiled at 10.4× in isolation. The C enumerator runs at 125–165M shapes/s and produced the first n&#8202;=&#8202;11 and n&#8202;=&#8202;12 omino rows.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>Myers's algorithm, measured</b>
-  <span class="d">Reimplemented and benchmarked: identical verdicts on 1,762 shapes; his class-based search wins the tail and so the total (5–16×), ours wins the median shape by 4–7× and keeps certificate-friendly refutations. Hybrid sketched in the notes.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>The star 10-rhombille</b>
-  <span class="d">Proven non-tiler, aligned Heesch number exactly 3, DRAT-certified. The flagship question of 30 July, closed the same day the record it inspired went to 10.</span></span></li>
+<div style="flex:1 1 22rem; min-width:0;">
+<p style="margin-top:0">Classifying all 873 free 8-kites left <b>exactly one shape unresolved</b> — and it
+is the <b>hat</b>, the aperiodic monotile of Smith, Myers, Kaplan and Goodman-Strauss (2023). The
+engine wasn't told about it; it simply survived every classification the engine knows, which is
+precisely the computational signature of aperiodicity Myers describes:</p>
+<ul style="font-size:0.95rem; margin:0.4rem 0 0; padding-left:1.2rem;">
+<li><b>It tiles locally:</b> surrounds (coronas) exist to depth 6 and counting — a certified
+Heesch lower bound of 6, with no failure in sight (the true value is ∞, since it tiles the plane).</li>
+<li><b>But never periodically:</b> exhaustive search over all candidate wallpaper subgroups finds
+<b>no tiling with isohedral number k for any k ≤ 14</b> (originally k ≤ 7 by exact-k backtracking;
+the SAT exclusion engine later swept k ≤ 14 in thirty seconds — positive controls: the engine
+finds the 4-anisohedral nonomino and 3-anisohedral kites).</li>
 </ul>
-
-<h2><span class="stage">Stage 18 · new results</span>Two algorithms, measured against each other <span class="status ok">1&#8202;762 shapes, zero disagreements</span></h2>
-<p class="note">This project's engine and Myers's differ at the root. He runs a <b>class-based
-backtracking search</b>: start with one tile, branch over every way a neighbour can touch an
-unsurrounded tile, let it join a known class or open a new one, propagate the tiles the resulting
-symmetries force, and stop when every class representative is surrounded — the symmetry group is
-never enumerated, it is <i>discovered</i>. We enumerate candidate wallpaper groups up front and
-solve an exact cover on each quotient torus. Agreement between the two has been this page's main
-external check, so it was worth asking the sharper question: <b>which is actually faster, and
-why?</b> A faithful reimplementation of his method now lives beside ours
-(<code>myers_isohedral.py</code>), verdict-for-verdict identical on <b>all 1,762 free polyominoes
-at n&#8202;=&#8202;7,&#8202;8,&#8202;9 — zero disagreements</b>, with every structure it accepts
-independently developed into a patch and re-verified as an exact torus partition.</p>
-<div class="tablewrap">
-<table>
-<caption>Same machine, one pinned core, both engines in pure Python (a loaded box, so only the paired ratios are meaningful).</caption>
-<tr><th>n</th><th>shapes</th><th>class search</th><th>exact cover</th><th>total ratio</th><th>median shape</th><th>p90 shape</th></tr>
-<tr><td>9</td><td>1&#8202;285 (all)</td><td>127&#8202;s</td><td>648&#8202;s</td><td>5.1× his way</td><td>49.9 vs <b>7.2&#8202;ms</b></td><td><b>110&#8202;ms</b> vs 2&#8202;240&#8202;ms</td></tr>
-<tr><td>10</td><td>400 (sample)</td><td>64&#8202;s</td><td>1&#8202;010&#8202;s</td><td>15.9× his way</td><td>100 vs <b>35&#8202;ms</b></td><td><b>266&#8202;ms</b> vs 6&#8202;570&#8202;ms</td></tr>
-</table>
+<p class="note">A shape that surrounds indefinitely but admits no k-isohedral tiling at any
+searched k is either aperiodic or extraordinarily anisohedral — Myers's programs would "run
+for ever" on it; ours reports it unresolved and hands over exactly this evidence. The same
+signature has since singled out <b>the turtle</b> among the 10-kites (its numbers sit
+with the <a href="#polykites">polykite table</a>) — the engine has
+now rediscovered both of the known aperiodic polykites blind.</p>
 </div>
-<p class="note">The aggregate hides the interesting structure, because the two engines win at
-opposite ends. <b>On the median shape ours is 4–7× faster</b>: the whole answer is one tiny torus
-cover, while the class search has to build a patch. <b>In the tail his is faster by up to
-14,600×</b>, and the tail owns the total. The reason is structural rather than incidental: a shape
-that cannot tile dies in his search after a few dozen nodes, whereas we pay a fixed toll — every
-candidate group at every admissible torus index, restarted for each k — that does not shrink at all
-for hopeless shapes. The 4-anisohedral nonomino, our 20-second showpiece, takes him 0.28&#8202;s. And
-the gap widens with n, which is the honest explanation of how his tables reach the 25-ominoes.</p>
-<p class="note">What our side keeps is the shape of the answer rather than the speed:
-&#8220;no tiling with k&#8202;≤&#8202;K&#8221; is a <i>finite enumeration</i> for us — finitely many
-groups, each a finite exact cover — which is exactly why it could be handed to a SAT solver and come
-back with a DRAT certificate, while a backtracking refutation is an unreplayable trace. The
-group-theoretic formulation also carries to all eleven Laves grids with no per-family reasoning, and
-decorations ride along on the orbits for free. The natural conclusion is a hybrid rather than a
-winner: route by difficulty, exact cover first and the class search as tail-breaker, and import two
-of his devices we cannot currently exploit — possible-neighbour bitmaps used <i>inside</i> the
-search, and forced-tile propagation read as unit propagation over class-relative surround
-variables.</p>
+</div>
+<h2 id="star"><span class="stage">Part IV · the hard shapes</span>The star 10-rhombille <span class="status ok">resolved · Heesch exactly 3</span></h2>
+<p class="note"><b>Resolved (30 July, afternoon): the star does not tile.</b> As a free 20-iamond it
+tiles by mere translation, but aligned to the rhombille grid it is a <b>proven non-tiler with
+Heesch number exactly 3</b> — and, as a posthumous consistency check, a SAT version of the k-orbit
+search has since pushed its periodic exclusion from k&#8202;≤&#8202;15 (4.3 CPU-hours of
+backtracking) to <b>k&#8202;≤&#8202;18 in seven minutes</b>, with every group refutation through
+k&#8202;=&#8202;15 DRAT-certified. The proof came from a new attack: encode depth-d surround existence
+as SAT (placements as variables; per-cell at-most-one; corona coverage forced level by level) and
+hand it to a CDCL solver. Where the recursive search had burned 95M nodes across seven cores
+without finishing even one of thirty top-level branches, <code>cadical</code> settles depth 3
+<b>in 0.2 seconds</b>: a surround exists (88 tiles — the patch below, independently verified and
+re-certified by the original search engine as a warm start). Depth 4 is <b>UNSAT in 7 seconds</b>
+(confirmed by a second solver, and identical over the raw un-pruned candidate universe): no
+depth-4 surround exists, so the star cannot tile, and its aligned Heesch number is exactly 3 —
+between the two coronas everyone could find and the four nobody could. The SAT method agrees with
+the recursive engine on every validation case, in both directions, with ~500&times; speedups on
+exhaustive verdicts. And the negative direction is now <b>machine-certified</b>: the depth-4
+refutation (in both the pruned and raw candidate universes) carries a DRAT proof log verified by
+the independent checker <code>drat-trim</code>, so the verdict rests only on the encoding (itself
+cross-validated against the recursive engine) and a 3&#8202;000-line C checker — not on solver trust.
+At that moment every shape then computed, in every family, stood resolved except the hat — whose
+&#8220;unresolved&#8221; verdict is itself the right answer, being the computational signature of the
+aperiodic monotile. The frontier has since moved: new rows at kite n&#8202;=&#8202;10 (where the same
+signature found the turtle), hex n&#8202;=&#8202;8 and rhombille n&#8202;=&#8202;13 opened fresh
+unresolved shapes, and the SAT probes working through them have so far only added tilers and
+non-tilers, no new mysteries.</p>
+<div style="max-width:22rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem; text-align:center;">
+<img src="figs/star-10rhombille.svg" alt="star 10rhombille" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem; text-align:left;">The star 10-rhombille: tiles the plane by
+translation as a free 20-iamond, but rhombille-aligned it is a proven non-tiler with Heesch number exactly 3.</div>
+</div>
 
-<h2><span class="stage">Stage 19 · gallery</span>The ten most stubborn tiles <span class="status ok">every one verified</span></h2>
+<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/star-surround-d3.png" alt="The star 10-rhombille surrounded by three complete coronas &#8212; its maximal surround" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">The star&#8217;s maximal surround, found by the SAT engine in 0.2&#8202;s: the center (dark) wrapped in three complete coronas (blues), with outer filler tiles (gold/orange) supporting the third. No fourth corona exists (UNSAT, 7&#8202;s) — Heesch number 3, hence a non-tiler.</div>
+</div>
+<h2 id="records"><span class="stage">Part IV · the hard shapes</span>The isohedral-number records: k&#8202;=&#8202;8 and k&#8202;=&#8202;10 <span class="status ok">the project ceiling</span></h2>
+<p class="note">The deep probes that closed the frontier rows of the
+<a href="#polyhexes-polyiamonds">hexes and iamonds</a> and of the
+<a href="#tetrakis">tetrakis polyaboloes</a> produced the highest isohedral numbers
+in this project. Both stories are collected here.</p>
+<p class="note"><b>Two 10-hexes of isohedral number 8.</b> Myers's totals said 41 of the 43 were
+non-tilers and two were 8-anisohedral, so the probe was a race between two engines over shapes
+neither sweep had settled. Running the expensive k-search on all 43 was projecting hours, so the
+probe was reordered by cost rather than by curiosity: <b>SAT surround exhaustion first</b>, which
+proves non-tiling in seconds and duly killed 44 of the 47 candidates across both families, leaving
+three. Only those three went to the k&#8202;≤&#8202;8 orbit search — and all three came back
+<b>MIN-K&#8202;=&#8202;8</b>, each with its cover cross-checked as an exact torus partition and
+decoded to a genuine plane tiling. Two are the 10-hexes below; the third is the 13-iamond in the
+polyiamond table. They are the first shapes in this project with isohedral number above 6, they lift the
+record by two at a stroke, and both families' rows now match Myers at every column.</p>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/hex10-8aniso-a.svg" alt="First 8-anisohedral 10-hex" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/hex10-8aniso-b.svg" alt="Second 8-anisohedral 10-hex" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/iamond13-8aniso.svg" alt="8-anisohedral 13-iamond" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The three shapes of isohedral number 8: two 10-hexes and a
+13-iamond. Each tiles the plane, but every tiling needs at least eight orbits of tiles — the highest isohedral number in
+this project, two above the previous ceiling of 6 held by twenty-four shapes across five families.</div>
+</div>
+<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/hex10-8orbit-tiling.png" alt="8-orbit tiling by the first 8-anisohedral 10-hex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">A minimal tiling of the first 8-anisohedral 10-hex, coloured by orbit —
+eight classes of tile, twenty tiles to a class in the fundamental domain, verified overlap-free across 784 tiles. No tiling
+of this shape uses fewer than eight orbits.</div>
+</div>
+
+<p class="note"><b>Isohedral number 10 — the project record, on nine triangles.</b> The n&#8202;=&#8202;9
+row's lone holdout survived every sweep: no tiling with k&#8202;≤&#8202;4, and unlike almost every
+other unresolved shape in the project it also refused to be proven a non-tiler — its surrounds run
+to depth 6 and show no sign of stopping. That combination is the star's signature, and for a few
+hours it was the project's new flagship mystery. It is instead the highest-k tile here: the SAT
+orbit search returns <b>MIN-K&#8202;=&#8202;10</b>, with the cover cross-checked as an exact torus
+partition (40 tiles per fundamental domain in ten orbits of 36 cells each) and independently
+re-verified by expanding the 40 representatives back onto the torus — all 360 cells covered exactly
+once, no duplicates. It is a plain chevron of nine quarter-square triangles, it tiles the plane, and
+every tiling of it needs at least ten orbits of tiles.</p>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:0 0 8rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/tetrakis9-open.svg" alt="The 10-anisohedral tetrakis chevron" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 18rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/chevron-10orbit-tiling.png" alt="Ten-orbit tiling by the chevron" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The chevron and a minimal tiling of it, coloured by orbit —
+ten classes of tile. The previous record in this project was 8 (two 10-hexes and a 13-iamond, found the same night);
+before that, 6. Drawing this figure exposed a rendering bug worth recording: a square window of sublattice coefficients
+covers only a thin sliver of the plane when the lattice basis is skewed, so the first renders showed a correct tiling
+full of phantom holes — the same Gauss-reduction pitfall the decorated validator hit in July, in a new place.</div>
+</div>
+<h2 id="leaderboard"><span class="stage">Part IV · the hard shapes</span>The ten most stubborn tiles <span class="status ok">every one verified</span></h2>
 <p class="note">A shape is <i>k</i>-anisohedral when it tiles the plane but no tiling of it uses
 fewer than <i>k</i> orbits of tiles — <i>k</i>&#8202;=&#8202;1 is an ordinary well-behaved tile, and
 large <i>k</i> means the plane can only be filled by an intricate arrangement in which tiles play
@@ -1725,45 +1439,334 @@ the families that dominate — polyrhombilles, polypons, tetrakis polyaboloes �
 had classified before this project. Three of the ten come from the tetrakis grid alone, a family
 that did not exist here forty-eight hours ago, and the record holder is a nine-cell chevron that
 spent an afternoon misfiled as a probable non-tiler.</p>
-
-<h2><span class="stage">Stage 19 · new results</span>The shape of two and a half million answers <span class="status ok">every family, one picture</span></h2>
-<p class="note">Twelve families, 2.5 million classifications, and one question worth asking of all of
-them at once: <b>what fraction of shapes actually tile the plane, and how does that change with
-size?</b> Twelve series is far past what any honest categorical palette can carry, so each family
-gets its own panel; within a panel the only colour is odd versus even size, because that turns out
-to be the story.</p>
-<div style="max-width:44rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
-<img src="figs/tiling-rate-by-family.svg" alt="Small multiples: percentage of shapes that tile, by family and size" style="width:100%; height:auto; display:block;" loading="lazy"/>
-<div class="legend" style="margin-top:0.5rem">Percentage of free shapes of each size that tile the plane (rows with fewer than
-20 shapes omitted). The four classical families decline smoothly; the Laves families built from several cells per
-translation unit oscillate violently, and the oscillation is not noise.</div>
+<h2 id="probe-ledger"><span class="stage">Part IV · the hard shapes</span>The two-stage probe and the ledger <span class="status ok">103 shapes settled</span></h2>
+<p class="note">Batch sweeps run at a fixed kmax, so every new frontier row leaves a
+pool of shapes it could not settle. Those pools are emptied afterwards by a two-stage
+probe: cheap SAT surround exhaustion first, then the SAT orbit search on whatever
+survives.</p>
+<ul class="roadmap">
+<li><span class="status ok">resolved</span><span class="what"><b>Every unresolved shape in the project</b>
+  <span class="d">All 103 settled: 82 non-tilers, 15 at k&#8202;=&#8202;6, three at k&#8202;=&#8202;8, one at k&#8202;=&#8202;10 — and the hat and the turtle, where &#8220;unresolved&#8221; is the right answer. A ledger (<code>results/resolutions.json</code>) now records verdicts, because the sweep files never learn that a probe has closed a shape.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>Tables reconciled against the probe ledger</b>
+  <span class="d">Sweeps write their unresolved lists once and never revisit them, so rows kept displaying shapes the deep probes had settled hours earlier — spotted by a reader. <code>scripts/reconcile_page.py</code> now diffs every row against <code>results/resolutions.json</code>: 108 shapes left open by sweeps, 108 settled, 0 unprobed. Four stale rows corrected and the newest polypon and drafter rows added.</span></span></li>
+</ul>
+<h2 id="decorations"><span class="stage">Part V · decorations</span>Wang decorations: bump/dent matching rules <span class="status ok">third audit closed · v3 oracle-verified</span></h2>
+<p class="note">The engine supports <b>edge decorations</b>: every boundary edge of a shape carries
+a label — 0 is neutral (matches itself), labels 1 and 2 are bump/dent partners that match only
+each other, exactly the Wang-tile mechanism behind the Spectre&#8217;s notches. The question this
+machinery answers: <b>what do decorations do to a shape&#8217;s isohedral number?</b> It took three
+audits to earn a trustworthy answer.</p>
+<p class="note"><b>How this section was wrong twice.</b> The first release showed a decorated
+L-tromino &#8220;4-anisohedral&#8221; tiling with overlapping bump discs; a reader flagged it, and
+the overlaps turned out to be bump-meets-bump contacts in a phantom tiling — the validator&#8217;s
+translate window missed touching pairs under skewed sublattice bases (too <i>permissive</i>). The
+v2 rerun fixed that and was promptly caught the other way: a reader observed that the new
+&#8220;4-orbit&#8221; figure looked transitive, and brute force agreed — orbit count 1. Placements
+had been identified by cell footprint, which conflates the mirror aspects of a symmetric shape;
+the decoder could pick the label-wrong aspect and <i>reject</i> genuine covers, silently inflating
+every k (too <i>strict</i>). The v3 engine keys placements by label class, decodes orbits from
+seeds by the group action, keeps the independent patch-level post-check on every success — and
+every positive below has been re-verified by a brute-force <b>orbit-count oracle</b> that computes
+the found tiling&#8217;s full decorated symmetry group from scratch: 160 of 160 k&#8202;=&#8202;2
+verdicts exact, zero violations.</p>
+<p class="note"><b>The parity lemma</b> (unchanged, and doing most of the work): with the identity
+mirror action, a decoration whose bump-count differs from its dent-count for any bump/dent pair
+tiles at no k whatsoever — bumps and dents must pair up across shared edges, and every tile
+carries the same labels. On an eight-edge shape this dismisses 5&#8202;454 of 6&#8202;561 three-label
+decorations before any search runs.</p>
+<p class="note"><b>The v3 truth is more rigid than either wrong version.</b> All eleven Laves unit
+prototiles — the hexagon included, contrary to v2&#8217;s prized &#8220;k&#8202;=&#8202;3
+hexagon&#8221; — are <b>decoration-rigid</b>: every 3-label bump/dent decoration either leaves the
+prototile isohedral or kills every tiling within the search bound; nothing in between. (The
+rhombus keeps its clean geometric rule: it tiles iff each edge pair meeting at a wide corner is
+self-compatible.) The polyominoes manage exactly one notch of the ladder: the domino is rigid
+too ({1}), while the L-tromino, I-tromino and O-tetromino each have a genuine population of
+<b>2-anisohedral</b> decorations (80, 48 and 32 of 6&#8202;561) — a bump/dent rule can double the
+isohedral number of a translation-friendly shape, and, as far as every sound sweep so far can
+see, <b>no 3-label decoration of any shape tested exceeds k&#8202;=&#8202;2</b>. Richer alphabets
+don&#8217;t help: 5-label sweeps (two independent bump/dent pairs) of the hexagon and domino
+produce more isohedral decorations and nothing anisohedral at all. The open question flipped:
+earlier drafts asked whether the hexagon&#8217;s &#8220;ceiling of 3&#8221; was real; the real
+question is whether <i>any</i> edge-matching decoration of <i>any</i> polyform can beat 2 — and
+if one can, how large it has to be.</p>
+<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/decorated-l-tromino-2orbit.svg" alt="A 2-orbit tiling by the decorated L-tromino: one bump and one dent on two of eight edges, matched discs marking each paired edge" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">Genuine at last: a minimal <b>2-orbit</b> decorated
+L-tromino tiling — labels (0,&#8202;0,&#8202;0,&#8202;0,&#8202;0,&#8202;0,&#8202;1,&#8202;2), a
+single bump and dent on two of eight edges (sorted-edge order), one of the eighty 2-anisohedral
+decorations in <code>decor-L-tromino-v3</code>. One disc per matched edge, in the bump-carrier&#8217;s
+orbit colour; the undecorated shape tiles by translation, and the oracle confirms no tiling
+compatible with this decoration has fewer than two orbits.</div>
 </div>
-<p class="note">The top row behaves the way intuition says it should. Polyominoes, polyhexes and
-polyiamonds decline smoothly — bigger shapes are likelier to be awkward, and the curve slides from
-&#8220;almost everything tiles&#8221; toward &#8220;almost nothing does.&#8221; The exotic grids do
-something else entirely: <b>polypons swing between 1% and 36%, tetrakis polyaboloes between 0% and
-71%</b>, size after size, in a sawtooth that persists to the largest rows computed.</p>
-<p class="note"><b>The sawtooth is arithmetic, not luck.</b> Each of these grids has <i>c</i> cells
-per translation unit — three rhombi to a hexagon, four quarter-squares to a square, six pons to a
-triangle — and a tiling has to cover a quotient torus of exactly <i>c</i>·<i>m</i> cells using
-whole copies of an <i>n</i>-cell shape. Counting the copies gives the constraint the engine checks
-before it enumerates a single group: <b><i>c</i> must divide <i>n</i>·<i>T</i></b>, where <i>T</i>
-is a sum of <i>k</i> terms of the form <i>q</i>/<i>s</i> — <i>q</i> the order of the tiling group's
-point group, <i>s</i> the order of an orbit's stabiliser. The exact arithmetic matters less than
-its shape: <i>T</i> ranges over a sparse set of integers, so when <i>n</i> shares no factor with
-<i>c</i> whole classes of candidate group vanish before any search begins, and when <i>n</i> is a
-multiple of <i>c</i> they all survive. Sizes divisible by <i>c</i> are therefore systematically
-richer in tilings, and the effect is enormous: polypons (<i>c</i>&#8202;=&#8202;6) go from 0.0% of
-17-pons tiling to <b>6.9% at n&#8202;=&#8202;18</b> and back to 0.5% at 19; tetrakis polyaboloes
-(<i>c</i>&#8202;=&#8202;4) from 0.2% at n&#8202;=&#8202;15 to <b>7.2% at n&#8202;=&#8202;16</b>, a
-thirty-six-fold jump between neighbouring sizes. Those three rows were computed <i>after</i> this
-paragraph was written, which makes them a fair test rather than a fitted story. The classical grids
-have <i>c</i>&#8202;=&#8202;1 or 2 and almost nothing to fail, which is why their curves are
-smooth. One caveat kept in view: the drafters (<i>c</i>&#8202;=&#8202;12) do not follow the pattern
-cleanly — their local peak at n&#8202;=&#8202;14 is not a multiple of 12 — so divisibility gates
-the <i>opportunity</i> to tile without determining the outcome.</p>
-
-<h2>How the engine works</h2>
+<div class="tablewrap">
+<table>
+<caption>v3 decoration spectra, oracle-verified — decorations counted by minimum orbit number; &#8220;no k ≤ kmax&#8221; entries are not further resolved. All counts from results/decor-*-v3.json; parity-ineligible decorations are included in the &#8220;no k&#8221; column.</caption>
+<tr><th>shape</th><th>edges</th><th>labels</th><th>decorations</th><th>k = 1</th><th>k = 2</th><th>no k ≤ kmax</th><th>kmax</th></tr>
+<tr><td>triangle (iamond)</td><td>3</td><td>3</td><td>27</td><td>7</td><td>—</td><td>20</td><td>6</td></tr>
+<tr><td>square</td><td>4</td><td>3</td><td>81</td><td>19</td><td>—</td><td>62</td><td>6</td></tr>
+<tr><td>Cairo pentagon</td><td>5</td><td>3</td><td>243</td><td>15</td><td>—</td><td>228</td><td>6</td></tr>
+<tr><td>rhombus (rhombille)</td><td>4</td><td>3</td><td>81</td><td>9</td><td>—</td><td>72</td><td>8</td></tr>
+<tr><td>kite</td><td>4</td><td>3</td><td>81</td><td>9</td><td>—</td><td>72</td><td>6</td></tr>
+<tr><td>floret pentagon</td><td>5</td><td>3</td><td>243</td><td>9</td><td>—</td><td>234</td><td>6</td></tr>
+<tr><td>prismatic pentagon</td><td>5</td><td>3</td><td>243</td><td>9</td><td>—</td><td>234</td><td>6</td></tr>
+<tr><td>tan (abolo)</td><td>3</td><td>3</td><td>27</td><td>3</td><td>—</td><td>24</td><td>6</td></tr>
+<tr><td>drafter (kisrhombille)</td><td>3</td><td>3</td><td>27</td><td>1</td><td>—</td><td>26</td><td>6</td></tr>
+<tr><td>pon (triakis)</td><td>3</td><td>3</td><td>27</td><td>3</td><td>—</td><td>24</td><td>6</td></tr>
+<tr><td>hexagon</td><td>6</td><td>3</td><td>729</td><td>129</td><td>—</td><td>600</td><td>6</td></tr>
+<tr><td>hexagon</td><td>6</td><td>5</td><td>15625</td><td>785</td><td>—</td><td>14840</td><td>6</td></tr>
+<tr><td>domino</td><td>6</td><td>3</td><td>729</td><td>137</td><td>—</td><td>592</td><td>6</td></tr>
+<tr><td>domino</td><td>6</td><td>5</td><td>15625</td><td>881</td><td>—</td><td>14744</td><td>6</td></tr>
+<tr><td>L-tromino</td><td>8</td><td>3</td><td>6561</td><td>423</td><td>80</td><td>6058</td><td>4</td></tr>
+<tr><td>I-tromino</td><td>8</td><td>3</td><td>6561</td><td>581</td><td>48</td><td>5932</td><td>4</td></tr>
+<tr><td>O-tetromino</td><td>8</td><td>3</td><td>6561</td><td>707</td><td>32</td><td>5822</td><td>4</td></tr>
+</table>
+</div>
+<h2 id="arrows"><span class="stage">Part V · decorations</span>Arrows: reflect a bump into a dent, and the ceiling breaks <span class="status ok">k&#8202;=&#8202;5 on a plain hexagon</span></h2>
+<p class="note">Every sweep above uses the <b>identity mirror</b>: a reflected bump is still a bump.
+That single modelling choice is what powers the parity lemma — and, it turns out, what caps the
+isohedral numbers. Give the notches an <b>asymmetric profile</b> instead, so that a reflected bump
+reads as a dent (mirror&#8202;:&#8202;1&#8202;↔&#8202;2, the natural physical model of an arrowhead
+notch), and the parity argument evaporates: a reflected tile carries swapped bump and dent counts,
+so unbalanced decorations can balance their census by mixing chiralities. The prediction was
+logged before running the sweep — and the sweep breaks the ceiling wide open.</p>
+<p class="note">Of the 729 three-label arrow decorations of a <b>single regular hexagon</b>: 195
+tile isohedrally, 102 are 2-anisohedral, <b>12 are 4-anisohedral, and 24 are 5-anisohedral</b> —
+against a hard ceiling of k&#8202;=&#8202;1 for the same hexagon under identity mirror. Every one
+of the 138 anisohedral verdicts was re-derived by the brute-force orbit-count oracle, with zero
+violations. A plain hexagon, marked only with notches, forced into five orbits: the humblest
+prototile in plane geometry, made as anisohedral as anything in this project. (Curiously k=3 is
+absent, and the domino — 729 arrow decorations — stays entirely isohedral, all 729 of them: the
+mechanism is not simply &#8220;more freedom everywhere&#8221;.)</p>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:1 1 15rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/arrow-hex-5orbit.svg" alt="arrow hex 5orbit" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.4rem">k&#8202;=&#8202;5: labels (0,&#8202;0,&#8202;1,&#8202;1,&#8202;1,&#8202;2)</div>
+</div>
+<div style="flex:1 1 15rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/arrow-hex-4orbit.svg" alt="arrow hex 4orbit" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.4rem">k&#8202;=&#8202;4: labels (0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;2)</div>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">Arrow-decorated regular hexagons forced into five and four
+orbits (colours = orbits of the tiling's symmetry group). Each grey arrowhead is one matched notch pair, drawn <i>on</i> the
+shared edge and pointing along it — neutral, because under the arrow rule the marking belongs to the edge rather than to
+either tile: label&#8202;1 points along a tile's counter-clockwise boundary, label&#8202;2 against it, so two tiles fit exactly
+when their markings agree as absolute directions in the plane. (The renderer computes each arrow twice, once from each side,
+and asserts the two agree — 171 and 157 edges here, no disagreements.) Reflecting a tile reverses its boundary orientation
+and so swaps bump for dent, which is precisely why these tilings can mix chiralities — impossible under the symmetric-notch
+rule, where every decorated hexagon is isohedral or nothing. Both verified by the orbit-count oracle.</div>
+</div>
+<div class="tablewrap">
+<table>
+<caption>Arrow (mirror-swapping) decorations vs. symmetric notches — minimum orbit number k. Arrow counts from results/decor-*-arrow.json, all k ≥ 2 entries oracle-verified.</caption>
+<tr><th>shape</th><th>mirror rule</th><th>decorations</th><th>k = 1</th><th>k = 2</th><th>k = 4</th><th>k = 5</th><th>no k ≤ kmax</th></tr>
+<tr><td>hexagon</td><td>identity (bump stays bump)</td><td>729</td><td>129</td><td>—</td><td>—</td><td>—</td><td>600</td></tr>
+<tr><td>hexagon</td><td><b>arrow (bump ↔ dent)</b></td><td>729</td><td>195</td><td>102</td><td><b>12</b></td><td><b>24</b></td><td>396</td></tr>
+<tr><td>domino</td><td>identity</td><td>729</td><td>137</td><td>—</td><td>—</td><td>—</td><td>592</td></tr>
+<tr><td>domino</td><td>arrow</td><td>729</td><td>729</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+</table>
+</div>
+<h2 id="taxonomy"><span class="stage">Part V · decorations</span>The complete taxonomy of edge markings <span class="status ok">four marking types</span></h2>
+<p class="note">The arrow rule is not an ad-hoc variant: it is one of exactly four possibilities,
+and working out why says what the whole decorated-tiling game consists of. A marking on a shared
+edge is recorded by each adjacent tile in its own frame — boundary traversal direction, interior on
+the left. Neighbouring frames differ by <b>ρ</b>, the half-turn about the edge midpoint, so
+&#8220;these two tiles fit&#8221; means exactly <i>your record is mine turned by ρ</i>; and placing
+a tile by a reflection acts on records by <b>σ<sub>⊥</sub></b>, reflection across the edge's
+perpendicular bisector. So the symmetry subgroup of the marking's own profile, inside
+{1,&#8202;ρ,&#8202;σ<sub>∥</sub>,&#8202;σ<sub>⊥</sub>}, determines the matching rule completely:</p>
+<div class="tablewrap">
+<table>
+<caption>The four edge-marking types. &#8220;Pairing&#8221; is which label a label must meet; &#8220;mirror&#8221; is what reflection does to a label.</caption>
+<tr><th>profile symmetry</th><th>physical form</th><th>pairing</th><th>mirror</th><th>hexagon spectrum</th></tr>
+<tr><td>σ<sub>⊥</sub></td><td>classic jigsaw tab</td><td>bump ↔ dent</td><td>identity</td><td>{1}</td></tr>
+<tr><td>σ<sub>∥</sub></td><td>arrow along the edge</td><td>bump ↔ dent</td><td>swaps</td><td><b>{1, 2, 4, 5}</b></td></tr>
+<tr><td>ρ</td><td>S-shaped tab</td><td><b>self-matching</b></td><td>swaps</td><td>{1, 2}</td></tr>
+<tr><td>none</td><td>fully asymmetric tab</td><td>ρ (4 labels)</td><td>σ<sub>⊥</sub></td><td>{1, 2}</td></tr>
+</table>
+</div>
+<p class="note">The <b>S-tab</b> is the ρ-symmetric row and the one that feels least like the others:
+because its profile is carried onto itself by the half-turn, an S-tab fits <i>another S-tab</i> —
+the same tile rotated 180° — rather than a complementary partner. Its mirror image is a Z-tab, which
+it refuses. So its pairing is the identity, a combination no sweep in this project had ever used.
+Of the hexagon's 729 three-label S-tab decorations, <b>615 tile isohedrally, 12 are 2-anisohedral,
+and 102 admit no tiling at all</b> — permissive where the arrow rule is demanding, and capped far
+below the arrow rule's k&#8202;=&#8202;5. Self-matching markings, it turns out, mostly get out of
+their own way.</p>
+<div style="max-width:30rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/stab-hex-2orbit.svg" alt="Hexagons with S-shaped tabs forced into two orbits" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">S-tabs at work: hexagons with labels
+(0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;1), forced into two orbits. Here the grey marking is
+drawn as the profile itself — an S-curve across the shared edge, carried onto itself by the
+half-turn about the edge's midpoint, which is exactly why one S-tab fits another. As with the
+arrows, the renderer derives each curve independently from both neighbours and asserts they
+coincide (95 edges here, no disagreements).</div>
+</div>
+<p class="note"><b>Only the hexagon budges — again, but differently.</b> Sweeping every
+three-label arrow decoration of all eleven Laves prototiles (kmax&#8202;6, 729 decorations each
+for the six-edge shapes, fewer for the rest; all 186 anisohedral verdicts oracle-verified) leaves
+the hexagon alone at the top. Six prototiles can be pushed to <b>k&#8202;=&#8202;2</b> — the Cairo
+and prismatic pentagons and the rhombus join it there — but nothing else reaches 4 or 5. And four
+prototiles are utterly unmoved: <b>every</b> arrow decoration of the triangle, the square, the tan
+and the drafter still tiles isohedrally, not one of them even losing the ability to tile. The
+pattern from the symmetric-notch sweeps survives in sharper form: decoration is a lever, and the
+hexagon is the only prototile with enough edges and enough symmetry to be moved a long way by
+it.</p>
+<div class="tablewrap">
+<table>
+<caption>Arrow decorations of all eleven Laves prototiles — minimum orbit number k, kmax 6. Every k ≥ 2 entry verified by the orbit-count oracle. Counts from results/decor-arrow-unit-*.json and decor-unit-hex-arrow.json.</caption>
+<tr><th>prototile</th><th>edges</th><th>decorations</th><th>k = 1</th><th>k = 2</th><th>k = 4</th><th>k = 5</th><th>no k ≤ 6</th></tr>
+<tr><td>triangle (iamond)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td>square</td><td>4</td><td>81</td><td>81</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td><b>hexagon</b></td><td>6</td><td>729</td><td>195</td><td>102</td><td><b>12</b></td><td><b>24</b></td><td>396</td></tr>
+<tr><td>Cairo pentagon</td><td>5</td><td>243</td><td>15</td><td>6</td><td>—</td><td>—</td><td>222</td></tr>
+<tr><td>rhombus (rhombille)</td><td>4</td><td>81</td><td>9</td><td>24</td><td>—</td><td>—</td><td>48</td></tr>
+<tr><td>kite</td><td>4</td><td>81</td><td>27</td><td>—</td><td>—</td><td>—</td><td>54</td></tr>
+<tr><td>floret pentagon</td><td>5</td><td>243</td><td>9</td><td>—</td><td>—</td><td>—</td><td>234</td></tr>
+<tr><td>prismatic pentagon</td><td>5</td><td>243</td><td>27</td><td>18</td><td>—</td><td>—</td><td>198</td></tr>
+<tr><td>tan (abolo)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td>drafter (kisrhombille)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td>pon (triakis)</td><td>3</td><td>27</td><td>9</td><td>—</td><td>—</td><td>—</td><td>18</td></tr>
+</table>
+</div>
+<p class="note"><b>The ceiling belongs to the marking type; the alphabet only sets abundance.</b>
+Three further sweeps settle how these rules relate. The <i>four-label fully asymmetric</i> tab — the
+richest type in the taxonomy — reaches only <b>k&#8202;=&#8202;2</b> on the hexagon
+({1: 989, 2: 108}, and 14&#8202;528 of its 15&#8202;625 decorations admit no tiling at all): richness buys
+non-tilers, not orbits. A <i>five-label arrow</i> alphabet (two independent arrow pairs) keeps the
+arrow ceiling exactly — still k&#8202;=&#8202;5, nothing at 6 — but finds <b>four times as many</b>
+high-k decorations (48 at k&#8202;=&#8202;4 and 48 at k&#8202;=&#8202;5, against 12 and 24 with
+one pair). And pushing the three-label arrow hexagon to <b>kmax&#8202;8</b> leaves its spectrum
+untouched: no decoration of a hexagon reaches 6, 7 or 8 orbits, and the 396 that fail to tile fail
+at every k&#8202;≤&#8202;8. So the profile's symmetry class fixes how high a shape can be driven,
+while extra label pairs of the same type only multiply the solutions at that height.</p>
+<p class="note">The shape matters as much as the marking, though. The S-tab, capped at
+k&#8202;=&#8202;2 on the hexagon, reaches <b>k&#8202;=&#8202;3</b> on the L-tromino
+(3&#8202;159 isohedral, 30 at k&#8202;=&#8202;2, 8 at k&#8202;=&#8202;3, 3&#8202;364 with no tiling at
+k&#8202;≤&#8202;4) — eight decorations that force three orbits on a shape which, undecorated, tiles
+by translation.</p>
+<div style="max-width:30rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/stab-ltromino-3orbit.svg" alt="L-trominoes with S-shaped tabs forced into three orbits" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">Three orbits from S-tabs alone: the L-tromino with
+labels (0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;1,&#8202;0,&#8202;0), one of eight such
+decorations. The S-curves are the tabs themselves — each carried onto itself by the half-turn about
+its edge's midpoint, which is why one fits another. 202 profiles here, every one derived
+independently from both neighbours and agreeing.</div>
+</div>
+<h2 id="design-space"><span class="stage">Part V · decorations</span>The design space: why the hexagon, and nothing bigger <span class="status ok">one shape in the corner</span></h2>
+<p class="note"><b>Why the hexagon, and not something bigger.</b> The obvious way to look for
+more than five orbits is a bigger tile — more edges, more constraints to force with. It fails, and
+the way it fails is the most informative result in this section. A two-cell dihex (ten edges) and a
+three-cell trihex (twelve edges) were both sampled in the density band where the hexagon's high-k
+decorations live: <b>95% and 98% of those decorations admit no tiling at all</b>, and the survivors
+reach only k&#8202;=&#8202;2 and k&#8202;=&#8202;1. Each marked edge is a constraint, and past a
+point constraints stop buying orbits and start buying non-tilers.</p>
+<div class="tablewrap">
+<table>
+<caption>Maximum forced isohedral number under the arrow rule, against both edge count and the order of the shape's symmetry group. Multi-cell rows are random samples of the density band (260 and 160 canonical classes), so their maxima are lower bounds; every prototile row is exhaustive.</caption>
+<tr><th>shape</th><th>edges</th><th>symmetries</th><th>max k</th></tr>
+<tr><td><b>hexagon</b></td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td></tr>
+<tr><td>square domino</td><td>6</td><td>4</td><td>1</td></tr>
+<tr><td>dihex (sampled)</td><td>10</td><td>4</td><td>2</td></tr>
+<tr><td>trihex (sampled)</td><td>12</td><td>6</td><td>1</td></tr>
+<tr><td>square</td><td>4</td><td>8</td><td>1</td></tr>
+<tr><td>triangle</td><td>3</td><td>6</td><td>1</td></tr>
+<tr><td>rhombus</td><td>4</td><td>4</td><td>2</td></tr>
+<tr><td>Cairo / prismatic pentagons</td><td>5</td><td>2</td><td>2</td></tr>
+<tr><td>kite, tan, drafter, pon, floret</td><td>3–5</td><td>1–2</td><td>1</td></tr>
+</table>
+</div>
+<p class="note"><b>And an honest retraction.</b> An earlier version of this section claimed the
+driver was edge count alone, on the grounds that the trihex has a larger symmetry group than the
+dihex yet performs worse. That comparison is <i>confounded</i> — the trihex has more edges as well
+as more symmetry — and the table above contains its own refutation: the square domino has exactly
+the hexagon's six edges and a quarter of its symmetry, and not one of its 729 arrow decorations
+forces more than a single orbit. At fixed edge count, symmetry matters enormously. Conversely the
+square prototile has eight symmetries and only four edges, and also forces nothing. What the data
+actually supports is narrower and duller: <b>the hexagon is the only shape tested with both six or
+more edges and a symmetry group of order eight or more</b>, and both deficiencies — too few edges,
+too little symmetry — are individually fatal. With a single specimen in that corner, the two
+effects cannot be separated. Finding a second shape with both properties, on any grid, is the
+experiment that would settle it.</p>
+<p class="note"><b>A tautology that turned into an engine check.</b> The retraction above named
+the experiment that would settle things: find a second shape with both properties. Searching all
+eleven grids turned up an irresistible-looking candidate — <b>six triangles merged into a regular
+hexagon</b>, same six edges, same twelve symmetries, but living on the finer triangular grid where
+it can sit at offsets the hexagonal grid forbids. It reaches k&#8202;=&#8202;5 with the same
+winning labels, and it was briefly reported here as an independent reproduction of the record.
+<b>It is nothing of the kind</b>, as a reader pointed out: all tilings of the plane by regular
+hexagons are the honeycomb — hexagons cannot be offset the way squares can, since a shifted row
+leaves gaps — so every hexagon in every tiling sits on the honeycomb no matter how fine the grid
+beneath it. The extra placements of a <i>single</i> hexagon buy no extra <i>tilings</i>. It is the
+same decorated problem restated, and its answer was guaranteed before it was computed.</p>
+<p class="note">What the exercise is worth keeping for is a different kind of check. Two backends
+with different cell shapes, different residue counts, different symmetry bookkeeping and different
+code paths produced spectra that agree <b>decoration for decoration</b> — 195 isohedral, 102 at
+k&#8202;=&#8202;2, 12 at k&#8202;=&#8202;4, 24 at k&#8202;=&#8202;5, 396 with no tiling — and the
+triangular run went to kmax&#8202;8, so it independently reconfirms that nothing appears at
+k&#8202;=&#8202;7 or 8. That is a strong consistency test of the engine, and no evidence at all
+about decorations. The design-space corner still holds exactly one shape.</p>
+<p class="note">The companion test cuts the other way. The <b>2&#8202;×&#8202;2 square</b> has eight
+edges and eight symmetries — the first shape tested to clear both thresholds without being a
+hexagon — and it is edge-transitive besides. Every one of 150 sampled decorations still tiles
+<b>isohedrally</b>. So the two thresholds are necessary and manifestly not sufficient, and the
+tidy story that survives is a short one: on these eleven grids the only shape anyone has pushed
+past two orbits is the regular hexagon, in either of its realizations. And the last candidate class settles the question: these grids <i>do</i>
+build shapes with twelve symmetries and twelve edges — six rhombi merged into a hexagram, six kites
+into a rosette — and for both of them <b>every single one of 140 sampled decorations admits no
+tiling at all</b>. Maximum symmetry with more edges is not a better hexagon; it is a wall. So the
+peak is real: six edges is where a marking rule can still be satisfied while forcing five orbits,
+and one edge-pair more begins the collapse that ends in total extinction by twelve.</p>
+<div class="tablewrap">
+<table>
+<caption>The full sweep of the design space, arrow rule. Multi-cell rows are density-band samples (60–260 canonical classes each), so their maxima are lower bounds and their non-tiling fractions are estimates.</caption>
+<tr><th>shape</th><th>edges</th><th>symmetries</th><th>max k</th><th>no tiling</th></tr>
+<tr><td>triangle, tan, drafter, pon</td><td>3</td><td>1–6</td><td>1</td><td>0–67%</td></tr>
+<tr><td>square, kite, rhombus</td><td>4</td><td>2–8</td><td>1–2</td><td>0–67%</td></tr>
+<tr><td>Cairo, floret, prismatic pentagons</td><td>5</td><td>1–2</td><td>1–2</td><td>81–96%</td></tr>
+<tr><td><b>hexagon</b> (hex grid)</td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td><td>54%</td></tr>
+<tr><td><b>hexagon</b> (six triangles)</td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td><td>43%</td></tr>
+<tr><td>square domino</td><td>6</td><td>4</td><td>1</td><td>0%</td></tr>
+<tr><td>2 × 2 square</td><td>8</td><td>8</td><td>1</td><td>0%</td></tr>
+<tr><td>dihex</td><td>10</td><td>4</td><td>2</td><td>95%</td></tr>
+<tr><td>trihex</td><td>12</td><td>6</td><td>1</td><td>98%</td></tr>
+<tr><td>six rhombi; six kites</td><td>12</td><td>12</td><td>—</td><td><b>100%</b></td></tr>
+</table>
+</div>
+<h2 id="decoration-sweeps"><span class="stage">Part V · decorations</span>Deeper sweeps, cheaper sweeps, and the oracle&#8217;s own bug <span class="status ok">kmax&#8202;8 · no entry moved</span></h2>
+<p class="note"><b>Every ceiling here has now been tested two orbits higher than it was
+found.</b> A spectrum that stops at k&#8202;=&#8202;2 because the sweep stopped at
+kmax&#8202;4 is not the same claim as a spectrum that stops at k&#8202;=&#8202;2 with
+k&#8202;=&#8202;3 through 8 excluded, and until this morning most of the numbers on this page
+were the first kind. Re-running everything at <b>kmax&#8202;8</b> — the three polyomino jigsaw
+sweeps that stopped at 4, and nineteen more that stopped at 6, covering all eleven unit prototiles
+under both the jigsaw and arrow rules, the domino, and both S-tab sweeps — changes <b>not one
+entry</b>. The L-tromino is still {1,&#8202;2}, the hexagon still tops out at 5 under arrows and 3
+under jigsaw notches, the rhombus and the Cairo and prismatic pentagons still reach exactly 2. The
+ceilings are properties of the shapes, not of the search budget.</p>
+<p class="note"><b>A sweep-wide economy.</b> Every sweep above was, until this morning,
+re-searching decorations it had already answered: two decorations related by a symmetry of the
+shape, or by a global relabelling that commutes with the pairing and mirror maps, pose the same
+problem and must have the same minimum k. Quotienting by both groups before searching costs a few
+seconds of bookkeeping and cuts the work by <b>14×</b> on the hexagon and <b>38×</b> on the
+four-label scheme — verified by reproducing the arrow-hexagon spectrum exactly, decoration for
+decoration. Sweeps that had been priced at four hours now run in fifteen minutes, which is what
+made the four-label sweeps affordable at all.</p>
+<p class="note"><b>Postscript on the oracle itself (1 August).</b> While making these sweeps
+faster, the oracle's own command-line driver turned out to be rebuilding each decoration <i>without
+its mirror map</i> — harmless for the symmetric-notch sweeps it was written for, but it would have
+declared every arrow, S-tab and four-label result a violation had it been the tool used on them.
+It wasn't: those verdicts were produced by drivers that passed the mirror correctly. The driver is
+now fixed, and every mirror-swapping sweep on this page has been re-checked through it — arrow
+hexagon 138 positives, five-label arrow 612, four-label 108, S-tab hexagon 12, S-tab L-tromino 38,
+<b>zero violations</b>. No number here moved; the checker was broken, not the results. It is
+recorded because a verification tool that silently passes the wrong problem is the most dangerous
+object in a project like this one.</p>
+<p class="note">A methodological coda: v1&#8217;s bug could only accept too much, v2&#8217;s could
+only reject too much, and each produced a plausible-looking mathematical narrative — spectra with
+&#8220;gaps&#8221;, a special hexagon — that dissolved under an independent check the search code
+had no hand in. The surviving facts are duller and firmer: rigidity everywhere, one honest
+doubling, and a pre-filter lemma that does more than the search does.</p>
+<h2 id="engine"><span class="stage">Part VI · method &amp; performance</span>How the engine works</h2>
 <div class="method">
 <p><b>One engine, eleven grids.</b> Every base tiling is described combinatorially: cells are
 integer points, the tiling's symmetries act as affine integer maps, and a backend only supplies
@@ -1789,9 +1792,53 @@ moved from 4.3 CPU-hours (k&#8202;≤&#8202;15) to seven minutes (k&#8202;≤&#8
 answers decode to concrete tilings and are re-verified independently; negative answers emit
 <b>DRAT proof logs</b> checked by <code>drat-trim</code>, so refutations no longer rest on
 trusting any search code — ours or the solver's.</p>
-<p><b>The audit trail.</b> This page's numbers have survived four soundness episodes, two of
+</div>
+<h2 id="head-to-head"><span class="stage">Part VI · method &amp; performance</span>Two algorithms, measured against each other <span class="status ok">1&#8202;762 shapes, zero disagreements</span></h2>
+<p class="note">This project's engine and Myers's differ at the root. He runs a <b>class-based
+backtracking search</b>: start with one tile, branch over every way a neighbour can touch an
+unsurrounded tile, let it join a known class or open a new one, propagate the tiles the resulting
+symmetries force, and stop when every class representative is surrounded — the symmetry group is
+never enumerated, it is <i>discovered</i>. We enumerate candidate wallpaper groups up front and
+solve an exact cover on each quotient torus. Agreement between the two has been this page's main
+external check, so it was worth asking the sharper question: <b>which is actually faster, and
+why?</b> A faithful reimplementation of his method now lives beside ours
+(<code>myers_isohedral.py</code>), verdict-for-verdict identical on <b>all 1&#8202;762 free polyominoes
+at n&#8202;=&#8202;7,&#8202;8,&#8202;9 — zero disagreements</b>, with every structure it accepts
+independently developed into a patch and re-verified as an exact torus partition.</p>
+<div class="tablewrap">
+<table>
+<caption>Same machine, one pinned core, both engines in pure Python (a loaded box, so only the paired ratios are meaningful).</caption>
+<tr><th>n</th><th>shapes</th><th>class search</th><th>exact cover</th><th>total ratio</th><th>median shape</th><th>p90 shape</th></tr>
+<tr><td>9</td><td>1&#8202;285 (all)</td><td>127&#8202;s</td><td>648&#8202;s</td><td>5.1× his way</td><td>49.9 vs <b>7.2&#8202;ms</b></td><td><b>110&#8202;ms</b> vs 2&#8202;240&#8202;ms</td></tr>
+<tr><td>10</td><td>400 (sample)</td><td>64&#8202;s</td><td>1&#8202;010&#8202;s</td><td>15.9× his way</td><td>100 vs <b>35&#8202;ms</b></td><td><b>266&#8202;ms</b> vs 6&#8202;570&#8202;ms</td></tr>
+</table>
+</div>
+<p class="note">The aggregate hides the interesting structure, because the two engines win at
+opposite ends. <b>On the median shape ours is 4–7× faster</b>: the whole answer is one tiny torus
+cover, while the class search has to build a patch. <b>In the tail his is faster by up to
+14&#8202;600×</b>, and the tail owns the total. The reason is structural rather than incidental: a shape
+that cannot tile dies in his search after a few dozen nodes, whereas we pay a fixed toll — every
+candidate group at every admissible torus index, restarted for each k — that does not shrink at all
+for hopeless shapes. The 4-anisohedral nonomino, our 20-second showpiece, takes him 0.28&#8202;s. And
+the gap widens with n, which is the honest explanation of how his tables reach the 25-ominoes.</p>
+<p class="note">What our side keeps is the shape of the answer rather than the speed:
+&#8220;no tiling with k&#8202;≤&#8202;K&#8221; is a <i>finite enumeration</i> for us — finitely many
+groups, each a finite exact cover — which is exactly why it could be handed to a SAT solver and come
+back with a DRAT certificate, while a backtracking refutation is an unreplayable trace. The
+group-theoretic formulation also carries to all eleven Laves grids with no per-family reasoning, and
+decorations ride along on the orbits for free. The natural conclusion is a hybrid rather than a
+winner: route by difficulty, exact cover first and the class search as tail-breaker, and import two
+of his devices we cannot currently exploit — possible-neighbour bitmaps used <i>inside</i> the
+search, and forced-tile propagation read as unit propagation over class-relative surround
+variables.</p>
+<h2 id="speed"><span class="stage">Part VI · method &amp; performance</span>The speed work <span class="status ok">~100× on classification</span></h2>
+<p class="note">Classification is ~100× faster than 31 July (pocket-check algorithmics ×12, compiled neighbour kernel ×8–11); decoration sweeps a further 4.5–23.6× on top, all algorithmic; the k-orbit search compiled at 10.4× in isolation. The C enumerator runs at 125–165M shapes/s and produced the first n&#8202;=&#8202;11 and n&#8202;=&#8202;12 omino rows.</p>
+<h2 id="audit-trail"><span class="stage">Part VI · method &amp; performance</span>The audit trail <span class="status ok">four soundness episodes</span></h2>
+<div class="method">
+<p>This page's numbers have survived four soundness episodes, two of
 them caught by a reader of the figures, and it seems more honest to display that history than
-to bury it. (1)&#8202;An instrumentation ambiguity let node-budget cap-hits be read as found
+to bury it. (Episodes 2 and 3 are told from the decorations' side in
+<a href="#decorations">Part&#8202;V</a>.) (1)&#8202;An instrumentation ambiguity let node-budget cap-hits be read as found
 surrounds — caught in an internal audit; every claim was re-derived and the reporting
 disambiguated. (2)&#8202;The decorated-tiling validator checked label compatibility over a fixed
 window of lattice translates in Hermite coordinates; skewed bases let genuinely touching tiles
@@ -1810,7 +1857,15 @@ systematic re-audit came back clean (all 37 stored anisohedral examples re-deriv
 found because some independent artifact — a figure, a cross-check, a second engine — contradicted
 the search, which is the strongest argument this project knows for computing everything twice.</p>
 </div>
-
+<h2 id="roadmap"><span class="stage">Part VII · roadmap</span>Open questions, and what is running</h2>
+<ul class="roadmap">
+<li><span class="status run">running</span><span class="what"><b>Higher than ten?</b>
+  <span class="d">Isohedral number 10 arrived from a shape nobody was looking at — the last unresolved entry in the whole project. Since sweeps run at kmax&#8202;4, every new frontier row deposits fresh candidates in its unresolved pool, and the two-stage probe (cheap surround exhaustion, then the SAT orbit search on survivors) now empties that pool for a few minutes of compute. Tetrakis n&#8202;=&#8202;14–15, polypons 18, drafters 14 and tans 12 are computing now, chosen because the small families have produced every record so far.</span></span></li>
+<li><span class="status run">running</span><span class="what"><b>Can two cells beat five orbits?</b>
+  <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves prototile passes 2. The obvious next question is whether a two-cell shape goes higher: the dihex has ten edges and 59&#8202;049 arrow decorations, which was unaffordable this morning and is a ninety-minute sweep now that the validator is 23× faster.</span></span></li>
+<li><span class="status pend">next</span><span class="what"><b>Mixed markings on one tile</b>
+  <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an S-tab on a third — the engine's pairing and mirror are arbitrary label maps, so mixed schemes just occupy disjoint label ranges. 117&#8202;649 decorations on a hexagon, now within reach.</span></span></li>
+</ul>
 <footer>
 Engine: <code>~/src/polyform</code>, branch <code>engine</code> · Python; SAT via PySAT
 (glucose42/cadical), UNSAT proofs checked by <code>drat-trim</code> ·
