@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 08:29
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 08:33
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1517,10 +1517,28 @@ edges and eight symmetries — the first shape tested to clear both thresholds w
 hexagon — and it is edge-transitive besides. Every one of 150 sampled decorations still tiles
 <b>isohedrally</b>. So the two thresholds are necessary and manifestly not sufficient, and the
 tidy story that survives is a short one: on these eleven grids the only shape anyone has pushed
-past two orbits is the regular hexagon, in either of its realizations. Whether that is because
-twelve symmetries and six edges is genuinely the sweet spot, or merely because these grids cannot
-build anything else with both, is still open — shapes with twelve edges <i>and</i> twelve
-symmetries exist here, and are being swept now.</p>
+past two orbits is the regular hexagon, in either of its realizations. And the last candidate class settles the question: these grids <i>do</i>
+build shapes with twelve symmetries and twelve edges — six rhombi merged into a hexagram, six kites
+into a rosette — and for both of them <b>every single one of 140 sampled decorations admits no
+tiling at all</b>. Maximum symmetry with more edges is not a better hexagon; it is a wall. So the
+peak is real: six edges is where a marking rule can still be satisfied while forcing five orbits,
+and one edge-pair more begins the collapse that ends in total extinction by twelve.</p>
+<div class="tablewrap">
+<table>
+<caption>The full sweep of the design space, arrow rule. Multi-cell rows are density-band samples (60–260 canonical classes each), so their maxima are lower bounds and their non-tiling fractions are estimates.</caption>
+<tr><th>shape</th><th>edges</th><th>symmetries</th><th>max k</th><th>no tiling</th></tr>
+<tr><td>triangle, tan, drafter, pon</td><td>3</td><td>1–6</td><td>1</td><td>0–67%</td></tr>
+<tr><td>square, kite, rhombus</td><td>4</td><td>2–8</td><td>1–2</td><td>0–67%</td></tr>
+<tr><td>Cairo, floret, prismatic pentagons</td><td>5</td><td>1–2</td><td>1–2</td><td>81–96%</td></tr>
+<tr><td><b>hexagon</b> (hex grid)</td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td><td>54%</td></tr>
+<tr><td><b>hexagon</b> (six triangles)</td><td><b>6</b></td><td><b>12</b></td><td><b>5</b></td><td>43%</td></tr>
+<tr><td>square domino</td><td>6</td><td>4</td><td>1</td><td>0%</td></tr>
+<tr><td>2 × 2 square</td><td>8</td><td>8</td><td>1</td><td>0%</td></tr>
+<tr><td>dihex</td><td>10</td><td>4</td><td>2</td><td>95%</td></tr>
+<tr><td>trihex</td><td>12</td><td>6</td><td>1</td><td>98%</td></tr>
+<tr><td>six rhombi; six kites</td><td>12</td><td>12</td><td>—</td><td><b>100%</b></td></tr>
+</table>
+</div>
 <p class="note"><b>And an honest retraction.</b> An earlier version of this section claimed the
 driver was edge count alone, on the grounds that the trihex has a larger symmetry group than the
 dihex yet performs worse. That comparison is <i>confounded</i> — the trihex has more edges as well
