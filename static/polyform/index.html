@@ -159,7 +159,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 02:06
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 03:03
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1265,6 +1265,14 @@ it.</p>
 <tr><td>pon (triakis)</td><td>3</td><td>27</td><td>9</td><td>—</td><td>—</td><td>—</td><td>18</td></tr>
 </table>
 </div>
+<p class="note"><b>A sweep-wide economy.</b> Every sweep above was, until this morning,
+re-searching decorations it had already answered: two decorations related by a symmetry of the
+shape, or by a global relabelling that commutes with the pairing and mirror maps, pose the same
+problem and must have the same minimum k. Quotienting by both groups before searching costs a few
+seconds of bookkeeping and cuts the work by <b>14×</b> on the hexagon and <b>38×</b> on the
+four-label scheme — verified by reproducing the arrow-hexagon spectrum exactly, decoration for
+decoration. Sweeps that had been priced at four hours now run in fifteen minutes, which is what
+made the four-label sweeps affordable at all.</p>
 <p class="note">Mixing types on one tile is expressible too — the engine's pairing and mirror are
 arbitrary label maps, so each marking type simply occupies its own range of labels, and a single
 shape can carry a jigsaw tab on one edge, an arrow on the next and an S-tab on a third. Those
@@ -1288,8 +1296,8 @@ doubling, and a pre-filter lemma that does more than the search does.</p>
   <span class="d">The arrow rule (Stage 16) was one of exactly four possible edge-marking types. Sweeps of the other two new ones — the <b>S-tab</b> (ρ-symmetric: self-matching, mirror-swapping) and the fully asymmetric four-label tab — are running on the hexagon, domino, triangle and L-tromino, along with mixed schemes that give different edges different types. Open question: does anything beat the arrow hexagon's k&#8202;=&#8202;5?</span></span></li>
 <li><span class="status run">running</span><span class="what"><b>A second hundred-fold</b>
   <span class="d">Classification is ~100× faster than it was on 31 July (algorithmic pocket fixes ×12, then a compiled neighbour kernel ×8–11). In flight: a compiled kernel for the k-orbit exact cover (the remaining Python hot spot, ~50% of classify and all of the decoration sweeps), and phase 3 of the C pipeline, which fuses the 180°/isohedral tests into the enumerator so the majority class never reaches Python at all.</span></span></li>
-<li><span class="status run">running</span><span class="what"><b>Myers's algorithm, reimplemented for comparison</b>
-  <span class="d">A faithful implementation of the class-based backtracking search described on Myers's page, validated shape-for-shape against our exact-cover engine on the 7- to 9-ominoes, then benchmarked head to head on the same machine — to find out honestly where each approach wins, and what a hybrid would look like.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>Myers's algorithm, reimplemented for comparison</b>
+  <span class="d">Done and written up as Stage 18: identical verdicts on 1,762 shapes, and a clean split — his class-based search wins the tail (and so the total, by 5–16×), ours wins the median shape by 4–7× and keeps certificate-friendly refutations. Hybrid design noted.</span></span></li>
 <li><span class="status pend">next</span><span class="what"><b>Higher kmax everywhere</b>
   <span class="d">Every decoration sweep so far stopped at k&#8202;≤&#8202;4 or 6 for cost reasons; the parity lemma means the identity-mirror sweeps only need re-searching on their parity-eligible unresolved entries, and the compiled cover search should make k&#8202;≤&#8202;8 routine. The same applies to the plain families, where kmax&#8202;4 is the current default.</span></span></li>
 <li><span class="status pend">next</span><span class="what"><b>The frontier tables</b>
@@ -1311,6 +1319,45 @@ doubling, and a pre-filter lemma that does more than the search does.</p>
 <li><span class="status ok">resolved</span><span class="what"><b>The star 10-rhombille</b>
   <span class="d">Proven non-tiler, aligned Heesch number exactly 3 — depth-3 surround found and depth-4 refuted. The project's flagship question, closed.</span></span></li>
 </ul>
+
+<h2><span class="stage">Stage 18 · new results</span>Two algorithms, measured against each other <span class="status ok">1&#8202;762 shapes, zero disagreements</span></h2>
+<p class="note">This project's engine and Myers's differ at the root. He runs a <b>class-based
+backtracking search</b>: start with one tile, branch over every way a neighbour can touch an
+unsurrounded tile, let it join a known class or open a new one, propagate the tiles the resulting
+symmetries force, and stop when every class representative is surrounded — the symmetry group is
+never enumerated, it is <i>discovered</i>. We enumerate candidate wallpaper groups up front and
+solve an exact cover on each quotient torus. Agreement between the two has been this page's main
+external check, so it was worth asking the sharper question: <b>which is actually faster, and
+why?</b> A faithful reimplementation of his method now lives beside ours
+(<code>myers_isohedral.py</code>), verdict-for-verdict identical on <b>all 1,762 free polyominoes
+at n&#8202;=&#8202;7,&#8202;8,&#8202;9 — zero disagreements</b>, with every structure it accepts
+independently developed into a patch and re-verified as an exact torus partition.</p>
+<div class="tablewrap">
+<table>
+<caption>Same machine, one pinned core, both engines in pure Python (a loaded box, so only the paired ratios are meaningful).</caption>
+<tr><th>n</th><th>shapes</th><th>class search</th><th>exact cover</th><th>total ratio</th><th>median shape</th><th>p90 shape</th></tr>
+<tr><td>9</td><td>1&#8202;285 (all)</td><td>127&#8202;s</td><td>648&#8202;s</td><td>5.1× his way</td><td>49.9 vs <b>7.2&#8202;ms</b></td><td><b>110&#8202;ms</b> vs 2&#8202;240&#8202;ms</td></tr>
+<tr><td>10</td><td>400 (sample)</td><td>64&#8202;s</td><td>1&#8202;010&#8202;s</td><td>15.9× his way</td><td>100 vs <b>35&#8202;ms</b></td><td><b>266&#8202;ms</b> vs 6&#8202;570&#8202;ms</td></tr>
+</table>
+</div>
+<p class="note">The aggregate hides the interesting structure, because the two engines win at
+opposite ends. <b>On the median shape ours is 4–7× faster</b>: the whole answer is one tiny torus
+cover, while the class search has to build a patch. <b>In the tail his is faster by up to
+14,600×</b>, and the tail owns the total. The reason is structural rather than incidental: a shape
+that cannot tile dies in his search after a few dozen nodes, whereas we pay a fixed toll — every
+candidate group at every admissible torus index, restarted for each k — that does not shrink at all
+for hopeless shapes. The 4-anisohedral nonomino, our 20-second showpiece, takes him 0.28&#8202;s. And
+the gap widens with n, which is the honest explanation of how his tables reach the 25-ominoes.</p>
+<p class="note">What our side keeps is the shape of the answer rather than the speed:
+&#8220;no tiling with k&#8202;≤&#8202;K&#8221; is a <i>finite enumeration</i> for us — finitely many
+groups, each a finite exact cover — which is exactly why it could be handed to a SAT solver and come
+back with a DRAT certificate, while a backtracking refutation is an unreplayable trace. The
+group-theoretic formulation also carries to all eleven Laves grids with no per-family reasoning, and
+decorations ride along on the orbits for free. The natural conclusion is a hybrid rather than a
+winner: route by difficulty, exact cover first and the class search as tail-breaker, and import two
+of his devices we cannot currently exploit — possible-neighbour bitmaps used <i>inside</i> the
+search, and forced-tile propagation read as unit propagation over class-relative surround
+variables.</p>
 
 <h2>How the engine works</h2>
 <div class="method">
