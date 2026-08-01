@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 05:08
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 05:41
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1438,6 +1438,16 @@ it.</p>
 <tr><td>pon (triakis)</td><td>3</td><td>27</td><td>9</td><td>—</td><td>—</td><td>—</td><td>18</td></tr>
 </table>
 </div>
+<p class="note"><b>Postscript on the oracle itself (1 August).</b> While making these sweeps
+faster, the oracle's own command-line driver turned out to be rebuilding each decoration <i>without
+its mirror map</i> — harmless for the symmetric-notch sweeps it was written for, but it would have
+declared every arrow, S-tab and four-label result a violation had it been the tool used on them.
+It wasn't: those verdicts were produced by drivers that passed the mirror correctly. The driver is
+now fixed, and every mirror-swapping sweep on this page has been re-checked through it — arrow
+hexagon 138 positives, five-label arrow 612, four-label 108, S-tab hexagon 12, S-tab L-tromino 38,
+<b>zero violations</b>. No number here moved; the checker was broken, not the results. It is
+recorded because a verification tool that silently passes the wrong problem is the most dangerous
+object in a project like this one.</p>
 <p class="note"><b>A sweep-wide economy.</b> Every sweep above was, until this morning,
 re-searching decorations it had already answered: two decorations related by a symmetry of the
 shape, or by a global relabelling that commutes with the pairing and mirror maps, pose the same
