@@ -159,7 +159,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to seven new polyform families · updated 31 July 2026, 21:40</div>
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to seven new polyform families · updated 31 July 2026, 22:20</div>
   </div>
   <div class="cells" aria-hidden="true">
     <div>
@@ -278,7 +278,7 @@ k&#8202;=&#8202;6 covers settle two of them as the family's first <b>6-anisohedr
 kites join the rhombilles, florets and polypons in the isohedral-number-6 club — which the
 13-rhombille probes then grew to <b>twenty-three</b> shapes across four Laves families. Third, the last unresolved 10-kite is
 <b>the turtle</b> — the hat's aperiodic sibling from the same 2023 paper: no k-isohedral tiling
-for any k&#8202;≤&#8202;8, yet the SAT surround engine finds coronas to depth 7 in seconds
+for any k&#8202;≤&#8202;14 (SAT exclusion sweep, 45&#8202;s), yet the SAT surround engine finds coronas to depth 7 in seconds
 (certified Heesch lower bound ≥&#8202;7). Myers's tables contain exactly two aperiodic polykites;
 the engine has now rediscovered both, each as the unique unresolved shape of its size.</p>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem;">
@@ -353,8 +353,9 @@ precisely the computational signature of aperiodicity Myers describes:</p>
 <li><b>It tiles locally:</b> surrounds (coronas) exist to depth 6 and counting — a certified
 Heesch lower bound of 6, with no failure in sight (the true value is ∞, since it tiles the plane).</li>
 <li><b>But never periodically:</b> exhaustive search over all candidate wallpaper subgroups finds
-<b>no tiling with isohedral number k for any k ≤ 7</b> (each exact-k search closes in seconds;
-positive controls: the engine finds the 4-anisohedral nonomino and 3-anisohedral kites).</li>
+<b>no tiling with isohedral number k for any k ≤ 14</b> (originally k ≤ 7 by exact-k backtracking;
+the SAT exclusion engine later swept k ≤ 14 in thirty seconds — positive controls: the engine
+finds the 4-anisohedral nonomino and 3-anisohedral kites).</li>
 </ul>
 <p class="note">A shape that surrounds indefinitely but admits no k-isohedral tiling at any
 searched k is either aperiodic or extraordinarily anisohedral — Myers's programs would "run
