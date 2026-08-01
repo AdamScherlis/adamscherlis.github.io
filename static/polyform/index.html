@@ -159,7 +159,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 01:26
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 01:34
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1202,6 +1202,48 @@ rule, where every decorated hexagon is isohedral or nothing. Both verified by th
 <tr><td>domino</td><td>arrow</td><td>729</td><td>729</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
 </table>
 </div>
+<h3 style="font-size:1.05rem; font-weight:600; margin:2rem 0 0.3rem;">The complete taxonomy of edge markings</h3>
+<p class="note">The arrow rule is not an ad-hoc variant: it is one of exactly four possibilities,
+and working out why says what the whole decorated-tiling game consists of. A marking on a shared
+edge is recorded by each adjacent tile in its own frame — boundary traversal direction, interior on
+the left. Neighbouring frames differ by <b>ρ</b>, the half-turn about the edge midpoint, so
+&#8220;these two tiles fit&#8221; means exactly <i>your record is mine turned by ρ</i>; and placing
+a tile by a reflection acts on records by <b>σ<sub>⊥</sub></b>, reflection across the edge's
+perpendicular bisector. So the symmetry subgroup of the marking's own profile, inside
+{1,&#8202;ρ,&#8202;σ<sub>∥</sub>,&#8202;σ<sub>⊥</sub>}, determines the matching rule completely:</p>
+<div class="tablewrap">
+<table>
+<caption>The four edge-marking types. &#8220;Pairing&#8221; is which label a label must meet; &#8220;mirror&#8221; is what reflection does to a label.</caption>
+<tr><th>profile symmetry</th><th>physical form</th><th>pairing</th><th>mirror</th><th>hexagon spectrum</th></tr>
+<tr><td>σ<sub>⊥</sub></td><td>classic jigsaw tab</td><td>bump ↔ dent</td><td>identity</td><td>{1}</td></tr>
+<tr><td>σ<sub>∥</sub></td><td>arrow along the edge</td><td>bump ↔ dent</td><td>swaps</td><td><b>{1, 2, 4, 5}</b></td></tr>
+<tr><td>ρ</td><td>S-shaped tab</td><td><b>self-matching</b></td><td>swaps</td><td>{1, 2}</td></tr>
+<tr><td>none</td><td>fully asymmetric tab</td><td>ρ (4 labels)</td><td>σ<sub>⊥</sub></td><td>sweeping</td></tr>
+</table>
+</div>
+<p class="note">The <b>S-tab</b> is the ρ-symmetric row and the one that feels least like the others:
+because its profile is carried onto itself by the half-turn, an S-tab fits <i>another S-tab</i> —
+the same tile rotated 180° — rather than a complementary partner. Its mirror image is a Z-tab, which
+it refuses. So its pairing is the identity, a combination no sweep in this project had ever used.
+Of the hexagon's 729 three-label S-tab decorations, <b>615 tile isohedrally, 12 are 2-anisohedral,
+and 102 admit no tiling at all</b> — permissive where the arrow rule is demanding, and capped far
+below the arrow rule's k&#8202;=&#8202;5. Self-matching markings, it turns out, mostly get out of
+their own way.</p>
+<div style="max-width:30rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/stab-hex-2orbit.svg" alt="Hexagons with S-shaped tabs forced into two orbits" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">S-tabs at work: hexagons with labels
+(0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;1), forced into two orbits. Here the grey marking is
+drawn as the profile itself — an S-curve across the shared edge, carried onto itself by the
+half-turn about the edge's midpoint, which is exactly why one S-tab fits another. As with the
+arrows, the renderer derives each curve independently from both neighbours and asserts they
+coincide (95 edges here, no disagreements).</div>
+</div>
+<p class="note">Mixing types on one tile is expressible too — the engine's pairing and mirror are
+arbitrary label maps, so each marking type simply occupies its own range of labels, and a single
+shape can carry a jigsaw tab on one edge, an arrow on the next and an S-tab on a third. Those
+sweeps, and the four-label fully asymmetric type, are running now. The question they are chasing:
+whether anything beats the arrow-hexagon's k&#8202;=&#8202;5.</p>
+
 <p class="note">The domino row is the counterpoint worth keeping in view: under the arrow rule every
 single one of its 729 decorations tiles isohedrally — the extra freedom that lets the hexagon climb
 to five orbits lets the domino escape every constraint. Whether the hexagon's k&#8202;=&#8202;5 is a
