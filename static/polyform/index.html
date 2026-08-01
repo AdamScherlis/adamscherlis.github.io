@@ -159,7 +159,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 31 July 2026, 23:55
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 00:05
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -414,7 +414,7 @@ non-tilers</b>, the last nine of which fell to SAT surround exhaustion in second
 <tr><td>7</td><td>24</td><td>0</td><td>0</td><td>21</td><td>2</td><td>0</td><td>—</td><td>1</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>8</td><td>66</td><td>0</td><td>24</td><td>32</td><td>10</td><td>0</td><td>—</td><td>0</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>160</td><td>1</td><td>0</td><td>111</td><td>22</td><td>6</td><td>2:5&ensp;4:1</td><td>20</td><td>0</td><td class="match">✓</td></tr>
-<tr><td>10</td><td>448</td><td>4</td><td>62</td><td>200</td><td>54</td><td>25</td><td>2:23&ensp;3:1&ensp;4:1</td><td>102</td><td>1</td><td class="match">✓</td></tr>
+<tr><td>10</td><td>448</td><td>4</td><td>62</td><td>200</td><td>54</td><td>25</td><td>2:23&ensp;3:1&ensp;4:1</td><td>103</td><td>0</td><td class="match">✓</td></tr>
 </table>
 </div>
 <p class="note">The iamonds are gentler but end on a cliffhanger. Exactly one heptiamond fails to tile
@@ -749,7 +749,7 @@ both at every computed term. The tiling classification below appears to be new d
 <tr><td>4</td><td>6</td><td>0</td><td>4</td><td>1</td><td>1</td><td>0</td><td>—</td><td>0</td><td>0</td></tr>
 <tr><td>5</td><td>8</td><td>0</td><td>0</td><td>0</td><td>5</td><td>0</td><td>—</td><td>3</td><td>0</td></tr>
 <tr><td>6</td><td>22</td><td>0</td><td>0</td><td>9</td><td>7</td><td>0</td><td>—</td><td>6</td><td>0</td></tr>
-<tr><td>7</td><td>42</td><td>0</td><td>0</td><td>0</td><td>1</td><td>7</td><td>2:5&ensp;4:2</td><td>33</td><td>1</td></tr>
+<tr><td>7</td><td>42</td><td>0</td><td>0</td><td>0</td><td>1</td><td>8</td><td>2:5&ensp;4:2&ensp;6:1</td><td>33</td><td>0</td></tr>
 <tr><td>8</td><td>112</td><td>0</td><td>28</td><td>18</td><td>33</td><td>0</td><td>—</td><td>33</td><td>0</td></tr>
 </table>
 </div>
@@ -758,10 +758,18 @@ of the two tricells, matching the drafters' early start), and no shape has a hol
 n&#8202;=&#8202;8. Then n&#8202;=&#8202;7 compresses the project's
 whole arc into one row: of 42 shapes, none tiles by translation or 180°, exactly <b>one</b> is
 isohedral, seven are anisohedral — five 2-anisohedral and the family's first high-k shapes, two
-<b>4-anisohedral</b> 7-cell tiles (below) — 33 are proven non-tilers, and one shape is the family's
-only open question: no k&#8202;≤&#8202;4 tiling exists and non-tiling is unproven at depth 3 (queued in
-the roadmap). At n&#8202;=&#8202;8 normal service resumes: 28 translation tilers, 33 isohedral, and
-nothing anisohedral at all.</p>
+<b>4-anisohedral</b> 7-cell tiles (below) — 33 are proven non-tilers, and the row's last holdout
+resolved as the find of the batch: a <b>6-anisohedral</b> 7-cell tile (k&#8202;≤&#8202;5 exhausted,
+6-orbit tiling verified over 588 tiles, below). At 1¾ unit squares of area it is the
+<b>smallest-area isohedral-number-6 shape in the project</b>, it brings the club to twenty-four
+shapes, and tetrakis is the <b>fifth</b> Laves family to reach six orbits. At n&#8202;=&#8202;8
+normal service resumes: 28 translation tilers, 33 isohedral, and nothing anisohedral at all.</p>
+<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/tetrakis7-6orbit-tiling.png" alt="6-orbit tiling by the 6-anisohedral 7-cell tetrakis polyabolo" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">The minimal (6-orbit) tiling of the 6-anisohedral 7-cell tetrakis polyabolo,
+colored by orbit — verified overlap-free over 588 tiles. No tiling of this 1¾-square shape has fewer than six orbits
+(k ≤ 5 exhausted). The smallest-area isohedral-number-6 tile in the project.</div>
+</div>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem;">
 <div style="flex:1 1 8rem; min-width:0;">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.60 -4.60 11.20 9.20" width="100%">
@@ -922,7 +930,7 @@ n&#8202;=&#8202;12 normalizes (34 translation, 11 180°-only, 91 isohedral) and 
 isohedral-or-nothing, before n&#8202;=&#8202;14 brings <b>nine</b> anisohedral shapes: four 2-, four
 3-anisohedral, and a resistant since proven the family's <b>fourth 6-anisohedral</b> tile
 (k ≤ 5 exhausted, 6-orbit tiling verified). With the sixteen rhombilles, the 10-floret and the two 10-kites, the
-project now has <b>twenty-three</b> shapes of isohedral number 6, across four Laves families — and
+project now has <b>twenty-four</b> shapes of isohedral number 6, across five Laves families (the 7-cell tetrakis of Stage 12 being the latest and smallest) — and
 every free polypon through n&#8202;=&#8202;14, and every one-sided one through n&#8202;=&#8202;14, is
 resolved.</p>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem;">
@@ -1186,7 +1194,7 @@ here banning reflections doesn't kill the tiling, it quadruples the orbit count.
 <tr><td>8</td><td>403</td><td>8</td><td>0</td><td>0</td><td>53</td><td>0</td><td>—</td><td>342</td><td>0</td></tr>
 <tr><td>9</td><td>1235</td><td>44</td><td>90</td><td>0</td><td>54</td><td>2</td><td>2:2</td><td>1045</td><td>0</td></tr>
 <tr><td>10</td><td>3681</td><td>208</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>3473</td><td>0</td></tr>
-<tr><td>11</td><td>11354</td><td>894</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>10459</td><td>1</td></tr>
+<tr><td>11</td><td>11354</td><td>894</td><td>0</td><td>0</td><td>0</td><td>1</td><td>6:1</td><td>10459</td><td>0</td></tr>
 <tr><td>12</td><td>34944</td><td>3619</td><td>710</td><td>401</td><td>250</td><td>9</td><td>2:9</td><td>29955</td><td>0</td></tr>
 <tr><td>13</td><td>108956</td><td>14060</td><td>0</td><td>0</td><td>667</td><td>3</td><td>2:3</td><td>94226</td><td>0</td></tr>
 </table>
@@ -1320,11 +1328,11 @@ doubling, and a pre-filter lemma that does more than the search does.</p>
 <h2><span class="stage">Stage 17</span>Roadmap</h2>
 <ul class="roadmap">
 <li><span class="status run">to probe</span><span class="what"><b>The new frontier, round 2: three open shapes</b>
-  <span class="d">The 31 July batch (tetrakis family, hex/iamond/omino tables, one-sided extensions across seven families) left exactly three shapes unresolved: a free 7-cell <b>tetrakis polyabolo</b> (no k&#8202;≤&#8202;4 tiling, non-tiling unproven — the family's only open shape); a free <b>10-iamond</b> (k&#8202;≤&#8202;4 excluded; Myers classifies it a non-tiler, our surround proof pending); and a one-sided <b>11-rhombille</b>, one chirality of a free 6-anisohedral shape (any one-sided tiling needs k&#8202;≥&#8202;5, past the sweep's kmax). Exact k&#8202;=&#8202;5, 6 searches and SAT surround probes queued.</span></span></li>
+  <span class="d">All three closed within the hour: the free 7-cell tetrakis polyabolo is <b>6-anisohedral</b> — the smallest-area member of the isohedral-number-6 club (now twenty-four shapes, five families); the free 10-iamond is a proven non-tiler (SAT surrounds exhaust at depth 4, matching Myers); the open one-sided 11-rhombille keeps its ancestor's <b>k&#8202;=&#8202;6 one-sided</b> (k&#8202;≤&#8202;5 exhausted), so its chiral notching carries the isohedral-number-6 corollary.</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>Decoration engine, third audit (v3)</b>
   <span class="d">Fixed (label-class placement identity, seed-based orbit decoding) and fully re-swept; every positive re-verified by the brute-force orbit-count oracle (160/160 exact). Verdict: all k&#8202;≥&#8202;3 decoration claims were phantoms — the true ceiling everywhere tested is k&#8202;=&#8202;2, and all eleven unit prototiles are decoration-rigid.</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>The new frontier: kite 10 / hex 8 / rhombille 13</b>
-  <span class="d">All twenty-one probes closed: kite n&#8202;=&#8202;10 gave two 6-anisohedral kites and the turtle; all nine octahexes are proven non-tilers (hex n&#8202;=&#8202;8 fully matches Myers); the nine 13-rhombilles split five 6-anisohedral / four non-tilers. Isohedral-number-6 club: twenty-three shapes.</span></span></li>
+  <span class="d">All twenty-one probes closed: kite n&#8202;=&#8202;10 gave two 6-anisohedral kites and the turtle; all nine octahexes are proven non-tilers (hex n&#8202;=&#8202;8 fully matches Myers); the nine 13-rhombilles split five 6-anisohedral / four non-tilers. Isohedral-number-6 club: twenty-three shapes (twenty-four after the tetrakis probe below).</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>SAT for the k-orbit search itself</b>
   <span class="d">Delivered: per-group UNSAT queries with cardinality bounds; validated on five known min-k cases; the star&#8217;s exclusion extended to k&#8202;≤&#8202;18 in ~7 minutes (the old engine took 4.3 CPU-hours for k&#8202;≤&#8202;15, which is now DRAT-certified). Exclusion sweeps should move to SAT; the backtracking engine stays for cheap positives.</span></span></li>
 <li><span class="status ok">resolved</span><span class="what"><b>Fourth subtlety: &#8220;bogus orbits&#8221; audit</b>
