@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 13:14
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 14:50
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -249,7 +249,7 @@ the plane, but never in a way that treats every copy alike. Forty of the free on
 <ul>
 <li><a href="#hat-turtle">The hat and the turtle</a></li>
 <li><a href="#star">The star 10-rhombille</a></li>
-<li><a href="#records">The records: k = 8 and k = 10</a></li>
+<li><a href="#records">The records: k = 9 and k = 10</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
 <li><a href="#probe-ledger">The two-stage probe and the ledger</a>
 <a href="#isolated">High-k tiles are isolated</a></li>
@@ -399,7 +399,7 @@ rediscovered the same way the hat was — no k-isohedral tiling for any k ≤ 14
 <h2 id="polyhexes-polyiamonds"><span class="stage">Part I · replication</span>Polyhexes &amp; polyiamonds <span class="status ok">validated vs Myers</span></h2>
 <p class="note">The remaining two classical families round out the validation arc: the hexagonal and
 triangular backends replicate two more of Myers's table sets. Full free classifications now stand at
-n&#8202;≤&#8202;10 for polyhexes and n&#8202;≤&#8202;14 for polyiamonds, and <b>every resolved entry
+n&#8202;≤&#8202;11 for polyhexes and n&#8202;≤&#8202;14 for polyiamonds, and <b>every resolved entry
 matches Myers's published columns</b>.</p>
 <div class="tablewrap">
 <table>
@@ -415,6 +415,7 @@ matches Myers's published columns</b>.</p>
 <tr><td>8</td><td>1448</td><td>13</td><td>209</td><td>721</td><td>88</td><td>36</td><td>2:27&ensp;3:7&ensp;4:2</td><td>381</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>6572</td><td>67</td><td>387</td><td>2717</td><td>611</td><td>73</td><td>2:66&ensp;3:5&ensp;4:2</td><td>2708&#8202;+&#8202;9</td><td class="match">✓</td></tr>
 <tr><td>10</td><td>30490</td><td>404</td><td>1054</td><td>8211</td><td>1803</td><td>258</td><td>2:226&ensp;3:26&ensp;4:4&ensp;<b>8:2</b></td><td>18760</td><td class="match">✓</td></tr>
+<tr><td>11</td><td>143552</td><td>2323</td><td>1468</td><td>19836</td><td>2985</td><td>501</td><td>2:380&ensp;3:97&ensp;4:19&ensp;5:3&ensp;6:1&ensp;<b>9:1</b></td><td>116439</td><td class="match">✓</td></tr>
 </table>
 </div>
 <p class="legend">The non-tiler totals at n&#8202;=&#8202;6, 7, 8 include 1, 5 and 9 shapes the batch sweeps
@@ -1305,7 +1306,7 @@ translation as a free 20-iamond, but rhombille-aligned it is a proven non-tiler 
 <img src="figs/star-surround-d3.png" alt="The star 10-rhombille surrounded by three complete coronas &#8212; its maximal surround" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
 <div class="legend" style="margin-top:0.5rem">The star&#8217;s maximal surround, found by the SAT engine in 0.2&#8202;s: the center (dark) wrapped in three complete coronas (blues), with outer filler tiles (gold/orange) supporting the third. No fourth corona exists (UNSAT, 7&#8202;s) — Heesch number 3, hence a non-tiler.</div>
 </div>
-<h2 id="records"><span class="stage">Part IV · the hard shapes</span>The isohedral-number records: k&#8202;=&#8202;8 and k&#8202;=&#8202;10 <span class="status ok">the project ceiling</span></h2>
+<h2 id="records"><span class="stage">Part IV · the hard shapes</span>The isohedral-number records: k&#8202;=&#8202;9 and k&#8202;=&#8202;10 <span class="status ok">the project ceiling</span></h2>
 <p class="note">The deep probes that closed the frontier rows of the
 <a href="#polyhexes-polyiamonds">hexes and iamonds</a> and of the
 <a href="#tetrakis">tetrakis polyaboloes</a> produced the highest isohedral numbers
@@ -1331,14 +1332,47 @@ record by two at a stroke, and both families' rows now match Myers at every colu
 <img src="figs/iamond13-8aniso.svg" alt="8-anisohedral 13-iamond" style="width:100%; height:auto; display:block;" loading="lazy"/>
 </div>
 <div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The three shapes of isohedral number 8: two 10-hexes and a
-13-iamond. Each tiles the plane, but every tiling needs at least eight orbits of tiles — the highest isohedral number in
-this project, two above the previous ceiling of 6 held by twenty-seven shapes across five Laves families.</div>
+13-iamond. Each tiles the plane, but every tiling needs at least eight orbits of tiles — two above the
+ceiling of 6 held by twenty-seven shapes across five Laves families, and the project record until the 11-hex below.</div>
 </div>
 <div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
 <img src="figs/hex10-8orbit-tiling.png" alt="8-orbit tiling by the first 8-anisohedral 10-hex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
 <div class="legend" style="margin-top:0.5rem">A minimal tiling of the first 8-anisohedral 10-hex, coloured by orbit —
 eight classes of tile, twenty tiles to a class in the fundamental domain, verified overlap-free across 784 tiles. No tiling
 of this shape uses fewer than eight orbits.</div>
+</div>
+
+<p class="note"><b>Isohedral number 9 — eleven hexagons, and no caveat.</b> The
+n&#8202;=&#8202;11 polyhex row is the largest this project has enumerated: <b>143,552</b> free
+shapes, 116,339 of them non-tilers, with only 105 left unresolved by the sweep. Two-stage probing
+settled all 105 — a hundred non-tilers, then k&#8202;=&#8202;5, 5, 5, 6 and, on the last
+shape, <b>k&#8202;=&#8202;9</b>. The row's spectrum now reads 380 / 97 / 19 / 3 / 1 / 0 / 0 / 1 / 0
+for k&#8202;=&#8202;2&#8230;10, <b>matching Myers's published table at every column</b> — the
+strongest agreement the project has with an independent enumeration, on its biggest row.</p>
+<p class="note">Because the verdict came from the SAT route, it was re-derived from scratch with the
+exact-cover engine, which shares no search code with the SAT encoding: eight exhaustive negative
+searches for k&#8202;=&#8202;1&#8230;8 (the last taking 193&#8239;s), then a witness at
+k&#8202;=&#8202;9 whose fundamental domain holds 36 placements — nine orbits under a group of
+order four. Both halves of the claim, the exclusion and the tiling, hold independently of the engine
+that first found them.</p>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:0 0 8rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/k9-polyhex.svg" alt="The 9-anisohedral 11-hex" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 18rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/k9-polyhex-tiling.png" alt="Nine-orbit tiling by the 9-anisohedral 11-hex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The 9-anisohedral 11-hex and a minimal tiling of it,
+coloured by orbit — nine classes of tile, four to a class in the fundamental domain. Drawing it turned up three bugs in
+the renderer, all of which had been silently degrading earlier figures. The orbit palette held six colours and was indexed
+<code>i&#8202;mod&#8202;6</code>, so every tiling with more than six orbits had been giving two different orbits the same
+colour — undercounting exactly what the picture is for. The crop was sized as a fraction of the <i>bounding box</i>, which
+for a skewed sublattice hangs off the edge of the filled parallelogram and leaves white wedges in the corners; it is now the
+largest square provably inside the covered region. And the fundamental-domain representatives were left wherever the search
+put them, reduced modulo the original Hermite basis — for the chevron's <code>((90,0),(19,1))</code> that strings them along
+a 90-cell sliver, so a window of translates came out as a lattice of gaps rather than a filled patch. Recentring each
+representative on the reduced basis fixes it; Gauss-reducing the basis alone, which this renderer already did, only fixes
+the step between translates, not where the seeds sit.</div>
 </div>
 
 <p class="note"><b>Isohedral number 10 — the project record, on nine triangles.</b> The n&#8202;=&#8202;9
@@ -1376,11 +1410,11 @@ other edge accepts several. A carved profile on edge 1 would have to interlock w
 profiles and their mirror images at once, which forces it to be the straight edge. For this tiling,
 carving cannot work at all.</p>
 <p class="note">So the chevron's k&#8202;=&#8202;10 stays grid-qualified, and the honest record for
-an <i>unmarked polygon</i> belongs elsewhere — to the <b>two 8-anisohedral 10-hexes</b>. Polyhexes
+an <i>unmarked polygon</i> belongs elsewhere — to the <b>9-anisohedral 11-hex</b> above. Polyhexes
 carry no caveat at all, by an argument that applies to no other family here: any tiling by a polyhex
 decomposes into the hexagons it is built from, and the honeycomb is the unique tiling of the plane
 by regular hexagons, so every copy is forced onto the same grid. Alignment is not a convention for
-polyhexes, it is a theorem. <b>k&#8202;=&#8202;8 is therefore a genuine, unqualified anisohedral
+polyhexes, it is a theorem. <b>k&#8202;=&#8202;9 is therefore a genuine, unqualified anisohedral
 number for a plain polygon</b>, while the chevron's 10 is a statement about tetrakis-aligned
 tilings. The distinction is worth keeping sharp: for polyiamonds it can go either way — triangles
 tile in shifted rows, so alignment must be argued shape by shape — and for the grids built from
@@ -1403,15 +1437,16 @@ full of phantom holes — the same Gauss-reduction pitfall the decorated validat
 <p class="note">A shape is <i>k</i>-anisohedral when it tiles the plane but no tiling of it uses
 fewer than <i>k</i> orbits of tiles — <i>k</i>&#8202;=&#8202;1 is an ordinary well-behaved tile, and
 large <i>k</i> means the plane can only be filled by an intricate arrangement in which tiles play
-many genuinely different roles. Thirty-one shapes in this project reach six or more. Here are the
-ten highest, with the tally that produced them: <b>one at ten orbits, three at eight, twenty-seven
-at six</b>. Every entry has had its minimal tiling decoded and cross-checked as an exact partition
+many genuinely different roles. Thirty-two shapes in this project reach six or more. Here are the
+ten highest, with the tally that produced them: <b>one at ten orbits, one at nine, three at eight,
+twenty-seven at six</b>. Every entry has had its minimal tiling decoded and cross-checked as an exact partition
 of the quotient torus, and every <i>k</i> below it excluded by exhaustive search.</p>
 <div class="tablewrap">
 <table>
 <caption>The isohedral-number leaderboard. Ties broken by cell count, then family.</caption>
 <tr><th>k</th><th>family</th><th>cells</th><th>convention</th></tr>
 <tr><td>10</td><td>tetrakis polyabolo</td><td>9</td><td>free</td></tr>
+<tr><td>9</td><td>polyhex</td><td>11</td><td>free</td></tr>
 <tr><td>8</td><td>polyhex</td><td>10</td><td>free</td></tr>
 <tr><td>8</td><td>polyhex</td><td>10</td><td>free</td></tr>
 <tr><td>8</td><td>polyiamond</td><td>13</td><td>free</td></tr>
@@ -1420,13 +1455,16 @@ of the quotient torus, and every <i>k</i> below it excluded by exhaustive search
 <tr><td>6</td><td>tetrakis polyabolo</td><td>7</td><td>free</td></tr>
 <tr><td>6</td><td>polyfloret</td><td>10</td><td>free</td></tr>
 <tr><td>6</td><td>polykite</td><td>10</td><td>free</td></tr>
-<tr><td>6</td><td>polypon</td><td>10</td><td>free</td></tr>
 </table>
 </div>
 <div style="display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:0.8rem; max-width:44rem;">
 <div style="flex:1 1 9.5rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.8rem;">
 <img src="figs/topk-01-tetrakis-n9-k10.svg" alt="tetrakis polyabolo with isohedral number 10" style="width:100%; height:auto; display:block;" loading="lazy"/>
 <div class="legend" style="margin-top:0.4rem"><b>k = 10</b> · tetrakis polyabolo, 9 cells<br>The chevron. Tiles the plane; every tiling needs ten orbits. Found in the last unresolved slot in the project.</div>
+</div>
+<div style="flex:1 1 9.5rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.8rem;">
+<img src="figs/k9-polyhex.svg" alt="polyhex with isohedral number 9" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.4rem"><b>k = 9</b> · polyhex, 11 cells<br>The honest record: polyhexes need no alignment caveat, so this is a plain polygon that genuinely needs nine orbits.</div>
 </div>
 <div style="flex:1 1 9.5rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.8rem;">
 <img src="figs/topk-02-hex-n10-k8.svg" alt="polyhex with isohedral number 8" style="width:100%; height:auto; display:block;" loading="lazy"/>
@@ -1459,10 +1497,6 @@ of the quotient torus, and every <i>k</i> below it excluded by exhaustive search
 <div style="flex:1 1 9.5rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.8rem;">
 <img src="figs/topk-09-kite-n10-k6.svg" alt="polykite with isohedral number 6" style="width:100%; height:auto; display:block;" loading="lazy"/>
 <div class="legend" style="margin-top:0.4rem"><b>k = 6</b> · polykite, 10 cells<br>One of the first two 6-anisohedral polykites, found the same hour as the turtle.</div>
-</div>
-<div style="flex:1 1 9.5rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.8rem;">
-<img src="figs/topk-10-triakis-n10-k6.svg" alt="polypon with isohedral number 6" style="width:100%; height:auto; display:block;" loading="lazy"/>
-<div class="legend" style="margin-top:0.4rem"><b>k = 6</b> · polypon, 10 cells<br>A decapon; three of its four resistant siblings landed at six orbits too.</div>
 </div>
 </div>
 <p class="note">The gallery is a fair picture of where high anisohedry lives. It is not the
