@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 15:23
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 16:08
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1952,44 +1952,64 @@ search, and forced-tile propagation read as unit propagation over class-relative
 variables.</p>
 <h2 id="speed"><span class="stage">Part VI · method &amp; performance</span>The speed work <span class="status ok">~100× on classification</span></h2>
 <p class="note">Classification is ~100× faster than 31 July (pocket-check algorithmics ×12, compiled neighbour kernel ×8–11); decoration sweeps a further 4.5–23.6× on top, all algorithmic; the k-orbit search compiled at 10.4× in isolation. The C enumerator runs at 125–165M shapes/s and produced the first n&#8202;=&#8202;11 and n&#8202;=&#8202;12 omino rows.</p>
-<p class="note"><b>Is there another 100×?</b> No &#8212; and the reason is worth stating, because
-the arithmetic that governs the next factor is different from the one that gave the last. The first
-100× was Python&#8202;→&#8202;C on loops that were 90%+ of runtime, which is exactly the regime where
-Amdahl's law pays out. What is left is bounded by the <i>class mix</i> at the sizes we actually run.</p>
-<p class="note">Benchmarking at frontier sizes rather than small ones matters, because the mix shifts
-hard: at n&#8202;=&#8202;11 polyhexes, <b>81% of shapes are non-tilers</b>, where small-n benchmarks
-are mostly tilers. A tiler exits the pipeline at the first stage that succeeds; a non-tiler pays for
-every stage, because each one must <i>fail</i> before the next runs. Stage profiling puts
-<b>70&#8211;79% of classification time in the k&#8202;=&#8202;1 isohedral search</b> &#8212; nearly
-all of it in searches that find nothing, since exhaustive failure is the expensive case for exact
-cover: it must try every candidate group at every admissible torus index, a toll that does not shrink
-for hopeless shapes.</p>
+<p class="note"><b>Is there another 100×?</b> Yes &#8212; and finding out where took a wrong
+turn worth recording, because the first answer this page gave was measured wrong.</p>
+<p class="note">Benchmarking at frontier sizes rather than small ones matters, because the class mix
+shifts hard: at n&#8202;=&#8202;11 polyhexes <b>81% of shapes are non-tilers</b>, where small-n
+benchmarks are mostly tilers. A tiler exits the pipeline at the first stage that succeeds; a non-tiler
+pays for every stage, because each must <i>fail</i> before the next runs. And exhaustive failure is the
+expensive case for exact cover: it tries every candidate group at every admissible torus index, a toll
+that does not shrink for hopeless shapes. So the first move is to run the cheaper discriminator first.</p>
 <div class="tablewrap">
 <table>
-<caption>Measured cost of the classify pipeline per shape past the cheap prefix (hex n&#8202;=&#8202;11, single core)</caption>
-<tr><th>pipeline</th><th>cost</th><th>speedup</th></tr>
-<tr><td>current: k&#8202;=&#8202;1 search, then non-tiling proof</td><td>425.8 ms</td><td>1.00×</td></tr>
-<tr><td>swapped: non-tiling proof first</td><td>306.9 ms</td><td>1.39×</td></tr>
-<tr><td>swapped + class search for every k</td><td>253.9 ms</td><td>1.68×</td></tr>
-<tr><td>swapped + a <i>free</i> k-search (the limit)</td><td>229.9 ms</td><td><b>1.85×</b></td></tr>
+<caption>Cost per shape past the cheap prefix, hex n&#8202;=&#8202;11, single core on an idle machine</caption>
+<tr><th>stage order</th><th>cost</th><th>speedup</th></tr>
+<tr><td>k&#8202;=&#8202;1 search, then non-tiling proof</td><td>91.2 ms</td><td>1.00×</td></tr>
+<tr><td>non-tiling proof first</td><td>59.3 ms</td><td><b>1.55×</b></td></tr>
+<tr><td>&#8230; with a <i>free</i> k-search (the limit)</td><td>58.8 ms</td><td>1.55×</td></tr>
 </table>
 </div>
 <p class="legend">Both orders return identical verdicts &#8212; a non-tiling proof subsumes &#8220;no
 isohedral tiling&#8221; &#8212; verified over all 1285 nonominoes with zero disagreements. The swap is
-now chosen per row from the previous row's class mix, because it <i>loses</i> 0.63× at
-n&#8202;=&#8202;9 where most shapes still tile: it wins exactly when p/q&#8202;&gt;&#8202;t<sub>n</sub>/t<sub>i</sub>,
+chosen per row from the previous row's class mix, because it <i>loses</i> 0.63× at n&#8202;=&#8202;9
+where most shapes still tile: it wins exactly when p/q&#8202;&gt;&#8202;t<sub>n</sub>/t<sub>i</sub>,
 for p the proved-non-tiler share and q the isohedral share. That ratio is 39 at hex n&#8202;=&#8202;11
 and about 1 at n&#8202;=&#8202;7.</p>
-<p class="note">So <b>the non-tiling proof is the wall</b>: once the k-search sits behind it, no
-improvement to the k-search &#8212; not even making it instantaneous &#8212; can beat 1.85×. Which
-also re-frames the class-based search. Myers's method was measured 5.1× (n&#8202;=&#8202;9) to 15.9×
-(n&#8202;=&#8202;10) faster than ours when both were pure Python; our engine has since been compiled,
-so that gap could have been paid off entirely. It was not: at hex n&#8202;=&#8202;11 the compiled
-engine still loses <b>6.88×</b> in aggregate to the pure-Python class search. But the per-shape median
-goes the other way (0.64×, engine wins), with p90 1.69× and a worst case of 194×. The aggregate is
-<i>entirely</i> tail. That is a routing problem, not a rewrite: run the engine under a node budget and
-hand the blow-ups to the class search. Realistic compound estimate for the pipeline: <b>3&#8211;5×</b>,
-and a genuine large win now has to come from the surround search itself.</p>
+<p class="note">The third row is the point: once the k-search sits behind the non-tiling proof, it is
+<b>no longer the bottleneck at all</b>. Making it instantaneous would buy nothing measurable.
+<code>prove_nontiler</code> is ~99% of what remains, so it is the only thing worth attacking.</p>
+<p class="note"><b>A measurement that was simply wrong.</b> An earlier version of this section reported
+that Myers's class-based search beat our compiled engine 6.88× in aggregate, and concluded that the
+fix was to route the tail to it. That number was taken while nine SAT jobs were pinning all fourteen
+cores. Re-run idle, the <i>same 91 shapes</i> cost <b>2.4&#8239;s of engine time instead of
+195.4&#8239;s</b> &#8212; an 80× swing, and the conclusion inverts. Within-process stage ratios did
+survive the contention (the reorder measures 1.55× under both conditions, because both stages inflate
+together), which is exactly why the bad number was not obvious: some ratios are robust to a loaded box
+and comparisons between two different algorithms, with different memory and allocation profiles, are
+not.</p>
+<div class="tablewrap">
+<table>
+<caption>Exact cover vs the class-based search, idle, one shape at a time (k&#8202;≤&#8202;4)</caption>
+<tr><th>n</th><th>exact cover (compiled)</th><th>class search (Python)</th><th>engine advantage</th></tr>
+<tr><td>8</td><td>17.1 ms</td><td>838.0 ms</td><td>49×</td></tr>
+<tr><td>9</td><td>21.9 ms</td><td>250.0 ms</td><td>11×</td></tr>
+<tr><td>10</td><td>33.1 ms</td><td>199.1 ms</td><td>6×</td></tr>
+<tr><td>11</td><td>27.2 ms</td><td>303.7 ms</td><td>11×</td></tr>
+</table>
+</div>
+<p class="legend">The class search is not the answer at these sizes; it loses everywhere, and the
+crossover the older note predicted does not arrive by n&#8202;=&#8202;11. Its cost <i>falls</i> from
+n&#8202;=&#8202;8 to n&#8202;=&#8202;10 for a real reason &#8212; as non-tilers come to dominate, a
+hopeless shape dies after a few dozen nodes, where at n&#8202;=&#8202;8 most shapes tile and it has to
+build a whole patch. That is the effect the original comparison saw. What it could not see is that the
+engine had since been compiled out from under it.</p>
+<p class="note"><b>Where the next 10× actually is.</b> Profiling <code>prove_nontiler</code> at
+n&#8202;=&#8202;11 splits it <b>57% corona enumeration / 42% surround search</b> &#8212; and both are
+plain interpreted Python, spending <b>44 million function calls on 91 shapes</b> (5.4M
+<code>iso_apply</code>, 6.1M <code>mat_vec</code>, 11.2M <code>len</code>). That is the same profile the
+neighbour context and cover kernels had before they were compiled for 8&#8211;16× apiece. The
+bottleneck is not the algorithm, and it is not the engine choice: it is that the one stage which now
+dominates everything is the one stage never moved to C.</p>
 <h2 id="audit-trail"><span class="stage">Part VI · method &amp; performance</span>The audit trail <span class="status ok">four soundness episodes</span></h2>
 <div class="method">
 <p>This page's numbers have survived four soundness episodes, two of
