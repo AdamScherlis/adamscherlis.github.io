@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:16
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:19
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1370,13 +1370,25 @@ not tile one-sided <i>at all</i> — banning reflections kills every tiling with
 So on every edge where the tiling mates a tile with its own reflection, an S-tab is inadmissible,
 and only mirror-blind jigsaw tabs remain — precisely the notch that cannot tell the two apart.
 The carving that would enforce alignment is the carving that destroys the tiling.</p>
-<p class="note">This is not a proof that no notched chevron exists: mirror-neutral tabs still fix
-which edge meets which and with what polarity, which constrains placements considerably, and it
-remains open whether that alone rules out the unaligned isohedral tiling. It does mean the obvious
-construction fails, and it explains why the k&#8202;=&#8202;10 keeps its alignment caveat here
-rather than being quietly promoted to an unmarked-tile record. The same caveat, honestly, applies
-to every anisohedral number on this page — as it does to the classical polyomino literature, which
-also classifies with respect to a grid.</p>
+<p class="note">Marking only <i>some</i> edges is the natural escape — leave the mirror-meeting
+edges plain and carve the rest — so it is worth reporting exactly why that fails too. In the
+10-orbit tiling <b>every one of the chevron's eleven edges meets a reflected copy somewhere</b>, so
+no edge admits an S-tab. Worse, the edges are promiscuous: edge 1 must mate with edges 2, 3 and 10
+in the same chirality and with 5, 8 and 9 reflected — <b>six different partners</b> — and every
+other edge accepts several. A carved profile on edge 1 would have to interlock with six distinct
+profiles and their mirror images at once, which forces it to be the straight edge. For this tiling,
+carving cannot work at all.</p>
+<p class="note">So the chevron's k&#8202;=&#8202;10 stays grid-qualified, and the honest record for
+an <i>unmarked polygon</i> belongs elsewhere — to the <b>two 8-anisohedral 10-hexes</b>. Polyhexes
+carry no caveat at all, by an argument that applies to no other family here: any tiling by a polyhex
+decomposes into the hexagons it is built from, and the honeycomb is the unique tiling of the plane
+by regular hexagons, so every copy is forced onto the same grid. Alignment is not a convention for
+polyhexes, it is a theorem. <b>k&#8202;=&#8202;8 is therefore a genuine, unqualified anisohedral
+number for a plain polygon</b>, while the chevron's 10 is a statement about tetrakis-aligned
+tilings. The distinction is worth keeping sharp: for polyiamonds it can go either way — triangles
+tile in shifted rows, so alignment must be argued shape by shape — and for the grids built from
+several cells per unit it is a convention throughout, exactly as in the classical polyomino
+literature.</p>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
 <div style="flex:0 0 8rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
 <img src="figs/tetrakis9-open.svg" alt="The 10-anisohedral tetrakis chevron" style="width:100%; height:auto; display:block;" loading="lazy"/>
