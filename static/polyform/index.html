@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 09:02
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 09:04
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1648,17 +1648,23 @@ something else entirely: <b>polypons swing between 1% and 36%, tetrakis polyabol
 71%</b>, size after size, in a sawtooth that persists to the largest rows computed.</p>
 <p class="note"><b>The sawtooth is arithmetic, not luck.</b> Each of these grids has <i>c</i> cells
 per translation unit — three rhombi to a hexagon, four quarter-squares to a square, six pons to a
-triangle — and a k-orbit tiling must cover a quotient torus of exactly <i>c</i>·<i>m</i> cells with
-<i>k</i>·<i>n</i> cells of shape. So a shape of size <i>n</i> can only tile with <i>k</i> orbits
-when <b><i>c</i> divides <i>k</i>·<i>n</i></b>. For an isohedral tiling that means <i>c</i> must
-divide <i>n</i> outright; allowing two orbits relaxes it to <i>c</i>/2. Sizes that fail the
-divisibility test lose whole classes of tiling before the search begins, and the tiling rate
-collapses — polypons (<i>c</i>&#8202;=&#8202;6) peak at n&#8202;=&#8202;12, 15 and 18, tetrakis
-polyaboloes (<i>c</i>&#8202;=&#8202;4) at 8, 10 and 12, polyrhombilles (<i>c</i>&#8202;=&#8202;3) at
-9 and 12. The classical grids have <i>c</i>&#8202;=&#8202;1 or 2 and so have almost nothing to
-fail. The condition is not an observation about the pictures; it is the admissibility test the
-engine applies before enumerating a single group, and the sawtooth is that one line of arithmetic
-made visible across a million shapes.</p>
+triangle — and a tiling has to cover a quotient torus of exactly <i>c</i>·<i>m</i> cells using
+whole copies of an <i>n</i>-cell shape. Counting the copies gives the constraint the engine checks
+before it enumerates a single group: <b><i>c</i> must divide <i>n</i>·<i>T</i></b>, where <i>T</i>
+is a sum of <i>k</i> terms of the form <i>q</i>/<i>s</i> — <i>q</i> the order of the tiling group's
+point group, <i>s</i> the order of an orbit's stabiliser. The exact arithmetic matters less than
+its shape: <i>T</i> ranges over a sparse set of integers, so when <i>n</i> shares no factor with
+<i>c</i> whole classes of candidate group vanish before any search begins, and when <i>n</i> is a
+multiple of <i>c</i> they all survive. Sizes divisible by <i>c</i> are therefore systematically
+richer in tilings, and the effect is enormous: polypons (<i>c</i>&#8202;=&#8202;6) go from 0.0% of
+17-pons tiling to <b>6.9% at n&#8202;=&#8202;18</b> and back to 0.5% at 19; tetrakis polyaboloes
+(<i>c</i>&#8202;=&#8202;4) from 0.2% at n&#8202;=&#8202;15 to <b>7.2% at n&#8202;=&#8202;16</b>, a
+thirty-six-fold jump between neighbouring sizes. Those three rows were computed <i>after</i> this
+paragraph was written, which makes them a fair test rather than a fitted story. The classical grids
+have <i>c</i>&#8202;=&#8202;1 or 2 and almost nothing to fail, which is why their curves are
+smooth. One caveat kept in view: the drafters (<i>c</i>&#8202;=&#8202;12) do not follow the pattern
+cleanly — their local peak at n&#8202;=&#8202;14 is not a multiple of 12 — so divisibility gates
+the <i>opportunity</i> to tile without determining the outcome.</p>
 
 <h2>How the engine works</h2>
 <div class="method">
