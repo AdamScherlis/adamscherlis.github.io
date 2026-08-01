@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:10
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:14
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1628,6 +1628,37 @@ it.</p>
 <tr><td>pon (triakis)</td><td>3</td><td>27</td><td>9</td><td>—</td><td>—</td><td>—</td><td>18</td></tr>
 </table>
 </div>
+<p class="note"><b>Which of these can be a shape, and which can only be a marking?</b> A reader
+raised the question that reorders this whole section: a decoration is only <i>geometry</i> if the
+matching rule can be carved into the tile's boundary, and not all four types can be. Replacing a
+straight edge by a simple curve gives a profile whose symmetry class is exactly what the taxonomy
+above classifies — so ask which symmetries a curve can have. A <b>jigsaw tab</b> (symmetric across
+the perpendicular bisector) is the familiar puzzle-piece bump. An <b>S-tab</b> (carried to itself by
+the half-turn about the edge midpoint) is an S-curve, bulging out and then back. A <b>fully
+asymmetric tab</b> is just a lopsided bump. But the <b>arrow</b> rule asks for a profile symmetric
+across the edge's own <i>line</i> — and a simple curve spanning two points that is invariant under
+reflection in the chord joining them must be that chord: anything bulging to one side has its mirror
+bulging to the other, and the boundary doubles back through itself. <b>An arrow cannot be carved.
+It can only be painted on, or built from an extra tile.</b></p>
+<div class="tablewrap">
+<table>
+<caption>The four marking types, ranked by what they force — and by whether the rule is a property of the tile's shape or of a marking applied to it.</caption>
+<tr><th>type</th><th>profile symmetry</th><th>carvable?</th><th>best k forced</th><th>where</th></tr>
+<tr><td>arrow</td><td>σ<sub>∥</sub> (edge line)</td><td><b>no</b> — painted or extra tile</td><td>5</td><td>hexagon</td></tr>
+<tr><td><b>S-tab</b></td><td>ρ (half-turn)</td><td><b>yes</b> — an S-curve</td><td><b>3</b></td><td>L-tromino</td></tr>
+<tr><td>jigsaw tab</td><td>σ<sub>⊥</sub> (bisector)</td><td>yes — a puzzle bump</td><td>2</td><td>trominoes, O-tetromino</td></tr>
+<tr><td>asymmetric tab</td><td>none</td><td>yes — a lopsided bump</td><td>2</td><td>hexagon</td></tr>
+</table>
+</div>
+<p class="note">So the honest headline is not the one this section led with. The hexagon's
+k&#8202;=&#8202;5 is real, but it describes a <i>marked</i> tile — a hexagon with arrows drawn on
+its edges, which is a Wang-style colouring rather than a shape. Among rules that can be cut into
+the boundary of an unmarked tile, the best result here is <b>k&#8202;=&#8202;3</b>, from the S-tab
+on the L-tromino: eight decorations that force three orbits on a shape which, undecorated, tiles by
+translation. That the S-tab should be the winner is a small vindication of the type — it was the
+one marking in the taxonomy that had to be pointed out rather than found by sweeping, and it is the
+only one whose defining symmetry both survives being carved and still breaks mirror images.</p>
+
 <p class="note"><b>The ceiling belongs to the marking type; the alphabet only sets abundance.</b>
 Three further sweeps settle how these rules relate. The <i>four-label fully asymmetric</i> tab — the
 richest type in the taxonomy — reaches only <b>k&#8202;=&#8202;2</b> on the hexagon
