@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 09:33
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 11:15
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1506,16 +1506,24 @@ point constraints stop buying orbits and start buying non-tilers.</p>
 <tr><td>kite, tan, drafter, pon, floret</td><td>3–5</td><td>1–2</td><td>1</td></tr>
 </table>
 </div>
-<p class="note"><b>The same hexagon, a different grid, the same five orbits.</b> The retraction
-above named the experiment that would settle things: find a second shape with both properties.
-Searching all eleven grids for shapes with six or more edges and a large symmetry group turned up
-seventeen candidates, and one is irresistible — <b>six triangles merged into a regular hexagon</b>.
-It is geometrically the same shape as the hex prototile, with the same six edges and the same
-twelve symmetries, but it lives on the finer triangular grid, where it can sit at offsets the
-hexagonal grid forbids. Sampled in the density band, it reaches <b>k&#8202;=&#8202;5</b> — carrying
-the very same labels, (0,&#8202;0,&#8202;1,&#8202;1,&#8202;1,&#8202;2), as the hexagon's record
-decoration. The record is a property of the <i>shape</i>, then, and survives being handed extra
-freedom by a finer grid.</p>
+<p class="note"><b>A tautology that turned into an engine check.</b> The retraction above named
+the experiment that would settle things: find a second shape with both properties. Searching all
+eleven grids turned up an irresistible-looking candidate — <b>six triangles merged into a regular
+hexagon</b>, same six edges, same twelve symmetries, but living on the finer triangular grid where
+it can sit at offsets the hexagonal grid forbids. It reaches k&#8202;=&#8202;5 with the same
+winning labels, and it was briefly reported here as an independent reproduction of the record.
+<b>It is nothing of the kind</b>, as a reader pointed out: all tilings of the plane by regular
+hexagons are the honeycomb — hexagons cannot be offset the way squares can, since a shifted row
+leaves gaps — so every hexagon in every tiling sits on the honeycomb no matter how fine the grid
+beneath it. The extra placements of a <i>single</i> hexagon buy no extra <i>tilings</i>. It is the
+same decorated problem restated, and its answer was guaranteed before it was computed.</p>
+<p class="note">What the exercise is worth keeping for is a different kind of check. Two backends
+with different cell shapes, different residue counts, different symmetry bookkeeping and different
+code paths produced spectra that agree <b>decoration for decoration</b> — 195 isohedral, 102 at
+k&#8202;=&#8202;2, 12 at k&#8202;=&#8202;4, 24 at k&#8202;=&#8202;5, 396 with no tiling — and the
+triangular run went to kmax&#8202;8, so it independently reconfirms that nothing appears at
+k&#8202;=&#8202;7 or 8. That is a strong consistency test of the engine, and no evidence at all
+about decorations. The design-space corner still holds exactly one shape.</p>
 <p class="note">The companion test cuts the other way. The <b>2&#8202;×&#8202;2 square</b> has eight
 edges and eight symmetries — the first shape tested to clear both thresholds without being a
 hexagon — and it is edge-transitive besides. Every one of 150 sampled decorations still tiles
