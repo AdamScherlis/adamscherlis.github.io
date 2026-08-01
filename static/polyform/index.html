@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:19
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 12:47
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -252,7 +252,8 @@ twenty-four need six.
 <li><a href="#star">The star 10-rhombille</a></li>
 <li><a href="#records">The records: k = 8 and k = 10</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
-<li><a href="#probe-ledger">The two-stage probe and the ledger</a></li>
+<li><a href="#probe-ledger">The two-stage probe and the ledger</a>
+<a href="#isolated">High-k tiles are isolated</a></li>
 </ul></div>
 <div class="part"><span class="n">Part V</span><div class="h">Decorations</div>
 <ul>
@@ -1485,6 +1486,28 @@ survives.</p>
 <li><span class="status ok">resolved</span><span class="what"><b>Tables reconciled against the probe ledger</b>
   <span class="d">Sweeps write their unresolved lists once and never revisit them, so rows kept displaying shapes the deep probes had settled hours earlier — spotted by a reader. <code>scripts/reconcile_page.py</code> now diffs every row against <code>results/resolutions.json</code>: 108 shapes left open by sweeps, 108 settled, 0 unprobed. Four stale rows corrected and the newest polypon and drafter rows added.</span></span></li>
 </ul>
+<h2 id="isolated"><span class="stage">Part IV · structure</span>High-k tiles are isolated <span class="status ok">a refuted hypothesis</span></h2>
+<p class="note">Every record on this page arrived the same way: enumerate an entire size, classify
+everything, then probe whatever the sweep could not settle. That is an expensive habit, and the
+obvious alternative is to search <i>locally</i> — take a shape known to be hard and perturb it, on
+the theory that anisohedral difficulty is a property of a boundary and so should survive small
+edits. If true it would replace enumeration with hill-climbing.</p>
+<p class="note">It is false, and cheaply so. Taking all twenty-eight known shapes of isohedral
+number six or more and generating every shape one cell away — add a cell, or remove one while
+keeping the shape connected — gives 816 neighbours. Their spectrum: <b>580 do not tile at all, 220
+are plainly isohedral, 13 reach k&#8202;=&#8202;2, three reach k&#8202;=&#8202;3, and nothing goes
+higher</b>. Of the neighbours that tile, ninety-three per cent are ordinary. Removing one triangle
+from a tile that needs ten orbits does not yield a tile that needs nine; it yields a tile that needs
+one, or none.</p>
+<p class="note">So the hard tiles are isolated points, not clusters, and that has consequences worth
+stating. It explains why exhaustive enumeration keeps being the only tool that finds them — no
+record here came from a targeted search. It rules out evolutionary or gradient-style search over
+shape space, which needs a neighbourhood signal to climb. And combined with the size-coprimality
+effect, which <i>is</i> predictive of where such shapes live, the working picture is: high-k tiles
+are sparse and scattered inside identifiable regions, so the leverage lies entirely in choosing
+which region to enumerate — never in local moves once you are there. The experiment cost
+twenty-five minutes and retired a whole family of strategies.</p>
+
 <h2 id="decorations"><span class="stage">Part V · decorations</span>Wang decorations: bump/dent matching rules <span class="status ok">third audit closed · v3 oracle-verified</span></h2>
 <p class="note">The engine supports <b>edge decorations</b>: every boundary edge of a shape carries
 a label — 0 is neutral (matches itself), labels 1 and 2 are bump/dent partners that match only
