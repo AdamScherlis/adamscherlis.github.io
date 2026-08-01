@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 03:30
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 04:10
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1345,7 +1345,7 @@ perpendicular bisector. So the symmetry subgroup of the marking's own profile, i
 <tr><td>σ<sub>⊥</sub></td><td>classic jigsaw tab</td><td>bump ↔ dent</td><td>identity</td><td>{1}</td></tr>
 <tr><td>σ<sub>∥</sub></td><td>arrow along the edge</td><td>bump ↔ dent</td><td>swaps</td><td><b>{1, 2, 4, 5}</b></td></tr>
 <tr><td>ρ</td><td>S-shaped tab</td><td><b>self-matching</b></td><td>swaps</td><td>{1, 2}</td></tr>
-<tr><td>none</td><td>fully asymmetric tab</td><td>ρ (4 labels)</td><td>σ<sub>⊥</sub></td><td>sweeping</td></tr>
+<tr><td>none</td><td>fully asymmetric tab</td><td>ρ (4 labels)</td><td>σ<sub>⊥</sub></td><td>{1, 2}</td></tr>
 </table>
 </div>
 <p class="note">The <b>S-tab</b> is the ρ-symmetric row and the one that feels least like the others:
@@ -1400,11 +1400,35 @@ seconds of bookkeeping and cuts the work by <b>14×</b> on the hexagon and <b>38
 four-label scheme — verified by reproducing the arrow-hexagon spectrum exactly, decoration for
 decoration. Sweeps that had been priced at four hours now run in fifteen minutes, which is what
 made the four-label sweeps affordable at all.</p>
+<p class="note"><b>The ceiling belongs to the marking type; the alphabet only sets abundance.</b>
+Three further sweeps settle how these rules relate. The <i>four-label fully asymmetric</i> tab — the
+richest type in the taxonomy — reaches only <b>k&#8202;=&#8202;2</b> on the hexagon
+({1: 989, 2: 108}, and 14&#8202;528 of its 15,625 decorations admit no tiling at all): richness buys
+non-tilers, not orbits. A <i>five-label arrow</i> alphabet (two independent arrow pairs) keeps the
+arrow ceiling exactly — still k&#8202;=&#8202;5, nothing at 6 — but finds <b>four times as many</b>
+high-k decorations (48 at k&#8202;=&#8202;4 and 48 at k&#8202;=&#8202;5, against 12 and 24 with
+one pair). And pushing the three-label arrow hexagon to <b>kmax&#8202;8</b> leaves its spectrum
+untouched: no decoration of a hexagon reaches 6, 7 or 8 orbits, and the 396 that fail to tile fail
+at every k&#8202;≤&#8202;8. So the profile's symmetry class fixes how high a shape can be driven,
+while extra label pairs of the same type only multiply the solutions at that height.</p>
+<p class="note">The shape matters as much as the marking, though. The S-tab, capped at
+k&#8202;=&#8202;2 on the hexagon, reaches <b>k&#8202;=&#8202;3</b> on the L-tromino
+(3&#8202;159 isohedral, 30 at k&#8202;=&#8202;2, 8 at k&#8202;=&#8202;3, 3&#8202;364 with no tiling at
+k&#8202;≤&#8202;4) — eight decorations that force three orbits on a shape which, undecorated, tiles
+by translation.</p>
+<div style="max-width:30rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/stab-ltromino-3orbit.svg" alt="L-trominoes with S-shaped tabs forced into three orbits" style="width:100%; height:auto; display:block;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">Three orbits from S-tabs alone: the L-tromino with
+labels (0,&#8202;0,&#8202;0,&#8202;1,&#8202;1,&#8202;1,&#8202;0,&#8202;0), one of eight such
+decorations. The S-curves are the tabs themselves — each carried onto itself by the half-turn about
+its edge's midpoint, which is why one fits another. 202 profiles here, every one derived
+independently from both neighbours and agreeing.</div>
+</div>
 <p class="note">Mixing types on one tile is expressible too — the engine's pairing and mirror are
 arbitrary label maps, so each marking type simply occupies its own range of labels, and a single
-shape can carry a jigsaw tab on one edge, an arrow on the next and an S-tab on a third. Those
-sweeps, and the four-label fully asymmetric type, are running now. The question they are chasing:
-whether anything beats the arrow-hexagon's k&#8202;=&#8202;5.</p>
+shape can carry a jigsaw tab on one edge, an arrow on the next and an S-tab on a third. That sweep
+is the obvious next one, along with two-cell shapes under the arrow rule, where the hexagon's
+k&#8202;=&#8202;5 record might finally be beaten.</p>
 
 <p class="note">The domino row is the counterpoint worth keeping in view: under the arrow rule every
 single one of its 729 decorations tiles isohedrally — the extra freedom that lets the hexagon climb
