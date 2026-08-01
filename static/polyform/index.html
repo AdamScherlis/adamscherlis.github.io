@@ -159,7 +159,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 00:05
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 00:25
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -230,7 +230,11 @@ as (point subgroup, invariant sublattice, offset cocycle) triples modulo conjuga
 tiling is a k-orbit exact cover of the quotient torus. Non-tiling is proved separately by
 possible-neighbour arc-consistency pruning, corona elimination, and a depth-d surround search
 (Myers's method). Every free polyomino through n&#8202;=&#8202;10 is now classified, and <b>every
-number below matches Myers's tables</b> — all 4&#8202;655 10-ominoes in 204&#8202;s on 8 cores.</p>
+number below matches Myers's tables</b> — all 4&#8202;655 10-ominoes in 204&#8202;s on 8 cores.
+The n&#8202;=&#8202;11 row (added 1 August) is the first produced by the new fused C+Python pipeline —
+enumeration, hole detection and translation tilings retired in C at ~10⁸ shapes/s, survivors
+finished by the Python engine — 17,073 shapes in 150&#8202;s, matching Myers at every column
+including the anisohedral k-breakdown.</p>
 <div class="tablewrap">
 <table>
 <caption>Complete classification of free polyominoes (ours = Myers at every entry)</caption>
@@ -239,6 +243,7 @@ number below matches Myers's tables</b> — all 4&#8202;655 10-ominoes in 204&#8
 <tr><td>8</td><td>369</td><td>6</td><td>121</td><td>199</td><td>22</td><td>1</td><td>2:1</td><td>20</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>1&#8202;285</td><td>37</td><td>213</td><td>748</td><td>80</td><td>9</td><td>2:8&ensp;4:1</td><td>198</td><td class="match">✓</td></tr>
 <tr><td>10</td><td>4&#8202;655</td><td>195</td><td>522</td><td>2&#8202;181</td><td>323</td><td>44</td><td>2:41&ensp;3:3</td><td>1&#8202;390</td><td class="match">✓</td></tr>
+<tr><td>11</td><td>17&#8202;073</td><td>979</td><td>783</td><td>5&#8202;391</td><td>338</td><td>108</td><td>2:89&ensp;3:18&ensp;4:1</td><td>9&#8202;474</td><td class="match">✓</td></tr>
 </table>
 </div>
 <p class="note">The k-breakdown column reads "k:count" — e.g. at n&#8202;=&#8202;9 there are eight
