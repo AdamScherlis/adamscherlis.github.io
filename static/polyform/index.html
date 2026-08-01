@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 04:10
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 04:30
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -369,16 +369,15 @@ matches Myers's published columns</b>.</p>
 <tr><td>7</td><td>333</td><td>2</td><td>60</td><td>197</td><td>33</td><td>4</td><td>2:3&ensp;3:1</td><td>37</td><td class="match">✓</td></tr>
 <tr><td>8</td><td>1448</td><td>13</td><td>209</td><td>721</td><td>88</td><td>36</td><td>2:27&ensp;3:7&ensp;4:2</td><td>381</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>6572</td><td>67</td><td>387</td><td>2717</td><td>611</td><td>73</td><td>2:66&ensp;3:5&ensp;4:2</td><td>2708&#8202;+&#8202;9</td><td class="match">✓</td></tr>
-<tr><td>10</td><td>30490</td><td>404</td><td>1054</td><td>8211</td><td>1803</td><td>256</td><td>2:226&ensp;3:26&ensp;4:4</td><td>18719&#8202;+&#8202;43</td><td class="part">✓*</td></tr>
+<tr><td>10</td><td>30490</td><td>404</td><td>1054</td><td>8211</td><td>1803</td><td>258</td><td>2:226&ensp;3:26&ensp;4:4&ensp;<b>8:2</b></td><td>18760</td><td class="match">✓</td></tr>
 </table>
 </div>
 <p class="legend">The non-tiler totals at n&#8202;=&#8202;6, 7, 8 include 1, 5 and 9 shapes the batch sweeps
 left unresolved, each since proven a non-tiler (see below); with those probes the columns are exact at every entry.
 &#8220;A&#8202;+&#8202;B&#8221; means A non-tilers proven, B shapes still unresolved at kmax&#8202;4.
-<b>✓*</b> at n&#8202;=&#8202;10 flags the one row that is not yet a clean match: every column agrees with
-Myers through k&#8202;=&#8202;4, but he counts 258 anisohedral and 18&#8202;760 non-tilers, so exactly two of
-our 43 unresolved shapes are tilers he places at k&#8202;=&#8202;8 — beyond this sweep's reach, not in
-conflict with it.</p>
+The n&#8202;=&#8202;10 row was briefly the page's one unresolved match: our kmax-4 sweep left 43
+shapes open where Myers counted 258 anisohedral, and the deep probes then closed all 43 — 41
+non-tilers and <b>two shapes of isohedral number 8</b>, exactly as his totals predicted.</p>
 <p class="note">The hexes put up the best fight of any validation family. The last hexahex holdout was
 proven a non-tiler by a two-hour exhaustive depth-5 surround search. At n&#8202;=&#8202;7, three deep
 non-tilers were proven at depth 5; the last two had hit their node budgets inconclusively and were
@@ -397,14 +396,37 @@ most interesting.</b> All <b>30&#8202;490</b> free 10-hexes were swept: 404 hole
 tilers, 8&#8202;211 by 180°, 1&#8202;803 isohedral, <b>256 anisohedral</b> — 226 2-, 26 3- and <b>four
 4-anisohedral</b>, the family's largest crop of isohedral number 4 and the largest at any single size
 outside the polycairos — 18&#8202;719 proven non-tilers, and <b>43 shapes still unresolved</b> at
-kmax&#8202;4. Every column agrees with Myers through k&#8202;=&#8202;4. The 43 are the informative part:
-his totals (258 anisohedral, 18&#8202;760 non-tilers) say that 41 of them are non-tilers our surround
-search has not yet closed, and that the other <b>two are 8-anisohedral</b>. If the probes now running
-confirm them, they would be the first shapes in the project with isohedral number above 6 — the current
-ceiling, held by twenty-four shapes across five families — and they are joined in that prospect by a
-single 13-iamond in the next table, which Myers likewise puts at k&#8202;=&#8202;8. Both sit at
-k&#8202;=&#8202;8 in his tables and at &#8220;unresolved&#8221; in ours, which is exactly the honest
-state: our sweeps exclude k&#8202;≤&#8202;4 and prove nothing beyond it.</p>
+kmax&#8202;4 — and those 43 turned out to hold the best find of the night.</p>
+<p class="note"><b>Two 10-hexes of isohedral number 8.</b> Myers's totals said 41 of the 43 were
+non-tilers and two were 8-anisohedral, so the probe was a race between two engines over shapes
+neither sweep had settled. Running the expensive k-search on all 43 was projecting hours, so the
+probe was reordered by cost rather than by curiosity: <b>SAT surround exhaustion first</b>, which
+proves non-tiling in seconds and duly killed 44 of the 47 candidates across both families, leaving
+three. Only those three went to the k&#8202;≤&#8202;8 orbit search — and all three came back
+<b>MIN-K&#8202;=&#8202;8</b>, each with its cover cross-checked as an exact torus partition and
+decoded to a genuine plane tiling. Two are the 10-hexes below; the third is the 13-iamond in the
+next table. They are the first shapes in this project with isohedral number above 6, they lift the
+record by two at a stroke, and both families' rows now match Myers at every column.</p>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/hex10-8aniso-a.svg" alt="First 8-anisohedral 10-hex" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/hex10-8aniso-b.svg" alt="Second 8-anisohedral 10-hex" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/iamond13-8aniso.svg" alt="8-anisohedral 13-iamond" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The three shapes of isohedral number 8: two 10-hexes and a
+13-iamond. Each tiles the plane, but every tiling needs at least eight orbits of tiles — the highest isohedral number in
+this project, two above the previous ceiling of 6 held by twenty-four shapes across five families.</div>
+</div>
+<div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
+<img src="figs/hex10-8orbit-tiling.png" alt="8-orbit tiling by the first 8-anisohedral 10-hex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.5rem">A minimal tiling of the first 8-anisohedral 10-hex, coloured by orbit —
+eight classes of tile, twenty tiles to a class in the fundamental domain, verified overlap-free across 784 tiles. No tiling
+of this shape uses fewer than eight orbits.</div>
+</div>
 <div class="tablewrap">
 <table>
 <caption>Complete classification of free polyiamonds, ours vs. Myers (every resolved entry matches; see n = 13)</caption>
@@ -421,7 +443,7 @@ state: our sweeps exclude k&#8202;≤&#8202;4 and prove nothing beyond it.</p>
 <tr><td>10</td><td>448</td><td>4</td><td>62</td><td>200</td><td>54</td><td>25</td><td>2:23&ensp;3:1&ensp;4:1</td><td>103</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>11</td><td>1186</td><td>25</td><td>0</td><td>462</td><td>52</td><td>53</td><td>2:43&ensp;3:8&ensp;4:2</td><td>593</td><td>1</td><td class="match">✓</td></tr>
 <tr><td>12</td><td>3334</td><td>108</td><td>291</td><td>1162</td><td>534</td><td>47</td><td>2:38&ensp;3:8&ensp;4:1</td><td>1192</td><td>0</td><td class="match">✓</td></tr>
-<tr><td>13</td><td>9235</td><td>450</td><td>0</td><td>1875</td><td>523</td><td>96</td><td>2:85&ensp;3:9&ensp;4:2</td><td>6287</td><td>4</td><td class="part">✓*</td></tr>
+<tr><td>13</td><td>9235</td><td>450</td><td>0</td><td>1875</td><td>523</td><td>97</td><td>2:85&ensp;3:9&ensp;4:2&ensp;<b>8:1</b></td><td>6290</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>14</td><td>26166</td><td>1713</td><td>539</td><td>4195</td><td>1339</td><td>281</td><td>2:274&ensp;3:7</td><td>18099</td><td>0</td><td class="match">✓</td></tr>
 </table>
 </div>
@@ -440,9 +462,9 @@ drifting. At n&#8202;=&#8202;11 anisohedry briefly <b>outnumbers isohedry</b> �
 against 52 isohedral, a photo finish of a kind this page rarely sees at a size where both columns are
 well populated — and two of the 53 are 4-anisohedral. n&#8202;=&#8202;12 reverts to type (534
 isohedral, 47 anisohedral). n&#8202;=&#8202;13
-adds two more 4-anisohedral shapes and leaves <b>four</b> unresolved, of which Myers's totals (97
-anisohedral, 6&#8202;290 non-tilers) identify three as non-tilers and one as <b>8-anisohedral</b> — the
-iamond twin of the two 10-hexes above. Then n&#8202;=&#8202;14 is the family's biggest and blandest
+adds two more 4-anisohedral shapes and, among its four initially unresolved shapes, the
+<b>8-anisohedral 13-iamond</b> — three proven non-tilers and one tile of isohedral number 8, the
+iamond twin of the two 10-hexes above (both confirmed by the two-stage probe described there). Then n&#8202;=&#8202;14 is the family's biggest and blandest
 row: 281 anisohedral shapes, <b>274 of them merely 2-anisohedral</b> and the remaining seven at
 k&#8202;=&#8202;3, with <b>not a single 4-anisohedral 14-iamond</b> and nothing unresolved — an exact
 match with Myers at every column, and a reminder that the high-k shapes thin out with size rather
