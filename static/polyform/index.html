@@ -160,7 +160,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 11:19
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 11:24
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1452,6 +1452,16 @@ hexagon 138 positives, five-label arrow 612, four-label 108, S-tab hexagon 12, S
 <b>zero violations</b>. No number here moved; the checker was broken, not the results. It is
 recorded because a verification tool that silently passes the wrong problem is the most dangerous
 object in a project like this one.</p>
+<p class="note"><b>Every ceiling here has now been tested two orbits higher than it was
+found.</b> A spectrum that stops at k&#8202;=&#8202;2 because the sweep stopped at
+kmax&#8202;4 is not the same claim as a spectrum that stops at k&#8202;=&#8202;2 with
+k&#8202;=&#8202;3 through 8 excluded, and until this morning most of the numbers on this page
+were the first kind. Re-running everything at <b>kmax&#8202;8</b> — the three polyomino jigsaw
+sweeps that stopped at 4, and nineteen more that stopped at 6, covering all eleven unit prototiles
+under both the jigsaw and arrow rules, the domino, and both S-tab sweeps — changes <b>not one
+entry</b>. The L-tromino is still {1,&#8202;2}, the hexagon still tops out at 5 under arrows and 3
+under jigsaw notches, the rhombus and the Cairo and prismatic pentagons still reach exactly 2. The
+ceilings are properties of the shapes, not of the search budget.</p>
 <p class="note"><b>A sweep-wide economy.</b> Every sweep above was, until this morning,
 re-searching decorations it had already answered: two decorations related by a symmetry of the
 shape, or by a global relabelling that commutes with the pairing and mirror maps, pose the same
