@@ -159,7 +159,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 01:34
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 02:06
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1237,6 +1237,33 @@ drawn as the profile itself — an S-curve across the shared edge, carried onto 
 half-turn about the edge's midpoint, which is exactly why one S-tab fits another. As with the
 arrows, the renderer derives each curve independently from both neighbours and asserts they
 coincide (95 edges here, no disagreements).</div>
+</div>
+<p class="note"><b>Only the hexagon budges — again, but differently.</b> Sweeping every
+three-label arrow decoration of all eleven Laves prototiles (kmax&#8202;6, 729 decorations each
+for the six-edge shapes, fewer for the rest; all 186 anisohedral verdicts oracle-verified) leaves
+the hexagon alone at the top. Six prototiles can be pushed to <b>k&#8202;=&#8202;2</b> — the Cairo
+and prismatic pentagons and the rhombus join it there — but nothing else reaches 4 or 5. And four
+prototiles are utterly unmoved: <b>every</b> arrow decoration of the triangle, the square, the tan
+and the drafter still tiles isohedrally, not one of them even losing the ability to tile. The
+pattern from the symmetric-notch sweeps survives in sharper form: decoration is a lever, and the
+hexagon is the only prototile with enough edges and enough symmetry to be moved a long way by
+it.</p>
+<div class="tablewrap">
+<table>
+<caption>Arrow decorations of all eleven Laves prototiles — minimum orbit number k, kmax 6. Every k ≥ 2 entry verified by the orbit-count oracle. Counts from results/decor-arrow-unit-*.json and decor-unit-hex-arrow.json.</caption>
+<tr><th>prototile</th><th>edges</th><th>decorations</th><th>k = 1</th><th>k = 2</th><th>k = 4</th><th>k = 5</th><th>no k ≤ 6</th></tr>
+<tr><td>triangle (iamond)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td>square</td><td>4</td><td>81</td><td>81</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td><b>hexagon</b></td><td>6</td><td>729</td><td>195</td><td>102</td><td><b>12</b></td><td><b>24</b></td><td>396</td></tr>
+<tr><td>Cairo pentagon</td><td>5</td><td>243</td><td>15</td><td>6</td><td>—</td><td>—</td><td>222</td></tr>
+<tr><td>rhombus (rhombille)</td><td>4</td><td>81</td><td>9</td><td>24</td><td>—</td><td>—</td><td>48</td></tr>
+<tr><td>kite</td><td>4</td><td>81</td><td>27</td><td>—</td><td>—</td><td>—</td><td>54</td></tr>
+<tr><td>floret pentagon</td><td>5</td><td>243</td><td>9</td><td>—</td><td>—</td><td>—</td><td>234</td></tr>
+<tr><td>prismatic pentagon</td><td>5</td><td>243</td><td>27</td><td>18</td><td>—</td><td>—</td><td>198</td></tr>
+<tr><td>tan (abolo)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td>drafter (kisrhombille)</td><td>3</td><td>27</td><td>27</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
+<tr><td>pon (triakis)</td><td>3</td><td>27</td><td>9</td><td>—</td><td>—</td><td>—</td><td>18</td></tr>
+</table>
 </div>
 <p class="note">Mixing types on one tile is expressible too — the engine's pairing and mirror are
 arbitrary label maps, so each marking type simply occupies its own range of labels, and a single
