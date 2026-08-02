@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 11:06
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 11:45
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -2585,7 +2585,16 @@ the search, which is the strongest argument this project knows for computing eve
 <ul class="roadmap">
 <li><span class="status run">running</span><span class="what"><b>Higher than ten?</b>
   <span class="d">Isohedral number 10 arrived from a shape nobody was looking at — the last unresolved entry in the whole project. Since sweeps run at kmax&#8202;4, every new frontier row deposits fresh candidates in its unresolved pool, and the two-stage probe (cheap surround exhaustion, then the SAT orbit search on survivors) now empties that pool for a few minutes of compute. Tetrakis n&#8202;=&#8202;14–15, polypons 18, drafters 14 and tans 12 are computing now, chosen because the small families have produced every record so far.</span></span></li>
-<li><span class="status run">running</span><span class="what"><b>Can two cells beat five orbits?</b>
+<li><span class="status run">running</span><span class="what"><b><p class="note"><b>Closed: the decorated ceiling on a unit hexagon is real.</b> Two of the roadmap's
+open pools were sitting at kmax&#8202;6 with fourteen thousand decorations each recorded as
+&#8220;no tiling found&#8221; &#8212; the same shape of gap that hid every undecorated record, since a
+sweep that stops at six cannot tell a non-tiler from a shape needing seven. Both were pushed to
+kmax&#8202;10 and both came back <i>bit-identical</i>: arrow3 on the hexagon still reads 1013 / 516 /
+48 / 48 with 14,000 non-tiling, and chiral4 still reads 989 / 108 with 14,528. Nothing tiles at
+k&#8202;=&#8202;6 through 10 that did not already tile below. The k&#8202;=&#8202;5 arrow hexagon
+stands as the decorated record, and those pools are non-tilers rather than unexplored.</p>
+
+Can two cells beat five orbits?</b>
   <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves prototile passes 2. The obvious next question is whether a two-cell shape goes higher: the dihex has ten edges and 59&#8202;049 arrow decorations, which was unaffordable this morning and is a ninety-minute sweep now that the validator is 23× faster.</span></span></li>
 <li><span class="status pend">next</span><span class="what"><b>Mixed markings on one tile</b>
   <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an S-tab on a third — the engine's pairing and mirror are arbitrary label maps, so mixed schemes just occupy disjoint label ranges. 117&#8202;649 decorations on a hexagon, now within reach.</span></span></li>
