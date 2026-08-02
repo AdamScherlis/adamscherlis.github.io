@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 08:26
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 08:58
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -2311,7 +2311,43 @@ normal family: n&#8202;=&#8202;9 gives 308 isohedral shapes and eleven 2-anisohe
 n&#8202;=&#8202;12 gives 4,533 isohedral, 178 at two orbits and three at three. Not a record, but a
 substrate nobody had classified, settled completely to n&#8202;=&#8202;12 with nothing left
 unresolved.</p>
-<p class="note">There are ten more Archimedean tilings, and the same construction should reach them:
+<p class="note"><b>A second one, on a square lattice.</b> The truncated square tiling
+[4.8.8] &#8212; octagons with squares in the gaps, one of each per translation unit, dual to the
+tetrakis square tiling already in Part I. Here the lemma bites harder still: octagons and squares are
+each their own orbit, so a tile needs <i>equal</i> numbers of both and every odd size is a non-tiler
+before any search runs. (The embedding uses a chamfered square rather than a regular octagon, since
+a regular octagon has irrational vertices &#8212; the same licence the cairo backend takes, and the
+combinatorics are what the classifier reads.)</p>
+<div class="tablewrap">
+<table>
+<caption>Complete classification of free truncated-square polyforms &#8212; this work (kmax 4)</caption>
+<tr><th>n</th><th>free</th><th>holes</th><th>translation</th><th>180°</th><th>isohedral</th><th>anisohedral</th><th>k-breakdown</th><th>non-tilers</th><th>unresolved</th></tr>
+<tr><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>2</td><td>0</td></tr>
+<tr><td>2</td><td>2</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>—</td><td>1</td><td>0</td></tr>
+<tr><td>3</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>7</td><td>0</td></tr>
+<tr><td>4</td><td>22</td><td>1</td><td>7</td><td>1</td><td>0</td><td>0</td><td>—</td><td>13</td><td>0</td></tr>
+<tr><td>5</td><td>93</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>90</td><td>0</td></tr>
+<tr><td>6</td><td>413</td><td>25</td><td>36</td><td>32</td><td>10</td><td>0</td><td>—</td><td>310</td><td>0</td></tr>
+<tr><td>7</td><td>2073</td><td>159</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>1914</td><td>0</td></tr>
+<tr><td>8</td><td>10741</td><td>1096</td><td>255</td><td>343</td><td>222</td><td>11</td><td>2:10&ensp;3:1</td><td>8814</td><td>0</td></tr>
+<tr><td>9</td><td>57540</td><td>7093</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>50447</td><td>0</td></tr>
+<tr><td>10</td><td>312805</td><td>45813</td><td>894</td><td>2394</td><td>2470</td><td>49</td><td>2:47&ensp;3:2</td><td>261185</td><td>0</td></tr>
+</table>
+</div>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/arch-truncsq-k3.png" alt="3-orbit tiling by an 8-cell truncated-square polyform" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+</div>
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/arch-trihex-k3.png" alt="3-orbit tiling by a 12-cell trihexagonal polyform" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">Minimal tilings on the two Archimedean
+substrates, coloured by orbit: an 8-cell truncated-square polyform at three orbits (left, four octagons
+and four squares) and a 12-cell trihexagonal one (right, four hexagons and eight triangles). Both tiles
+are unions of cells of two different shapes, which no tile anywhere else on this page is.</div>
+</div>
+
+<p class="note">There are nine more Archimedean tilings, and the same construction should reach them:
 what this row of work actually establishes is that the engine is not a Laves engine. The obstacle was
 never the mathematics, it was that the cell-ratio condition had to exist before mixed-cell substrates
 were worth sweeping &#8212; without it, two thirds of every row goes to the surround search to be
