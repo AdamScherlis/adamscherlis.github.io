@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 07:45
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 08:26
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -254,6 +254,7 @@ eight, one needs nine and one needs ten.
 <li><a href="#records">The records: k = 9 and k = 10</a></li>
 <li><a href="#drafter-hat">The hat, found again on another grid</a></li>
 <li><a href="#isomorphic">How many of these are actually different?</a></li>
+<li><a href="#archimedean">Off the Laves tilings: an Archimedean substrate</a></li>
 <li><a href="#going-quiet">Why the frontier stops paying</a></li>
 <li><a href="#gallery">Every high-k tiling</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
@@ -2266,6 +2267,56 @@ only reject too much, and each produced a plausible-looking mathematical narrati
 &#8220;gaps&#8221;, a special hexagon — that dissolved under an independent check the search code
 had no hand in. The surviving facts are duller and firmer: rigidity everywhere, one honest
 doubling, and a pre-filter lemma that does more than the search does.</p>
+<h2 id="archimedean"><span class="stage">Part VII · new ground</span>Off the Laves tilings: an Archimedean substrate <span class="status ok">new family, new lemma</span></h2>
+<p class="note">Every backend so far has been a Laves tiling &#8212; one cell shape, repeated. The
+<b>trihexagonal tiling [3.6.3.6]</b> is Archimedean instead, and its cells come in two shapes:
+regular hexagons and equilateral triangles, two triangles to each hexagon. A polyform on it is a
+connected union of both kinds, which is a different sort of object from anything above.</p>
+<p class="note">The engine took it without modification, which was the pleasant surprise. Nothing in
+the classifier assumed the cells were congruent &#8212; <code>vert_templates</code> was already
+indexed per residue &#8212; so only the backends had made that assumption. The construction is the
+medial of the honeycomb: its vertices are the honeycomb's edge midpoints, hexagons come from
+honeycomb faces and triangles from honeycomb vertices, which in the tripled axial coordinates the
+other backends use puts the three residues at (0,0), (1,1) and (2,2) with vertices on a doubly-fine
+lattice. The point group is the full D<sub>6</sub> about a hexagon centre; a sixth-turn exchanges the
+two triangle orientations, which is fine because it still maps cells to cells.</p>
+<p class="note"><b>A counting lemma does most of the work.</b> A grid-aligned tiling covers every
+cell exactly once, so the shape's cells must be distributed across residue orbits exactly as the grid
+is. The trihexagonal tiling has a hexagon orbit and a two-triangle orbit, so a tile must have
+<b>twice as many triangles as hexagons</b> &#8212; and therefore a size divisible by three. Two
+thirds of all shapes are eliminated by a handful of integer divisions, before any search runs. It is
+the exact analogue of the bump/dent parity lemma for decorations, and on every Laves backend it is
+vacuous, because there the cells form a single orbit. That is why it never came up until now.</p>
+<div class="tablewrap">
+<table>
+<caption>Complete classification of free trihexagonal polyforms &#8212; this work, first Archimedean substrate (kmax 4)</caption>
+<tr><th>n</th><th>free</th><th>holes</th><th>translation</th><th>180°</th><th>isohedral</th><th>anisohedral</th><th>k-breakdown</th><th>non-tilers</th><th>unresolved</th></tr>
+<tr><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>2</td><td>0</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>1</td><td>0</td></tr>
+<tr><td>3</td><td>4</td><td>0</td><td>2</td><td>1</td><td>0</td><td>0</td><td>—</td><td>1</td><td>0</td></tr>
+<tr><td>4</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>9</td><td>0</td></tr>
+<tr><td>5</td><td>30</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>29</td><td>0</td></tr>
+<tr><td>6</td><td>97</td><td>7</td><td>13</td><td>20</td><td>5</td><td>0</td><td>—</td><td>52</td><td>0</td></tr>
+<tr><td>7</td><td>373</td><td>43</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>330</td><td>0</td></tr>
+<tr><td>8</td><td>1405</td><td>238</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>1167</td><td>0</td></tr>
+<tr><td>9</td><td>5630</td><td>1237</td><td>127</td><td>419</td><td>308</td><td>11</td><td>2:11</td><td>3528</td><td>0</td></tr>
+<tr><td>10</td><td>22672</td><td>6120</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>16552</td><td>0</td></tr>
+<tr><td>11</td><td>93045</td><td>29427</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>63618</td><td>0</td></tr>
+<tr><td>12</td><td>384403</td><td>138671</td><td>1166</td><td>5100</td><td>4533</td><td>181</td><td>2:178&ensp;3:3</td><td>234752</td><td>0</td></tr>
+</table>
+</div>
+<p class="legend">The rows at n not divisible by three are entirely holes and non-tilers, exactly as
+the lemma predicts &#8212; and they cost almost nothing to confirm. The tiling rows behave like a
+normal family: n&#8202;=&#8202;9 gives 308 isohedral shapes and eleven 2-anisohedral ones,
+n&#8202;=&#8202;12 gives 4,533 isohedral, 178 at two orbits and three at three. Not a record, but a
+substrate nobody had classified, settled completely to n&#8202;=&#8202;12 with nothing left
+unresolved.</p>
+<p class="note">There are ten more Archimedean tilings, and the same construction should reach them:
+what this row of work actually establishes is that the engine is not a Laves engine. The obstacle was
+never the mathematics, it was that the cell-ratio condition had to exist before mixed-cell substrates
+were worth sweeping &#8212; without it, two thirds of every row goes to the surround search to be
+told slowly what counting says instantly.</p>
+
 <h2 id="engine"><span class="stage">Part VI · method &amp; performance</span>How the engine works</h2>
 <div class="method">
 <p><b>One engine, eleven grids.</b> Every base tiling is described combinatorially: cells are
