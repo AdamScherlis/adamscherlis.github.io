@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 05:53
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 07:45
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -429,6 +429,7 @@ matches Myers's published columns</b>.</p>
 <tr><td>10</td><td>30490</td><td>404</td><td>1054</td><td>8211</td><td>1803</td><td>258</td><td>2:226&ensp;3:26&ensp;4:4&ensp;<b>8:2</b></td><td>18760</td><td class="match">✓</td></tr>
 <tr><td>11</td><td>143552</td><td>2323</td><td>1468</td><td>19836</td><td>2985</td><td>501</td><td>2:380&ensp;3:97&ensp;4:19&ensp;5:3&ensp;6:1&ensp;<b>9:1</b></td><td>116439</td><td class="match">✓</td></tr>
 <tr><td>12</td><td>683101</td><td>13517</td><td>6895</td><td>74497</td><td>21250</td><td>999</td><td>2:879&ensp;3:95&ensp;4:23&ensp;5:2</td><td>565943</td><td>0</td><td>—</td></tr>
+<tr><td>13</td><td>3274826</td><td>76570</td><td>7001</td><td>132611</td><td>23564</td><td>1383</td><td>2:1097&ensp;3:267&ensp;4:14&ensp;5:5</td><td>3033697</td><td>0</td><td>—</td></tr>
 </table>
 </div>
 <p class="legend">The non-tiler totals at n&#8202;=&#8202;6, 7, 8 include 1, 5 and 9 shapes the batch sweeps
@@ -1624,6 +1625,19 @@ already swept exhaustively &#8212; or large n on the plainest grids, which is wh
 where the sizes needed (16-hexes and beyond) are past what enumeration reaches. That is the honest
 shape of the record problem: not a compute budget, but a search space with no unexplored cheap corner
 left in it.</p>
+<p class="note"><b>Tested, and it holds.</b> Polyhexes are the best case for this argument &#8212;
+the highest anisohedral density of any family, and no alignment caveat &#8212; so n&#8202;=&#8202;13
+was swept to see whether the frontier still pays there. It does not. 3,274,826 shapes, 185 of them
+resisting the kmax&#8202;4 sweep, and every one of those 185 settled: 180 non-tilers and five shapes
+at k&#8202;=&#8202;5. Nothing above five in three and a quarter million polyhexes.</p>
+<p class="note">Which makes the shape of the polyhex record clearer, and stranger. The maxima by size
+run 8 at n&#8202;=&#8202;10, <b>9 at n&#8202;=&#8202;11</b>, 5 at n&#8202;=&#8202;12, 5 at
+n&#8202;=&#8202;13 &#8212; and then, per Myers, 10 somewhere out at n&#8202;=&#8202;16. High
+isohedral numbers are not a trend that builds with size; they are isolated shapes that happen to
+exist at particular sizes, with ordinary rows on either side. The 9-anisohedral 11-hex is not the
+start of a climb, and neither, presumably, is the 16-hex. That is a discouraging fact for a search
+strategy based on going one size further, and it is the clearest thing this project has learned about
+where records live.</p>
 
 <h2 id="gallery"><span class="stage">Part IV · the hard shapes</span>Every high-k tiling <span class="status ok">31 distinct polygons</span></h2>
 <p class="note">One minimal tiling for each distinct shape the project has at
