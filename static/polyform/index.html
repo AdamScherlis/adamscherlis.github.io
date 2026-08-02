@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 09:40
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 10:19
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -204,15 +204,17 @@ This project reimplements the tiling-classification algorithms described on
 for every polyform of a given size, decide whether it tiles the plane, and how simply —
 by translations alone, by 180° rotation (Conway criterion), isohedrally, or only
 <i>k</i>-anisohedrally — or prove it cannot tile at all. Everything below is computed by a single
-lattice-generic engine that now runs on <b>all eleven Laves tilings</b>: polyominoes, polykites,
-polyhexes and polyiamonds are validated cell-for-cell against Myers's published tables, and the
-same code then classifies eight families with no published tiling classification — polycairos,
-polyrhombilles, polyflorets, polyprisms, polyaboloes, tetrakis polyaboloes, polydrafters and
-polypons.
+lattice-generic engine that now runs on <b>all eleven Laves tilings and three Archimedean ones</b>:
+polyominoes, polykites, polyhexes and polyiamonds are validated cell-for-cell against Myers's
+published tables, and the same code then classifies eight Laves families with no published tiling
+classification — polycairos, polyrhombilles, polyflorets, polyprisms, polyaboloes, tetrakis
+polyaboloes, polydrafters and polypons — and then three substrates whose cells are not all the
+same shape: the trihexagonal, truncated square and truncated hexagonal tilings
+(<a href="#archimedean">Part VII</a>), which no polyform classification had touched before.
 </p>
 <p>
 The ledger currently stands at <b>35&#8202;002&#8202;245</b> free shapes and
-<b>905&#8202;386</b> one-sided ones — 35&#8202;907&#8202;631 classifications across the twelve
+<b>905&#8202;386</b> one-sided ones — 35&#8202;907&#8202;631 classifications across the fifteen
 families, all of them settled either as a tiling of some minimum isohedral number or as
 a proof that none exists — plus the hat and the turtle, whose refusal to settle is itself the answer.
 Among them are <b>11&#8202;216 anisohedral shapes</b> (10&#8202;121 free, 1&#8202;095 one-sided): tiles that tile
