@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 21:25
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 22:17
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -292,6 +292,7 @@ hole detection by complement flood-fill. Agrees with Myers (and OEIS A000105) at
 <tr><td>10</td><td>4&#8202;655</td><td>4&#8202;655</td><td>195</td><td>195</td><td class="match">✓</td></tr>
 <tr><td>11</td><td>17073</td><td>979</td><td>783</td><td>5391</td><td>338</td><td>108</td><td>2:89&ensp;3:18&ensp;4:1</td><td>9474</td><td>0</td><td>—</td></tr>
 <tr><td>12</td><td>63600</td><td>4663</td><td>2712</td><td>17193</td><td>3322</td><td>222</td><td>2:214&ensp;3:6&ensp;4:2</td><td>35488</td><td>0</td><td>—</td></tr>
+<tr><td>13</td><td>238591</td><td>21474</td><td>3179</td><td>31881</td><td>3178</td><td>430</td><td>2:406&ensp;3:24</td><td>178448</td><td>1</td><td>—</td></tr>
 </table>
 </div>
 <h2 id="translation-180"><span class="stage">Part I · replication</span>Translation &amp; 180° tilings <span class="status ok">validated</span></h2>
@@ -368,6 +369,7 @@ Laves tiling, which is invisible on the square grid where every integer translat
 <tr><td>11</td><td>34561</td><td>3187</td><td>0</td><td>0</td><td>0</td><td>2</td><td>3:2</td><td>31372</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>12</td><td>120815</td><td>13967</td><td>776</td><td>3851</td><td>6305</td><td>95</td><td>2:52&ensp;3:42&ensp;4:1</td><td>95821</td><td>0</td><td>—</td></tr>
 <tr><td>13</td><td>424468</td><td>59061</td><td>0</td><td>0</td><td>2316</td><td>4</td><td>2:3&ensp;3:1</td><td>363087</td><td>0</td><td>—</td></tr>
+<tr><td>14</td><td>1501441</td><td>244660</td><td>0</td><td>0</td><td>2597</td><td>17</td><td>2:1&ensp;3:15&ensp;4:1</td><td>1254163</td><td>4</td><td>—</td></tr>
 </table>
 </div>
 <p class="note"><b>The n&#8202;=&#8202;10 row (added 31 July) is a triple event.</b> First, agreement
@@ -423,6 +425,7 @@ matches Myers's published columns</b>.</p>
 <tr><td>9</td><td>6572</td><td>67</td><td>387</td><td>2717</td><td>611</td><td>73</td><td>2:66&ensp;3:5&ensp;4:2</td><td>2708&#8202;+&#8202;9</td><td class="match">✓</td></tr>
 <tr><td>10</td><td>30490</td><td>404</td><td>1054</td><td>8211</td><td>1803</td><td>258</td><td>2:226&ensp;3:26&ensp;4:4&ensp;<b>8:2</b></td><td>18760</td><td class="match">✓</td></tr>
 <tr><td>11</td><td>143552</td><td>2323</td><td>1468</td><td>19836</td><td>2985</td><td>501</td><td>2:380&ensp;3:97&ensp;4:19&ensp;5:3&ensp;6:1&ensp;<b>9:1</b></td><td>116439</td><td class="match">✓</td></tr>
+<tr><td>12</td><td>683101</td><td>13517</td><td>6895</td><td>74497</td><td>21250</td><td>999</td><td>2:879&ensp;3:95&ensp;4:23&ensp;5:2</td><td>565943</td><td>0</td><td>—</td></tr>
 </table>
 </div>
 <p class="legend">The non-tiler totals at n&#8202;=&#8202;6, 7, 8 include 1, 5 and 9 shapes the batch sweeps
@@ -849,6 +852,7 @@ odd-one-sided drafter tiles. Maximum anisohedral number found through n&#8202;=&
 <tr><td>15</td><td>93749</td><td>24155</td><td>0</td><td>0</td><td>16</td><td>22</td><td>2:21&ensp;4:1</td><td>69556</td><td>0</td></tr>
 <tr><td>16</td><td>237035</td><td>69320</td><td>0</td><td>0</td><td>413</td><td>40</td><td>2:1&ensp;3:38&ensp;<b>6:1</b></td><td>167261</td><td>1<sup>†</sup></td></tr>
 <tr><td>17</td><td>599815</td><td>196564</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>403251</td><td>0</td></tr>
+<tr><td>18</td><td>1526020</td><td>553469</td><td>0</td><td>4091</td><td>8775</td><td>0</td><td>—</td><td>959685</td><td>0</td></tr>
 </table>
 </div>
 <div class="tablewrap">
@@ -926,6 +930,7 @@ to be new data.</p>
 <tr><td>19</td><td>56779</td><td>5233</td><td>0</td><td>0</td><td>283</td><td>3</td><td>2:3</td><td>51260</td><td>0</td></tr>
 <tr><td>20</td><td>118876</td><td>13012</td><td>0</td><td>0</td><td>0</td><td>13</td><td>3:13</td><td>105851</td><td>0</td></tr>
 <tr><td>21</td><td>248384</td><td>31772</td><td>0</td><td>862</td><td>2963</td><td>29</td><td>2:29</td><td>212758</td><td>0</td></tr>
+<tr><td>22</td><td>521850</td><td>76671</td><td>0</td><td>0</td><td>0</td><td>7</td><td>3:7</td><td>445161</td><td>11</td></tr>
 </table>
 </div>
 <p class="note">The family runs the project's whole dramatic arc in miniature. A <b>total wipeout at
@@ -1466,7 +1471,7 @@ for two different reasons.</p>
 make a rhombille rhombus, two drafters make a kite, the kisrhombille is the barycentric subdivision of
 the hexagonal tiling. So one plane region can be enumerated on several backends under different cell
 counts. Reducing every high-k shape to the scale-normalised cyclic sequence of its boundary edge
-lengths and turn angles (<code>scripts/cluster_highk.py</code>) collapses <b>34 records to 30 distinct
+lengths and turn angles (<code>scripts/cluster_highk.py</code>) collapses <b>35 records to 31 distinct
 polygons</b> &#8212; and the collision is not a curiosity: the <b>pentarhombille</b>, the first
 6-anisohedral shape this project ever found, is the same polygon as the <b>decapon</b>, listed
 separately in the leaderboard as a different family's entry.</p>
@@ -1474,7 +1479,7 @@ separately in the leaderboard as a different family's entry.</p>
 grids are also related by deformation &#8212; a floret pentagon is a squashed kite. So the second test
 ignores geometry entirely and compares the <i>tiling</i>: build the minimal tiling, label each tile by
 its orbit, and reduce to the quotient graph of which orbit meets which, canonicalised over all
-relabellings of the orbits (<code>scripts/tiling_iso.py</code>). That takes <b>34 records to 19
+relabellings of the orbits (<code>scripts/tiling_iso.py</code>). That takes <b>35 records to 23
 distinct tiling structures</b>:</p>
 <div class="tablewrap">
 <table>
@@ -1483,7 +1488,7 @@ distinct tiling structures</b>:</p>
 <tr><td>6</td><td>polypon n&#8202;=&#8202;10 and polyrhombille n&#8202;=&#8202;5, free and one-sided &#8212; one polygon, six entries</td></tr>
 <tr><td>2</td><td><b>polyfloret n&#8202;=&#8202;10 and polykite n&#8202;=&#8202;10</b> &#8212; not congruent, but the same tiling deformed</td></tr>
 <tr><td>2</td><td>polypon n&#8202;=&#8202;14 and polyrhombille n&#8202;=&#8202;7</td></tr>
-<tr><td>2 × 4</td><td>four further pairs within the polyrhombilles at n&#8202;=&#8202;11 and n&#8202;=&#8202;13</td></tr>
+<tr><td>2 × 5</td><td>five further pairs within the polyrhombilles at n&#8202;=&#8202;11 and n&#8202;=&#8202;13</td></tr>
 </table>
 </div>
 <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
@@ -1499,9 +1504,11 @@ exactly the same pattern: one tiling is the other pushed around.</div>
 </div>
 <p class="legend">The invariant is necessary, not sufficient &#8212; sharing it does not <i>prove</i>
 two tilings isomorphic &#8212; but differing on it proves they are not, and it is what turned an
-impression into a list. Three shapes are missing from the count because a two-period patch was too
-small to see every orbit fully surrounded (the 8-anisohedral 10-hex, one 13-rhombille, and the
-10-anisohedral chevron); their structures are unclassified rather than shared.</p>
+impression into a list. Getting every shape classified took two fixes: the patch grows until each
+orbit has a fully surrounded representative, and the sublattice basis is reduced under the backend's
+Cartesian metric first &#8212; without which an anisotropic lattice like the chevron's
+<code>((90,0),(19,1))</code> makes the patch a sliver in which no tile is ever fully surrounded, at any
+size. That is the same bug that had been putting white wedges in the corners of the tiling figures.</p>
 <p class="note">None of this retracts a k-value. Each of those shapes really does need six orbits on
 its own grid, and a shape's isohedral number is a statement about tilings aligned to <i>that</i> grid
 &#8212; a finer grid admits more tilings, so congruent shapes can honestly carry different k. What
