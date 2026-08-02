@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 03:31
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 04:00
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -252,6 +252,7 @@ the plane, but never in a way that treats every copy alike. Forty of the free on
 <li><a href="#records">The records: k = 9 and k = 10</a></li>
 <li><a href="#drafter-hat">The hat, found again on another grid</a></li>
 <li><a href="#isomorphic">How many of these are actually different?</a></li>
+<li><a href="#going-quiet">Why the frontier stops paying</a></li>
 <li><a href="#gallery">Every high-k tiling</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
 <li><a href="#probe-ledger">The two-stage probe and the ledger</a>
@@ -1577,6 +1578,48 @@ specified in <b>translational periods</b> (two, by default) rather than as a fra
 window, and the window is derived from the frame &#8212; including the fundamental domain's own reach,
 since a domain with the area of one lattice cell can still be long and non-convex enough to bite the
 edge of the picture.</p>
+
+<h2 id="going-quiet"><span class="stage">Part IV · the hard shapes</span>Why the frontier stops paying <span class="status warn">the rich grids die first</span></h2>
+<p class="note">The obvious way to hunt a record is to push every family to the next size. It stops
+working, and the data says why. Counting anisohedral shapes per hundred thousand enumerated, every
+family's density falls as n grows &#8212; but it falls at wildly different rates, and the ordering is
+the opposite of what the search strategy assumed.</p>
+<div class="tablewrap">
+<table>
+<caption>Anisohedral shapes per 100,000, over each family's last three rows</caption>
+<tr><th>family</th><th>cells per unit</th><th colspan="3">density, by increasing n</th><th>largest row</th></tr>
+<tr><td>polyhex</td><td>1</td><td>840</td><td>346</td><td><b>146</b></td><td>683,101</td></tr>
+<tr><td>polyomino</td><td>1</td><td>633</td><td>349</td><td><b>180</b></td><td>238,591</td></tr>
+<tr><td>polyiamond</td><td>2</td><td>377</td><td>161</td><td><b>57</b></td><td>604,107</td></tr>
+<tr><td>polyabolo</td><td>4</td><td>226</td><td>141</td><td><b>36</b></td><td>596,638</td></tr>
+<tr><td>polycairo</td><td>4</td><td>98</td><td>76</td><td><b>7.0</b></td><td>3,631,673</td></tr>
+<tr><td>polyprism</td><td>2</td><td>80</td><td>19</td><td><b>12</b></td><td>4,068,503</td></tr>
+<tr><td>polykite</td><td>6</td><td>79</td><td>0.9</td><td><b>1.1</b></td><td>1,501,441</td></tr>
+<tr><td>tetrakis polyabolo</td><td>4</td><td>21</td><td>6.6</td><td><b>6.1</b></td><td>3,302,187</td></tr>
+<tr><td>polydrafter</td><td>12</td><td>17</td><td>0</td><td><b>0</b></td><td>1,526,020</td></tr>
+<tr><td>polypon</td><td>6</td><td>12</td><td>1.3</td><td><b>0</b></td><td>1,096,261</td></tr>
+<tr><td>polyfloret</td><td>6</td><td>1.8</td><td>0</td><td><b>0</b></td><td>3,244,355</td></tr>
+</table>
+</div>
+<p class="note"><b>The grids with the most structure go quiet first.</b> Polyfloret, polydrafter and
+polypon &#8212; six, twelve and six cells to a translation unit &#8212; produce <i>no anisohedral
+shapes at all</i> in their largest rows: 3.2 million florets, 1.5 million drafters and 1.1 million
+polypons, between them, yield nothing that needs two orbits. Meanwhile the two simplest grids, with a
+single cell per unit, are still turning up anisohedral shapes at a rate two orders of magnitude
+higher. Polyfloret n=13 has 8,240 isohedral shapes and not one anisohedral shape in 3.2 million;
+tetrakis n=19 has <i>one</i> isohedral shape in 3.3 million.</p>
+<p class="note">That inverts the search strategy this project had been using. The reasoning was that a
+rich grid reaches a given k at smaller n &#8212; true, and the record is evidence for it: the
+10-anisohedral chevron needs only nine cells on a c&#8202;=&#8202;4 grid where a polyhex needs sixteen
+for the same k. From that it seemed to follow that coprime sizes on the richest grids were the
+enriched hunting ground. They are not, past small n. A rich grid packs its constraint into few cells,
+and by the time a shape has twenty of them the boundary is so long that almost nothing tiles at all:
+the population collapses to non-tilers before it can collapse to <i>interesting</i> tilers.</p>
+<p class="legend">So the enriched region is small n on rich grids &#8212; which is precisely the region
+already swept exhaustively &#8212; or large n on the plainest grids, which is where Myers looked and
+where the sizes needed (16-hexes and beyond) are past what enumeration reaches. That is the honest
+shape of the record problem: not a compute budget, but a search space with no unexplored cheap corner
+left in it.</p>
 
 <h2 id="gallery"><span class="stage">Part IV · the hard shapes</span>Every high-k tiling <span class="status ok">31 distinct polygons</span></h2>
 <p class="note">One minimal tiling for each distinct shape the project has at
