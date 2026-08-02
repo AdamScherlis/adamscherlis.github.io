@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 18:27
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 19:10
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -250,6 +250,7 @@ the plane, but never in a way that treats every copy alike. Forty of the free on
 <li><a href="#hat-turtle">The hat and the turtle</a></li>
 <li><a href="#star">The star 10-rhombille</a></li>
 <li><a href="#records">The records: k = 9 and k = 10</a></li>
+<li><a href="#drafter-hat">The hat, found again on another grid</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
 <li><a href="#probe-ledger">The two-stage probe and the ledger</a>
 <a href="#isolated">High-k tiles are isolated</a></li>
@@ -830,7 +831,7 @@ odd-one-sided drafter tiles. Maximum anisohedral number found through n&#8202;=&
 <tr><td>13</td><td>14926</td><td>2830</td><td>0</td><td>0</td><td>0</td><td>3</td><td>2:3</td><td>12093</td><td>0</td></tr>
 <tr><td>14</td><td>37454</td><td>8349</td><td>0</td><td>0</td><td>561</td><td>6</td><td>2:3&ensp;3:3</td><td>28538</td><td>0</td></tr>
 <tr><td>15</td><td>93749</td><td>24155</td><td>0</td><td>0</td><td>16</td><td>22</td><td>2:21&ensp;4:1</td><td>69556</td><td>0</td></tr>
-<tr><td>16</td><td>237035</td><td>69320</td><td>0</td><td>0</td><td>413</td><td>40</td><td>2:1&ensp;3:38&ensp;<b>6:1</b></td><td>167261</td><td>1</td></tr>
+<tr><td>16</td><td>237035</td><td>69320</td><td>0</td><td>0</td><td>413</td><td>40</td><td>2:1&ensp;3:38&ensp;<b>6:1</b></td><td>167261</td><td>1<sup>†</sup></td></tr>
 </table>
 </div>
 <div class="tablewrap">
@@ -1438,6 +1439,55 @@ before that, 6. Drawing this figure exposed a rendering bug worth recording: a s
 covers only a thin sliver of the plane when the lattice basis is skewed, so the first renders showed a correct tiling
 full of phantom holes — the same Gauss-reduction pitfall the decorated validator hit in July, in a new place.</div>
 </div>
+<h2 id="drafter-hat"><span class="stage">Part IV · the hard shapes</span>The hat, found again on another grid <span class="status ok">independently rediscovered</span></h2>
+<p class="note">The n&#8202;=&#8202;16 polydrafter row left exactly one shape open, and it behaved like
+nothing else in the project. Sixteen drafters, no symmetry, no hole. It surrounds to depth 12 without
+effort &#8212; layers of 1, 6, 14, 22, 32, 38, 46, 56, 60, 74, 80, 86, 93 tiles, still growing &#8212;
+which rules out the usual explanation, since the largest Heesch numbers known for polyforms are around
+six and a depth-12 surround is not a near miss. Yet it admits <b>no k-isohedral tiling for any
+k&#8202;≤&#8202;30</b>, the deepest exclusion this project has run.</p>
+<p class="note">The exclusion is not vacuous where it counts. Polydrafters have
+c&#8202;=&#8202;12 cells per translation unit, so with n&#8202;=&#8202;16 the divisibility law forces
+3&#8202;|&#8202;T, and the admissible-group counts show it plainly: 63, 91, 137, 125, 148 and 208
+candidate groups at k&#8202;=&#8202;3, 6, 9, 12, 15, 18, against 0 to 3 at every k in between. The
+search is doing real work precisely at the multiples of three, and finding nothing.</p>
+<p class="note">Surrounds arbitrarily far, tiles no periodic tiling: that is the aperiodic signature,
+and the shape is aperiodic for the oldest possible reason. <b>It is the hat.</b> The kisrhombille is
+the barycentric subdivision of the hexagonal tiling, so every kite is two drafters and the 8-kite hat
+is a 16-drafter polydrafter &#8212; which a routine frontier sweep on a different grid duly turned up
+on its own, with no knowledge that the kite backend had already found it. Congruence was confirmed by
+reducing both outlines to their scale-normalised cyclic sequence of edge lengths and turn angles
+(<code>scripts/congruent.py</code>), not by eye.</p>
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.8rem; max-width:34rem;">
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/drafter16-resistant.svg" alt="The hat as sixteen drafters" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div style="flex:1 1 9rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
+<img src="figs/hat-for-compare.svg" alt="The hat as eight kites" style="width:100%; height:auto; display:block;" loading="lazy"/>
+</div>
+<div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The same polygon twice: sixteen drafters on the
+kisrhombille (left) and eight kites on the deltoidal grid (right). <sup>†</sup>This is the shape the polydrafter
+n&#8202;=&#8202;16 row lists as unresolved, and unresolved is the correct answer.</div>
+</div>
+<p class="note"><b>Two bugs fell out of drawing it.</b> The first picture came out visibly skewed,
+because the three renderers each kept their own copy of the list of backends whose coordinates live in
+a 60&#8202;degree axial basis, and the three had drifted apart: kisrhombille was square-embedded in all
+of them and triakis in two. That is a silent failure &#8212; a tiling under an affine skew still looks
+like a tiling, only the angles are wrong &#8212; and it is decidable, not a matter of taste: under the
+correct basis each backend's cell is its true tile, and a drafter came out as a 45-63-72 triangle
+instead of 30-60-90. Worse, the congruence test above imported the same bad map and confidently
+reported that the shape was <i>not</i> the hat. One list, in one place, now.</p>
+<p class="note">The second was hiding underneath: the sublattice basis was being Gauss-reduced in code
+coordinates <i>as if they were orthonormal</i>. For an axial backend they are not, so a basis the
+reducer called reduced could still be wildly anisotropic in the plane &#8212; for the 6-orbit decapon
+it returned two vectors of Cartesian length 18 and 45, whose translates fill a thin band rather than a
+compact patch. That, and not the crop, is what kept putting white wedges in the corners of the tiling
+figures no matter how the crop was sized. Reduction now uses the backend's own metric, the frame is
+specified in <b>translational periods</b> (two, by default) rather than as a fraction of a hand-picked
+window, and the window is derived from the frame &#8212; including the fundamental domain's own reach,
+since a domain with the area of one lattice cell can still be long and non-convex enough to bite the
+edge of the picture.</p>
+
 <h2 id="leaderboard"><span class="stage">Part IV · the hard shapes</span>The ten most stubborn tiles <span class="status ok">every one verified</span></h2>
 <p class="note">A shape is <i>k</i>-anisohedral when it tiles the plane but no tiling of it uses
 fewer than <i>k</i> orbits of tiles — <i>k</i>&#8202;=&#8202;1 is an ordinary well-behaved tile, and
