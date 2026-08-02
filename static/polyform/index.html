@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 13:06
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 13:21
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1870,6 +1870,26 @@ survives.</p>
   with 14,000 non-tiling, chiral4 still 989 / 108 with 14,528. Nothing tiles at
   k&#8202;=&#8202;6&#8230;10 that did not already tile below, so those are genuine non-tilers and the
   k&#8202;=&#8202;5 arrow hexagon stands as the decorated record. 129 seconds to settle.</span></span></li>
+<li><span class="status pend">open</span><span class="what"><b>&#8220;No tiling found&#8221; is not &#8220;no tiling&#8221;</b>
+  <span class="d">Worth being exact about what the pushes below establish. Raising a sweep from
+  kmax&#8202;6 to kmax&#8202;8 rules out k <i>in that window</i>; it says nothing about
+  k&#8202;=&#8202;11, and a decoration jumping from 3 to 11 is unlikely rather than impossible. Worse,
+  a decorated tile is a Wang tile in disguise, and Wang tiles can be <b>aperiodic</b> &#8212; a
+  decoration admitting only non-periodic tilings would report &#8220;no tiling found&#8221; at every
+  kmax forever while genuinely tiling the plane. So the pools below collapse three different things:
+  genuine non-tilers, tiles with k above where the sweep stopped, and possible aperiodic
+  decorations.</span></span></li>
+<li><span class="status pend">open</span><span class="what"><b>Decorated non-tiling proofs do not come for free</b>
+  <span class="d">The obvious repair is the one that works undecorated: prove non-tiling by corona
+  and surround exhaustion, which is unbounded in k. The machinery accepts a decoration, and the
+  matching rule is now enforced where it belongs &#8212; on the relative isometry between touching
+  tiles, since <code>alive</code> is indexed by neighbour <i>cell-set</i> and every set survives when
+  some aspect fits, so filtering candidates alone leaves the corona machinery solving an undecorated
+  problem. With that fixed the answer is still no: over sixty unresolved dihex decorations, surround
+  exhaustion at depth 3, 4 and 5 proves <b>none</b> of them, essentially instantly. They surround
+  perfectly well. Whatever stops them tiling is global, and local exhaustion cannot see it &#8212;
+  which is the expected shape of things, since for Wang tiles the tiling problem is undecidable in
+  general.</span></span></li>
 <li><span class="status done">closed</span><span class="what"><b>Two cells do not beat five orbits</b>
   <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves
   prototile passes 2, so the natural question was whether a two-cell shape goes higher: the dihex has
