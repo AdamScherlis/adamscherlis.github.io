@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 20:10
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 20:14
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -216,7 +216,7 @@ The ledger currently stands at <b>1&#8202;936&#8202;200</b> free shapes and
 families, all of them settled either as a tiling of some minimum isohedral number or as
 a proof that none exists — plus the hat and the turtle, whose refusal to settle is itself the answer.
 Among them are <b>3&#8202;726 anisohedral shapes</b> (3&#8202;409 free, 317 one-sided): tiles that tile
-the plane, but never in a way that treats every copy alike. Forty of the free ones need four orbits, five need five, twenty-nine need six, three need eight, one needs nine and one needs ten.
+the plane, but never in a way that treats every copy alike. Forty of the free ones need four orbits, six need five, thirty need six, three need eight, one needs nine and one needs ten.
 </p>
 
 <nav class="toc" aria-label="Contents">
@@ -289,6 +289,8 @@ hole detection by complement flood-fill. Agrees with Myers (and OEIS A000105) at
 <tr><td>8</td><td>369</td><td>369</td><td>6</td><td>6</td><td class="match">✓</td></tr>
 <tr><td>9</td><td>1&#8202;285</td><td>1&#8202;285</td><td>37</td><td>37</td><td class="match">✓</td></tr>
 <tr><td>10</td><td>4&#8202;655</td><td>4&#8202;655</td><td>195</td><td>195</td><td class="match">✓</td></tr>
+<tr><td>11</td><td>17073</td><td>979</td><td>783</td><td>5391</td><td>338</td><td>108</td><td>2:89&ensp;3:18&ensp;4:1</td><td>9474</td><td>0</td><td>—</td></tr>
+<tr><td>12</td><td>63600</td><td>4663</td><td>2712</td><td>17193</td><td>3322</td><td>222</td><td>2:214&ensp;3:6&ensp;4:2</td><td>35488</td><td>0</td><td>—</td></tr>
 </table>
 </div>
 <h2 id="translation-180"><span class="stage">Part I · replication</span>Translation &amp; 180° tilings <span class="status ok">validated</span></h2>
@@ -364,6 +366,7 @@ Laves tiling, which is invisible on the square grid where every integer translat
 <tr><td>10</td><td>10011</td><td>702</td><td>0</td><td>0</td><td>0</td><td>14&#8202;+&#8202;turtle</td><td>3:12&ensp;6:2&ensp;∞:turtle</td><td>9294</td><td>1</td><td class="match">✓</td></tr>
 <tr><td>11</td><td>34561</td><td>3187</td><td>0</td><td>0</td><td>0</td><td>2</td><td>3:2</td><td>31372</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>12</td><td>120815</td><td>13967</td><td>776</td><td>3851</td><td>6305</td><td>95</td><td>2:52&ensp;3:42&ensp;4:1</td><td>95821</td><td>0</td><td>—</td></tr>
+<tr><td>13</td><td>424468</td><td>59061</td><td>0</td><td>0</td><td>2316</td><td>4</td><td>2:3&ensp;3:1</td><td>363087</td><td>0</td><td>—</td></tr>
 </table>
 </div>
 <p class="note"><b>The n&#8202;=&#8202;10 row (added 31 July) is a triple event.</b> First, agreement
@@ -466,6 +469,7 @@ see <a href="#records">the isohedral-number records</a>.</p>
 <tr><td>13</td><td>9235</td><td>450</td><td>0</td><td>1875</td><td>523</td><td>97</td><td>2:85&ensp;3:9&ensp;4:2&ensp;<b>8:1</b></td><td>6290</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>14</td><td>26166</td><td>1713</td><td>539</td><td>4195</td><td>1339</td><td>281</td><td>2:274&ensp;3:7</td><td>18099</td><td>0</td><td class="match">✓</td></tr>
 <tr><td>15</td><td>73983</td><td>6267</td><td>0</td><td>9410</td><td>3218</td><td>280</td><td>2:259&ensp;3:13&ensp;4:7&ensp;<b>5:1</b></td><td>54808</td><td>0</td><td>—</td></tr>
+<tr><td>16</td><td>211297</td><td>21988</td><td>2625</td><td>17978</td><td>9315</td><td>343</td><td>2:324&ensp;3:16&ensp;4:1&ensp;5:1&ensp;<b>6:1</b></td><td>159048</td><td>0</td><td>—</td></tr>
 </table>
 </div>
 <p class="note">The iamonds are gentler but end on a cliffhanger. Exactly one heptiamond fails to tile
@@ -554,6 +558,8 @@ polyrhombille sequence (1, 1, 3, 4, 12, 27, 78, 208). The classification below i
 <tr><td>11</td><td>5726</td><td>454</td><td>0</td><td>0</td><td>0</td><td>10</td><td>3:3 6:7</td><td>5262</td><td>0</td></tr>
 <tr><td>12</td><td>17526</td><td>1815</td><td>359</td><td>204</td><td>1367</td><td>20</td><td>2:15 3:5</td><td>13761</td><td>0</td></tr>
 <tr><td>13</td><td>54620</td><td>7056</td><td>0</td><td>0</td><td>334</td><td>13</td><td>2:6 3:2 6:5</td><td>47217</td><td>0</td></tr>
+<tr><td>14</td><td>170479</td><td>26528</td><td>0</td><td>0</td><td>1386</td><td>13</td><td>3:13</td><td>142552</td><td>0</td></tr>
+<tr><td>15</td><td>536714</td><td>97851</td><td>1462</td><td>0</td><td>2440</td><td>1210</td><td>2:1203&ensp;3:7</td><td>433751</td><td>0</td></tr>
 </table>
 </div>
 <p class="note"><b>This family is the project's goldmine.</b> Every rhombus is two triangles
@@ -672,7 +678,9 @@ and at none of the odd ones, through n&#8202;=&#8202;10.</p>
 <tr><td>8</td><td>3333</td><td>75</td><td>319</td><td>1449</td><td>112</td><td>3</td><td>2:3</td><td>1375</td><td>0</td></tr>
 <tr><td>9</td><td>13336</td><td>454</td><td>0</td><td>4390</td><td>214</td><td>42</td><td>2:41 3:1</td><td>8236</td><td>0</td></tr>
 <tr><td>10</td><td>55231</td><td>2528</td><td>1159</td><td>11517</td><td>1104</td><td>78</td><td>2:78</td><td>38845</td><td>0</td></tr>
+<tr><td>11</td><td>229146</td><td>13398</td><td>0</td><td>24261</td><td>1361</td><td>183</td><td>2:179&ensp;3:4</td><td>189943</td><td>0</td></tr>
 <tr><td>12</td><td>963284</td><td>68743</td><td>7841</td><td>87984</td><td>9796</td><td>187</td><td>2:185&ensp;3:2</td><td>788733</td><td>0</td></tr>
+<tr><td>13</td><td>4068503</td><td>344206</td><td>0</td><td>131189</td><td>7432</td><td>475</td><td>2:466&ensp;3:9</td><td>3585201</td><td>0</td></tr>
 </table>
 </div>
 <h2 id="polyaboloes"><span class="stage">Part II · new families</span>Polyaboloes (kisquadrille tans) <span class="status ok">classified n ≤ 11</span></h2>
@@ -696,6 +704,7 @@ Classification is with respect to kisquadrille-aligned tilings, as elsewhere on 
 <tr><td>9</td><td>3743</td><td>76</td><td>0</td><td>1053</td><td>148</td><td>24</td><td>2:22 3:1 4:1</td><td>2442</td><td>0</td></tr>
 <tr><td>10</td><td>13240</td><td>422</td><td>335</td><td>2676</td><td>570</td><td>65</td><td>2:63 3:2</td><td>9172</td><td>0</td></tr>
 <tr><td>11</td><td>46476</td><td>2187</td><td>0</td><td>4486</td><td>117</td><td>105</td><td>2:100 3:5</td><td>39581</td><td>0</td></tr>
+<tr><td>12</td><td>166358</td><td>10625</td><td>2195</td><td>18834</td><td>6518</td><td>235</td><td>2:234&ensp;3:1</td><td>127951</td><td>0</td></tr>
 </table>
 </div>
 <p class="note">Every abolo through n&#8202;=&#8202;4 tiles the plane; the first anisohedral polyaboloes
@@ -735,6 +744,11 @@ new data.</p>
 <tr><td>11</td><td>1584</td><td>42</td><td>0</td><td>0</td><td>1</td><td>45</td><td>2:42&ensp;4:3</td><td>1496</td><td>0</td></tr>
 <tr><td>12</td><td>4091</td><td>170</td><td>194</td><td>405</td><td>278</td><td>53</td><td>2:53</td><td>2991</td><td>0</td></tr>
 <tr><td>13</td><td>10369</td><td>617</td><td>0</td><td>0</td><td>203</td><td>44</td><td>2:42&ensp;4:2</td><td>9505</td><td>0</td></tr>
+<tr><td>14</td><td>26938</td><td>2149</td><td>0</td><td>1081</td><td>347</td><td>58</td><td>2:44&ensp;3:8&ensp;4:6</td><td>23303</td><td>0</td></tr>
+<tr><td>15</td><td>69651</td><td>7112</td><td>0</td><td>0</td><td>36</td><td>121</td><td>2:119&ensp;4:2</td><td>62382</td><td>0</td></tr>
+<tr><td>16</td><td>182116</td><td>22782</td><td>1800</td><td>4860</td><td>6335</td><td>99</td><td>2:97&ensp;3:2</td><td>146240</td><td>0</td></tr>
+<tr><td>17</td><td>476272</td><td>70902</td><td>0</td><td>0</td><td>1283</td><td>100</td><td>2:98&ensp;4:2</td><td>403987</td><td>0</td></tr>
+<tr><td>18</td><td>1253067</td><td>216695</td><td>0</td><td>12631</td><td>7157</td><td>83</td><td>2:70&ensp;3:3&ensp;4:10</td><td>1016501</td><td>0</td></tr>
 </table>
 </div>
 
@@ -746,7 +760,7 @@ isohedral, seven are anisohedral — five 2-anisohedral and the family's first h
 <b>4-anisohedral</b> 7-cell tiles (below) — 33 are proven non-tilers, and the row's last holdout
 resolved as the find of the batch: a <b>6-anisohedral</b> 7-cell tile (k&#8202;≤&#8202;5 exhausted,
 6-orbit tiling verified over 588 tiles, below). At 1¾ unit squares of area it is the
-<b>smallest-area isohedral-number-6 shape in the project</b>, it joins a club that now numbers twenty-nine, and tetrakis was the <b>fifth</b> Laves family to reach six orbits. At n&#8202;=&#8202;8
+<b>smallest-area isohedral-number-6 shape in the project</b>, it joins a club that now numbers thirty, and tetrakis was the <b>fifth</b> Laves family to reach six orbits. At n&#8202;=&#8202;8
 normal service resumes: 28 translation tilers, 33 isohedral, and nothing anisohedral at all.</p>
 <p class="note"><b>Five new rows (1 August) take the family to n&#8202;=&#8202;13 — 16&#8202;946 further
 shapes — and turn n&#8202;=&#8202;7 from a curiosity into a pattern.</b> The grid splits its behaviour
@@ -833,6 +847,7 @@ odd-one-sided drafter tiles. Maximum anisohedral number found through n&#8202;=&
 <tr><td>14</td><td>37454</td><td>8349</td><td>0</td><td>0</td><td>561</td><td>6</td><td>2:3&ensp;3:3</td><td>28538</td><td>0</td></tr>
 <tr><td>15</td><td>93749</td><td>24155</td><td>0</td><td>0</td><td>16</td><td>22</td><td>2:21&ensp;4:1</td><td>69556</td><td>0</td></tr>
 <tr><td>16</td><td>237035</td><td>69320</td><td>0</td><td>0</td><td>413</td><td>40</td><td>2:1&ensp;3:38&ensp;<b>6:1</b></td><td>167261</td><td>1<sup>†</sup></td></tr>
+<tr><td>17</td><td>599815</td><td>196564</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>403251</td><td>0</td></tr>
 </table>
 </div>
 <div class="tablewrap">
@@ -909,6 +924,7 @@ to be new data.</p>
 <tr><td>18</td><td>27402</td><td>2081</td><td>336</td><td>351</td><td>1111</td><td>102</td><td>2:102</td><td>23421</td><td>0</td></tr>
 <tr><td>19</td><td>56779</td><td>5233</td><td>0</td><td>0</td><td>283</td><td>3</td><td>2:3</td><td>51260</td><td>0</td></tr>
 <tr><td>20</td><td>118876</td><td>13012</td><td>0</td><td>0</td><td>0</td><td>13</td><td>3:13</td><td>105851</td><td>0</td></tr>
+<tr><td>21</td><td>248384</td><td>31772</td><td>0</td><td>862</td><td>2963</td><td>29</td><td>2:29</td><td>212758</td><td>0</td></tr>
 </table>
 </div>
 <p class="note">The family runs the project's whole dramatic arc in miniature. A <b>total wipeout at
@@ -927,7 +943,7 @@ n&#8202;=&#8202;12 normalizes (34 translation, 11 180°-only, 91 isohedral) and 
 isohedral-or-nothing, before n&#8202;=&#8202;14 brings <b>nine</b> anisohedral shapes: four 2-, four
 3-anisohedral, and a resistant since proven the family's <b>fourth 6-anisohedral</b> tile
 (k ≤ 5 exhausted, 6-orbit tiling verified). With the sixteen rhombilles, the 10-floret and the two 10-kites, the
-project now has <b>twenty-nine</b> shapes of isohedral number 6, across seven Laves families (the 7-cell <a href="#tetrakis">tetrakis polyabolo</a> being the latest and smallest) — and
+project now has <b>thirty</b> shapes of isohedral number 6, across eight Laves families (the 7-cell <a href="#tetrakis">tetrakis polyabolo</a> being the latest and smallest) — and
 every free polypon through n&#8202;=&#8202;15, and every one-sided one through n&#8202;=&#8202;14, is
 resolved.</p>
 <p class="note"><b>Three more free rows (1 August) push the polypons to n&#8202;=&#8202;17, the deepest
@@ -1340,7 +1356,7 @@ record by two at a stroke, and both families' rows now match Myers at every colu
 </div>
 <div class="legend" style="flex-basis:100%; margin-top:-0.2rem">The three shapes of isohedral number 8: two 10-hexes and a
 13-iamond. Each tiles the plane, but every tiling needs at least eight orbits of tiles — two above the
-ceiling of 6 held by twenty-nine shapes across seven Laves families, and the project record until the 11-hex below.</div>
+ceiling of 6 held by thirty shapes across eight Laves families, and the project record until the 11-hex below.</div>
 </div>
 <div style="max-width:34rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
 <img src="figs/hex10-8orbit-tiling.png" alt="8-orbit tiling by the first 8-anisohedral 10-hex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
@@ -1441,7 +1457,7 @@ covers only a thin sliver of the plane when the lattice basis is skewed, so the 
 full of phantom holes — the same Gauss-reduction pitfall the decorated validator hit in July, in a new place.</div>
 </div>
 <h2 id="isomorphic"><span class="stage">Part IV · the hard shapes</span>How many of these are actually different? <span class="status warn">34 records, 19 structures</span></h2>
-<p class="note">The k&#8202;≥&#8202;6 club is quoted above as thirty-four records across seven Laves
+<p class="note">The k&#8202;≥&#8202;6 club is quoted above as thirty-five records across eight Laves
 families, and that count is doing less work than it looks. A reader noticing that several of the
 k&#8202;=&#8202;6 tilings resemble one another prompted the check, and they were right twice over,
 for two different reasons.</p>
@@ -1544,9 +1560,9 @@ edge of the picture.</p>
 <p class="note">A shape is <i>k</i>-anisohedral when it tiles the plane but no tiling of it uses
 fewer than <i>k</i> orbits of tiles — <i>k</i>&#8202;=&#8202;1 is an ordinary well-behaved tile, and
 large <i>k</i> means the plane can only be filled by an intricate arrangement in which tiles play
-many genuinely different roles. Thirty-four shapes in this project reach six or more. Here are the
+many genuinely different roles. Thirty-five shapes in this project reach six or more. Here are the
 ten highest, with the tally that produced them: <b>one at ten orbits, one at nine, three at eight,
-twenty-nine at six</b>. Every entry has had its minimal tiling decoded and cross-checked as an exact partition
+thirty at six</b>. Every entry has had its minimal tiling decoded and cross-checked as an exact partition
 of the quotient torus, and every <i>k</i> below it excluded by exhaustive search.</p>
 <div class="tablewrap">
 <table>
