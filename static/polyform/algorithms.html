@@ -697,63 +697,86 @@ artifact</i> &mdash; a figure, an oracle, a second engine &mdash; contradicting 
 never by the search code testing itself. Compute everything twice, and draw it.
 </p>
 
-<h2><span class="stage">Part 8 &middot; performance</span>The honest gap, decomposed</h2>
+<h2><span class="stage">Part 8 &middot; performance</span>The bottleneck moved three times</h2>
+<p>Optimising this engine has been an exercise in being wrong about where the time goes, three
+times in a row, each time in a way that only measurement caught. The sequence is worth recording
+because the wrong answers were all plausible.</p>
 
-<p>
-Time for the uncomfortable comparison. This engine classifies a cairo 9-cell shape in about
-12.5&#8202;ms on a current laptop (after a 3.6&times; profiling win in the pocket check), which
-extrapolates to roughly 3 CPU-hours for all 868,238 free 12-cairos &mdash; matching what the runs
-actually took. Myers's tables classify <i>every free polyomino through
-n&#8202;=&#8202;25</i> &mdash; about 2.56&#8202;&times;&#8202;10&sup1;&sup2; shapes &mdash; and he
-computed them in feasible time two decades ago. At 12.5&#8202;ms per shape that workload costs
-on the order of a thousand CPU-years: the per-shape gap is a factor of
-<b>10&#8309;&ndash;10&#8310;</b>, and it decomposes into three unequal parts.
-</p>
-<div class="tablewrap">
-<table>
-<caption>Where the orders of magnitude live (from the 2026-07-31 profiling notes)</caption>
-<tr><th class="lft">source</th><th>factor</th><th class="lft">what it is</th></tr>
-<tr><td>language constant</td><td>~50&ndash;100&times;</td><td class="lft">Python objects and dicts vs. C bitboards; buys nothing mathematically</td></tr>
-<tr><td><b>architecture</b></td><td>~10&sup2;&ndash;10&#8308;&times;</td><td class="lft">classifying every shape from scratch vs. fusing classification into the enumeration tree</td></tr>
-<tr><td>algorithmic tails</td><td>&mdash;</td><td class="lft">deep surrounds, high-k exclusion: this engine now <i>wins</i> these via SAT+DRAT, but they are rare, so the average barely moves</td></tr>
-</table>
-</div>
-<p>
-Within a single classification the profile is lopsided: Redelmeier enumeration is amortised
-O(n) per fixed shape and negligible; the arc-consistency fixpoint is cheap; exact cover on the
-tiny k&#8202;&le;&#8202;4 tori is negligible. Around 90% of the time goes into building the
-possible-neighbour context: O(a&middot;n&sup2;) candidate placements (a = aspects), each paying
-an O(n&sup2;) bounding-box flood fill for the pocket check &mdash; O(a&middot;n&#8308;)-ish per
-shape. That is the wall between the current engine and pushing every family two sizes deeper,
-and the queued fixes are ranked by return: restrict the pocket flood to the perimeter band a
-placement actually disturbs (expected 3&ndash;10&times;), bitboard the flood fills
-(5&ndash;20&times;), and only then consider heavier surgery.
-</p>
-<p>
-The heavier surgery is the architectural one, and it is worth stating precisely because it is
-what &ldquo;Myers-scale&rdquo; means. His programs interleave classification with Redelmeier's
-tree: a child shape is its parent plus one cell, so neighbour lists, boundary criteria and
-filter state can be maintained <i>incrementally</i>, the way the enumeration itself already
-shares prefixes (&sect;3). The average shape then costs microseconds of inherited-filter
-updates, and the expensive machinery of &sect;&sect;4&ndash;5 runs only on the small residue
-that survives &mdash; whereas this engine pays full price per shape, by design, in exchange for
-an engine that is grid-generic, auditable, and pluggable (the same per-shape interface is what
-let SAT, decorations and Spectre mode drop in cleanly). Where each side wins, today: Myers's
-architecture wins throughput and always will; this engine wins breadth (eleven grids from one
-code path), the hard tails (a 4.3 CPU-hour exclusion re-done in seven minutes, surrounds his
-heuristics must time out on), and certification (DRAT logs replace trust in search code). The
-planned next step is an honest same-machine benchmark of a faithful reimplementation of
-Myers's class-based backtracking &mdash; and, if the frontier hunger persists, fusing this
-engine's cheap filters into its own enumeration tree, which is the one change that moves the
-architecture row of the table.
-</p>
+<p><b>First the neighbour context, which was right.</b> Building the possible-neighbour context
+&mdash; every candidate placement, each paying a bounding-box flood fill for the pocket check &mdash;
+really was about 90% of classification. Restricting the flood to the perimeter band a placement
+actually disturbs, then compiling the whole context build, took it from dominant to a rounding
+error: a 12&times; algorithmic win and an 8&ndash;16&times; kernel on top.</p>
 
-<footer>
-Companion to the <a href="./">validation ledger</a> &middot; engine: <code>~/src/polyform</code>,
-branch <code>engine</code> &middot; Python; SAT via PySAT (glucose42/cadical), UNSAT proofs
-checked by <code>drat-trim</code> &middot; algorithms after J. Myers, <i>Polyform tiling</i>,
-polyomino.org.uk (retrieved 29 July 2026), except where noted &middot; all figures drawn from
-engine output.
-</footer>
+<p><b>Then the k&nbsp;=&nbsp;1 search, which was a red herring.</b> With the context cheap, stage
+profiling put 70&ndash;79% of the remaining time in the isohedral exact cover &mdash; and almost all
+of that in searches that <i>fail</i>. Exhaustive failure is the expensive case: the cover must try
+every candidate group at every admissible torus index before concluding nothing, and that toll does
+not shrink for hopeless shapes. At frontier sizes about 80% of shapes are non-tilers, so the engine
+was paying its worst case on four shapes in five.</p>
+
+<p>The fix was not to make the search faster but to stop running it. A proof of non-tiling subsumes
+&ldquo;no isohedral tiling&rdquo;, so the corona/surround proof can go first; both orders return
+identical verdicts, checked over all 1,285 nonominoes. That is worth 1.55&times; at hex
+n&nbsp;=&nbsp;11 and <i>loses</i> 0.63&times; at square n&nbsp;=&nbsp;9, where most shapes still tile
+and the proof is dead work &mdash; so the order is chosen per row from the previous row's class mix,
+against the break-even p/q&nbsp;&gt;&nbsp;t<sub>n</sub>/t<sub>i</sub>.</p>
+
+<p><b>Then the non-tiling proof, which was the real wall.</b> Reordering exposes an uncomfortable
+fact: once the k-search sits second, it contributes about a millisecond in twelve. Making it
+infinitely fast would buy nothing. <code>prove_nontiler</code> is ~99% of what is left, and profiling
+splits it 57% corona enumeration / 42% surround search &mdash; both plain interpreted Python, burning
+44 million function calls on 91 shapes.</p>
+
+<p>Coronas compiled cleanly, because its inner loop is bigint <code>AND</code> on 260-bit masks,
+which becomes a handful of word <code>AND</code>s once the masks are seven-word bitsets: <b>13&times;</b>,
+with the kernel mirroring the reference branch-for-branch so the emitted corona lists match in
+contents <i>and</i> order. The surround search did not: it needed the geometry memoised
+(<code>try_place</code> re-derived the same tile image on every retry) and the touching set derived
+from the tile's ring image &mdash; ~24 dict probes instead of ~132 &mdash; because the overlap scan
+above it has already established that no new cell is owned.</p>
+
+<div class="tablewrap"><table>
+<caption>Compounding on the same 91 hex n&nbsp;=&nbsp;11 shapes, single core, idle</caption>
+<tr><th>state</th><th>prove_nontiler</th><th>pipeline</th><th>cumulative</th></tr>
+<tr><td>as measured at the start</td><td>58.8 ms</td><td>8.3 s</td><td>1.0&times;</td></tr>
+<tr><td>+ stage reorder</td><td>58.8 ms</td><td>5.4 s</td><td>1.55&times;</td></tr>
+<tr><td>+ compiled corona kernel</td><td>24.7 ms</td><td>2.2 s</td><td>3.8&times;</td></tr>
+<tr><td>+ geometry memos</td><td>15.7 ms</td><td>1.4 s</td><td>5.9&times;</td></tr>
+<tr><td>+ ring-based touching set</td><td>13.9 ms</td><td>1.3 s</td><td>6.4&times;</td></tr>
+<tr><td>+ bulk marshalling, inlined compose</td><td>11.6 ms</td><td>1.1 s</td><td><b>7.5&times;</b></td></tr>
+</table></div>
+
+<p><b>And then it was not compute at all.</b> Pushed to multi-million-shape rows, the driver stopped
+being slow and started being <i>out of memory</i>: kisrhombille n&nbsp;=&nbsp;19 and tetrakis
+n&nbsp;=&nbsp;19 both filled 30&nbsp;GB and fell to 20% CPU. Three separate causes, none of them the
+algorithm. The driver held every shape, then a second list of (index, shape) pairs to feed the pool,
+then a dict of every result to re-join afterwards. Worse, <code>fixed_polyforms_branch</code>
+materialised every <i>fixed</i> polyform before the caller filtered to canonical representatives
+&mdash; roughly the symmetry order more shapes than anyone wanted. Yielding instead took tetrakis
+n&nbsp;=&nbsp;19 from 27&nbsp;GB to 7&nbsp;GB.</p>
+
+<p>With memory fixed, the same row revealed a fourth thing: a load average of 1.2 on a fourteen-core
+machine, because enumerating a branch is one worker's job and the other thirteen wait through it.
+Prefetching three branches ahead overlaps enumeration with classification &mdash; 3.3M shapes in
+2028&nbsp;s without it, 3.2M in 580&nbsp;s with it. Prefetching had been unsafe until the enumeration
+went lazy; the two fixes only work together.</p>
+
+<p><b>What did not work, measured and rejected.</b> Myers's class-based search beats exact cover on
+the <i>median</i> shape at hex n&nbsp;=&nbsp;12 (2.4&times;) while losing the aggregate, which looked
+like a routing opportunity. Compiling it unchanged with Cython bought 1.09&times; &mdash; the
+informative number, since it says the interpreter is not the bottleneck, the Python data structures
+are. And the trend that justified a full port did not extrapolate: at n&nbsp;=&nbsp;13 the median
+advantage falls to 1.4&times; and no hybrid cap beats the engine alone. A real port would mean moving
+the entire search state into C for a payoff that is not there. Exact cover stays primary; the class
+search stays valuable as an independent implementation for cross-checking verdicts.</p>
+
+<p class="note">The general lesson, if there is one: every bottleneck here was found by profiling and
+none by intuition, and three of the four were not where the previous paragraph of this page said they
+were. Two of the measurements were also simply wrong the first time &mdash; taken while a sweep was
+saturating the machine, which inflated one engine's time 80&times; and inverted a conclusion. A ratio
+between two stages of one process survives a loaded box; a ratio between two different algorithms
+does not.</p>
+
 </main>
 </html>
