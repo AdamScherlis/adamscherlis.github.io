@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 13:21
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 14:46
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1879,17 +1879,17 @@ survives.</p>
   kmax forever while genuinely tiling the plane. So the pools below collapse three different things:
   genuine non-tilers, tiles with k above where the sweep stopped, and possible aperiodic
   decorations.</span></span></li>
-<li><span class="status pend">open</span><span class="what"><b>Decorated non-tiling proofs do not come for free</b>
-  <span class="d">The obvious repair is the one that works undecorated: prove non-tiling by corona
-  and surround exhaustion, which is unbounded in k. The machinery accepts a decoration, and the
-  matching rule is now enforced where it belongs &#8212; on the relative isometry between touching
-  tiles, since <code>alive</code> is indexed by neighbour <i>cell-set</i> and every set survives when
-  some aspect fits, so filtering candidates alone leaves the corona machinery solving an undecorated
-  problem. With that fixed the answer is still no: over sixty unresolved dihex decorations, surround
-  exhaustion at depth 3, 4 and 5 proves <b>none</b> of them, essentially instantly. They surround
-  perfectly well. Whatever stops them tiling is global, and local exhaustion cannot see it &#8212;
-  which is the expected shape of things, since for Wang tiles the tiling problem is undecidable in
-  general.</span></span></li>
+<li><span class="status done">closed</span><span class="what"><b>Decorated non-tiling proofs, by transfer matrix</b>
+  <span class="d">The obvious repair is the one that works undecorated &#8212; corona and surround
+  exhaustion, unbounded in k &#8212; and it cannot be made to work. That machinery assumes every tile
+  has the same set of legal neighbours, which a decoration breaks: a tile in a different aspect
+  presents different labels. Its candidate lists are indexed by neighbour <i>cell-set</i> and cannot
+  express a condition on orientation at all, so a decorated tile is refuted only when the undecorated
+  shape already is &#8212; which for a hexagon or a dihex is never. Enforcing the matching rule on the
+  relative isometry instead looked like the fix and was <i>unsound</i>: it &#8220;proved&#8221;
+  non-tiling for 279 of 300 decorations that demonstrably tile. Replaced by a global test, the
+  <a href="#strip">strip transfer matrix</a>, which settles <b>96%</b> of a 170,214-decoration
+  backlog with proofs valid for every k.</span></li>
 <li><span class="status done">closed</span><span class="what"><b>Two cells do not beat five orbits</b>
   <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves
   prototile passes 2, so the natural question was whether a two-cell shape goes higher: the dihex has
@@ -2433,6 +2433,94 @@ never the mathematics, it was that the cell-ratio condition had to exist before 
 were worth sweeping &#8212; without it, two thirds of every row goes to the surround search to be
 told slowly what counting says instantly.</p>
 
+<h2 id="strip"><span class="stage">Part VIII &#183; a global test</span>Proving that a decorated tile cannot tile <span class="status ok">96% of a 170,214 decoration backlog, settled</span></h2>
+<p class="note">A sweep that reports &#8220;no tiling found&#8221; has not proved anything. It has
+ruled out k&#8202;&#8804;&#8202;kmax and stopped, and three quite different things hide behind
+that verdict: a genuine non-tiler, a tile whose isohedral number is simply above where the search
+stopped, and &#8212; because a decorated tile <i>is</i> a Wang tile &#8212; a decoration that tiles
+the plane only <b>aperiodically</b>, which would report &#8220;none&#8221; at every kmax forever
+while tiling perfectly well. For plain polyforms the project settles this with corona exhaustion:
+if a shape cannot even be surrounded, it cannot tile, and that argument is unbounded in k. The
+obvious question is whether the same works on decorations.</p>
+<p class="note"><b>It does not, and for a structural reason.</b> The corona machinery assumes every
+tile has the same set of legal neighbours &#8212; true for a plain polyform, false for a decorated
+one, where a tile in a different aspect presents different labels and so admits a
+<i>different</i> set of neighbours. Its candidate lists are indexed by neighbour cell-set, which
+cannot express a condition on orientation at all. Pushed through it anyway, a decoration can only
+be refuted when the undecorated shape is already refuted, and for a hexagon or a dihex that is
+never. Corona exhaustion proves exactly nothing here, at any depth.</p>
+<p class="note"><b>The strip transfer matrix.</b> So test globally instead. Suppose the decorated
+tile tiles the plane. Restrict that tiling to a vertical strip of w columns: each row of the strip
+carries a state &#8212; which aspect covers each of its w cells &#8212; drawn from a finite set,
+and consecutive rows must be compatible. The tiling therefore induces a <b>bi-infinite path</b>
+through a finite directed graph. And a finite graph carries a bi-infinite path exactly when
+repeatedly deleting states with no successor, or no predecessor, leaves something behind. If that
+fixpoint empties, no such path exists, so <b>no tiling exists at all &#8212; for any k
+whatsoever</b>. Unlike a kmax sweep it does not stop at some isohedral number; unlike a corona
+proof it is not confined to a bounded neighbourhood. Soundness runs one way, which is the useful
+way: an empty graph is a proof, a surviving graph is not a disproof.</p>
+<p class="note">The cost is trivial because the geometry factors out. For a one-cell tile the whole
+transition relation is three A&#8202;&#215;&#8202;A tables, one per lattice direction, so the
+geometry is touched A&#178; times per decoration and everything after that is bitwise work on
+Python integers &#8212; a successor set is an AND of 2w&#8202;&#8722;&#8202;1 precomputed masks.
+Multi-cell shapes need one idea more: refine the alphabet from &#8220;which aspect&#8221; to
+&#8220;which aspect, and which of the shape's own cells sits here&#8221;. That pins the covering
+copy exactly, and because any <i>other</i> placement covering a cell would overlap &#8212; which
+the matching test already rejects &#8212; each cell admits exactly one symbol per copy and
+adjacency propagates it through the whole shape. No bookkeeping about partially-placed tiles at
+all. The dihex, this project's largest open pool at 55,784 decorations, took eight minutes.</p>
+<table class="tbl">
+<caption>Decoration pools recorded as &#8220;no tiling found&#8221;&#8202; settled by strip
+transfer matrix at widths&#8202;1&#8211;3. The survivors are the interesting residue:
+a high isohedral number&#8202; or an aperiodic decoration.</caption>
+<thead><tr><th>prototile</th><th>scheme</th><th class="n">unresolved</th>
+<th class="n">proven non-tilers</th><th class="n">share</th><th class="n">survive</th></tr></thead>
+<tbody>
+<tr><td>dihex</td><td>arrow</td><td class="n">55&#8202;784</td><td class="n">53&#8202;160</td><td class="n">95.3%</td><td class="n">2&#8202;624</td></tr>
+<tr><td>hexagon</td><td>5-label arrow</td><td class="n">15&#8202;172</td><td class="n">14&#8202;744</td><td class="n">97.2%</td><td class="n">428</td></tr>
+<tr><td>domino</td><td>5-label</td><td class="n">14&#8202;948</td><td class="n">14&#8202;544</td><td class="n">97.3%</td><td class="n">404</td></tr>
+<tr><td>hexagon</td><td>5-label arrow (v3)</td><td class="n">14&#8202;840</td><td class="n">14&#8202;744</td><td class="n">99.4%</td><td class="n">96</td></tr>
+<tr><td>domino</td><td>5-label (v3)</td><td class="n">14&#8202;744</td><td class="n">14&#8202;544</td><td class="n">98.6%</td><td class="n">200</td></tr>
+<tr><td>hexagon</td><td>4-label chiral</td><td class="n">14&#8202;528</td><td class="n">14&#8202;432</td><td class="n">99.3%</td><td class="n">96</td></tr>
+<tr><td>hexagon</td><td>3-label arrow</td><td class="n">14&#8202;000</td><td class="n">13&#8202;520</td><td class="n">96.6%</td><td class="n">480</td></tr>
+<tr><td>L-tromino</td><td>jigsaw</td><td class="n">6&#8202;058</td><td class="n">5&#8202;682</td><td class="n">93.8%</td><td class="n">376</td></tr>
+<tr><td>I-tromino</td><td>jigsaw</td><td class="n">5&#8202;932</td><td class="n">5&#8202;506</td><td class="n">92.8%</td><td class="n">426</td></tr>
+<tr><td>O-tetromino</td><td>jigsaw</td><td class="n">5&#8202;822</td><td class="n">4&#8202;566</td><td class="n">78.4%</td><td class="n">1&#8202;256</td></tr>
+<tr><td>square tromino</td><td>S-tab</td><td class="n">3&#8202;364</td><td class="n">3&#8202;320</td><td class="n">98.7%</td><td class="n">44</td></tr>
+<tr><td>hexagon</td><td>Wang&#8202; 4 colours</td><td class="n">1&#8202;284</td><td class="n">1&#8202;284</td><td class="n">100.0%</td><td class="n">0</td></tr>
+<tr><td>hexagon</td><td>jigsaw</td><td class="n">642</td><td class="n">552</td><td class="n">86.0%</td><td class="n">90</td></tr>
+<tr><td>hexagon</td><td>jigsaw&#8202; kmax 8</td><td class="n">600</td><td class="n">552</td><td class="n">92.0%</td><td class="n">48</td></tr>
+<tr><td>hexagon</td><td>jigsaw (v3)</td><td class="n">600</td><td class="n">552</td><td class="n">92.0%</td><td class="n">48</td></tr>
+<tr><td>domino</td><td>jigsaw (v3)</td><td class="n">592</td><td class="n">556</td><td class="n">93.9%</td><td class="n">36</td></tr>
+<tr><td>domino</td><td>jigsaw</td><td class="n">592</td><td class="n">556</td><td class="n">93.9%</td><td class="n">36</td></tr>
+<tr><td>hexagon</td><td>arrow</td><td class="n">396</td><td class="n">324</td><td class="n">81.8%</td><td class="n">72</td></tr>
+<tr><td>hexagon</td><td>Wang&#8202; 3 colours</td><td class="n">114</td><td class="n">114</td><td class="n">100.0%</td><td class="n">0</td></tr>
+<tr><td>hexagon</td><td>S-tab</td><td class="n">102</td><td class="n">102</td><td class="n">100.0%</td><td class="n">0</td></tr>
+<tr><td>domino</td><td>S-tab</td><td class="n">100</td><td class="n">84</td><td class="n">84.0%</td><td class="n">16</td></tr>
+<tr class="tot"><td colspan="2"><b>total</b></td>
+<td class="n"><b>170&#8202;214</b></td><td class="n"><b>163&#8202;438</b></td>
+<td class="n"><b>96.0%</b></td>
+<td class="n"><b>6&#8202;776</b></td></tr>
+</tbody></table>
+<p class="note"><b>The companion certificate.</b> Wrapping the strip into a cylinder &#8212; column
+w&#8202;&#8722;&#8202;1 adjacent to column&#8202;0 &#8212; flips what the graph means. On a free
+strip a surviving path need not extend to the plane. On a cylinder every row state tiles an
+annulus, so any <i>cycle</i> stacks into a genuine periodic tiling; and a finite graph in which
+every state has a successor always contains a cycle. So the trimmed cylinder graph being non-empty
+is a positive proof that the tile tiles. The two run together: one direction refutes, the other
+exhibits, and what survives both is genuinely undecided by this method.</p>
+<p class="note"><b>Two silent bugs, found by one control.</b> This did not go smoothly. The sweeps
+key edge labels by frozenset, and the probe scripts rebuilt those keys as tuples &#8212; so every
+lookup missed, every edge fell back to label&#8202;0, and the scripts had been busily classifying
+<i>undecorated</i> shapes while reporting confident negative results about decorated ones. That is
+what produced this project's earlier claim that decorated non-tiling proofs were hopeless. Fixing
+it exposed a second and worse one: fed a real decoration, the corona code &#8220;proved&#8221;
+non-tiling for <b>279 of 300 decorations that demonstrably tile</b>, because rejecting a
+configuration and proving non-tiling are the same event to a search that concludes from the
+<i>absence</i> of a surround. Both bugs were invisible from the output &#8212; the runs completed
+and looked reasonable &#8212; and both were caught by one control: <i>nothing may prove non-tiling
+for a tile that has a known tiling</i>. It now runs in the test suite over real sweep records, and
+it is the only reason either bug is in the past tense.</p>
 <h2 id="engine"><span class="stage">Part VI · method &amp; performance</span>How the engine works</h2>
 <div class="method">
 <p><b>One engine, eleven grids.</b> Every base tiling is described combinatorially: cells are
