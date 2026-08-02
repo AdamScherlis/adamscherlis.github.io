@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 20:14
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 1 August 2026, 21:25
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -252,6 +252,7 @@ the plane, but never in a way that treats every copy alike. Forty of the free on
 <li><a href="#records">The records: k = 9 and k = 10</a></li>
 <li><a href="#drafter-hat">The hat, found again on another grid</a></li>
 <li><a href="#isomorphic">How many of these are actually different?</a></li>
+<li><a href="#gallery">Every high-k tiling</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
 <li><a href="#probe-ledger">The two-stage probe and the ledger</a>
 <a href="#isolated">High-k tiles are isolated</a></li>
@@ -1555,6 +1556,148 @@ specified in <b>translational periods</b> (two, by default) rather than as a fra
 window, and the window is derived from the frame &#8212; including the fundamental domain's own reach,
 since a domain with the area of one lattice cell can still be long and non-convex enough to bite the
 edge of the picture.</p>
+
+<h2 id="gallery"><span class="stage">Part IV · the hard shapes</span>Every high-k tiling <span class="status ok">31 distinct polygons</span></h2>
+<p class="note">One minimal tiling for each distinct shape the project has at
+k&#8202;&#8805;&#8202;6, coloured by orbit. Shapes are deduplicated by boundary congruence first, so a
+polygon that appears on two grids &#8212; the pentarhombille and the decapon, say &#8212; is drawn
+once, not twice. Every frame is sized to show about sixty tiles, which is what makes them comparable:
+the tiles are at the same apparent scale throughout even though the underlying grids differ by an
+order of magnitude in cell size.</p>
+<p class="note">They are worth looking at as a set. The high-k tilings are not subtle variations on a
+theme &#8212; some are stripes, some are pinwheels, some are long interlocking chevrons, and the
+6-orbit polyrhombilles alone run through most of that range. What they share is that no arrangement
+with fewer orbits exists, which is exactly the thing the pictures cannot show you.</p>
+<div style="display:flex; gap:0.7rem; flex-wrap:wrap; margin-top:0.8rem;">
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-01-tetrakis-n9-k10.png" alt="10-orbit tiling by a 9-cell tetrakis polyabolo" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 10</b> · tetrakis polyabolo, 9 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-02-hex-n11-k9.png" alt="9-orbit tiling by a 11-cell polyhex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 9</b> · polyhex, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-03-hex-n10-k8.png" alt="8-orbit tiling by a 10-cell polyhex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 8</b> · polyhex, 10 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-04-hex-n10-k8.png" alt="8-orbit tiling by a 10-cell polyhex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 8</b> · polyhex, 10 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-05-iamond-n13-k8.png" alt="8-orbit tiling by a 13-cell polyiamond" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 8</b> · polyiamond, 13 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-06-floret-n10-k6.png" alt="6-orbit tiling by a 10-cell polyfloret" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyfloret, 10 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-07-hex-n11-k6.png" alt="6-orbit tiling by a 11-cell polyhex" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyhex, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-08-iamond-n16-k6.png" alt="6-orbit tiling by a 16-cell polyiamond" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyiamond, 16 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-09-kisrhombille-n16-k6.png" alt="6-orbit tiling by a 16-cell polydrafter" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polydrafter, 16 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-10-kite-n10-k6.png" alt="6-orbit tiling by a 10-cell polykite" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polykite, 10 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-11-kite-n10-k6.png" alt="6-orbit tiling by a 10-cell polykite" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polykite, 10 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-12-rhombille-n13-k6.png" alt="6-orbit tiling by a 13-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 13 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-13-rhombille-n13-k6.png" alt="6-orbit tiling by a 13-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 13 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-14-rhombille-n13-k6.png" alt="6-orbit tiling by a 13-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 13 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-15-rhombille-n13-k6.png" alt="6-orbit tiling by a 13-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 13 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-16-rhombille-n13-k6.png" alt="6-orbit tiling by a 13-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 13 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-17-rhombille-n5-k6.png" alt="6-orbit tiling by a 5-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 5 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-18-rhombille-n5-k6.png" alt="6-orbit tiling by a 5-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 5 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-19-rhombille-n5-k6.png" alt="6-orbit tiling by a 5-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 5 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-20-rhombille-n7-k6.png" alt="6-orbit tiling by a 7-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 7 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-21-rhombille-n11-k6.png" alt="6-orbit tiling by a 11-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-22-rhombille-n11-k6.png" alt="6-orbit tiling by a 11-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-23-rhombille-n11-k6.png" alt="6-orbit tiling by a 11-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-24-rhombille-n11-k6.png" alt="6-orbit tiling by a 11-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-25-rhombille-n11-k6.png" alt="6-orbit tiling by a 11-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-26-rhombille-n11-k6.png" alt="6-orbit tiling by a 11-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-27-rhombille-n11-k6.png" alt="6-orbit tiling by a 11-cell polyrhombille" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polyrhombille, 11 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-28-tetrakis-n7-k6.png" alt="6-orbit tiling by a 7-cell tetrakis polyabolo" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · tetrakis polyabolo, 7 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-29-triakis-n10-k6.png" alt="6-orbit tiling by a 10-cell polypon" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polypon, 10 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-30-triakis-n14-k6.png" alt="6-orbit tiling by a 14-cell polypon" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polypon, 14 cells</div>
+</div>
+<div style="flex:1 1 11rem; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.6rem;">
+<img src="figs/gallery-31-triakis-n10-k6.png" alt="6-orbit tiling by a 10-cell polypon" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
+<div class="legend" style="margin-top:0.35rem"><b>k = 6</b> · polypon, 10 cells</div>
+</div>
+</div>
+<p class="legend" style="margin-top:0.6rem">Ordered by isohedral number, then family. The first is the
+chevron at ten orbits, the second the 11-hex at nine &#8212; the record and the honest record. The
+three shapes whose tiling structure could not be classified (Part IV) are still drawn here; only their
+combinatorial type is unknown, not their tiling.</p>
 
 <h2 id="leaderboard"><span class="stage">Part IV · the hard shapes</span>The ten most stubborn tiles <span class="status ok">every one verified</span></h2>
 <p class="note">A shape is <i>k</i>-anisohedral when it tiles the plane but no tiling of it uses
