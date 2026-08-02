@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 11:45
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 11:47
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1862,10 +1862,40 @@ pool of shapes it could not settle. Those pools are emptied afterwards by a two-
 probe: cheap SAT surround exhaustion first, then the SAT orbit search on whatever
 survives.</p>
 <ul class="roadmap">
-<li><span class="status ok">resolved</span><span class="what"><b>Every unresolved shape in the project</b>
-  <span class="d">All 103 settled: 82 non-tilers, 15 at k&#8202;=&#8202;6, three at k&#8202;=&#8202;8, one at k&#8202;=&#8202;10 — and the hat and the turtle, where &#8220;unresolved&#8221; is the right answer. A ledger (<code>results/resolutions.json</code>) now records verdicts, because the sweep files never learn that a probe has closed a shape.</span></span></li>
-<li><span class="status ok">resolved</span><span class="what"><b>Tables reconciled against the probe ledger</b>
-  <span class="d">Sweeps write their unresolved lists once and never revisit them, so rows kept displaying shapes the deep probes had settled hours earlier — spotted by a reader. <code>scripts/reconcile_page.py</code> now diffs every row against <code>results/resolutions.json</code>: 108 shapes left open by sweeps, 108 settled, 0 unprobed. Four stale rows corrected and the newest polypon and drafter rows added.</span></span></li>
+<li><span class="status done">closed</span><span class="what"><b>The decorated ceiling on a unit hexagon</b>
+  <span class="d">Two pools sat at kmax&#8202;6 with about fourteen thousand decorations each recorded
+  as &#8220;no tiling found&#8221; &#8212; the same shape of gap that hid every undecorated record,
+  since a sweep stopping at six cannot tell a non-tiler from a shape needing seven. Both were pushed
+  to kmax&#8202;10 and both returned <i>bit-identical</i> counts: arrow3 still 1013 / 516 / 48 / 48
+  with 14,000 non-tiling, chiral4 still 989 / 108 with 14,528. Nothing tiles at
+  k&#8202;=&#8202;6&#8230;10 that did not already tile below, so those are genuine non-tilers and the
+  k&#8202;=&#8202;5 arrow hexagon stands as the decorated record. 129 seconds to settle.</span></span></li>
+<li><span class="status run">running</span><span class="what"><b>Can two cells beat five orbits?</b>
+  <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves
+  prototile passes 2. The dihex has ten edges and 59,049 arrow decorations, of which 55,784 were left
+  unresolved at kmax&#8202;6 &#8212; by far the largest open pool in the project, and the one place a
+  decorated k&#8202;&gt;&#8202;5 could still be hiding. Running at kmax&#8202;8. Ten edges is
+  genuinely more room than the six-edge schemes just closed, so the negative results above do not
+  settle it.</span></span></li>
+<li><span class="status done">closed</span><span class="what"><b>Higher than ten, by enumeration</b>
+  <span class="d">Answered, negatively, and the reason is structural rather than a compute budget.
+  Anisohedral density collapses with size on every grid, fastest on the richest ones
+  (<a href="#going-quiet">Part IV</a>), and the polyhex maxima run 8, <b>9</b>, 5, 5 at
+  n&#8202;=&#8202;10&#8230;13 before Myers's 10 at n&#8202;=&#8202;16: high isohedral numbers are
+  isolated shapes at particular sizes, not a trend that builds. hex n&#8202;=&#8202;13 was swept to
+  test it &#8212; 3,274,826 shapes, nothing above k&#8202;=&#8202;5.</span></span></li>
+<li><span class="status pend">next</span><span class="what"><b>Mixed markings on one tile</b>
+  <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an
+  S-tab on a third &#8212; the engine's pairing and mirror are arbitrary label maps, so mixed schemes
+  just occupy disjoint label ranges. 117,649 decorations on a hexagon. The two results above lower
+  expectations for it: on a unit hexagon the ceiling looks like a property of the <i>shape</i> rather
+  than of the alphabet.</span></span></li>
+<li><span class="status pend">next</span><span class="what"><b>A three-orbit Archimedean substrate</b>
+  <span class="d">Three mixed-cell tilings are classified (<a href="#archimedean">Part VII</a>), all
+  with two residue orbits. The rhombitrihexagonal [3.4.6.4] and truncated trihexagonal [4.6.12] have
+  three, which would exercise the cell-ratio lemma properly. Both need a distorted embedding, since
+  squares and hexagons of equal edge cannot share an integer lattice &#8212; the same licence already
+  taken for the octagon and the dodecagon.</span></span></li>
 </ul>
 <h2 id="isolated"><span class="stage">Part IV · structure</span>High-k tiles are isolated <span class="status ok">a refuted hypothesis</span></h2>
 <p class="note">Every record on this page arrived the same way: enumerate an entire size, classify
