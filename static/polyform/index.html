@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 08:58
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 09:40
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -2347,7 +2347,32 @@ and four squares) and a 12-cell trihexagonal one (right, four hexagons and eight
 are unions of cells of two different shapes, which no tile anywhere else on this page is.</div>
 </div>
 
-<p class="note">There are nine more Archimedean tilings, and the same construction should reach them:
+<p class="note"><b>And a third, by truncation.</b> The truncated hexagonal tiling [3.12.12] &#8212;
+dodecagons with triangles in the gaps &#8212; is the honeycomb with every corner cut at the one-third
+points of its edges, which keeps the vertices rational. Two triangles to each dodecagon, so the lemma
+again forces sizes divisible by three. This one is dominated by <i>holes</i>: a dodecagon has twelve
+neighbours, so a shape of even modest size closes a ring around a triangle almost by accident, and at
+n&#8202;=&#8202;9 nearly half the shapes have one.</p>
+<div class="tablewrap">
+<table>
+<caption>Complete classification of free truncated-hexagonal polyforms &#8212; this work (kmax 4)</caption>
+<tr><th>n</th><th>free</th><th>holes</th><th>translation</th><th>180°</th><th>isohedral</th><th>anisohedral</th><th>k-breakdown</th><th>non-tilers</th><th>unresolved</th></tr>
+<tr><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>2</td><td>0</td></tr>
+<tr><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>2</td><td>0</td></tr>
+<tr><td>3</td><td>9</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0</td><td>—</td><td>5</td><td>0</td></tr>
+<tr><td>4</td><td>40</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>35</td><td>0</td></tr>
+<tr><td>5</td><td>218</td><td>45</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>173</td><td>0</td></tr>
+<tr><td>6</td><td>1377</td><td>394</td><td>19</td><td>26</td><td>13</td><td>0</td><td>—</td><td>925</td><td>0</td></tr>
+<tr><td>7</td><td>9285</td><td>3336</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>5949</td><td>0</td></tr>
+<tr><td>8</td><td>65039</td><td>27841</td><td>0</td><td>0</td><td>0</td><td>0</td><td>—</td><td>37198</td><td>0</td></tr>
+<tr><td>9</td><td>465888</td><td>228126</td><td>211</td><td>749</td><td>599</td><td>27</td><td>2:27</td><td>236176</td><td>0</td></tr>
+</table>
+</div>
+<p class="legend">27 anisohedral shapes at n&#8202;=&#8202;9, all needing two orbits. The
+n&#8202;=&#8202;12 row is the first in this project that enumeration cannot reach in reasonable time:
+a twelve-neighbour cell makes the shape count climb far faster than any Laves family.</p>
+
+<p class="note">There are eight more Archimedean tilings, and the same construction should reach them:
 what this row of work actually establishes is that the engine is not a Laves engine. The obstacle was
 never the mathematics, it was that the cell-ratio condition had to exist before mixed-cell substrates
 were worth sweeping &#8212; without it, two thirds of every row goes to the surround search to be
