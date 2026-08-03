@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 06:58
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 07:31
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -213,8 +213,8 @@ same shape: the trihexagonal, truncated square and truncated hexagonal tilings
 (<a href="#archimedean">Part VII</a>), which no polyform classification had touched before.
 </p>
 <p>
-The ledger currently stands at <b>69&#8202;020&#8202;865</b> free shapes and
-<b>905&#8202;386</b> one-sided ones —69&#8202;926&#8202;251 classifications across the fifteen
+The ledger currently stands at <b>69&#8202;922&#8202;836</b> free shapes and
+<b>905&#8202;386</b> one-sided ones —70&#8202;828&#8202;222 classifications across the fifteen
 families, all of them settled either as a tiling of some minimum isohedral number or as
 a proof that none exists — plus the hat and the turtle, whose refusal to settle is itself the answer.
 Among them are <b>13&#8202;548 anisohedral shapes</b> (12&#8202;453 free, 1&#8202;095 one-sided): tiles that tile
@@ -255,6 +255,7 @@ eight, one needs nine and one needs ten.
 <li><a href="#star">The star 10-rhombille</a></li>
 <li><a href="#records">The records: k = 9 and k = 10</a></li>
 <li><a href="#drafter-hat">The hat, found again on another grid</a></li>
+<li><a href="#seven">The missing seven</a></li>
 <li><a href="#isomorphic">How many of these are actually different?</a></li>
 <li><a href="#going-quiet">Why the frontier stops paying</a></li>
 <li><a href="#gallery">Every high-k tiling</a></li>
@@ -310,6 +311,7 @@ hole detection by complement flood-fill. Agrees with Myers (and OEIS A000105) at
 <tr><td>11</td><td>17073</td><td>979</td><td>783</td><td>5391</td><td>338</td><td>108</td><td>2:89&ensp;3:18&ensp;4:1</td><td>9474</td><td>0</td><td>—</td></tr>
 <tr><td>12</td><td>63600</td><td>4663</td><td>2712</td><td>17193</td><td>3322</td><td>222</td><td>2:214&ensp;3:6&ensp;4:2</td><td>35488</td><td>0</td><td>—</td></tr>
 <tr><td>13</td><td>238591</td><td>21474</td><td>3179</td><td>31881</td><td>3178</td><td>430</td><td>2:406&ensp;3:24</td><td>178448</td><td>1</td><td>—</td></tr>
+<tr><td>14</td><td>901971</td><td>96496</td><td>8672</td><td>85942</td><td>13590</td><td>899</td><td>2:874&ensp;3:24&ensp;4:1</td><td>696371</td><td>1</td><td>—</td></tr>
 </table>
 </div>
 <h2 id="translation-180"><span class="stage">Part I &#183; replication</span>Translation &amp; 180° tilings <span class="status ok">validated</span></h2>
@@ -1055,7 +1057,7 @@ both conventions, and then n&#8202;=&#8202;14 produces the family's first one-si
 banned. The fourth 6-anisohedral polypon is not so lucky: its six-orbit tiling needs reflected
 copies, and its one-sided versions are proven non-tilers.</p>
 <h2 id="tiling-rate"><span class="stage">Part II &#183; new families</span>The shape of fifty-nine million answers <span class="status ok">every family, one picture</span></h2>
-<p class="note">Fifteen families, 69 million classifications, and one question worth asking of all of
+<p class="note">Fifteen families, 70 million classifications, and one question worth asking of all of
 them at once: <b>what fraction of shapes actually tile the plane, and how does that change with
 size?</b> Fifteen series is far past what any honest categorical palette can carry, so each family
 gets its own panel; within a panel the only colour is odd versus even size, because that turns out
@@ -1514,6 +1516,35 @@ under the direct view &#8212; which is the point worth keeping: an exclusion sea
 <i>the same output</i>. That is the conflation <a href="#strip">Part VII</a> was built to break, met
 here from the opposite direction, in the middle of a record hunt. These tiles are essentially
 reflective: the mirror is not decoration on their tilings, it is load-bearing.</p>
+<h2 id="seven"><span class="stage">Part IV &#183; the hard shapes</span>The missing seven <span class="status ok">61 shapes at six, none at seven</span></h2>
+<p class="note">Sixty-six shapes in this project reach k&#8202;&#8805;&#8202;6. Sixty-one of them
+sit at exactly six, three at eight, one at nine, one at ten. <b>None is a seven.</b> That is a
+conspicuous hole for a quantity that is supposed to be an ordinary integer, and it is not an
+artifact of how the search runs: the probes try k&#8202;=&#8202;1,&#8202;2,&#8202;3&#8230; in order
+and stop at the first that works, so a seven would be found the moment it existed.</p>
+<p class="note"><b>The arithmetic does not forbid it.</b> The obvious suspect is the divisibility
+law &#8212; c must divide n&#8202;&#183;&#8202;T, with T a sum of k terms q/s &#8212; which is
+exactly the kind of constraint that kills particular values outright. It does not kill this one.
+Enumerating the admissible (point-group order, torus index) pairs for k&#8202;=&#8202;5&#8230;11 on
+every substrate, seven is admissible everywhere, at every size tried: six pairs on the honeycomb,
+four on the square grid, three on the rhombille, the same as its neighbours. Whatever suppresses
+k&#8202;=&#8202;7, it is not that no seven-orbit tiling could exist.</p>
+<p class="note">There is a real asymmetry underneath, though, and it points at the mechanism. On
+the substrates whose cells come several to a translation unit &#8212; rhombille, polyiamonds,
+tetrakis polyaboloes &#8212; <i>even</i> k admits about twice the group-and-torus combinations that
+odd k does: at rhombille n&#8202;=&#8202;10 there are six admissible pairs at
+k&#8202;=&#8202;6 and three at both five and seven. And the isohedral number is a
+<i>minimum</i> over all tilings. A shape flexible enough to be covered in seven orbits is usually
+also coverable in six, because six has more ways to be arranged &#8212; so it is recorded as a six
+and never counted as a seven. Seven is not forbidden; it is <b>shadowed</b>, standing in the
+lee of a value that is easier to reach.</p>
+<p class="note">That predicts the shape of the whole spectrum, and it matches: 14,866 shapes at
+k&#8202;=&#8202;2, 1,151 at three, 190 at four, 15 at five, 61 at six, none at seven, three at
+eight. The counts fall steeply and then <i>rise</i> at six before the hole &#8212; the even values
+are over-represented exactly where the arithmetic says they should be. Eleven is missing too, for
+the same reason and with far less evidence behind it. A seven-anisohedral polyform is presumably
+out there; it just has to be a shape that six cannot accommodate at all, which is a much narrower
+target than being merely difficult.</p>
 <h2 id="isomorphic"><span class="stage">Part IV &#183; the hard shapes</span>How many of these are actually different? <span class="status warn">34 records, 19 structures</span></h2>
 <p class="note">The k&#8202;≥&#8202;6 club is quoted above as forty-nine records across eight Laves
 families, and that count is doing less work than it looks. A reader noticing that several of the
