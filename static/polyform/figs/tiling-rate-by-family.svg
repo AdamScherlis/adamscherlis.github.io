@@ -21,17 +21,18 @@
 <text class="axis" x="28" y="70.5" text-anchor="end">50</text>
 <line class="grid" x1="34" y1="26.0" x2="200" y2="26.0"/>
 <text class="axis" x="28" y="29.5" text-anchor="end">100</text>
-<path class="series" d="M34.0,26.0 L57.7,29.0 L81.4,31.8 L105.1,41.0 L128.9,53.9 L152.6,76.2 L176.3,77.8 L200.0,94.7"/>
+<path class="series" d="M34.0,26.0 L54.8,29.0 L75.5,31.8 L96.2,41.0 L117.0,53.9 L137.8,76.2 L158.5,77.8 L179.2,94.7 L200.0,98.1"/>
 <circle class="dot even" cx="34.0" cy="26.0" r="4"><title>n=6: 100.0% tile</title></circle>
-<circle class="dot odd" cx="57.7" cy="29.0" r="4"><title>n=7: 96.3% tile</title></circle>
-<circle class="dot even" cx="81.4" cy="31.8" r="4"><title>n=8: 93.0% tile</title></circle>
-<circle class="dot odd" cx="105.1" cy="41.0" r="4"><title>n=9: 81.7% tile</title></circle>
-<circle class="dot even" cx="128.9" cy="53.9" r="4"><title>n=10: 66.0% tile</title></circle>
-<circle class="dot odd" cx="152.6" cy="76.2" r="4"><title>n=11: 38.8% tile</title></circle>
-<circle class="dot even" cx="176.3" cy="77.8" r="4"><title>n=12: 36.9% tile</title></circle>
-<circle class="dot odd" cx="200.0" cy="94.7" r="4"><title>n=13: 16.2% tile</title></circle>
+<circle class="dot odd" cx="54.8" cy="29.0" r="4"><title>n=7: 96.3% tile</title></circle>
+<circle class="dot even" cx="75.5" cy="31.8" r="4"><title>n=8: 93.0% tile</title></circle>
+<circle class="dot odd" cx="96.2" cy="41.0" r="4"><title>n=9: 81.7% tile</title></circle>
+<circle class="dot even" cx="117.0" cy="53.9" r="4"><title>n=10: 66.0% tile</title></circle>
+<circle class="dot odd" cx="137.8" cy="76.2" r="4"><title>n=11: 38.8% tile</title></circle>
+<circle class="dot even" cx="158.5" cy="77.8" r="4"><title>n=12: 36.9% tile</title></circle>
+<circle class="dot odd" cx="179.2" cy="94.7" r="4"><title>n=13: 16.2% tile</title></circle>
+<circle class="dot even" cx="200.0" cy="98.1" r="4"><title>n=14: 12.1% tile</title></circle>
 <text class="axis" x="34.0" y="124" text-anchor="middle">6</text>
-<text class="axis" x="200.0" y="124" text-anchor="middle">13</text>
+<text class="axis" x="200.0" y="124" text-anchor="middle">14</text>
 </g>
 <g class="panel">
 <text class="ptitle" x="260" y="16">polyhexes</text>
@@ -270,26 +271,27 @@
 <text class="axis" x="480" y="514.5" text-anchor="end">50</text>
 <line class="grid" x1="486" y1="470.0" x2="652" y2="470.0"/>
 <text class="axis" x="480" y="473.5" text-anchor="end">100</text>
-<path class="series" d="M486.0,546.3 L496.4,515.4 L506.8,547.9 L517.1,551.5 L527.5,522.9 L537.9,549.2 L548.2,550.1 L558.6,545.3 L569.0,550.6 L579.4,552.0 L589.8,546.3 L600.1,551.6 L610.5,552.0 L620.9,550.7 L631.2,552.0 L641.6,552.0 L652.0,550.9"/>
+<path class="series" d="M486.0,546.3 L495.8,515.4 L505.5,547.9 L515.3,551.5 L525.1,522.9 L534.8,549.2 L544.6,550.1 L554.4,545.3 L564.1,550.6 L573.9,552.0 L583.6,546.3 L593.4,551.6 L603.2,552.0 L612.9,550.7 L622.7,552.0 L632.5,552.0 L642.2,550.9 L652.0,552.0"/>
 <circle class="dot even" cx="486.0" cy="546.3" r="4"><title>n=8: 6.9% tile</title></circle>
-<circle class="dot odd" cx="496.4" cy="515.4" r="4"><title>n=9: 44.7% tile</title></circle>
-<circle class="dot even" cx="506.8" cy="547.9" r="4"><title>n=10: 5.0% tile</title></circle>
-<circle class="dot odd" cx="517.1" cy="551.5" r="4"><title>n=11: 0.6% tile</title></circle>
-<circle class="dot even" cx="527.5" cy="522.9" r="4"><title>n=12: 35.5% tile</title></circle>
-<circle class="dot odd" cx="537.9" cy="549.2" r="4"><title>n=13: 3.4% tile</title></circle>
-<circle class="dot even" cx="548.2" cy="550.1" r="4"><title>n=14: 2.3% tile</title></circle>
-<circle class="dot odd" cx="558.6" cy="545.3" r="4"><title>n=15: 8.2% tile</title></circle>
-<circle class="dot even" cx="569.0" cy="550.6" r="4"><title>n=16: 1.7% tile</title></circle>
-<circle class="dot odd" cx="579.4" cy="552.0" r="4"><title>n=17: 0.0% tile</title></circle>
-<circle class="dot even" cx="589.8" cy="546.3" r="4"><title>n=18: 6.9% tile</title></circle>
-<circle class="dot odd" cx="600.1" cy="551.6" r="4"><title>n=19: 0.5% tile</title></circle>
-<circle class="dot even" cx="610.5" cy="552.0" r="4"><title>n=20: 0.0% tile</title></circle>
-<circle class="dot odd" cx="620.9" cy="550.7" r="4"><title>n=21: 1.6% tile</title></circle>
-<circle class="dot even" cx="631.2" cy="552.0" r="4"><title>n=22: 0.0% tile</title></circle>
-<circle class="dot odd" cx="641.6" cy="552.0" r="4"><title>n=23: 0.0% tile</title></circle>
-<circle class="dot even" cx="652.0" cy="550.9" r="4"><title>n=24: 1.3% tile</title></circle>
+<circle class="dot odd" cx="495.8" cy="515.4" r="4"><title>n=9: 44.7% tile</title></circle>
+<circle class="dot even" cx="505.5" cy="547.9" r="4"><title>n=10: 5.0% tile</title></circle>
+<circle class="dot odd" cx="515.3" cy="551.5" r="4"><title>n=11: 0.6% tile</title></circle>
+<circle class="dot even" cx="525.1" cy="522.9" r="4"><title>n=12: 35.5% tile</title></circle>
+<circle class="dot odd" cx="534.8" cy="549.2" r="4"><title>n=13: 3.4% tile</title></circle>
+<circle class="dot even" cx="544.6" cy="550.1" r="4"><title>n=14: 2.3% tile</title></circle>
+<circle class="dot odd" cx="554.4" cy="545.3" r="4"><title>n=15: 8.2% tile</title></circle>
+<circle class="dot even" cx="564.1" cy="550.6" r="4"><title>n=16: 1.7% tile</title></circle>
+<circle class="dot odd" cx="573.9" cy="552.0" r="4"><title>n=17: 0.0% tile</title></circle>
+<circle class="dot even" cx="583.6" cy="546.3" r="4"><title>n=18: 6.9% tile</title></circle>
+<circle class="dot odd" cx="593.4" cy="551.6" r="4"><title>n=19: 0.5% tile</title></circle>
+<circle class="dot even" cx="603.2" cy="552.0" r="4"><title>n=20: 0.0% tile</title></circle>
+<circle class="dot odd" cx="612.9" cy="550.7" r="4"><title>n=21: 1.6% tile</title></circle>
+<circle class="dot even" cx="622.7" cy="552.0" r="4"><title>n=22: 0.0% tile</title></circle>
+<circle class="dot odd" cx="632.5" cy="552.0" r="4"><title>n=23: 0.0% tile</title></circle>
+<circle class="dot even" cx="642.2" cy="550.9" r="4"><title>n=24: 1.3% tile</title></circle>
+<circle class="dot odd" cx="652.0" cy="552.0" r="4"><title>n=25: 0.0% tile</title></circle>
 <text class="axis" x="486.0" y="568" text-anchor="middle">8</text>
-<text class="axis" x="652.0" y="568" text-anchor="middle">24</text>
+<text class="axis" x="652.0" y="568" text-anchor="middle">25</text>
 </g>
 <g class="panel">
 <text class="ptitle" x="34" y="608">trihexagonal</text>
