@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 17:36
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 01:31
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -2548,7 +2548,7 @@ control: <i>nothing may prove non-tiling for a tile that has a known tiling</i>,
 reproduce its own answers</i>.</p>
 <h2 id="engine"><span class="stage">Part VI · method &amp; performance</span>How the engine works</h2>
 <div class="method">
-<p><b>One engine, eleven grids.</b> Every base tiling is described combinatorially: cells are
+<p><b>One engine, fifteen grids.</b> Every base tiling is described combinatorially: cells are
 integer points, the tiling's symmetries act as affine integer maps, and a backend only supplies
 the codes, matrices and cell polygons (adjacency is derived and the group axioms are
 machine-checked — no floating point anywhere). A periodic tiling by a shape <i>P</i> with
@@ -2572,6 +2572,89 @@ moved from 4.3 CPU-hours (k&#8202;≤&#8202;15) to seven minutes (k&#8202;≤&#8
 answers decode to concrete tilings and are re-verified independently; negative answers emit
 <b>DRAT proof logs</b> checked by <code>drat-trim</code>, so refutations no longer rest on
 trusting any search code — ours or the solver's.</p>
+</div>
+<div class="method">
+<p><b>The class search, step by step.</b> Myers&#8217;s method never writes down a symmetry group.
+It grows a patch outward and lets the group fall out of the choices it makes, which is why it can
+answer questions about tilings whose groups we would have had to enumerate first.</p>
+<p>The state is a set of placed tiles, each labelled with a <i>class</i>, plus whatever isometries
+have been forced so far. One step:</p>
+<p>1. Take the lowest-numbered tile that is not yet surrounded &#8212; some edge of it still faces
+empty space.<br>
+2. Branch over every way a tile can be placed against that gap: every aspect, every contact
+position.<br>
+3. Branch again on <i>what that tile is</i>. Either it belongs to an existing class, which forces
+an isometry carrying that class&#8217;s representative onto it &#8212; and that isometry joins the
+group &#8212; or it opens a new class, which is allowed while the class count is below k.<br>
+4. Whenever a new group element appears, <b>propagate</b>: apply it to every tile already placed.
+That forces more tiles, which may force more still. Any conflict with an existing tile means this
+branch is dead.<br>
+5. Stop when every class representative is completely surrounded. At that point the group is
+closed and the patch extends to a k-isohedral tiling of the plane.</p>
+<p>The shape of its cost follows directly. A shape that cannot tile usually dies within a few dozen
+nodes &#8212; the very first tile cannot be surrounded, and there is nothing to propagate. A shape
+that tiles awkwardly can make propagation explode, because one unlucky identification forces a
+cascade that only contradicts itself much later. Our engine has the opposite profile: enumerate
+candidate wallpaper groups up front, solve an exact cover on each quotient torus, and pay the same
+fixed toll for every shape whether it is hopeless or trivial. Neither is uniformly better, which is
+what the measurements below say.</p>
+</div>
+<div class="method">
+<p><b>The strip transfer matrix.</b> Every test above is <i>local</i>: place a tile, try to
+surround it, exhaust the possibilities. That is the right instrument for plain polyforms, whose
+obstructions really are local &#8212; a pocket nothing fits. It is the wrong one for decorated
+tiles, which admit every local configuration and contradict themselves only after propagating
+arbitrarily far. This is the global instrument.</p>
+<p>Suppose the tile tiles the plane. Restrict that tiling to a vertical strip of w columns and read
+it row by row. Each row carries a <b>state</b>: which aspect covers each of its w cells. There are
+finitely many such states, and consecutive rows must be compatible. So a plane tiling induces a
+<b>bi-infinite path</b> through a finite directed graph &#8212; and a finite graph carries a
+bi-infinite path exactly when you can repeatedly delete every state with no successor, or no
+predecessor, and still have something left. That fixpoint is cheap. <b>If it empties, no tiling
+exists &#8212; for any k at all.</b></p>
+<p>Three things make it fast. The geometry factors out: for a one-cell tile the entire transition
+relation is three A&#8202;&#215;&#8202;A tables, one per lattice direction, so geometry is touched
+A&#178; times and everything after is bitwise AND on integers. Multi-cell shapes need the alphabet
+refined from &#8220;which aspect&#8221; to &#8220;which aspect, and which of the shape&#8217;s own
+cells sits here&#8221;, which pins the covering copy exactly &#8212; any <i>other</i> placement
+covering that cell would overlap, which the matching test already rejects, so each cell admits one
+symbol per copy and adjacency carries it through the whole shape. And rows are grown through the
+compatibility graph rather than sieved out of the A^w product, which at width&#8202;5 on a hexagon
+is 7,488 rows instead of 248,832 &#8212; the difference between reachable and not.</p>
+<p>Soundness runs one way, and it is the useful way. The strip&#8217;s border cells carry no
+constraint against the world outside it, so the graph is too <i>permissive</i>, never too strict:
+it can fail to prove, it cannot wrongly prove. Widening only strengthens it.</p>
+</div>
+<div class="method">
+<p><b>The cylinder: the same graph, run backwards.</b> Wrap the strip so that column
+w&#8202;&#8722;&#8202;1 is adjacent to column&#8202;0 and the meaning inverts. On a free strip a
+surviving path need not extend to the plane. On a cylinder every row state tiles an annulus, so any
+<i>cycle</i> stacks into a genuine periodic tiling &#8212; and a finite graph in which every state
+has a successor always contains a cycle. A non-empty trimmed cylinder graph is therefore a
+constructive proof that the tile <b>does</b> tile, at whatever period the circumference allows.</p>
+<p>That inversion deserves suspicion, and it got some. Wrapping lets a copy meet its own
+(w,&#8202;0)-translate, so a shape wider than the circumference could in principle overlap
+<i>itself</i> while satisfying every purely local constraint. So certificates are not trusted:
+each is laid out in the plane over several periods and checked cell by cell for exact cover, plus
+every pairwise match. All of them verify, and the graph does exclude the bad cases by itself
+&#8212; a horizontal domino tiles a circumference-1 cylinder only by standing upright, because the
+horizontal aspects fail the within-row test against their own translate.</p>
+</div>
+<div class="method">
+<p><b>Patch exhaustion: the local test, done right.</b> The corona machinery cannot be made
+decoration-aware, because its candidate lists are indexed by neighbour <i>cell-set</i> and a
+matching rule is a condition on <i>orientation</i>. So the local half is done directly: place tiles
+outward from the origin, keeping every tile&#8217;s isometry, and check the matching rule between
+every touching pair.</p>
+<p>The subtlety is in what must be covered. Requiring the tile to cover a region <i>exactly</i>
+would be unsound &#8212; an L-tromino tiles the plane and cannot cover a 3&#215;3 square &#8212; so
+tiles hang over the boundary freely. What a real tiling does guarantee is that every cell near the
+origin is covered by something. If no arrangement covers the disc, no tiling exists.</p>
+<p>One implementation detail turned out to matter more than the algorithm. Filling the disc in
+lexicographic order starts at a far corner and reaches the contradiction only after an enormous
+subtree; the search exhausted its node budget and reported nothing on a tile whose very first
+neighbour is already impossible. Filling <i>outward from the centre</i> &#8212; next to the tile
+that actually carries the decoration &#8212; makes the same proof immediate.</p>
 </div>
 <h2 id="head-to-head"><span class="stage">Part VI · method &amp; performance</span>Two algorithms, measured against each other <span class="status ok">1&#8202;762 shapes, zero disagreements</span></h2>
 <p class="note">This project's engine and Myers's differ at the root. He runs a <b>class-based
@@ -2601,6 +2684,17 @@ that cannot tile dies in his search after a few dozen nodes, whereas we pay a fi
 candidate group at every admissible torus index, restarted for each k — that does not shrink at all
 for hopeless shapes. The 4-anisohedral nonomino, our 20-second showpiece, takes him 0.28&#8202;s. And
 the gap widens with n, which is the honest explanation of how his tables reach the 25-ominoes.</p>
+<p class="note"><b>And the ranking is not a fact about the algorithms alone &#8212; it moves
+with the substrate.</b> Everything above is polyominoes, where our median is the fast one and his
+tail owns the total. On <i>polyhexes</i> the median reverses: at n&#8202;=&#8202;11 our engine wins
+both (30.0 vs 42.6&#8202;ms median, 29.2 vs 164.5&#8202;ms mean), but at n&#8202;=&#8202;12 it keeps
+the aggregate 1.56&#215; while <b>losing the median</b>, 61.8&#8202;ms against 24.8. That flip was
+the whole reason to consider porting his search to C, and it did not survive contact with
+n&#8202;=&#8202;13, where the median advantage falls back to 1.40&#215; and no hybrid cap beats the
+engine alone. A local feature, not the start of a crossover &#8212; so the port was abandoned and
+exact cover stayed primary. Quoting either benchmark without the other makes the two engines look
+like they contradict each other; they simply disagree about which shapes are hard, and the
+disagreement itself depends on the grid.</p>
 <p class="note">What our side keeps is the shape of the answer rather than the speed:
 &#8220;no tiling with k&#8202;≤&#8202;K&#8221; is a <i>finite enumeration</i> for us — finitely many
 groups, each a finite exact cover — which is exactly why it could be handed to a SAT solver and come
