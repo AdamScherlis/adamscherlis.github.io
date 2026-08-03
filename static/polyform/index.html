@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 17:07
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 2 August 2026, 17:36
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -2512,6 +2512,24 @@ every state has a successor always contains a cycle. So a non-empty trimmed cyli
 constructive proof that the tile <i>does</i> tile. The two run together: one direction refutes, the
 other exhibits, and what survives both is genuinely undecided by this method &#8212; which is where
 an aperiodic decoration would have to live.</p>
+<p class="note"><b>Checked against the undecorated classifications.</b> The decoration controls
+only ever exercised a few hundred records. The plain polyform rows are this project&#8217;s
+best-tested ground truth &#8212; millions of shapes, reconciled against Myers&#8217;s published
+counts &#8212; so both directions were run over them as well. Across 1,920 free polyominoes and
+polyhexes: <b>no shape the classifier says tiles was ever refuted, and no cylinder ever exhibited
+a tiling for a shape proven to be a non-tiler</b>. Every positive certificate was also laid out
+explicitly and checked cell by cell for exact cover, which is the part worth distrusting &#8212;
+wrapping a strip lets a copy meet its own translate at the seam, and a shape wider than the
+circumference could in principle overlap itself. It does not: the graph excludes exactly those
+aspects. A horizontal domino tiles a circumference-1 cylinder only by standing upright.</p>
+<p class="note"><b>And the two tests turn out to be complements, not rivals.</b> On decorated
+tiles the strip settles 97%; on <i>undecorated</i> ones it is feeble &#8212; 6 of 198 known
+non-tiling nonominoes, 0 of 3 hexahexes. The reason is that they see different obstructions. A
+plain polyform usually fails to tile for a <i>local</i> reason: it makes a pocket nothing can
+fill, which is precisely what corona exhaustion is built to find and what no amount of strip width
+will reveal. A decorated tile fails for a <i>global</i> one: the labels admit every local
+configuration and only contradict themselves after propagating arbitrarily far. Neither method
+subsumes the other, and the project needs both.</p>
 <p class="note"><b>Three silent bugs, and one control that catches them all.</b> This did not go
 smoothly. The sweeps key edge labels by frozenset, and the probe scripts rebuilt those keys as
 tuples &#8212; so every lookup missed, every edge fell back to label&#8202;0, and the scripts had
