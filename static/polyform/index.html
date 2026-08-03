@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 02:36
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 03:15
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -256,7 +256,6 @@ eight, one needs nine and one needs ten.
 <li><a href="#records">The records: k = 9 and k = 10</a></li>
 <li><a href="#drafter-hat">The hat, found again on another grid</a></li>
 <li><a href="#isomorphic">How many of these are actually different?</a></li>
-<li><a href="#archimedean">Off the Laves tilings: an Archimedean substrate</a></li>
 <li><a href="#going-quiet">Why the frontier stops paying</a></li>
 <li><a href="#gallery">Every high-k tiling</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
@@ -271,20 +270,32 @@ eight, one needs nine and one needs ten.
 <li><a href="#design-space">The design space</a></li>
 <li><a href="#decoration-sweeps">Deeper sweeps, and the oracle&#8217;s bug</a></li>
 </ul></div>
-<div class="part"><span class="n">Part VI</span><div class="h">Method &amp; performance</div>
+<div class="part"><span class="n">Part VI</span><div class="h">New ground</div>
+<ul>
+<li><a href="#archimedean">Off the Laves tilings: Archimedean substrates</a></li>
+</ul></div>
+<div class="part"><span class="n">Part VII</span><div class="h">A global test</div>
+<ul>
+<li><a href="#strip">Proving that a decorated tile cannot tile</a></li>
+</ul></div>
+<div class="part"><span class="n">Part VIII</span><div class="h">Bang for buck</div>
+<ul>
+<li><a href="#yield">Where the compute should go</a></li>
+</ul></div>
+<div class="part"><span class="n">Part IX</span><div class="h">Method &amp; performance</div>
 <ul>
 <li><a href="#engine">How the engine works</a></li>
 <li><a href="#head-to-head">Two algorithms, measured</a></li>
 <li><a href="#speed">The speed work</a></li>
 <li><a href="#audit-trail">The audit trail</a></li>
 </ul></div>
-<div class="part"><span class="n">Part VII</span><div class="h">Roadmap</div>
+<div class="part"><span class="n">Part X</span><div class="h">Roadmap</div>
 <ul>
 <li><a href="#roadmap">Open questions, and what is running</a></li>
 </ul></div>
 </nav>
 
-<h2 id="enumeration"><span class="stage">Part I · replication</span>Enumeration, symmetry &amp; holes <span class="status ok">validated</span></h2>
+<h2 id="enumeration"><span class="stage">Part I &#183; replication</span>Enumeration, symmetry &amp; holes <span class="status ok">validated</span></h2>
 <p class="note">Redelmeier enumeration of fixed shapes with canonical-aspect deduplication to free shapes;
 hole detection by complement flood-fill. Agrees with Myers (and OEIS A000105) at every point tested.</p>
 <div class="tablewrap">
@@ -301,7 +312,7 @@ hole detection by complement flood-fill. Agrees with Myers (and OEIS A000105) at
 <tr><td>13</td><td>238591</td><td>21474</td><td>3179</td><td>31881</td><td>3178</td><td>430</td><td>2:406&ensp;3:24</td><td>178448</td><td>1</td><td>—</td></tr>
 </table>
 </div>
-<h2 id="translation-180"><span class="stage">Part I · replication</span>Translation &amp; 180° tilings <span class="status ok">validated</span></h2>
+<h2 id="translation-180"><span class="stage">Part I &#183; replication</span>Translation &amp; 180° tilings <span class="status ok">validated</span></h2>
 <p class="note">A lattice tiling exists iff the tile is a transversal of the cells modulo some
 index-<i>n/c</i> sublattice (Hermite-normal-form enumeration); a p2 tiling likewise on the
 index-<i>2n/c</i> quotient with a 180° rotation adjoined. Matches all four of Myers's columns,
@@ -318,7 +329,7 @@ including the subtle translation-only shapes (first at n&#8202;=&#8202;9).</p>
 <tr><td>10</td><td>522</td><td>2&#8202;181</td><td>520</td><td>2</td><td class="match">✓</td></tr>
 </table>
 </div>
-<h2 id="polyominoes"><span class="stage">Part I · replication</span>Polyominoes: isohedral, anisohedral, non-tilers <span class="status ok">n ≤ 12 validated</span></h2>
+<h2 id="polyominoes"><span class="stage">Part I &#183; replication</span>Polyominoes: isohedral, anisohedral, non-tilers <span class="status ok">n ≤ 12 validated</span></h2>
 <p class="note">Candidate wallpaper subgroups of the base tiling's symmetry group are enumerated
 as (point subgroup, invariant sublattice, offset cocycle) triples modulo conjugacy; a k-isohedral
 tiling is a k-orbit exact cover of the quotient torus. Non-tiling is proved separately by
@@ -349,7 +360,7 @@ certified <b>Heesch lower bounds</b> by depth-d surround search on unpruned neig
 (the pruned lists used for non-tiling proofs are unsound for Heesch, as Myers notes): of the
 three non-tiling heptominoes, two have Heesch ≥ 1 and one — the plus-with-tail — cannot even
 be surrounded once (Heesch 0), matching the known values.</p>
-<h2 id="polykites"><span class="stage">Part I · replication</span>Polykites <span class="status ok">n ≤ 11 validated</span></h2>
+<h2 id="polykites"><span class="stage">Part I &#183; replication</span>Polykites <span class="status ok">n ≤ 11 validated</span></h2>
 <p class="note">The [3.4.6.4] Laves (kite) backend passes its machine-checked group axioms; free
 counts match Myers exactly (1, 2, 4, 10, 27, 85, 262, 873). Classification agrees with Myers's
 kite tables at <b>every entry</b> through n&#8202;=&#8202;11, including the famously sparse structure —
@@ -411,7 +422,7 @@ anisohedral shapes cluster hard at k&#8202;=&#8202;3, which is where both 11-kit
 Left and middle: the first <b>6-anisohedral</b> polykites (k ≤ 5 exhausted, 6-orbit tilings found). Right: <b>the turtle</b>,
 rediscovered the same way the hat was — no k-isohedral tiling for any k ≤ 14, coronas to depth 7 and counting.</div>
 </div>
-<h2 id="polyhexes-polyiamonds"><span class="stage">Part I · replication</span>Polyhexes &amp; polyiamonds <span class="status ok">validated vs Myers</span></h2>
+<h2 id="polyhexes-polyiamonds"><span class="stage">Part I &#183; replication</span>Polyhexes &amp; polyiamonds <span class="status ok">validated vs Myers</span></h2>
 <p class="note">The remaining two classical families round out the validation arc: the hexagonal and
 triangular backends replicate two more of Myers's table sets. Full free classifications now stand at
 n&#8202;≤&#8202;11 for polyhexes and n&#8202;≤&#8202;14 for polyiamonds, and <b>every resolved entry
@@ -506,7 +517,7 @@ row: 281 anisohedral shapes, <b>274 of them merely 2-anisohedral</b> and the rem
 k&#8202;=&#8202;3, with <b>not a single 4-anisohedral 14-iamond</b> and nothing unresolved — an exact
 match with Myers at every column, and a reminder that the high-k shapes thin out with size rather
 than accumulating.</p>
-<h2 id="polycairos"><span class="stage">Part II · new families</span>Polycairos <span class="status ok">terra incognita, classified</span></h2>
+<h2 id="polycairos"><span class="stage">Part II &#183; new families</span>Polycairos <span class="status ok">terra incognita, classified</span></h2>
 <p class="note">The Cairo backend models the tiling as the dual of the snub square tiling on an
 exact integer lattice (four pentagon aspects, p4g symmetry with its glide offsets handled by the
 group cocycles). Free polycairo counts match <a href="https://oeis.org/A159866">OEIS A159866</a>
@@ -550,7 +561,7 @@ banned. Heesch scan of the non-tilers: maximum certified lower bound 2 (two hept
 by orbit of the tiling's symmetry group — rendered from the exact-cover solution and verified overlap-free over 392 tiles.
 No tiling of this shape uses fewer than four orbits.</div>
 </div>
-<h2 id="polyrhombilles"><span class="stage">Part II · new families</span>Polyrhombilles <span class="status ok">another new family</span></h2>
+<h2 id="polyrhombilles"><span class="stage">Part II &#183; new families</span>Polyrhombilles <span class="status ok">another new family</span></h2>
 <p class="note">The rhombille ([3.6.3.6] Laves, "tumbling blocks") backend: 60°/120° rhombi, three
 per hexagon, p6m with all point maps carrying lattice-fraction offsets. Free counts match the known
 polyrhombille sequence (1, 1, 3, 4, 12, 27, 78, 208). The classification below is again new data.</p>
@@ -603,7 +614,7 @@ were each dispatched by SAT surround exhaustion at depth 3.</p>
 colored by orbit — its symmetry group is translations only, and no aligned tiling of this five-rhombus shape has fewer
 than six orbits. Verified overlap-free from the exact-cover solution.</div>
 </div>
-<h2 id="polyflorets"><span class="stage">Part II · new families</span>Polyflorets — a chiral family <span class="status ok">classified n ≤ 11</span></h2>
+<h2 id="polyflorets"><span class="stage">Part II &#183; new families</span>Polyflorets — a chiral family <span class="status ok">classified n ≤ 11</span></h2>
 <p class="note">The floret pentagonal ([3.3.3.3.6] Laves) tiling is <b>chiral</b> — its symmetry group
 p6 contains no reflections — so polyflorets are one-sided: mirror images are genuinely different
 shapes. The backend models the dual snub trihexagonal tiling exactly, via the index-7 Loeschian
@@ -661,7 +672,7 @@ and the 6-anisohedral 10-floret (right, tinted).</div>
 the tiling's symmetry group is translations only, and no aligned tiling of this shape has fewer than six orbits
 (k ≤ 5 exhausted). Verified overlap-free from the exact-cover solution.</div>
 </div>
-<h2 id="polyprisms"><span class="stage">Part II · new families</span>Polyprisms <span class="status ok">classified n ≤ 10</span></h2>
+<h2 id="polyprisms"><span class="stage">Part II &#183; new families</span>Polyprisms <span class="status ok">classified n ≤ 10</span></h2>
 <p class="note"><b>Polyprisms</b> (prismatic pentagonal, [3.3.3.4.4] Laves, cmm; counts match the
 known 1, 3, 5, 20, 56, 225) are the friendliest family yet — the single pentagon tiles by 180°, the first
 non-tiler appears only at n&#8202;=&#8202;4, and n&#8202;=&#8202;7 brings the first 3-anisohedral polyprism.
@@ -698,7 +709,7 @@ and at none of the odd ones, through n&#8202;=&#8202;10.</p>
 <tr><td>13</td><td>4068503</td><td>344206</td><td>0</td><td>131189</td><td>7432</td><td>475</td><td>2:466&ensp;3:9</td><td>3585201</td><td>0</td></tr>
 </table>
 </div>
-<h2 id="polyaboloes"><span class="stage">Part II · new families</span>Polyaboloes (kisquadrille tans) <span class="status ok">classified n ≤ 11</span></h2>
+<h2 id="polyaboloes"><span class="stage">Part II &#183; new families</span>Polyaboloes (kisquadrille tans) <span class="status ok">classified n ≤ 11</span></h2>
 <p class="note">Classical polyaboloes are built from <b>tans</b> — half-square right triangles — and a tan
 is exactly a pair of tetrakis-square ("kisquadrille") quarter-triangles glued along a half-diagonal. So
 polyaboloes enumerate as tan-pair regions on the [4.8.8] Laves substrate (deduped by union: the two
@@ -733,7 +744,7 @@ kisrhombille ([4.6.12]) grid — classified
 <a href="#polydrafters">below</a>. The n&#8202;=&#8202;11 row (46&#8202;476 shapes,
 fully resolved) brings the family's largest anisohedral crop yet: 105 shapes, five of them
 3-anisohedral.</p>
-<h2 id="tetrakis"><span class="stage">Part II · new families</span>Tetrakis polyaboloes — quarter-square cells <span class="status ok">classified n ≤ 13</span></h2>
+<h2 id="tetrakis"><span class="stage">Part II &#183; new families</span>Tetrakis polyaboloes — quarter-square cells <span class="status ok">classified n ≤ 13</span></h2>
 <p class="note">The <a href="#polyaboloes">previous section</a> glued the [4.8.8] grid's cells into tans; drop the pairing and the single
 <b>quarter-square triangle</b> becomes the cell, giving the kisquadrille substrate its native polyform
 family — <b>tetrakis polyaboloes</b> (poly-[4.8²]-tiles), where the division of a tan into two tetrakis
@@ -843,7 +854,7 @@ chirality</b>: the one-sided sweep resolves all 80 seven-cell shapes and finds n
 k&#8202;=&#8202;2, so every minimal 4-orbit tiling must mix mirror-image copies — the same fate as the
 eleven 4-anisohedral polycairos. At n&#8202;=&#8202;7 only six of the 80 one-sided shapes tile the plane
 at all, every one of them 2-anisohedral.</p>
-<h2 id="polydrafters"><span class="stage">Part II · new families</span>Polydrafters (kisrhombille) <span class="status ok">free n ≤ 15, one-sided n ≤ 12</span></h2>
+<h2 id="polydrafters"><span class="stage">Part II &#183; new families</span>Polydrafters (kisrhombille) <span class="status ok">free n ≤ 15, one-sided n ≤ 12</span></h2>
 <p class="note">The kisrhombille ([4.6.12] Laves) tiling of 30-60-90 triangles — drafter country. This
 family is <b>edge-to-edge</b> polydrafters (cells joined along full shared grid edges; the classical
 polydrafter census also counts other contacts). Like florets, the grid is hostile: no 5- or (below)
@@ -913,7 +924,7 @@ those two columns are blank at every size on this page except n&#8202;=&#8202;6 
 genuinely hostile is everything else — zero isohedral 13-drafters at all, where n&#8202;=&#8202;12 had
 559 — so the family alternates between the ordinary and the barren from one size to the next rather
 than settling down.</p>
-<h2 id="polypons"><span class="stage">Part II · new families</span>Polypons (triakis triangular) — the last Laves tiling <span class="status ok">free n ≤ 19, one-sided n ≤ 14</span></h2>
+<h2 id="polypons"><span class="stage">Part II &#183; new families</span>Polypons (triakis triangular) — the last Laves tiling <span class="status ok">free n ≤ 19, one-sided n ≤ 14</span></h2>
 <p class="note">The triakis triangular ([3.12.12] Laves) tiling splits each triangle of the regular
 triangular tiling into three 30-30-120 obtuse triangles; its polyforms are the classical
 <b>polypons</b>, and this backend completes the set — all eleven Laves tilings now run on the one
@@ -1039,7 +1050,7 @@ both conventions, and then n&#8202;=&#8202;14 produces the family's first one-si
 3-anisohedral when reflections are allowed, its isohedral number climbing one notch when they are
 banned. The fourth 6-anisohedral polypon is not so lucky: its six-orbit tiling needs reflected
 copies, and its one-sided versions are proven non-tilers.</p>
-<h2 id="tiling-rate"><span class="stage">Part II · new families</span>The shape of two and a half million answers <span class="status ok">every family, one picture</span></h2>
+<h2 id="tiling-rate"><span class="stage">Part II &#183; new families</span>The shape of two and a half million answers <span class="status ok">every family, one picture</span></h2>
 <p class="note">Twelve families, 2.5 million classifications, and one question worth asking of all of
 them at once: <b>what fraction of shapes actually tile the plane, and how does that change with
 size?</b> Twelve series is far past what any honest categorical palette can carry, so each family
@@ -1075,7 +1086,7 @@ have <i>c</i>&#8202;=&#8202;1 or 2 and almost nothing to fail, which is why thei
 smooth. One caveat kept in view: the drafters (<i>c</i>&#8202;=&#8202;12) do not follow the pattern
 cleanly — their local peak at n&#8202;=&#8202;14 is not a multiple of 12 — so divisibility gates
 the <i>opportunity</i> to tile without determining the outcome.</p>
-<h2 id="spectre-mode"><span class="stage">Part III · one-sided</span>Spectre mode: reflections banned <span class="status ok">eleven families</span></h2>
+<h2 id="spectre-mode"><span class="stage">Part III &#183; one-sided</span>Spectre mode: reflections banned <span class="status ok">eleven families</span></h2>
 <p class="note">Chiral edge notches (as on the Spectre) enforce grid alignment <i>and</i> orientation, so
 classification under <b>direct isometries only</b> — rotations and translations, shapes one-sided — is the
 version realizable by an honest unmarked notched tile, with no grid caveat. <b>Eleven of the project's
@@ -1109,7 +1120,7 @@ long-unresolved pentarhombilles are <b>Spectre-mode non-tilers in both chiraliti
 direct-Heesch numbers 1 and 2) — any aligned tiling they admit must mix mirror-image copies; and all
 five isohedral heptaboloes lose their tilings when reflections are banned (their one-sided versions are
 non-tilers or 2-anisohedral).</p>
-<h2 id="one-sided-tables"><span class="stage">Part III · one-sided</span>The one-sided tables, family by family <span class="status ok">eight tables</span></h2>
+<h2 id="one-sided-tables"><span class="stage">Part III &#183; one-sided</span>The one-sided tables, family by family <span class="status ok">eight tables</span></h2>
 <div class="tablewrap">
 <table>
 <caption>One-sided polyominoes, direct isometries only (kmax = 4; free column = A000988 at every entry)</caption>
@@ -1295,7 +1306,7 @@ isohedral column is empty — every one-sided 11-abolo that tiles at all does so
 symmetry is the half-turn, so every reflection-free tiling is of translation or p2 type — and empirically
 through n&#8202;=&#8202;9 there are no anisohedral one-sided polyprisms at all. At odd sizes even
 translation drops out: all 8&#8202;765 one-sided 9-prism tilers tile by 180°.</p>
-<h2 id="hat-turtle"><span class="stage">Part IV · the hard shapes</span>The hat and the turtle <span class="status ok">aperiodicity evidence</span></h2>
+<h2 id="hat-turtle"><span class="stage">Part IV &#183; the hard shapes</span>The hat and the turtle <span class="status ok">aperiodicity evidence</span></h2>
 <div style="display:flex; gap:1.5rem; align-items:flex-start; flex-wrap:wrap; margin-top:1rem;">
 <div style="flex:0 0 200px; min-width:0; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:0.9rem;">
 <img src="figs/hat.svg" alt="hat" style="width:100%; height:auto; display:block;" loading="lazy"/>
@@ -1321,7 +1332,7 @@ with the <a href="#polykites">polykite table</a>) — the engine has
 now rediscovered both of the known aperiodic polykites blind.</p>
 </div>
 </div>
-<h2 id="star"><span class="stage">Part IV · the hard shapes</span>The star 10-rhombille <span class="status ok">resolved · Heesch exactly 3</span></h2>
+<h2 id="star"><span class="stage">Part IV &#183; the hard shapes</span>The star 10-rhombille <span class="status ok">resolved · Heesch exactly 3</span></h2>
 <p class="note"><b>Resolved (30 July, afternoon): the star does not tile.</b> As a free 20-iamond it
 tiles by mere translation, but aligned to the rhombille grid it is a <b>proven non-tiler with
 Heesch number exactly 3</b> — and, as a posthumous consistency check, a SAT version of the k-orbit
@@ -1357,7 +1368,7 @@ translation as a free 20-iamond, but rhombille-aligned it is a proven non-tiler 
 <img src="figs/star-surround-d3.png" alt="The star 10-rhombille surrounded by three complete coronas &#8212; its maximal surround" style="width:100%; height:auto; display:block; border-radius:4px;" loading="lazy"/>
 <div class="legend" style="margin-top:0.5rem">The star&#8217;s maximal surround, found by the SAT engine in 0.2&#8202;s: the center (dark) wrapped in three complete coronas (blues), with outer filler tiles (gold/orange) supporting the third. No fourth corona exists (UNSAT, 7&#8202;s) — Heesch number 3, hence a non-tiler.</div>
 </div>
-<h2 id="records"><span class="stage">Part IV · the hard shapes</span>The isohedral-number records: k&#8202;=&#8202;9 and k&#8202;=&#8202;10 <span class="status ok">the project ceiling</span></h2>
+<h2 id="records"><span class="stage">Part IV &#183; the hard shapes</span>The isohedral-number records: k&#8202;=&#8202;9 and k&#8202;=&#8202;10 <span class="status ok">the project ceiling</span></h2>
 <p class="note">The deep probes that closed the frontier rows of the
 <a href="#polyhexes-polyiamonds">hexes and iamonds</a> and of the
 <a href="#tetrakis">tetrakis polyaboloes</a> produced the highest isohedral numbers
@@ -1484,7 +1495,7 @@ before that, 6. Drawing this figure exposed a rendering bug worth recording: a s
 covers only a thin sliver of the plane when the lattice basis is skewed, so the first renders showed a correct tiling
 full of phantom holes — the same Gauss-reduction pitfall the decorated validator hit in July, in a new place.</div>
 </div>
-<h2 id="isomorphic"><span class="stage">Part IV · the hard shapes</span>How many of these are actually different? <span class="status warn">34 records, 19 structures</span></h2>
+<h2 id="isomorphic"><span class="stage">Part IV &#183; the hard shapes</span>How many of these are actually different? <span class="status warn">34 records, 19 structures</span></h2>
 <p class="note">The k&#8202;≥&#8202;6 club is quoted above as forty-nine records across eight Laves
 families, and that count is doing less work than it looks. A reader noticing that several of the
 k&#8202;=&#8202;6 tilings resemble one another prompted the check, and they were right twice over,
@@ -1538,7 +1549,7 @@ its own grid, and a shape's isohedral number is a statement about tilings aligne
 shrinks is the claim of <i>variety</i>: the club is thirty-four records, thirty distinct polygons, and
 nineteen distinct ways of tiling the plane.</p>
 
-<h2 id="drafter-hat"><span class="stage">Part IV · the hard shapes</span>The hat, found again on another grid <span class="status ok">independently rediscovered</span></h2>
+<h2 id="drafter-hat"><span class="stage">Part IV &#183; the hard shapes</span>The hat, found again on another grid <span class="status ok">independently rediscovered</span></h2>
 <p class="note">The n&#8202;=&#8202;16 polydrafter row left exactly one shape open, and it behaved like
 nothing else in the project. Sixteen drafters, no symmetry, no hole. It surrounds to depth 12 without
 effort &#8212; layers of 1, 6, 14, 22, 32, 38, 46, 56, 60, 74, 80, 86, 93 tiles, still growing &#8212;
@@ -1587,7 +1598,7 @@ window, and the window is derived from the frame &#8212; including the fundament
 since a domain with the area of one lattice cell can still be long and non-convex enough to bite the
 edge of the picture.</p>
 
-<h2 id="going-quiet"><span class="stage">Part IV · the hard shapes</span>Why the frontier stops paying <span class="status warn">the rich grids die first</span></h2>
+<h2 id="going-quiet"><span class="stage">Part IV &#183; the hard shapes</span>Why the frontier stops paying <span class="status warn">the rich grids die first</span></h2>
 <p class="note">The obvious way to hunt a record is to push every family to the next size. It stops
 working, and the data says why. Counting anisohedral shapes per hundred thousand enumerated, every
 family's density falls as n grows &#8212; but it falls at wildly different rates, and the ordering is
@@ -1642,7 +1653,7 @@ start of a climb, and neither, presumably, is the 16-hex. That is a discouraging
 strategy based on going one size further, and it is the clearest thing this project has learned about
 where records live.</p>
 
-<h2 id="gallery"><span class="stage">Part IV · the hard shapes</span>Every high-k tiling <span class="status ok">31 distinct polygons</span></h2>
+<h2 id="gallery"><span class="stage">Part IV &#183; the hard shapes</span>Every high-k tiling <span class="status ok">31 distinct polygons</span></h2>
 <p class="note">One minimal tiling for each distinct shape the project has at
 k&#8202;&#8805;&#8202;6, coloured by orbit. Shapes are deduplicated by boundary congruence first, so a
 polygon that appears on two grids &#8212; the pentarhombille and the decapon, say &#8212; is drawn
@@ -1784,7 +1795,7 @@ chevron at ten orbits, the second the 11-hex at nine &#8212; the record and the 
 three shapes whose tiling structure could not be classified (Part IV) are still drawn here; only their
 combinatorial type is unknown, not their tiling.</p>
 
-<h2 id="leaderboard"><span class="stage">Part IV · the hard shapes</span>The ten most stubborn tiles <span class="status ok">every one verified</span></h2>
+<h2 id="leaderboard"><span class="stage">Part IV &#183; the hard shapes</span>The ten most stubborn tiles <span class="status ok">every one verified</span></h2>
 <p class="note">A shape is <i>k</i>-anisohedral when it tiles the plane but no tiling of it uses
 fewer than <i>k</i> orbits of tiles — <i>k</i>&#8202;=&#8202;1 is an ordinary well-behaved tile, and
 large <i>k</i> means the plane can only be filled by an intricate arrangement in which tiles play
@@ -1856,7 +1867,7 @@ the families that dominate — polyrhombilles, polypons, tetrakis polyaboloes �
 had classified before this project. Three of the ten come from the tetrakis grid alone, a family
 that did not exist here forty-eight hours ago, and the record holder is a nine-cell chevron that
 spent an afternoon misfiled as a probable non-tiler.</p>
-<h2 id="probe-ledger"><span class="stage">Part IV · the hard shapes</span>The two-stage probe and the ledger <span class="status ok">103 shapes settled</span></h2>
+<h2 id="probe-ledger"><span class="stage">Part IV &#183; the hard shapes</span>The two-stage probe and the ledger <span class="status ok">103 shapes settled</span></h2>
 <p class="note">Batch sweeps run at a fixed kmax, so every new frontier row leaves a
 pool of shapes it could not settle. Those pools are emptied afterwards by a two-stage
 probe: cheap SAT surround exhaustion first, then the SAT orbit search on whatever
@@ -1921,7 +1932,7 @@ survives.</p>
   squares and hexagons of equal edge cannot share an integer lattice &#8212; the same licence already
   taken for the octagon and the dodecagon.</span></span></li>
 </ul>
-<h2 id="isolated"><span class="stage">Part IV · structure</span>High-k tiles are isolated <span class="status ok">a refuted hypothesis</span></h2>
+<h2 id="isolated"><span class="stage">Part IV &#183; the hard shapes</span>High-k tiles are isolated <span class="status ok">a refuted hypothesis</span></h2>
 <p class="note">Every record on this page arrived the same way: enumerate an entire size, classify
 everything, then probe whatever the sweep could not settle. That is an expensive habit, and the
 obvious alternative is to search <i>locally</i> — take a shape known to be hard and perturb it, on
@@ -1943,7 +1954,7 @@ are sparse and scattered inside identifiable regions, so the leverage lies entir
 which region to enumerate — never in local moves once you are there. The experiment cost
 twenty-five minutes and retired a whole family of strategies.</p>
 
-<h2 id="decorations"><span class="stage">Part V · decorations</span>Wang decorations: bump/dent matching rules <span class="status ok">third audit closed · v3 oracle-verified</span></h2>
+<h2 id="decorations"><span class="stage">Part V &#183; decorations</span>Wang decorations: bump/dent matching rules <span class="status ok">third audit closed · v3 oracle-verified</span></h2>
 <p class="note">The engine supports <b>edge decorations</b>: every boundary edge of a shape carries
 a label — 0 is neutral (matches itself), labels 1 and 2 are bump/dent partners that match only
 each other, exactly the Wang-tile mechanism behind the Spectre&#8217;s notches. The question this
@@ -2014,7 +2025,7 @@ compatible with this decoration has fewer than two orbits.</div>
 <tr><td>O-tetromino</td><td>8</td><td>3</td><td>6561</td><td>707</td><td>32</td><td>5822</td><td>4</td></tr>
 </table>
 </div>
-<h2 id="arrows"><span class="stage">Part V · decorations</span>Arrows: reflect a bump into a dent, and the ceiling breaks <span class="status ok">k&#8202;=&#8202;5 on a plain hexagon</span></h2>
+<h2 id="arrows"><span class="stage">Part V &#183; decorations</span>Arrows: reflect a bump into a dent, and the ceiling breaks <span class="status ok">k&#8202;=&#8202;5 on a plain hexagon</span></h2>
 <p class="note">Every sweep above uses the <b>identity mirror</b>: a reflected bump is still a bump.
 That single modelling choice is what powers the parity lemma — and, it turns out, what caps the
 isohedral numbers. Give the notches an <b>asymmetric profile</b> instead, so that a reflected bump
@@ -2058,7 +2069,7 @@ rule, where every decorated hexagon is isohedral or nothing. Both verified by th
 <tr><td>domino</td><td>arrow</td><td>729</td><td>729</td><td>—</td><td>—</td><td>—</td><td>0</td></tr>
 </table>
 </div>
-<h2 id="taxonomy"><span class="stage">Part V · decorations</span>The complete taxonomy of edge markings <span class="status ok">four marking types</span></h2>
+<h2 id="taxonomy"><span class="stage">Part V &#183; decorations</span>The complete taxonomy of edge markings <span class="status ok">four marking types</span></h2>
 <p class="note">The arrow rule is not an ad-hoc variant: it is one of exactly four possibilities,
 and working out why says what the whole decorated-tiling game consists of. A marking on a shared
 edge is recorded by each adjacent tile in its own frame — boundary traversal direction, interior on
@@ -2176,7 +2187,7 @@ decorations. The S-curves are the tabs themselves — each carried onto itself b
 its edge's midpoint, which is why one fits another. 202 profiles here, every one derived
 independently from both neighbours and agreeing.</div>
 </div>
-<h2 id="design-space"><span class="stage">Part V · decorations</span>The design space: why the hexagon, and nothing bigger <span class="status ok">one shape in the corner</span></h2>
+<h2 id="design-space"><span class="stage">Part V &#183; decorations</span>The design space: why the hexagon, and nothing bigger <span class="status ok">one shape in the corner</span></h2>
 <p class="note"><b>Why the hexagon, and not something bigger.</b> The obvious way to look for
 more than five orbits is a bigger tile — more edges, more constraints to force with. It fails, and
 the way it fails is the most informative result in this section. A two-cell dihex (ten edges) and a
@@ -2289,7 +2300,7 @@ same k&#8202;=&#8202;2 ceiling with a fraction of the colourings, and the scheme
 (S&#8202;tabs to 3, chiral4 beyond) are precisely the ones whose rule distinguishes a label from its
 mirror or its reverse. Colour is the cheapest thing to add and the least useful.</p>
 
-<h2 id="decoration-sweeps"><span class="stage">Part V · decorations</span>Deeper sweeps, cheaper sweeps, and the oracle&#8217;s own bug <span class="status ok">kmax&#8202;8 · no entry moved</span></h2>
+<h2 id="decoration-sweeps"><span class="stage">Part V &#183; decorations</span>Deeper sweeps, cheaper sweeps, and the oracle&#8217;s own bug <span class="status ok">kmax&#8202;8 · no entry moved</span></h2>
 <p class="note"><b>Every ceiling here has now been tested two orbits higher than it was
 found.</b> A spectrum that stops at k&#8202;=&#8202;2 because the sweep stopped at
 kmax&#8202;4 is not the same claim as a spectrum that stops at k&#8202;=&#8202;2 with
@@ -2323,7 +2334,7 @@ only reject too much, and each produced a plausible-looking mathematical narrati
 &#8220;gaps&#8221;, a special hexagon — that dissolved under an independent check the search code
 had no hand in. The surviving facts are duller and firmer: rigidity everywhere, one honest
 doubling, and a pre-filter lemma that does more than the search does.</p>
-<h2 id="archimedean"><span class="stage">Part VII · new ground</span>Off the Laves tilings: an Archimedean substrate <span class="status ok">new family, new lemma</span></h2>
+<h2 id="archimedean"><span class="stage">Part VI &#183; new ground</span>Off the Laves tilings: an Archimedean substrate <span class="status ok">new family, new lemma</span></h2>
 <p class="note">Every backend so far has been a Laves tiling &#8212; one cell shape, repeated. The
 <b>trihexagonal tiling [3.6.3.6]</b> is Archimedean instead, and its cells come in two shapes:
 regular hexagons and equilateral triangles, two triangles to each hexagon. A polyform on it is a
@@ -2435,7 +2446,7 @@ never the mathematics, it was that the cell-ratio condition had to exist before 
 were worth sweeping &#8212; without it, two thirds of every row goes to the surround search to be
 told slowly what counting says instantly.</p>
 
-<h2 id="strip"><span class="stage">Part VIII &#183; a global test</span>Proving that a decorated tile cannot tile <span class="status ok">95&#8202;934 open &#8594; none</span></h2>
+<h2 id="strip"><span class="stage">Part VII &#183; a global test</span>Proving that a decorated tile cannot tile <span class="status ok">95&#8202;934 open &#8594; none</span></h2>
 <p class="note">A sweep that reports &#8220;no tiling found&#8221; has not proved anything. It has
 ruled out k&#8202;&#8804;&#8202;kmax and stopped, and three quite different things hide behind that
 verdict: a genuine non-tiler, a tile whose isohedral number is above where the search stopped, and
@@ -2530,7 +2541,61 @@ disc of radius 5 could ever have reached. Four independent solvers agree on all 
 refutations, and drat-trim certified the proofs it could; pysat returned truncated DRAT on the
 rest, so those rest on solver agreement rather than a checked proof, which is worth saying plainly
 rather than implying more rigour than is there.</p>
-<h2 id="engine"><span class="stage">Part VI · method &amp; performance</span>How the engine works</h2>
+<h2 id="yield"><span class="stage">Part VIII &#183; bang for buck</span>Where the compute should go <span class="status ok">the two rankings invert</span></h2>
+<p class="note">&#8220;Which grid gives the most anisohedral tiles per unit of compute&#8221; sounds
+like one question. It is two, and they have <b>opposite</b> answers &#8212; which is worth knowing
+before pointing a machine at anything.</p>
+<p class="note">If what you want is <i>volume</i>, use polyominoes: 250 anisohedral tiles per
+100,000 shapes, three times the polyhex rate and more than a thousand times the floret rate. If what
+you want is <i>interest</i> &#8212; shapes at k&#8202;&#8805;&#8202;6, the ones worth rendering
+&#8212; the ordering turns over completely. The square grid has produced <b>not one</b> such shape
+in 325,737 classifications. The rhombille tiling, five times worse by volume, is the best source
+there is. Seven substrates have yielded zero shapes above k&#8202;=&#8202;5 across
+<b>22,261,634</b> shapes between them: abolo, cairo, prismatic, square, trihex, trunchex, truncsq. That is 45%
+of everything this project has ever classified, returning nothing of interest at the top end.</p>
+<table class="tbl">
+<caption>Every backend&#8217;s entire classification history&#8202; normalised per shape rather than per
+second &#8212; the recorded times are wall-clock from parallel runs whose worker counts were never
+written down&#8202; so a rate would mostly measure how many cores a row happened to get. Sorted by the
+column that matters for records.</caption>
+<thead><tr><th>substrate</th><th class="n">shapes</th><th class="n">anisohedral</th>
+<th class="n">per 100k</th><th class="n">k&#8202;&#8805;&#8202;6</th>
+<th class="n">per 1M</th><th class="n">best k</th></tr></thead>
+<tbody>
+<tr><td>rhombille</td><td class="n">2&#8202;482&#8202;460</td><td class="n">1&#8202;345</td><td class="n">54.2</td><td class="n">16</td><td class="n">6.45</td><td class="n">6</td></tr>
+<tr><td>triakis</td><td class="n">2&#8202;095&#8202;246</td><td class="n">187</td><td class="n">8.9</td><td class="n">11</td><td class="n">5.25</td><td class="n">6</td></tr>
+<tr><td>kite</td><td class="n">2&#8202;095&#8202;477</td><td class="n">143</td><td class="n">6.8</td><td class="n">5</td><td class="n">2.39</td><td class="n">6</td></tr>
+<tr><td>iamond</td><td class="n">930&#8202;028</td><td class="n">1&#8202;477</td><td class="n">158.8</td><td class="n">2</td><td class="n">2.15</td><td class="n">8</td></tr>
+<tr><td>hex</td><td class="n">4&#8202;140&#8202;438</td><td class="n">3&#8202;255</td><td class="n">78.6</td><td class="n">4</td><td class="n">0.97</td><td class="n">9</td></tr>
+<tr><td>tetrakis</td><td class="n">5&#8202;327&#8202;372</td><td class="n">823</td><td class="n">15.4</td><td class="n">2</td><td class="n">0.38</td><td class="n">10</td></tr>
+<tr><td>floret</td><td class="n">3&#8202;533&#8202;810</td><td class="n">7</td><td class="n">0.2</td><td class="n">1</td><td class="n">0.28</td><td class="n">6</td></tr>
+<tr><td>kisrhombille</td><td class="n">6&#8202;408&#8202;400</td><td class="n">98</td><td class="n">1.5</td><td class="n">1</td><td class="n">0.16</td><td class="n">6</td></tr>
+<tr><td>abolo</td><td class="n">828&#8202;048</td><td class="n">661</td><td class="n">79.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">4</td></tr>
+<tr><td>cairo</td><td class="n">4&#8202;776&#8202;093</td><td class="n">1&#8202;710</td><td class="n">35.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">4</td></tr>
+<tr><td>prismatic</td><td class="n">5&#8202;333&#8202;962</td><td class="n">983</td><td class="n">18.4</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
+<tr><td>square</td><td class="n">325&#8202;737</td><td class="n">815</td><td class="n">250.2</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">5</td></tr>
+<tr><td>trihex</td><td class="n">507&#8202;671</td><td class="n">192</td><td class="n">37.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
+<tr><td>trunchex</td><td class="n">541&#8202;860</td><td class="n">27</td><td class="n">5.0</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">2</td></tr>
+<tr><td>truncsq</td><td class="n">9&#8202;948&#8202;263</td><td class="n">730</td><td class="n">7.3</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
+</tbody></table>
+<p class="note">The practical reading. Cheap anisohedral tiles are <i>not</i> a leading indicator of
+hard ones, and treating them as one is how a project spends twelve hours on cairo and polyaboloes
+&#8212; the two slowest backends here &#8212; for zero shapes above k&#8202;=&#8202;4. The
+substrates worth extending are rhombille, triakis and kite, which pay in the column that matters
+even though all three look mediocre by volume; the two best-value backends by raw count, the
+prismatic and trihexagonal tilings, have never produced anything above k&#8202;=&#8202;3 and can be
+left alone.</p>
+<p class="note"><b>And a reality check on the record.</b> Beating k&#8202;=&#8202;10 by enumeration
+is out of reach, and it is worth stating the measurement rather than the impression. Classifying
+polyhexes at n&#8202;=&#8202;14 runs at 22 shapes per core-second here: 15.8&#8202;million shapes,
+199 core-hours, about eighteen hours of wall clock on eleven cores &#8212; and the trend gives no
+reason to expect a payoff, since the polyhex maxima run 8, <b>9</b>, 5, 5 at
+n&#8202;=&#8202;10&#8230;13. Myers&#8217;s k&#8202;=&#8202;10 sits at n&#8202;=&#8202;16, which is
+roughly 360&#8202;million free shapes. High isohedral numbers are isolated shapes at particular
+sizes rather than a trend that builds, and the neighbourhood search says the same thing from the
+other side: removing one cell from a tile that needs ten orbits gives one that needs one, or none.
+Whatever finds k&#8202;&gt;&#8202;10 will not be a bigger sweep.</p>
+<h2 id="engine"><span class="stage">Part IX &#183; method &amp; performance</span>How the engine works</h2>
 <div class="method">
 <p><b>One engine, fifteen grids.</b> Every base tiling is described combinatorially: cells are
 integer points, the tiling's symmetries act as affine integer maps, and a backend only supplies
@@ -2640,7 +2705,7 @@ subtree; the search exhausted its node budget and reported nothing on a tile who
 neighbour is already impossible. Filling <i>outward from the centre</i> &#8212; next to the tile
 that actually carries the decoration &#8212; makes the same proof immediate.</p>
 </div>
-<h2 id="head-to-head"><span class="stage">Part VI · method &amp; performance</span>Two algorithms, measured against each other <span class="status ok">1&#8202;762 shapes, zero disagreements</span></h2>
+<h2 id="head-to-head"><span class="stage">Part IX &#183; method &amp; performance</span>Two algorithms, measured against each other <span class="status ok">1&#8202;762 shapes, zero disagreements</span></h2>
 <p class="note">This project's engine and Myers's differ at the root. He runs a <b>class-based
 backtracking search</b>: start with one tile, branch over every way a neighbour can touch an
 unsurrounded tile, let it join a known class or open a new one, propagate the tiles the resulting
@@ -2689,7 +2754,7 @@ winner: route by difficulty, exact cover first and the class search as tail-brea
 of his devices we cannot currently exploit — possible-neighbour bitmaps used <i>inside</i> the
 search, and forced-tile propagation read as unit propagation over class-relative surround
 variables.</p>
-<h2 id="speed"><span class="stage">Part VI · method &amp; performance</span>The speed work <span class="status ok">~100× on classification</span></h2>
+<h2 id="speed"><span class="stage">Part IX &#183; method &amp; performance</span>The speed work <span class="status ok">~100× on classification</span></h2>
 <p class="note">Classification is ~100× faster than 31 July (pocket-check algorithmics ×12, compiled neighbour kernel ×8–11); decoration sweeps a further 4.5–23.6× on top, all algorithmic; the k-orbit search compiled at 10.4× in isolation. The C enumerator runs at 125–165M shapes/s and produced the first n&#8202;=&#8202;11 and n&#8202;=&#8202;12 omino rows.</p>
 <p class="note"><b>Is there another 100×?</b> Yes &#8212; and finding out where took a wrong
 turn worth recording, because the first answer this page gave was measured wrong.</p>
@@ -2800,7 +2865,7 @@ change that had not yet been written to disk. Same failure that produced the 6.8
 earlier, with the diagnosis already written down. The row was cancelled &#8212; 683,101 shapes
 extrapolating to four to six hours &#8212; and re-measured idle. <b>Benchmarks and sweeps cannot share
 a machine</b>, and knowing that is apparently not the same as remembering it.</p>
-<h2 id="audit-trail"><span class="stage">Part VI · method &amp; performance</span>The audit trail <span class="status ok">four soundness episodes</span></h2>
+<h2 id="audit-trail"><span class="stage">Part IX &#183; method &amp; performance</span>The audit trail <span class="status ok">four soundness episodes</span></h2>
 <div class="method">
 <p>This page's numbers have survived four soundness episodes, two of
 them caught by a reader of the figures, and it seems more honest to display that history than
@@ -2824,7 +2889,7 @@ systematic re-audit came back clean (all 37 stored anisohedral examples re-deriv
 found because some independent artifact — a figure, a cross-check, a second engine — contradicted
 the search, which is the strongest argument this project knows for computing everything twice.</p>
 </div>
-<h2 id="roadmap"><span class="stage">Part VII · roadmap</span>Open questions, and what is running</h2>
+<h2 id="roadmap"><span class="stage">Part X &#183; roadmap</span>Open questions, and what is running</h2>
 <ul class="roadmap">
 <li><span class="status run">running</span><span class="what"><b>Higher than ten?</b>
   <span class="d">Isohedral number 10 arrived from a shape nobody was looking at — the last unresolved entry in the whole project. Since sweeps run at kmax&#8202;4, every new frontier row deposits fresh candidates in its unresolved pool, and the two-stage probe (cheap surround exhaustion, then the SAT orbit search on survivors) now empties that pool for a few minutes of compute. Tetrakis n&#8202;=&#8202;14–15, polypons 18, drafters 14 and tans 12 are computing now, chosen because the small families have produced every record so far.</span></span></li>
