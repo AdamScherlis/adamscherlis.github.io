@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 01:31
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 01:56
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1888,8 +1888,9 @@ survives.</p>
   shape already is &#8212; which for a hexagon or a dihex is never. Enforcing the matching rule on the
   relative isometry instead looked like the fix and was <i>unsound</i>: it &#8220;proved&#8221;
   non-tiling for 279 of 300 decorations that demonstrably tile. Replaced by a global test, the
-  <a href="#strip">strip transfer matrix</a>, which settles <b>97.3%</b> of a 142,782-decoration
-  backlog with proofs valid for every k.</span></li>
+  <a href="#strip">strip transfer matrix</a>, plus a decoration-aware patch search for what the
+  global test cannot see. Together they settle <b>142,766 of 142,782</b> with proofs valid for
+  every k, leaving sixteen decorations undecided in the whole project.</span></li>
 <li><span class="status done">closed</span><span class="what"><b>Two cells do not beat five orbits</b>
   <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves
   prototile passes 2, so the natural question was whether a two-cell shape goes higher: the dihex has
@@ -2433,7 +2434,7 @@ never the mathematics, it was that the cell-ratio condition had to exist before 
 were worth sweeping &#8212; without it, two thirds of every row goes to the surround search to be
 told slowly what counting says instantly.</p>
 
-<h2 id="strip"><span class="stage">Part VIII &#183; a global test</span>Proving that a decorated tile cannot tile <span class="status ok">97% of a 142,782 decoration backlog, settled</span></h2>
+<h2 id="strip"><span class="stage">Part VIII &#183; a global test</span>Proving that a decorated tile cannot tile <span class="status ok">142&#8202;766 of 142&#8202;782 settled &#183; 16 left</span></h2>
 <p class="note">A sweep that reports &#8220;no tiling found&#8221; has not proved anything. It has
 ruled out k&#8202;&#8804;&#8202;kmax and stopped, and three quite different things hide behind
 that verdict: a genuine non-tiler, a tile whose isohedral number is simply above where the search
@@ -2475,35 +2476,56 @@ minutes.</p>
 <table class="tbl">
 <caption>Every decoration space under study&#8202; after discarding superseded sweeps and
 repeat passes over the same space. &#8220;Unresolved&#8221; is what the sweep recorded as
-&#8220;no tiling found&#8221; at its kmax; &#8220;proven&#8221; is non-tiling established for
-<i>every</i> k by strip transfer matrix at widths&#8202;1&#8211;3.</caption>
+&#8220;no tiling found&#8221; at its kmax; the two proof columns establish non-tiling for
+<i>every</i> k&#8202; by strip transfer matrix at widths&#8202;1&#8211;6 and by patch exhaustion at
+radius&#8202;2&#8211;5. Sixteen of the eighteen spaces are settled <i>completely</i>: every
+decoration in them either tiles or is proven never to.</caption>
 <thead><tr><th>prototile</th><th>scheme</th><th class="n">kmax</th>
-<th class="n">unresolved</th><th class="n">proven</th><th class="n">share</th>
-<th class="n">survive</th></tr></thead>
+<th class="n">unresolved</th><th class="n">by strip</th><th class="n">by patch</th>
+<th class="n">still open</th></tr></thead>
 <tbody>
-<tr><td>dihex</td><td>arrow&#8202; 3 labels</td><td class="n">8</td><td class="n">55&#8202;784</td><td class="n">53&#8202;744</td><td class="n">96.3%</td><td class="n">2&#8202;040</td></tr>
-<tr><td>hexagon</td><td>symmetric&#8202; 5 labels</td><td class="n">6</td><td class="n">14&#8202;840</td><td class="n">14&#8202;744</td><td class="n">99.4%</td><td class="n">96</td></tr>
-<tr><td>domino</td><td>symmetric&#8202; 5 labels</td><td class="n">6</td><td class="n">14&#8202;744</td><td class="n">14&#8202;616</td><td class="n">99.1%</td><td class="n">128</td></tr>
-<tr><td>hexagon</td><td>chiral4&#8202; 5 labels</td><td class="n">10</td><td class="n">14&#8202;528</td><td class="n">14&#8202;432</td><td class="n">99.3%</td><td class="n">96</td></tr>
-<tr><td>hexagon</td><td>arrow3&#8202; 5 labels</td><td class="n">10</td><td class="n">14&#8202;000</td><td class="n">13&#8202;760</td><td class="n">98.3%</td><td class="n">240</td></tr>
-<tr><td>L-tromino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">6&#8202;058</td><td class="n">5&#8202;998</td><td class="n">99.0%</td><td class="n">60</td></tr>
-<tr><td>I-tromino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">5&#8202;932</td><td class="n">5&#8202;712</td><td class="n">96.3%</td><td class="n">220</td></tr>
-<tr><td>O-tetromino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">5&#8202;822</td><td class="n">5&#8202;086</td><td class="n">87.4%</td><td class="n">736</td></tr>
-<tr><td>L-tromino</td><td>chiral&#8202; 3 labels</td><td class="n">4</td><td class="n">4&#8202;460</td><td class="n">4&#8202;308</td><td class="n">96.6%</td><td class="n">152</td></tr>
-<tr><td>tromino</td><td>stab&#8202; 3 labels</td><td class="n">4</td><td class="n">3&#8202;364</td><td class="n">3&#8202;348</td><td class="n">99.5%</td><td class="n">16</td></tr>
-<tr><td>hexagon</td><td>wang&#8202; 4 labels</td><td class="n">6</td><td class="n">1&#8202;284</td><td class="n">1&#8202;284</td><td class="n">100.0%</td><td class="n">0</td></tr>
-<tr><td>hexagon</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">600</td><td class="n">552</td><td class="n">92.0%</td><td class="n">48</td></tr>
-<tr><td>domino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">592</td><td class="n">560</td><td class="n">94.6%</td><td class="n">32</td></tr>
-<tr><td>hexagon</td><td>arrow&#8202; 3 labels</td><td class="n">8</td><td class="n">396</td><td class="n">396</td><td class="n">100.0%</td><td class="n">0</td></tr>
-<tr><td>hexagon</td><td>wang&#8202; 3 labels</td><td class="n">6</td><td class="n">114</td><td class="n">114</td><td class="n">100.0%</td><td class="n">0</td></tr>
-<tr><td>hexagon</td><td>stab&#8202; 3 labels</td><td class="n">8</td><td class="n">102</td><td class="n">102</td><td class="n">100.0%</td><td class="n">0</td></tr>
-<tr><td>domino</td><td>stab&#8202; 3 labels</td><td class="n">8</td><td class="n">100</td><td class="n">92</td><td class="n">92.0%</td><td class="n">8</td></tr>
-<tr><td>square</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">62</td><td class="n">62</td><td class="n">100.0%</td><td class="n">0</td></tr>
+<tr><td>dihex</td><td>arrow&#8202; 3 labels</td><td class="n">8</td><td class="n">55&#8202;784</td><td class="n">55&#8202;692</td><td class="n">84</td><td class="n">8</td></tr>
+<tr><td>hexagon</td><td>symmetric&#8202; 5 labels</td><td class="n">6</td><td class="n">14&#8202;840</td><td class="n">14&#8202;840</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>domino</td><td>symmetric&#8202; 5 labels</td><td class="n">6</td><td class="n">14&#8202;744</td><td class="n">14&#8202;744</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>hexagon</td><td>chiral4&#8202; 5 labels</td><td class="n">10</td><td class="n">14&#8202;528</td><td class="n">14&#8202;528</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>hexagon</td><td>arrow3&#8202; 5 labels</td><td class="n">10</td><td class="n">14&#8202;000</td><td class="n">14&#8202;000</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>L-tromino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">6&#8202;058</td><td class="n">6&#8202;058</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>I-tromino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">5&#8202;932</td><td class="n">5&#8202;828</td><td class="n">96</td><td class="n">8</td></tr>
+<tr><td>O-tetromino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">5&#8202;822</td><td class="n">5&#8202;822</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>L-tromino</td><td>chiral&#8202; 3 labels</td><td class="n">4</td><td class="n">4&#8202;460</td><td class="n">4&#8202;460</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>tromino</td><td>stab&#8202; 3 labels</td><td class="n">4</td><td class="n">3&#8202;364</td><td class="n">3&#8202;364</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>hexagon</td><td>wang&#8202; 4 labels</td><td class="n">6</td><td class="n">1&#8202;284</td><td class="n">1&#8202;284</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>hexagon</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">600</td><td class="n">600</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>domino</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">592</td><td class="n">592</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>hexagon</td><td>arrow&#8202; 3 labels</td><td class="n">8</td><td class="n">396</td><td class="n">396</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>hexagon</td><td>wang&#8202; 3 labels</td><td class="n">6</td><td class="n">114</td><td class="n">114</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>hexagon</td><td>stab&#8202; 3 labels</td><td class="n">8</td><td class="n">102</td><td class="n">102</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>domino</td><td>stab&#8202; 3 labels</td><td class="n">8</td><td class="n">100</td><td class="n">100</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
+<tr><td>square</td><td>jigsaw&#8202; 3 labels</td><td class="n">8</td><td class="n">62</td><td class="n">62</td><td class="n">&#8212;</td><td class="n">&#8212;</td></tr>
 <tr class="tot"><td colspan="3"><b>total</b></td>
-<td class="n"><b>142&#8202;782</b></td><td class="n"><b>138&#8202;910</b></td>
-<td class="n"><b>97.3%</b></td>
-<td class="n"><b>3&#8202;872</b></td></tr>
+<td class="n"><b>142&#8202;782</b></td><td class="n"><b>142&#8202;586</b></td>
+<td class="n"><b>180</b></td>
+<td class="n"><b>16</b></td></tr>
 </tbody></table>
+<p class="note"><b>And the local test finishes the job.</b> What the strip cannot reach is, by
+construction, what a <i>local</i> argument sees &#8212; so the last survivors go to a
+decoration-aware patch search: place tiles outward from the origin keeping every isometry, check
+the matching rule between every touching pair, and ask whether the disc can be covered at all.
+Tiles hang over the boundary freely, since demanding exact coverage of a region would be unsound
+(an L-tromino tiles the plane and cannot cover a 3&#215;3 square). It proves <b>180</b> of the
+decorations no strip width could touch, which is the complementarity claim demonstrated rather
+than asserted. <b>Sixteen decorations now remain undecided in the entire project</b> &#8212; eight
+jigsaw I-trominoes and eight arrow dihexes &#8212; against 142&#8202;782 at the start of the day. Those
+sixteen surround to radius&#8202;5, admit no periodic tiling with k up to their sweep&#8217;s
+kmax, and are refuted by no strip up to width&#8202;6. They are where a very high isohedral
+number, or an aperiodic decoration, would have to be.</p>
+<p class="note">One implementation detail there mattered more than the algorithm did. Filling the
+disc in lexicographic order starts at a far corner and meets the contradiction only after an
+enormous subtree, so the search exhausted its node budget and reported nothing about a tile whose
+very first neighbour is already impossible. Filling <i>outward from the centre</i> &#8212; next to
+the tile that actually carries the decoration &#8212; makes the identical proof instant. The
+control that caught it was a hexagon with one bump and no dent, which cannot tile for a reason a
+child could state.</p>
 <p class="note"><b>The companion certificate.</b> Wrapping the strip into a cylinder &#8212; column
 w&#8202;&#8722;&#8202;1 adjacent to column&#8202;0 &#8212; flips what the graph means. On a free
 strip a surviving path need not extend to the plane. On a cylinder every row state tiles an
@@ -2512,24 +2534,6 @@ every state has a successor always contains a cycle. So a non-empty trimmed cyli
 constructive proof that the tile <i>does</i> tile. The two run together: one direction refutes, the
 other exhibits, and what survives both is genuinely undecided by this method &#8212; which is where
 an aperiodic decoration would have to live.</p>
-<p class="note"><b>Checked against the undecorated classifications.</b> The decoration controls
-only ever exercised a few hundred records. The plain polyform rows are this project&#8217;s
-best-tested ground truth &#8212; millions of shapes, reconciled against Myers&#8217;s published
-counts &#8212; so both directions were run over them as well. Across 1,920 free polyominoes and
-polyhexes: <b>no shape the classifier says tiles was ever refuted, and no cylinder ever exhibited
-a tiling for a shape proven to be a non-tiler</b>. Every positive certificate was also laid out
-explicitly and checked cell by cell for exact cover, which is the part worth distrusting &#8212;
-wrapping a strip lets a copy meet its own translate at the seam, and a shape wider than the
-circumference could in principle overlap itself. It does not: the graph excludes exactly those
-aspects. A horizontal domino tiles a circumference-1 cylinder only by standing upright.</p>
-<p class="note"><b>And the two tests turn out to be complements, not rivals.</b> On decorated
-tiles the strip settles 97%; on <i>undecorated</i> ones it is feeble &#8212; 6 of 198 known
-non-tiling nonominoes, 0 of 3 hexahexes. The reason is that they see different obstructions. A
-plain polyform usually fails to tile for a <i>local</i> reason: it makes a pocket nothing can
-fill, which is precisely what corona exhaustion is built to find and what no amount of strip width
-will reveal. A decorated tile fails for a <i>global</i> one: the labels admit every local
-configuration and only contradict themselves after propagating arbitrarily far. Neither method
-subsumes the other, and the project needs both.</p>
 <p class="note"><b>Three silent bugs, and one control that catches them all.</b> This did not go
 smoothly. The sweeps key edge labels by frozenset, and the probe scripts rebuilt those keys as
 tuples &#8212; so every lookup missed, every edge fell back to label&#8202;0, and the scripts had
