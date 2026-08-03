@@ -919,3 +919,23 @@ decorated tiles the strip settles 97%; on <i>undecorated</i> ones it is feeble &
 known non-tiling nonominoes, 0 of 3 hexahexes. Plain polyforms fail locally and decorated ones
 fail globally, and a project that wants both needs both.
 </p>
+
+<p>
+It is worth being precise about <i>why</i>, because the obvious optimisation does not work. Since
+the CDCL patch is so much stronger than the strip, one expects it to beat corona exhaustion at the
+job that dominates every sweep &mdash; roughly 80% of shapes at the frontier are non-tilers. It
+does not, and not by a little. On 14 known non-tiling 12-hexes: corona proves <b>all fourteen in
+24&#8202;ms per shape</b>; the SAT patch proves <b>none of them</b>, at 1.5&#8202;s per shape at
+6&#215;6 and 3.2&#8202;s at 8&#215;8. Sixty to a hundred and thirty times slower, for nothing.
+</p>
+
+<p>
+The reason is that the two formulations ask different questions. A patch asks <i>can this region be
+covered</i>, with tiles free to hang over the boundary &mdash; and a bounded region almost always
+can be, because a covering may simply avoid the awkward configurations. Corona exhaustion asks
+<i>can one tile be completely surrounded</i>, which pins a central copy and forces the neighbours to
+close around it; that is where a pocket obstruction actually lives. For a decorated tile the labels
+make covering hard by themselves, so the patch formulation earns its keep. For a plain polyform it
+is nearly free to satisfy. Strength and speed here are properties of the question asked, not of the
+solver.
+</p>
