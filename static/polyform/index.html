@@ -179,7 +179,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 03:15
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 04:01
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -242,7 +242,7 @@ eight, one needs nine and one needs ten.
 <li><a href="#tetrakis">Tetrakis polyaboloes</a></li>
 <li><a href="#polydrafters">Polydrafters</a></li>
 <li><a href="#polypons">Polypons</a></li>
-<li><a href="#tiling-rate">All twelve families, one picture</a></li>
+<li><a href="#tiling-rate">All fifteen families, one picture</a></li>
 </ul></div>
 <div class="part"><span class="n">Part III</span><div class="h">One-sided (Spectre mode)</div>
 <ul>
@@ -1050,10 +1050,10 @@ both conventions, and then n&#8202;=&#8202;14 produces the family's first one-si
 3-anisohedral when reflections are allowed, its isohedral number climbing one notch when they are
 banned. The fourth 6-anisohedral polypon is not so lucky: its six-orbit tiling needs reflected
 copies, and its one-sided versions are proven non-tilers.</p>
-<h2 id="tiling-rate"><span class="stage">Part II &#183; new families</span>The shape of two and a half million answers <span class="status ok">every family, one picture</span></h2>
-<p class="note">Twelve families, 2.5 million classifications, and one question worth asking of all of
+<h2 id="tiling-rate"><span class="stage">Part II &#183; new families</span>The shape of forty-nine million answers <span class="status ok">every family, one picture</span></h2>
+<p class="note">Fifteen families, 49 million classifications, and one question worth asking of all of
 them at once: <b>what fraction of shapes actually tile the plane, and how does that change with
-size?</b> Twelve series is far past what any honest categorical palette can carry, so each family
+size?</b> Fifteen series is far past what any honest categorical palette can carry, so each family
 gets its own panel; within a panel the only colour is odd versus even size, because that turns out
 to be the story.</p>
 <div style="max-width:44rem; background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:1rem; margin-top:0.8rem;">
@@ -1873,64 +1873,10 @@ pool of shapes it could not settle. Those pools are emptied afterwards by a two-
 probe: cheap SAT surround exhaustion first, then the SAT orbit search on whatever
 survives.</p>
 <ul class="roadmap">
-<li><span class="status done">closed</span><span class="what"><b>The decorated ceiling on a unit hexagon</b>
-  <span class="d">Two pools sat at kmax&#8202;6 with about fourteen thousand decorations each recorded
-  as &#8220;no tiling found&#8221; &#8212; the same shape of gap that hid every undecorated record,
-  since a sweep stopping at six cannot tell a non-tiler from a shape needing seven. Both were pushed
-  to kmax&#8202;10 and both returned <i>bit-identical</i> counts: arrow3 still 1013 / 516 / 48 / 48
-  with 14,000 non-tiling, chiral4 still 989 / 108 with 14,528. Nothing tiles at
-  k&#8202;=&#8202;6&#8230;10 that did not already tile below, so those are genuine non-tilers and the
-  k&#8202;=&#8202;5 arrow hexagon stands as the decorated record. 129 seconds to settle.</span></span></li>
-<li><span class="status pend">open</span><span class="what"><b>&#8220;No tiling found&#8221; is not &#8220;no tiling&#8221;</b>
-  <span class="d">Worth being exact about what the pushes below establish. Raising a sweep from
-  kmax&#8202;6 to kmax&#8202;8 rules out k <i>in that window</i>; it says nothing about
-  k&#8202;=&#8202;11, and a decoration jumping from 3 to 11 is unlikely rather than impossible. Worse,
-  a decorated tile is a Wang tile in disguise, and Wang tiles can be <b>aperiodic</b> &#8212; a
-  decoration admitting only non-periodic tilings would report &#8220;no tiling found&#8221; at every
-  kmax forever while genuinely tiling the plane. So the pools below collapse three different things:
-  genuine non-tilers, tiles with k above where the sweep stopped, and possible aperiodic
-  decorations.</span></span></li>
-<li><span class="status done">closed</span><span class="what"><b>Decorated non-tiling proofs, by transfer matrix</b>
-  <span class="d">The obvious repair is the one that works undecorated &#8212; corona and surround
-  exhaustion, unbounded in k &#8212; and it cannot be made to work. That machinery assumes every tile
-  has the same set of legal neighbours, which a decoration breaks: a tile in a different aspect
-  presents different labels. Its candidate lists are indexed by neighbour <i>cell-set</i> and cannot
-  express a condition on orientation at all, so a decorated tile is refuted only when the undecorated
-  shape already is &#8212; which for a hexagon or a dihex is never. Enforcing the matching rule on the
-  relative isometry instead looked like the fix and was <i>unsound</i>: it &#8220;proved&#8221;
-  non-tiling for 279 of 300 decorations that demonstrably tile. Replaced by a global test, the
-  <a href="#strip">strip transfer matrix</a>, plus a decoration-aware patch search for what the
-  global test cannot see. Together they settle <b>142,766 of 142,782</b> with proofs valid for
-  every k. Of the 142,782 records, 46,848 were already dead by the parity lemma; all
-  95,934 genuinely open decorations are now settled and <b>none remain</b>.</span></li>
-<li><span class="status done">closed</span><span class="what"><b>Two cells do not beat five orbits</b>
-  <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves
-  prototile passes 2, so the natural question was whether a two-cell shape goes higher: the dihex has
-  ten edges and 59,049 arrow decorations, of which 55,784 were left unresolved at kmax&#8202;6 &#8212;
-  by far the largest open pool in the project. Pushed to kmax&#8202;8 (7,604 symmetry classes, 82
-  minutes) the counts come back <b>identical</b>: 2,833 at one orbit, 392 at two, 40 at three, 55,784
-  with no tiling at all. Nothing tiles at k&#8202;=&#8202;6, 7 or 8. Ten edges is more room than six
-  and it buys nothing; the k&#8202;=&#8202;5 arrow hexagon stands as the decorated record, and the
-  ceiling looks like a property of the prototile rather than of the alphabet or the edge count.</span></span></li>
-<li><span class="status done">closed</span><span class="what"><b>Higher than ten, by enumeration</b>
-  <span class="d">Answered, negatively, and the reason is structural rather than a compute budget.
-  Anisohedral density collapses with size on every grid, fastest on the richest ones
-  (<a href="#going-quiet">Part IV</a>), and the polyhex maxima run 8, <b>9</b>, 5, 5 at
-  n&#8202;=&#8202;10&#8230;13 before Myers's 10 at n&#8202;=&#8202;16: high isohedral numbers are
-  isolated shapes at particular sizes, not a trend that builds. hex n&#8202;=&#8202;13 was swept to
-  test it &#8212; 3,274,826 shapes, nothing above k&#8202;=&#8202;5.</span></span></li>
-<li><span class="status pend">next</span><span class="what"><b>Mixed markings on one tile</b>
-  <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an
-  S-tab on a third &#8212; the engine's pairing and mirror are arbitrary label maps, so mixed schemes
-  just occupy disjoint label ranges. 117,649 decorations on a hexagon. The two results above lower
-  expectations for it: on a unit hexagon the ceiling looks like a property of the <i>shape</i> rather
-  than of the alphabet.</span></span></li>
-<li><span class="status pend">next</span><span class="what"><b>A three-orbit Archimedean substrate</b>
-  <span class="d">Three mixed-cell tilings are classified (<a href="#archimedean">Part VII</a>), all
-  with two residue orbits. The rhombitrihexagonal [3.4.6.4] and truncated trihexagonal [4.6.12] have
-  three, which would exercise the cell-ratio lemma properly. Both need a distorted embedding, since
-  squares and hexagons of equal edge cannot share an integer lattice &#8212; the same licence already
-  taken for the octagon and the dodecagon.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>Every unresolved shape in the project</b>
+  <span class="d">All 103 settled: 82 non-tilers, 15 at k&#8202;=&#8202;6, three at k&#8202;=&#8202;8, one at k&#8202;=&#8202;10 — and the hat and the turtle, where &#8220;unresolved&#8221; is the right answer. A ledger (<code>results/resolutions.json</code>) now records verdicts, because the sweep files never learn that a probe has closed a shape.</span></span></li>
+<li><span class="status ok">resolved</span><span class="what"><b>Tables reconciled against the probe ledger</b>
+  <span class="d">Sweeps write their unresolved lists once and never revisit them, so rows kept displaying shapes the deep probes had settled hours earlier — spotted by a reader. <code>scripts/reconcile_page.py</code> now diffs every row against <code>results/resolutions.json</code>: 108 shapes left open by sweeps, 108 settled, 0 unprobed. Four stale rows corrected and the newest polypon and drafter rows added.</span></span></li>
 </ul>
 <h2 id="isolated"><span class="stage">Part IV &#183; the hard shapes</span>High-k tiles are isolated <span class="status ok">a refuted hypothesis</span></h2>
 <p class="note">Every record on this page arrived the same way: enumerate an entire size, classify
@@ -2550,15 +2496,14 @@ before pointing a machine at anything.</p>
 you want is <i>interest</i> &#8212; shapes at k&#8202;&#8805;&#8202;6, the ones worth rendering
 &#8212; the ordering turns over completely. The square grid has produced <b>not one</b> such shape
 in 325,737 classifications. The rhombille tiling, five times worse by volume, is the best source
-there is. Seven substrates have yielded zero shapes above k&#8202;=&#8202;5 across
+there is. Seven families have yielded zero shapes above k&#8202;=&#8202;5 across
 <b>22,261,634</b> shapes between them: abolo, cairo, prismatic, square, trihex, trunchex, truncsq. That is 45%
 of everything this project has ever classified, returning nothing of interest at the top end.</p>
 <table class="tbl">
-<caption>Every backend&#8217;s entire classification history&#8202; normalised per shape rather than per
+<caption>Every polyform family&#8217;s entire classification history&#8202; normalised per shape rather than per
 second &#8212; the recorded times are wall-clock from parallel runs whose worker counts were never
-written down&#8202; so a rate would mostly measure how many cores a row happened to get. Sorted by the
-column that matters for records.</caption>
-<thead><tr><th>substrate</th><th class="n">shapes</th><th class="n">anisohedral</th>
+written down&#8202; so a rate would mostly measure how many cores a row happened to get. Sorted by the column that matters for records. Rows are <i>families</i>, not distinct grids: polyaboloes and tetrakis polyaboloes are two different cell groupings of the same tetrakis square tiling, and they land at opposite ends of this table.</caption>
+<thead><tr><th>family</th><th class="n">shapes</th><th class="n">anisohedral</th>
 <th class="n">per 100k</th><th class="n">k&#8202;&#8805;&#8202;6</th>
 <th class="n">per 1M</th><th class="n">best k</th></tr></thead>
 <tbody>
@@ -2578,12 +2523,19 @@ column that matters for records.</caption>
 <tr><td>trunchex</td><td class="n">541&#8202;860</td><td class="n">27</td><td class="n">5.0</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">2</td></tr>
 <tr><td>truncsq</td><td class="n">9&#8202;948&#8202;263</td><td class="n">730</td><td class="n">7.3</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
 </tbody></table>
+<p class="note"><b>And it is not really the grid that decides.</b> The two families at opposite
+ends of that table sit on the <i>same tiling</i>. Polyaboloes and tetrakis polyaboloes are both
+drawn on the tetrakis square tiling; a tan is simply two quarter-triangles glued along a
+half-diagonal. That single change of cell &#8212; from quarter-triangle to half-square &#8212; is
+the difference between 828,048 shapes yielding nothing above k&#8202;=&#8202;4 and a nine-cell
+chevron with the highest isohedral number on this page. Whatever makes a family rich in hard
+tiles, it is a property of how the plane is cut into cells, not of the underlying tiling.</p>
 <p class="note">The practical reading. Cheap anisohedral tiles are <i>not</i> a leading indicator of
 hard ones, and treating them as one is how a project spends twelve hours on cairo and polyaboloes
 &#8212; the two slowest backends here &#8212; for zero shapes above k&#8202;=&#8202;4. The
-substrates worth extending are rhombille, triakis and kite, which pay in the column that matters
+families worth extending are polyrhombilles, polypons and polykites, which pay in the column that matters
 even though all three look mediocre by volume; the two best-value backends by raw count, the
-prismatic and trihexagonal tilings, have never produced anything above k&#8202;=&#8202;3 and can be
+prismatic and trihexagonal families, have never produced anything above k&#8202;=&#8202;3 and can be
 left alone.</p>
 <p class="note"><b>And a reality check on the record.</b> Beating k&#8202;=&#8202;10 by enumeration
 is out of reach, and it is worth stating the measurement rather than the impression. Classifying
@@ -2889,16 +2841,77 @@ systematic re-audit came back clean (all 37 stored anisohedral examples re-deriv
 found because some independent artifact — a figure, a cross-check, a second engine — contradicted
 the search, which is the strongest argument this project knows for computing everything twice.</p>
 </div>
-<h2 id="roadmap"><span class="stage">Part X &#183; roadmap</span>Open questions, and what is running</h2>
+<h2 id="roadmap"><span class="stage">Part X &#183; roadmap</span>Open questions, and what has closed<span class="status ok">2 open &#183; 6 closed</span></h2>
 <ul class="roadmap">
-<li><span class="status run">running</span><span class="what"><b>Higher than ten?</b>
-  <span class="d">Isohedral number 10 arrived from a shape nobody was looking at — the last unresolved entry in the whole project. Since sweeps run at kmax&#8202;4, every new frontier row deposits fresh candidates in its unresolved pool, and the two-stage probe (cheap surround exhaustion, then the SAT orbit search on survivors) now empties that pool for a few minutes of compute. Tetrakis n&#8202;=&#8202;14–15, polypons 18, drafters 14 and tans 12 are computing now, chosen because the small families have produced every record so far.</span></span></li>
-<li><span class="status run">running</span><span class="what"><b>
-
-Can two cells beat five orbits?</b>
-  <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves prototile passes 2. The obvious next question is whether a two-cell shape goes higher: the dihex has ten edges and 59&#8202;049 arrow decorations, which was unaffordable this morning and is a ninety-minute sweep now that the validator is 23× faster.</span></span></li>
 <li><span class="status pend">next</span><span class="what"><b>Mixed markings on one tile</b>
-  <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an S-tab on a third — the engine's pairing and mirror are arbitrary label maps, so mixed schemes just occupy disjoint label ranges. 117&#8202;649 decorations on a hexagon, now within reach.</span></span></li>
+  <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an
+  S-tab on a third &#8212; the engine's pairing and mirror are arbitrary label maps, so mixed schemes
+  just occupy disjoint label ranges. 117,649 decorations on a hexagon. The two results above lower
+  expectations for it: on a unit hexagon the ceiling looks like a property of the <i>shape</i> rather
+  than of the alphabet.</span></span></li>
+<li><span class="status pend">next</span><span class="what"><b>A three-orbit Archimedean substrate</b>
+  <span class="d">Three mixed-cell tilings are classified (<a href="#archimedean">Part VII</a>), all
+  with two residue orbits. The rhombitrihexagonal [3.4.6.4] and truncated trihexagonal [4.6.12] have
+  three, which would exercise the cell-ratio lemma properly. Both need a distorted embedding, since
+  squares and hexagons of equal edge cannot share an integer lattice &#8212; the same licence already
+  taken for the octagon and the dodecagon.</span></span></li>
+<li><span class="status done">closed</span><span class="what"><b>The decorated ceiling on a unit hexagon</b>
+  <span class="d">Two pools sat at kmax&#8202;6 with about fourteen thousand decorations each recorded
+  as &#8220;no tiling found&#8221; &#8212; the same shape of gap that hid every undecorated record,
+  since a sweep stopping at six cannot tell a non-tiler from a shape needing seven. Both were pushed
+  to kmax&#8202;10 and both returned <i>bit-identical</i> counts: arrow3 still 1013 / 516 / 48 / 48
+  with 14,000 non-tiling, chiral4 still 989 / 108 with 14,528. Nothing tiles at
+  k&#8202;=&#8202;6&#8230;10 that did not already tile below, so those are genuine non-tilers and the
+  k&#8202;=&#8202;5 arrow hexagon stands as the decorated record. 129 seconds to settle.</span></span></li>
+<li><span class="status done">closed</span><span class="what"><b>&#8220;No tiling found&#8221; is not &#8220;no tiling&#8221;</b>
+  <span class="d">Raising a sweep from kmax&#8202;6 to kmax&#8202;8 rules out k <i>in that window</i>;
+  it says nothing about k&#8202;=&#8202;11, and a decorated tile is a Wang tile in disguise, so a
+  decoration admitting only <i>aperiodic</i> tilings would report &#8220;no tiling found&#8221; at
+  every kmax forever while genuinely tiling the plane. Each pool therefore conflated three things:
+  genuine non-tilers, tiles above the sweep, and possible aperiodic decorations. All three are now
+  separated for every space under study &#8212; see <a href="#strip">Part VII</a>. Of 142,782
+  records, 46,848 were already dead by the parity lemma and the remaining 95,934 are proven
+  non-tilers for every k. None is aperiodic: the last sixteen fill an 8&#215;8 patch and admit no
+  torus tiling up to 8&#215;8, but die at 12&#215;12. The methodological point stands for any
+  future sweep, and the drivers now enforce it.</span></li>
+<li><span class="status done">closed</span><span class="what"><b>Decorated non-tiling proofs, by transfer matrix</b>
+  <span class="d">The obvious repair is the one that works undecorated &#8212; corona and surround
+  exhaustion, unbounded in k &#8212; and it cannot be made to work. That machinery assumes every tile
+  has the same set of legal neighbours, which a decoration breaks: a tile in a different aspect
+  presents different labels. Its candidate lists are indexed by neighbour <i>cell-set</i> and cannot
+  express a condition on orientation at all, so a decorated tile is refuted only when the undecorated
+  shape already is &#8212; which for a hexagon or a dihex is never. Enforcing the matching rule on the
+  relative isometry instead looked like the fix and was <i>unsound</i>: it &#8220;proved&#8221;
+  non-tiling for 279 of 300 decorations that demonstrably tile. Replaced by a global test, the
+  <a href="#strip">strip transfer matrix</a>, plus a decoration-aware patch search for what the
+  global test cannot see. Together they settle <b>142,766 of 142,782</b> with proofs valid for
+  every k. Of the 142,782 records, 46,848 were already dead by the parity lemma; all
+  95,934 genuinely open decorations are now settled and <b>none remain</b>.</span></li>
+<li><span class="status done">closed</span><span class="what"><b>Two cells do not beat five orbits</b>
+  <span class="d">Under the arrow rule a single hexagon reaches k&#8202;=&#8202;5 and no other Laves
+  prototile passes 2, so the natural question was whether a two-cell shape goes higher: the dihex has
+  ten edges and 59,049 arrow decorations, of which 55,784 were left unresolved at kmax&#8202;6 &#8212;
+  by far the largest open pool in the project. Pushed to kmax&#8202;8 (7,604 symmetry classes, 82
+  minutes) the counts come back <b>identical</b>: 2,833 at one orbit, 392 at two, 40 at three, 55,784
+  with no tiling at all. Nothing tiles at k&#8202;=&#8202;6, 7 or 8, and all 55,784 are now <a href="#strip">proven non-tilers for every k</a>, not merely unresolved ones. Ten edges is more room than six
+  and it buys nothing; the k&#8202;=&#8202;5 arrow hexagon stands as the decorated record, and the
+  ceiling looks like a property of the prototile rather than of the alphabet or the edge count.</span></span></li>
+<li><span class="status done">closed</span><span class="what"><b>Higher than ten, by enumeration</b>
+  <span class="d">Answered, negatively, and the reason is structural rather than a compute budget.
+  Anisohedral density collapses with size on every grid, fastest on the richest ones
+  (<a href="#going-quiet">Part IV</a>), and the polyhex maxima run 8, <b>9</b>, 5, 5 at
+  n&#8202;=&#8202;10&#8230;13 before Myers's 10 at n&#8202;=&#8202;16: high isohedral numbers are
+  isolated shapes at particular sizes, not a trend that builds. hex n&#8202;=&#8202;13 was swept to
+  test it &#8212; 3,274,826 shapes, nothing above k&#8202;=&#8202;5.</span></span></li>
+<li><span class="status done">closed</span><span class="what"><b>Higher than ten, by enumeration</b>
+  <span class="d">Answered negatively, and now with the arithmetic rather than an impression.
+  Classifying polyhexes at n&#8202;=&#8202;14 runs at 22 shapes per core-second: 15.8&#8202;million
+  shapes, 199 core-hours, about eighteen hours of wall clock on eleven cores. The trend gives no
+  reason to pay it &#8212; the polyhex maxima run 8, <b>9</b>, 5, 5 at n&#8202;=&#8202;10&#8230;13
+  &#8212; and Myers&#8217;s k&#8202;=&#8202;10 sits at n&#8202;=&#8202;16, roughly 360&#8202;million
+  free shapes. High isohedral numbers are isolated shapes at particular sizes, not a trend that
+  builds, and <a href="#yield">Part VIII</a> says where compute pays instead. Whatever finds
+  k&#8202;&gt;&#8202;10 will not be a bigger sweep.</span></li>
 </ul>
 <footer>
 Engine: <code>~/src/polyform</code>, branch <code>engine</code> · Python; SAT via PySAT
