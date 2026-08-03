@@ -185,7 +185,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 10:35
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 3 August 2026, 11:05
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -1509,6 +1509,22 @@ before that, 6. Drawing this figure exposed a rendering bug worth recording: a s
 covers only a thin sliver of the plane when the lattice basis is skewed, so the first renders showed a correct tiling
 full of phantom holes — the same Gauss-reduction pitfall the decorated validator hit in July, in a new place.</div>
 </div>
+<p class="note"><b>The same question, asked of every hard shape on those two grids.</b> If
+one-sided isohedral numbers can only be larger, the natural hope is that some shape gains orbits
+when its mirror is removed &#8212; ideally landing on the missing seven. All thirteen shapes at
+k&#8202;=&#8202;5 or 6 on the honeycomb and the square lattice were re-classified under direct
+isometries, with anything the k-search could not settle taken to a SAT patch at 12, 16, 20 and
+24&#8202;cells square. The answer is that <b>ten of the thirteen stop tiling altogether</b>
+&#8212; proven one-sided non-tilers &#8212; and the two that are settled keep the isohedral number
+they already had, five staying five and six staying six. <b>Not one gains an orbit.</b></p>
+<p class="note">That is a sharper statement than it first looks. Reflections in these tilings are
+never a mild convenience that a chiral tile could pay for with a few extra transitivity classes;
+they are either irrelevant or load-bearing, and when they are load-bearing their removal does not
+cost orbits, it costs the tiling. Thirteen shapes, and the middle case &#8212; a tile that still
+tiles but needs more classes to do it &#8212; does not occur once. One shape remains genuinely
+undecided: a 13-hex that fills a 24&#215;24 patch one-sided while admitting no tiling with
+k&#8202;&#8804;&#8202;12, so if it tiles at all its one-sided isohedral number is at least
+thirteen. It is being pushed to larger patches.</p>
 <p class="note"><b>Do the records survive a mirror ban?</b> One-sided isohedral numbers can only
 be <i>larger</i> than free ones &#8212; forbidding reflections removes symmetries a tiling might
 have leaned on, so a shape needing nine orbits with mirrors could need more without them. Since
