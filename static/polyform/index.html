@@ -185,7 +185,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 5 August 2026, 00:52
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 5 August 2026, 01:28
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -264,7 +264,7 @@ eight, one needs nine and one needs ten.
 <li><a href="#seven">The missing seven</a></li>
 <li><a href="#isomorphic">How many of these are actually different?</a></li>
 <li><a href="#going-quiet">Why the frontier stops paying</a></li>
-<li><a href="#gallery">Every high-k tiling</a></li>
+<li><a href="#gallery">The high-k tilings</a></li>
 <li><a href="#leaderboard">The ten most stubborn tiles</a></li>
 <li><a href="#probe-ledger">The two-stage probe and the ledger</a>
 <a href="#isolated">High-k tiles are isolated</a></li>
@@ -1749,9 +1749,12 @@ start of a climb, and neither, presumably, is the 16-hex. That is a discouraging
 strategy based on going one size further, and it is the clearest thing this project has learned about
 where records live.</p>
 
-<h2 id="gallery"><span class="stage">Part IV &#183; the hard shapes</span>Every high-k tiling <span class="status ok">31 distinct polygons</span></h2>
-<p class="note">One minimal tiling for each distinct shape the project has at
-k&#8202;&#8805;&#8202;6, coloured by orbit. Shapes are deduplicated by boundary congruence first, so a
+<h2 id="gallery"><span class="stage">Part IV &#183; the hard shapes</span>The high-k tilings <span class="status warn">31 of 49 drawn</span></h2>
+<p class="note">One minimal tiling per distinct shape at k&#8202;&#8805;&#8202;6, coloured by orbit
+&#8212; <b>as the club stood when this gallery was built</b>. It has since grown faster than
+the pictures: the probe ledger alone now holds 51 shapes at six or more, reducing to <b>49
+distinct polygons</b> under boundary congruence, of which 31 are drawn here. The absentees
+are listed in the <a href="#roadmap">roadmap</a> &#8212; a rendering job, not a research one. Shapes are deduplicated by boundary congruence first, so a
 polygon that appears on two grids &#8212; the pentarhombille and the decapon, say &#8212; is drawn
 once, not twice. Every frame is sized to show about sixty tiles, which is what makes them comparable:
 the tiles are at the same apparent scale throughout even though the underlying grids differ by an
@@ -2963,8 +2966,9 @@ the search, which is the strongest argument this project knows for computing eve
   <a href="#yield">polyrhombilles</a> from n&#8202;=&#8202;17 &#8212; but five (family,&#8202;size)
   combinations have no figure at all: <b>7 polypons at n&#8202;=&#8202;22</b> (the second largest
   cluster in the project), 3 polykites at n&#8202;=&#8202;14, a polyiamond at n&#8202;=&#8202;18,
-  and one each of the one-sided polyrhombille and polypon. Thirteen tiles. The renderer and the
-  minimal tilings are already in hand; this is only a matter of running it and finding them a
+  and one each of the one-sided polyrhombille and polypon. Thirty-one tiles &#8212; the gallery draws 31 of the 49 distinct polygons the ledger
+  now holds at six or more, and 16 polyrhombilles at n&#8202;=&#8202;17 are the bulk of
+  what is missing. The renderer and the minimal tilings are already in hand; this is only a matter of running it and finding them a
   home on the page.</span></li>
 <li><span class="status pend">next</span><span class="what"><b>Mixed markings on one tile</b>
   <span class="d">Nothing stops a tile carrying a jigsaw tab on one edge, an arrow on the next and an
