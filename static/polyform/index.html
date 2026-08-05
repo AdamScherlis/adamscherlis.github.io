@@ -185,7 +185,7 @@ footer {
 <header class="masthead">
   <div>
     <h1>Polyform tiling — validation ledger</h1>
-    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 4 August 2026, 23:50
+    <div class="sub">Replicating Joseph Myers's plane-tiling classifications, then extending to eight new polyform families · updated 5 August 2026, 00:20
       · <a href="algorithms.html">how the algorithms work →</a></div>
   </div>
   <div class="cells" aria-hidden="true">
@@ -2589,14 +2589,8 @@ rather than implying more rigour than is there.</p>
 <p class="note">&#8220;Which grid gives the most anisohedral tiles per unit of compute&#8221; sounds
 like one question. It is two, and they have <b>opposite</b> answers &#8212; which is worth knowing
 before pointing a machine at anything.</p>
-<p class="note">If what you want is <i>volume</i>, use polyominoes: 250 anisohedral tiles per
-100,000 shapes, three times the polyhex rate and more than a thousand times the floret rate. If what
-you want is <i>interest</i> &#8212; shapes at k&#8202;&#8805;&#8202;6, the ones worth rendering
-&#8212; the ordering turns over completely. The square grid has produced <b>not one</b> such shape
-in 325,737 classifications. The rhombille tiling, five times worse by volume, is the best source
-there is. Seven families have yielded zero shapes above k&#8202;=&#8202;5 across
-<b>22,261,634</b> shapes between them: abolo, cairo, prismatic, square, trihex, trunchex, truncsq. That is 45%
-of everything this project has ever classified, returning nothing of interest at the top end.</p>
+<p class="note">If what you want is <i>volume</i>, use polyiamonds: 107 anisohedral tiles per 100&#8202;000 shapes, against 0.2 for polyflorets at the bottom. If what you want is <i>interest</i> &#8212; shapes at k&#8202;&#8805;&#8202;6, the ones worth rendering &#8212; the ordering turns over completely, and <b>polyrhombilles</b> lead it: 4.07 per million against 17.4 per 100k by volume, mediocre on one axis and best on the other. <b>6</b> families have yielded nothing above k&#8202;=&#8202;5 across <b>26&#8202;923&#8202;831</b> shapes between them (polyaboloes, polycairos, polyprisms, trihexagonal, truncated hexagonal, truncated square) &#8212; 34% of everything this project has classified, returning nothing of interest at the top end.</p>
+<p class="note">The polyominoes are the cautionary entry. For most of this project they were the flagship zero: hundreds of thousands of shapes, the most studied family on the page, and not one tile above k&#8202;=&#8202;5. Then n&#8202;=&#8202;14 produced a <a href="#seven">six-anisohedral 14-omino</a> in its very last unresolved slot. The rate is still poor &#8212; one in 4&#8202;654&#8202;284 &#8212; but "none" and "one in four million" are different claims, and only one of them survives another row.</p>
 <table class="tbl">
 <caption>Every polyform family&#8217;s entire classification history&#8202; normalised per shape rather than per
 second &#8212; the recorded times are wall-clock from parallel runs whose worker counts were never
@@ -2605,21 +2599,21 @@ written down&#8202; so a rate would mostly measure how many cores a row happened
 <th class="n">per 100k</th><th class="n">k&#8202;&#8805;&#8202;6</th>
 <th class="n">per 1M</th><th class="n">best k</th></tr></thead>
 <tbody>
-<tr><td>rhombille</td><td class="n">2&#8202;482&#8202;460</td><td class="n">1&#8202;345</td><td class="n">54.2</td><td class="n">16</td><td class="n">6.45</td><td class="n">6</td></tr>
-<tr><td>triakis</td><td class="n">2&#8202;095&#8202;246</td><td class="n">187</td><td class="n">8.9</td><td class="n">11</td><td class="n">5.25</td><td class="n">6</td></tr>
-<tr><td>kite</td><td class="n">2&#8202;095&#8202;477</td><td class="n">143</td><td class="n">6.8</td><td class="n">5</td><td class="n">2.39</td><td class="n">6</td></tr>
-<tr><td>iamond</td><td class="n">930&#8202;028</td><td class="n">1&#8202;477</td><td class="n">158.8</td><td class="n">2</td><td class="n">2.15</td><td class="n">8</td></tr>
-<tr><td>hex</td><td class="n">4&#8202;140&#8202;438</td><td class="n">3&#8202;255</td><td class="n">78.6</td><td class="n">4</td><td class="n">0.97</td><td class="n">9</td></tr>
-<tr><td>tetrakis</td><td class="n">5&#8202;327&#8202;372</td><td class="n">823</td><td class="n">15.4</td><td class="n">2</td><td class="n">0.38</td><td class="n">10</td></tr>
-<tr><td>floret</td><td class="n">3&#8202;533&#8202;810</td><td class="n">7</td><td class="n">0.2</td><td class="n">1</td><td class="n">0.28</td><td class="n">6</td></tr>
-<tr><td>kisrhombille</td><td class="n">6&#8202;408&#8202;400</td><td class="n">98</td><td class="n">1.5</td><td class="n">1</td><td class="n">0.16</td><td class="n">6</td></tr>
-<tr><td>abolo</td><td class="n">828&#8202;048</td><td class="n">661</td><td class="n">79.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">4</td></tr>
-<tr><td>cairo</td><td class="n">4&#8202;776&#8202;093</td><td class="n">1&#8202;710</td><td class="n">35.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">4</td></tr>
-<tr><td>prismatic</td><td class="n">5&#8202;333&#8202;962</td><td class="n">983</td><td class="n">18.4</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
-<tr><td>square</td><td class="n">325&#8202;737</td><td class="n">815</td><td class="n">250.2</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">5</td></tr>
-<tr><td>trihex</td><td class="n">507&#8202;671</td><td class="n">192</td><td class="n">37.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
-<tr><td>trunchex</td><td class="n">541&#8202;860</td><td class="n">27</td><td class="n">5.0</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">2</td></tr>
-<tr><td>truncsq</td><td class="n">9&#8202;948&#8202;263</td><td class="n">730</td><td class="n">7.3</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
+<tr><td>polyrhombilles</td><td class="n">7&#8202;859&#8202;224</td><td class="n">1&#8202;364</td><td class="n">17.4</td><td class="n">32</td><td class="n">4.07</td><td class="n">6</td></tr>
+<tr><td>polypons</td><td class="n">9&#8202;280&#8202;344</td><td class="n">520</td><td class="n">5.6</td><td class="n">11</td><td class="n">1.19</td><td class="n">6</td></tr>
+<tr><td>polyiamonds</td><td class="n">2&#8202;666&#8202;356</td><td class="n">2&#8202;844</td><td class="n">106.7</td><td class="n">3</td><td class="n">1.13</td><td class="n">8</td></tr>
+<tr><td>polyhexes</td><td class="n">4&#8202;140&#8202;438</td><td class="n">3&#8202;255</td><td class="n">78.6</td><td class="n">4</td><td class="n">0.97</td><td class="n">9</td></tr>
+<tr><td>polykites</td><td class="n">7&#8202;429&#8202;658</td><td class="n">269</td><td class="n">3.6</td><td class="n">5</td><td class="n">0.67</td><td class="n">6</td></tr>
+<tr><td>tetrakis polyaboloes</td><td class="n">5&#8202;327&#8202;372</td><td class="n">823</td><td class="n">15.4</td><td class="n">2</td><td class="n">0.38</td><td class="n">10</td></tr>
+<tr><td>polyflorets</td><td class="n">3&#8202;533&#8202;810</td><td class="n">7</td><td class="n">0.2</td><td class="n">1</td><td class="n">0.28</td><td class="n">6</td></tr>
+<tr><td>polyominoes</td><td class="n">4&#8202;654&#8202;284</td><td class="n">2&#8202;872</td><td class="n">61.7</td><td class="n">1</td><td class="n">0.21</td><td class="n">6</td></tr>
+<tr><td>polydrafters</td><td class="n">6&#8202;408&#8202;400</td><td class="n">98</td><td class="n">1.5</td><td class="n">1</td><td class="n">0.16</td><td class="n">6</td></tr>
+<tr><td>trihexagonal</td><td class="n">2&#8202;109&#8202;827</td><td class="n">192</td><td class="n">9.1</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
+<tr><td>truncated square</td><td class="n">9&#8202;948&#8202;263</td><td class="n">730</td><td class="n">7.3</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
+<tr><td>polyaboloes</td><td class="n">828&#8202;048</td><td class="n">661</td><td class="n">79.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">4</td></tr>
+<tr><td>truncated hexagonal</td><td class="n">3&#8202;927&#8202;638</td><td class="n">27</td><td class="n">0.7</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">2</td></tr>
+<tr><td>polycairos</td><td class="n">4&#8202;776&#8202;093</td><td class="n">1&#8202;710</td><td class="n">35.8</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">4</td></tr>
+<tr><td>polyprisms</td><td class="n">5&#8202;333&#8202;962</td><td class="n">983</td><td class="n">18.4</td><td class="n">&#8212;</td><td class="n">0.00</td><td class="n">3</td></tr>
 </tbody></table>
 <p class="note"><b>And it is not really the grid that decides.</b> The two families at opposite
 ends of that table sit on the <i>same tiling</i>. Polyaboloes and tetrakis polyaboloes are both
