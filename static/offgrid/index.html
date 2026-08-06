@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Off-grid polyomino gallery</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body class="gallery">
+
+<div class="wrap">
+<h1>Polyominoes that pack better tilted than grid-aligned</h1>
+<p class="lede">Each piece is a discretised keyed rhombus. It packs the plane in a
+<b>rhombille</b> arrangement &mdash; three orientations 120&deg; apart, which no combination of
+integer translations and 90&deg; rotations can reproduce &mdash; more densely than the best
+grid-aligned packing anyone has found for it. The comparison reduces to <b>area per copy</b>:
+the cell count cancels, so all that matters is <code>D_aligned / D_tilted &gt; 1</code>. That is
+why the pieces can be hollowed so aggressively, and why cell count is a nearly free axis to
+minimise.</p>
+<p class="lede" style="font-size:.95em"><a href="explain.html">How the search works &rarr;</a>
+&mdash; the reduction, why a tilted packing can never be perfect, and how the aligned side is
+proved bad.</p>
+
+<section class="card champ">
+  <header><h2>22 cells &nbsp;&middot;&nbsp; ratio 1.007</h2><p class="sub">scale n=6.244021360062769, no tile shape assumed &mdash; smallest known. One cell smaller than the 23-cell piece below, at the cost of nearly all the margin &mdash; the ratio falls from 1.095 to 1.006, so it is the most fragile entry here and the one most likely to be refuted by a packing with more copies per period</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>22</dd></div><div><dt>tilted area / copy</dt><dd>33.8</dd></div><div><dt>aligned area / copy</dt><dd>34.0</dd></div><div><dt>&rho; tilted</dt><dd>0.6516</dd></div><div><dt>&rho; aligned</dt><dd>0.6471</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.0070</b></dd></div><div><dt>checked to</dt><dd>5 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n22b_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n22b_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.6516</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n22b_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.6471</b><br><span>2 copies per 68-cell period</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card champ">
+  <header><h2>23 cells &nbsp;&middot;&nbsp; ratio 1.096</h2><p class="sub">scale n=6.244033259048198, no tile shape assumed &mdash; smallest with a comfortable margin, and proved optimal among 180-degree-symmetric pieces: the relaxation is infeasible at every smaller scale and solves to exactly 23 here. The scale came from binary-searching it rather than guessing</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>23</dd></div><div><dt>tilted area / copy</dt><dd>33.8</dd></div><div><dt>aligned area / copy</dt><dd>37.0</dd></div><div><dt>&rho; tilted</dt><dd>0.6812</dd></div><div><dt>&rho; aligned</dt><dd>0.6216</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.0958</b></dd></div><div><dt>checked to</dt><dd>6 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n23_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n23_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.6812</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n23_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.6216</b><br><span>1 copy per 37-cell lattice cell</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>27 cells &nbsp;&middot;&nbsp; ratio 1.052</h2><p class="sub">scale n=6.788688330185323, no tile shape assumed &mdash; solver-found over all valid pieces, 180-degree symmetric, and tuned to the smallest scale at which it still packs, searching over where the arrangement sits &mdash; at integer scale it would fail. The cell count is what erosion leaves; trading the margin away prunes it to 23 cells at ratio 1.002, which is not shown because it has not been verified past 2 copies</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>27</dd></div><div><dt>tilted area / copy</dt><dd>39.9</dd></div><div><dt>aligned area / copy</dt><dd>42.0</dd></div><div><dt>&rho; tilted</dt><dd>0.6765</dd></div><div><dt>&rho; aligned</dt><dd>0.6429</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.0523</b></dd></div><div><dt>checked to</dt><dd>6 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n7g_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n7g_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.6765</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n7g_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.6429</b><br><span>4 copies per 168-cell period</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>30 cells &nbsp;&middot;&nbsp; ratio 1.095</h2><p class="sub">scale n=7.752780532702953, no tile shape assumed &mdash; solver-found over all valid pieces, 180-degree symmetric, scale-tuned</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>30</dd></div><div><dt>tilted area / copy</dt><dd>52.1</dd></div><div><dt>aligned area / copy</dt><dd>57.0</dd></div><div><dt>&rho; tilted</dt><dd>0.5763</dd></div><div><dt>&rho; aligned</dt><dd>0.5263</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.0950</b></dd></div><div><dt>checked to</dt><dd>4 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n8g_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n8g_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.5763</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n8g_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.5263</b><br><span>1 copy per 57-cell lattice cell</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>47 cells &nbsp;&middot;&nbsp; ratio 1.016</h2><p class="sub">tab depth 0.575, span [0.492,0.612] of each edge, scale n=10 &mdash; smallest from a rasterised tile, trimmed to just above ratio 1</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>47</dd></div><div><dt>tilted area / copy</dt><dd>86.6</dd></div><div><dt>aligned area / copy</dt><dd>88.0</dd></div><div><dt>&rho; tilted</dt><dd>0.5427</dd></div><div><dt>&rho; aligned</dt><dd>0.5341</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.0161</b></dd></div><div><dt>checked to</dt><dd>2 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n10s_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n10s_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.5427</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n10s_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.5341</b><br><span>1 copy per 88-cell lattice cell</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>50 cells &nbsp;&middot;&nbsp; ratio 1.028</h2><p class="sub">tab depth 0.575, span [0.492,0.612] of each edge, scale n=10</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>50</dd></div><div><dt>tilted area / copy</dt><dd>86.6</dd></div><div><dt>aligned area / copy</dt><dd>89.0</dd></div><div><dt>&rho; tilted</dt><dd>0.5774</dd></div><div><dt>&rho; aligned</dt><dd>0.5618</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.0277</b></dd></div><div><dt>checked to</dt><dd>3 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n10_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n10_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.5774</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n10_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.5618</b><br><span>2 copies per 178-cell period</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>55 cells &nbsp;&middot;&nbsp; ratio 1.107</h2><p class="sub">tab depth 0.625, span [0.521,0.641] of each edge, scale n=11 &mdash; trimmed while keeping a 10% margin</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>55</dd></div><div><dt>tilted area / copy</dt><dd>104.8</dd></div><div><dt>aligned area / copy</dt><dd>116.0</dd></div><div><dt>&rho; tilted</dt><dd>0.5249</dd></div><div><dt>&rho; aligned</dt><dd>0.4741</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.1070</b></dd></div><div><dt>checked to</dt><dd>2 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n11s_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n11s_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.5249</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n11s_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.4741</b><br><span>2 copies per 232-cell period</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>58 cells &nbsp;&middot;&nbsp; ratio 1.126</h2><p class="sub">tab depth 0.625, span [0.521,0.641] of each edge, scale n=11 &mdash; widest margin at this size; verified exhaustively to 3 copies per period</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>58</dd></div><div><dt>tilted area / copy</dt><dd>104.8</dd></div><div><dt>aligned area / copy</dt><dd>118.0</dd></div><div><dt>&rho; tilted</dt><dd>0.5535</dd></div><div><dt>&rho; aligned</dt><dd>0.4915</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.1261</b></dd></div><div><dt>checked to</dt><dd>3 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n11_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n11_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.5535</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n11_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.4915</b><br><span>1 copy per 118-cell lattice cell</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>68 cells &nbsp;&middot;&nbsp; ratio 1.119</h2><p class="sub">tab depth 0.65, span [0.535,0.625] of each edge, scale n=12</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>68</dd></div><div><dt>tilted area / copy</dt><dd>124.7</dd></div><div><dt>aligned area / copy</dt><dd>139.5</dd></div><div><dt>&rho; tilted</dt><dd>0.5453</dd></div><div><dt>&rho; aligned</dt><dd>0.4875</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.1186</b></dd></div><div><dt>checked to</dt><dd>2 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n12_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n12_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.5453</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n12_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.4875</b><br><span>2 copies per 279-cell period</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>87 cells &nbsp;&middot;&nbsp; ratio 1.208</h2><p class="sub">tab depth 0.65, span [0.48,0.6] of each edge, scale n=14 &mdash; widest margin</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>87</dd></div><div><dt>tilted area / copy</dt><dd>169.7</dd></div><div><dt>aligned area / copy</dt><dd>205.0</dd></div><div><dt>&rho; tilted</dt><dd>0.5125</dd></div><div><dt>&rho; aligned</dt><dd>0.4244</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.2077</b></dd></div><div><dt>checked to</dt><dd>2 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n14_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n14_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.5125</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n14_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.4244</b><br><span>1 copy per 205-cell lattice cell</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="card">
+  <header><h2>183 cells &nbsp;&middot;&nbsp; ratio 1.202</h2><p class="sub">tab depth 0.4, span [0.25,0.55] of each edge, scale n=22 &mdash; previous champion, hollowed</p></header>
+  <div class="stats"><div><dt>cells</dt><dd>183</dd></div><div><dt>tilted area / copy</dt><dd>419.2</dd></div><div><dt>aligned area / copy</dt><dd>504.0</dd></div><div><dt>&rho; tilted</dt><dd>0.4366</dd></div><div><dt>&rho; aligned</dt><dd>0.3631</dd></div><div><dt>ratio D<sub>a</sub>/D<sub>t</sub></dt><dd><b>1.2024</b></dd></div><div><dt>checked to</dt><dd>2 copies/period</dd></div></div>
+  <div class="panels">
+    <figure><img src="figs/n22_piece.png" alt="piece"><figcaption>the polyomino</figcaption></figure>
+    <figure><img src="figs/n22_tilted.png" alt="tilted"><figcaption>tilted packing &mdash; density <b>0.4366</b><br><span>three orientations 120&deg; apart</span></figcaption></figure>
+    <figure><img src="figs/n22_aligned.png" alt="aligned"><figcaption>best known grid-aligned &mdash; density <b>0.3631</b><br><span>1 copy per 504-cell lattice cell</span></figcaption></figure>
+  </div>
+</section>
+
+<footer>
+<b>How the aligned density is established.</b> "Checked to <i>m</i> copies/period" means every
+grid-aligned packing that repeats with at most <i>m</i> copies per period has been enumerated
+and shown infeasible &mdash; equivalently, every <i>m</i>-copy lattice packing, in all 8
+orientations, over every period shape, shear and aspect ratio.<br><br>
+Two independent implementations agree on the 1-copy figure: a fast search over reduced lattice
+bases, and a deliberately naive enumeration of period lattices in canonical form that shares no
+code with it. The 2-copy search covers two copies in the <i>same</i> orientation as well as in
+different ones. Levels beyond 2 come from exact max-packing on the torus with a SAT solver
+&mdash; for the 27-cell piece that was 3,565 period lattices at m=2 and 7,411 at m=3, all
+infeasible.<br><br>
+<b>Not covered:</b> anything beyond the per-entry "checked to" figure above, and aperiodic
+packings. Aligned densities are therefore best-known, not proven optimal. A level counts only
+when <i>no</i> torus in it timed out &mdash; a level that finds no packing but leaves some
+undecided proves nothing, and is not counted.<br><br>
+<b>Which way these bounds point.</b> Every cell count here is an <b>upper</b> bound on the
+smallest possible polyomino: it says a piece that small exists. Nothing here shows a smaller one
+is impossible &mdash; no lower bound on the minimum is known.<br><br>
+<b>Rendering.</b> Every panel is a pixel-exact raster, one array entry per grid cell, nearest
+neighbour, with nearby copies forced to different colours. Each aligned panel is asserted to
+have zero overlapping cells and a painted density matching the claimed one &mdash; a stale
+orientation index once drew a genuinely invalid packing, with copies overlapping in some places
+and leaving real gaps in others.
+</footer>
+</div>
+</body>
+</html>

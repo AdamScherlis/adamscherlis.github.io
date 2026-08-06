@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Packing a polyomino sideways</title>
+<link rel="stylesheet" href="site.css">
+
+</head>
+<body class="explain">
+<header class="hero">
+  <svg class="bg" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <pattern id="rh" width="104" height="180" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke="currentColor" stroke-width="1" opacity=".16">
+          <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z"/>
+          <path d="M52 0 L52 60 M52 60 L104 90 M52 60 L0 90"/>
+          <path d="M52 120 L104 150 M52 120 L0 150"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="1200" height="420" fill="url(#rh)"/>
+  </svg>
+  <div class="wrap inner">
+    <p class="eyebrow">Discrete geometry &middot; packing &middot;
+      <a href="index.html" style="color:inherit">gallery &rarr;</a></p>
+    <h1 class="serif">A shape made of squares that would rather be turned</h1>
+    <p class="standfirst">A polyomino is built from unit squares on a grid, so the grid feels
+      like its natural home. It isn't always. Here is a <b>23-cell</b> polyomino that packs the
+      plane more densely when you rotate copies of it by 120&deg; &mdash; an angle the grid
+      cannot express &mdash; than in any grid-aligned arrangement anyone has found for it.
+      Below: how to search for such a thing, and how to keep yourself honest about it.</p>
+    <p class="standfirst" style="font-size:.94em;opacity:.85">Deleting one cell gives a 22-cell
+      version that still works, but with almost no margin left. This 23-cell one is shown
+      throughout because it is the better-understood example &mdash; and, within one natural
+      family of candidates, provably the smallest that family contains. Whether anything smaller
+      than 22 exists is <em>open</em>.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <div class="triptych">
+    <div class="cell">
+      <img src="figs/n23_piece.png" alt="the 23-cell polyomino">
+      <p class="lbl">the piece</p><p class="num">23 cells</p>
+    </div>
+    <div class="cell">
+      <img src="figs/n23_tilted.png" alt="tilted packing, three orientations 120 degrees apart">
+      <p class="lbl">tilted &mdash; 3 orientations</p><p class="num t">&rho; = 0.6805</p>
+    </div>
+    <div class="cell">
+      <img src="figs/n23_aligned.png" alt="best known grid-aligned packing">
+      <p class="lbl">grid-aligned &mdash; best known</p><p class="num a">&rho; = 0.6216</p>
+    </div>
+  </div>
+  <figcaption>Same polyomino, two packings. Colours distinguish individual copies; every panel
+  is drawn one array cell per grid cell, so nothing is smoothed away. The middle packing uses
+  three orientations 120&deg; apart. The right-hand one is the densest arrangement anyone has
+  found using only integer translations and the eight symmetries of the square &mdash; one copy
+  per 37-cell lattice cell, and every packing with up to six copies per repeating unit has been
+  enumerated and shown to do no better.</figcaption>
+</section>
+
+<hr class="keyline">
+
+<section class="measure">
+  <h2 class="serif">Cell count cancels</h2>
+  <p class="kicker">The one identity that makes the whole search tractable.</p>
+  <p>A packing that places one copy per <code>D</code> cells of plane has density
+  <code>K/D</code>, where <code>K</code> is the polyomino's cell count. But <code>K</code> is the
+  same number in both packings, so it divides out of the comparison entirely:</p>
+  <div class="claim">
+    <p><b>tilted wins &nbsp;&hArr;&nbsp; D<sub>aligned</sub> &gt; D<sub>tilted</sub></b></p>
+    <p style="margin-top:.5em;font-size:.95rem;color:var(--mut)">Only <em>area per copy</em>
+    matters. The cell count doesn't appear.</p>
+  </div>
+  <p>Two things follow, and they shape everything downstream. First, the tilted side is free:
+  place the copies on a rhombille lattice at scale <code>n</code> and
+  <code>D<sub>tilted</sub> = n²&middot;&radic;3/2</code> exactly, whatever the piece looks like.
+  Second &mdash; and this is what makes small polyominoes reachable at all &mdash; you can delete
+  cells without changing the verdict, so <b>cell count becomes an almost independent axis</b> to
+  minimise rather than a cost to pay.</p>
+</section>
+
+<section class="measure">
+  <h2 class="serif">Why a tilted packing can never be perfect</h2>
+  <p class="kicker">And why that's the whole game.</p>
+  <p>Start with what's impossible. A polyomino's boundary is made of unit segments running
+  north&ndash;south and east&ndash;west. Rotate a copy by anything that isn't a multiple of
+  90&deg; and its boundary segments point in two <em>new</em> directions. For two regions to
+  share boundary along a segment of positive length their boundaries must be parallel there
+  &mdash; so a tilted copy and an untilted one can only ever touch at isolated points.</p>
+  <p>Propagate that through a tiling and every tile must be grid-aligned relative to its
+  neighbours, hence to all of them. So:</p>
+  <div class="claim warn">
+    <p>No polyomino <b>tiles</b> the plane with a tilted copy. Every tilted packing wastes area.</p>
+  </div>
+  <p>Which sounds fatal, and isn't. We don't need the tilted packing to be perfect &mdash; only
+  to waste <em>less</em> than the aligned one. The design problem becomes: build a shape whose
+  grid-aligned packings are catastrophically bad, and whose tilted waste is merely small.</p>
+</section>
+
+<section>
+  <div class="measure">
+    <h2 class="serif">Keys that only fit at 120&deg;</h2>
+    <p class="kicker">Borrowing frustration from the rhombille tiling.</p>
+    <p>The rhombille tiling &mdash; the "tumbling blocks" pattern &mdash; is made of 60&ndash;120&deg;
+    rhombi in three orientations 120&deg; apart. Its symmetries form the wallpaper group
+    <b>p3</b>: all translations of a triangular lattice, plus rotation by 120&deg;. (Everything
+    below works just as well in <b>p6</b>, which adds 60&deg; rotation and so packs twice as
+    many copies into the same repeating unit; the group is a parameter in the code.) It has a property worth exploiting: <b>every edge
+    joins a 6-valent vertex to a 3-valent one</b>, without exception. So orient every edge from
+    its 6-valent end to its 3-valent end, and stamp the same asymmetric profile along all of
+    them, tab on the left.</p>
+    <p>Two tiles sharing an edge then generate the identical curve from opposite sides, so they
+    still fit exactly. But the tile now has tabs on one pair of edges and dents on the other,
+    which means sliding it without rotating jams tab into tab. It fits in the rhombille
+    arrangement and essentially nowhere else.</p>
+  </div>
+
+  <figure class="measure">
+    <svg viewBox="0 0 300 236" role="img" aria-label="A rhombille patch: every one of its nine edges runs from a 6-valent vertex to a 3-valent vertex, so a single asymmetric profile stamped along that direction is globally consistent.">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5"
+                markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--tilt)"/>
+        </marker>
+      </defs>
+      <g stroke="currentColor" fill="none" stroke-width="1.3" opacity=".8">
+        <path d="M140 115 L228 115 L184 38.8 L96 38.8 Z"/>
+        <path d="M140 115 L96 38.8 L52 115 L96 191.2 Z"/>
+        <path d="M140 115 L96 191.2 L184 191.2 L228 115 Z"/>
+      </g>
+      <g stroke="var(--tilt)" stroke-width="1.9" marker-end="url(#ah)">
+        <line x1="212.2" y1="115" x2="155.8" y2="115"/>
+        <line x1="220.1" y1="101.3" x2="191.9" y2="52.5"/>
+        <line x1="220.1" y1="128.7" x2="191.9" y2="177.5"/>
+        <line x1="111.8" y1="38.8" x2="168.2" y2="38.8"/>
+        <line x1="103.9" y1="52.5" x2="132.1" y2="101.3"/>
+        <line x1="88.1" y1="52.5" x2="59.9" y2="101.3"/>
+        <line x1="88.1" y1="177.5" x2="59.9" y2="128.7"/>
+        <line x1="103.9" y1="177.5" x2="132.1" y2="128.7"/>
+        <line x1="111.8" y1="191.2" x2="168.2" y2="191.2"/>
+      </g>
+      <g fill="var(--tilt)">
+        <circle cx="228" cy="115" r="5.5"/><circle cx="96" cy="38.8" r="5.5"/>
+        <circle cx="96" cy="191.2" r="5.5"/>
+      </g>
+      <g fill="var(--ground)" stroke="currentColor" stroke-width="1.6">
+        <circle cx="140" cy="115" r="5"/><circle cx="184" cy="38.8" r="5"/>
+        <circle cx="52" cy="115" r="5"/><circle cx="184" cy="191.2" r="5"/>
+      </g>
+      <g font-family="ui-monospace,Menlo,monospace" font-size="11.5">
+        <text x="240" y="119" fill="var(--tilt)">6-valent</text>
+        <text x="184" y="26" text-anchor="middle" fill="currentColor" opacity=".75">3-valent</text>
+        <text x="150" y="222" text-anchor="middle" fill="currentColor" opacity=".6">all nine edges point the same way: 6 &#8594; 3</text>
+      </g>
+    </svg>
+    <figcaption>Three rhombi meeting at a 3-valent vertex. Filled dots are 6-valent, hollow are
+    3-valent, and <b>every edge runs from a filled dot to a hollow one</b> &mdash; so "stamp the
+    profile along this direction" is a globally consistent instruction. Both tiles sharing an
+    edge generate the same curve, and the tiling survives.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="measure">
+    <h2 class="serif">How deep can the key go?</h2>
+    <p class="kicker">A constraint that had been read too conservatively &mdash; worth 6&times; in cell count.</p>
+    <p>Deeper keys frustrate the aligned packings harder, and that matters enormously: the
+    smallest usable scale <code>n</code> goes like <code>1/&delta;</code> in the aligned density
+    deficit &delta;, and a hollowed piece costs about its perimeter, so <code>K &prop; n</code>.
+    Deeper key, smaller piece.</p>
+    <p>So how deep can a dent be before it cuts through the tile? Flatten the rhombus into the
+    edge's own frame &mdash; <code>t</code> along the edge, <code>s</code> inward &mdash; and it
+    becomes a sheared parallelogram. A dent is a rectangle sitting on the bottom edge. It fits
+    exactly when its inner corner stays inside:</p>
+  </div>
+
+  <figure class="measure">
+    <svg viewBox="0 0 470 232" role="img" aria-label="In the edge frame the rhombus is a sheared parallelogram; a dent of depth d starting at t0 fits only if t0 is at least d over root 3.">
+      <g stroke="currentColor" fill="none" stroke-width="1.5">
+        <path d="M40 190 L300 190 L430 34 L170 34 Z"/>
+      </g>
+      <path d="M40 190 L170 34" stroke="var(--align)" stroke-width="2.5" fill="none"/>
+      <rect x="175.5" y="73" width="31" height="117" fill="var(--tilt)" opacity=".2"
+            stroke="var(--tilt)" stroke-width="1.8"/>
+      <g stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity=".6">
+        <line x1="175.5" y1="73" x2="40" y2="73"/>
+        <line x1="175.5" y1="190" x2="175.5" y2="205"/>
+      </g>
+      <circle cx="175.5" cy="73" r="4.5" fill="var(--tilt)"/>
+      <g class="mono" font-size="11.5" fill="currentColor">
+        <text x="34" y="77" text-anchor="end">s = d</text>
+        <text x="175.5" y="221" text-anchor="middle" fill="var(--tilt)">t₀</text>
+        <text x="40" y="207" text-anchor="middle" opacity=".55">t = 0</text>
+        <text x="300" y="207" text-anchor="middle" opacity=".55">t = 1</text>
+        <text x="120" y="118" text-anchor="end" fill="var(--align)">60° wedge</text>
+        <text x="243" y="130" text-anchor="middle" fill="var(--tilt)">dent</text>
+      </g>
+    </svg>
+    <figcaption>The rhombus in the edge frame. The orange line is the neighbouring edge closing
+    the 60&deg; vertex; the dent's inner corner must stay to its right, which is exactly
+    <b>t<sub>0</sub> &ge; d/&radic;3</b>. The previous work placed the tab at
+    <code>t<sub>0</sub> = 0.25</code>, which caps depth at 0.43 &mdash; and concluded depth was
+    capped. Slide the tab further along the edge and depth reaches <b>~0.8</b>. That single
+    change took the smallest known piece from 339 cells to under 60.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="measure">
+    <h2 class="serif">Then make it out of squares</h2>
+    <p class="kicker">Where all the difficulty actually lives.</p>
+    <p>The continuous tile is only a scaffold: the real object is its rasterisation onto the
+    grid at some scale <code>n</code>. Rasterising loses about one cell along every unit of
+    boundary, so the loss is O(1/n) &mdash; harmless when <code>n</code> is large, and the entire
+    problem when it isn't. Push <code>n</code> down and the keys degrade into noise, then into
+    nothing:</p>
+  </div>
+  <figure class="wide">
+    <img src="figs/ex_scales.png" alt="the same tile rasterised at n=6, 8, 10 and 14">
+    <figcaption>One tile, four scales. At <code>n = 6</code> the shape has collapsed to a
+    3-cell bar with no keys at all; at <code>n = 8</code> it shatters into disconnected
+    fragments; by <code>n = 14</code> the tabs and dents are unmistakable. The search is a fight
+    to get <code>n</code> as low as possible while the keys still bite.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="measure">
+    <h2 class="serif">Hollowing is free &mdash; and provably so</h2>
+    <p class="kicker">The step that converts "it works" into "it is small".</p>
+    <p>Because cell count cancels, interior cells can be deleted outright. The question is how
+    to be <em>sure</em> a deletion changed nothing. The usual argument &mdash; "the cavity is
+    enclosed, so no copy can reach it" &mdash; needs care about whether a copy fits inside the
+    cavity, and says nothing about the outer boundary.</p>
+    <p>There's a cleaner invariant. For each ordered pair of the 8 grid orientations, tabulate
+    which relative offsets make two copies collide: 64 tables. If deleting a cell leaves all 64
+    <b>bit-identical</b>, then for <em>any</em> set of grid-aligned placements whatsoever &mdash;
+    lattice, non-lattice, periodic, aperiodic &mdash; the smaller piece collides exactly when the
+    original does. No packing search is needed to justify it, and no future oracle can overturn
+    it.</p>
+  </div>
+  <figure class="measure">
+    <img src="figs/ex_hollow.png" alt="the 339-cell champion and its 183-cell eroded skeleton">
+    <figcaption>The previous champion and its erosion. <b>339 cells become 183</b> with all 64
+    overlap tables unchanged, so both have identical aligned packing behaviour and the identical
+    ratio 1.202. The naive "keep every cell touching the outside" shell only reaches 251.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="measure">
+    <h2 class="serif">Proving the other side is bad</h2>
+    <p class="kicker">The hard half: an upper bound over <em>every</em> grid-aligned packing.</p>
+    <p>Claiming a tilted packing is good is easy &mdash; exhibit it and measure it. Claiming
+    that <em>no</em> grid-aligned packing beats it is a statement about an infinite space of
+    arrangements, and every failure in this project's history was a check that hadn't looked
+    hard enough.</p>
+
+    <h3>The simplest arrangements: lattice packings</h3>
+    <p>Pick two vectors and put a copy of the piece at every whole-number combination of them.
+    The copies then sit at the corners of a tiling by parallelograms, one copy per
+    parallelogram &mdash; so the <b>area per copy is just the area of that parallelogram</b>.
+    For vectors with integer coordinates that area is a whole number; it is what the code calls
+    a determinant. Write <b>det<sub>1</sub></b> for the smallest area per copy any such
+    arrangement achieves: the densest packing that repeats with one copy per repeating unit.
+    Finding it is a finite search, because a parallelogram of small area forces one of its
+    sides to be short, and there are only so many short vectors.</p>
+
+    <h3>Everything else: periodic packings</h3>
+    <p>Real packings needn't be that regular. A packing can repeat with some period while
+    putting <em>several</em> copies &mdash; differently rotated, differently offset &mdash;
+    inside each repeating unit. Call the area of that repeating unit <b>A</b> and the number of
+    copies inside it <b>m</b>, so the area per copy is <code>A/m</code>. A lattice packing is
+    just the case <code>m = 1</code>.</p>
+    <p>Now the useful reframing. Glue the repeating unit's opposite edges together and the
+    plane becomes a doughnut &mdash; a torus of area <code>A</code> &mdash; and the packing
+    becomes "fit <code>m</code> copies in this torus without overlapping". That is a finite
+    yes-or-no question, and a SAT solver answers it exactly: no heuristics, no sampling. Better
+    still, every possible repeating unit has exactly one canonical description &mdash; its
+    <b>Hermite normal form</b>, a standard way of writing a lattice so that congruent
+    descriptions collapse to a single representative &mdash; so running through them covers
+    every size, every shear and every aspect ratio, each exactly once, with no duplicates and
+    nothing missed.</p>
+    <p>Concretely, the solver is handed one yes/no variable per <em>candidate placement</em>
+    &mdash; a choice of orientation together with a position in the torus &mdash; and one rule
+    per torus cell saying that at most one chosen placement may cover it. Expressing the
+    non-overlap rule cell by cell rather than copy by copy is what keeps it small: for a
+    118-cell torus that is 236 variables and 118 rules, against roughly 28,000 if you wrote
+    down every pair of conflicting placements. You could equally scan over positions by brute
+    force &mdash; at three copies that is only about a million combinations &mdash; but the
+    solver prunes rather than enumerates, stays practical at four and five copies where the
+    scan is astronomical, and hands back a <em>proof</em> of impossibility, which is exactly
+    what lets the next level's floor be raised.</p>
+
+    <p>The catch is that there are infinitely many repeating units. Two small observations cut
+    them down to a finite list.</p>
+
+    <h3>A torus that holds one copy is already a lattice packing</h3>
+    <p>Put a single copy in the torus. Because the torus wraps around, the copy has to avoid
+    its own wrapped images too &mdash; and it hits one exactly when the vector between two of
+    its own cells happens to be one of the torus's periods. Avoiding that is precisely the
+    condition for those periods to form a valid lattice packing. So a torus that holds even one
+    copy already has <code>A &ge; det<sub>1</sub></code>, and nothing smaller need be looked
+    at.</p>
+
+    <h3>Holding m copies means holding m&minus;1</h3>
+    <p>Obvious on its own, but it chains. Once we have shown that no torus below some area
+    holds <code>m&minus;1</code> copies, no torus below that area holds <code>m</code> either
+    &mdash; that is the floor. And the ceiling: <code>m</code> copies only beat the tilted
+    packing if <code>A/m &lt; D<sub>tilted</sub></code>, that is
+    <code>A &lt; m&middot;D<sub>tilted</sub></code>. Floor and ceiling sandwich each level into
+    a window about one <code>D<sub>tilted</sub></code> wide &mdash; a few hundred areas. Clear
+    a window and the next level's floor rises to meet it, so the windows stay finite as
+    <code>m</code> climbs.</p>
+  </div>
+
+  <figure class="measure">
+    <svg viewBox="0 0 700 176" style="max-width:34rem" role="img" aria-label="The area axis: below det1 no torus holds a copy; the m=2 and m=3 windows are each about one D-tilted wide and both came back empty.">
+      <g font-family="ui-monospace,Menlo,monospace" font-size="15" fill="currentColor">
+        <rect x="60" y="52" width="175" height="34" fill="currentColor" opacity=".07"/>
+        <rect x="235" y="52" width="199" height="34" fill="var(--tilt)" opacity=".16"/>
+        <rect x="436" y="52" width="199" height="34" fill="var(--tilt)" opacity=".16"/>
+        <line x1="60" y1="102" x2="672" y2="102" stroke="currentColor" stroke-width="1.3"/>
+        <g stroke="currentColor" stroke-width="1.3">
+          <line x1="235" y1="102" x2="235" y2="110"/>
+          <line x1="435" y1="102" x2="435" y2="110"/>
+          <line x1="635" y1="102" x2="635" y2="110"/>
+        </g>
+        <text x="235" y="126" text-anchor="middle">det₁</text>
+        <text x="435" y="126" text-anchor="middle">2·D_tilted</text>
+        <text x="635" y="126" text-anchor="middle">3·D_tilted</text>
+        <text x="147" y="73" text-anchor="middle" opacity=".55">no copy fits</text>
+        <text x="334" y="73" text-anchor="middle" fill="var(--tilt)">m = 2</text>
+        <text x="535" y="73" text-anchor="middle" fill="var(--tilt)">m = 3</text>
+        <text x="334" y="44" text-anchor="middle" opacity=".7">24,627 tori</text>
+        <text x="535" y="44" text-anchor="middle" opacity=".7">45,215 tori</text>
+        <text x="334" y="148" text-anchor="middle" fill="var(--align)">0 fit</text>
+        <text x="535" y="148" text-anchor="middle" fill="var(--align)">0 fit</text>
+        <text x="672" y="96" text-anchor="end" opacity=".55">area per period &rarr;</text>
+      </g>
+    </svg>
+    <figcaption>The ladder for an earlier 58-cell champion. Below <code>det<sub>1</sub></code> no torus
+    holds even one copy; above <code>m&middot;D<sub>tilted</sub></code> a packing with
+    <code>m</code> copies can't beat the tilted density. That leaves two finite windows, and
+    <b>all 69,842 tori in them are infeasible</b> &mdash; every shear, every aspect ratio,
+    non-lattice arrangements included.</figcaption>
+  </figure>
+
+  <div class="measure">
+    <p>Alongside all this, <code>det<sub>1</sub></code> is re-derived by a second, deliberately
+    stupid program: walk through every repeating unit in its canonical form and test for
+    collisions by directly intersecting the two sets of cells. No clever transforms, no
+    shortcuts, and no shared code with the fast checker. It reproduces every value exactly.
+    A cross-check like this is cheap, and it is the single thing most likely to catch a subtle
+    bug in the machinery you have already started trusting.</p>
+  </div>
+</section>
+
+<section>
+  <div class="measure">
+    <h2 class="serif">Searching every piece at once</h2>
+    <p class="kicker">Dropping the tile shape from the search entirely.</p>
+    <p>Everything so far designs a continuous tile and then rasterises it. But notice what the
+    tilted side actually requires: copies sit at prescribed places, so the only constraint on a
+    candidate piece is that <b>no cell of it collides with any cell of any other copy</b>. Build
+    a graph whose nodes are grid cells and whose edges join exactly the pairs that would
+    collide. Then a valid tilted piece is precisely a set of cells with <em>no edge inside it</em>
+    &mdash; every pair mutually compatible. In graph terms that is an <b>independent set</b>,
+    and asking for the smallest one subject to extra conditions is exactly what constraint
+    solvers are built for. Note what the graph depends on: the arrangement's scale, its rotation
+    against the grid, its sub-cell offset and which symmetry group it uses &mdash; and
+    <em>no tile shape anywhere</em>.</p>
+    <p>So the search becomes a clean optimisation over all valid pieces at once:</p>
+  </div>
+  <div class="measure"><div class="claim">
+    <p style="margin-bottom:.4em"><b>minimise</b> the number of chosen cells</p>
+    <p style="margin-bottom:.4em;color:var(--mut);font-size:.95rem">subject to &mdash;
+    no two chosen cells are joined by a collision edge (so the tilted packing is valid)</p>
+    <p style="color:var(--mut);font-size:.95rem">&mdash; and no grid-aligned lattice packing
+    reaches <code>D<sub>tilted</sub></code></p>
+  </div></div>
+  <div class="measure">
+    <p>The second constraint goes in <em>completely</em> rather than by sampling, and the
+    trick is to name the right quantity. For each possible offset <code>t</code>, introduce a
+    yes/no variable meaning "the piece overlaps its own copy shifted by <code>t</code>". Now
+    take any candidate lattice packing: it works precisely when the piece <em>fails</em> to
+    overlap itself at every one of that lattice's shifts. So to rule the packing out we need
+    the opposite &mdash; at least one of those shifts must be an overlap &mdash; which is a
+    single either/or clause over a handful of variables. One clause per lattice we want to
+    forbid.</p>
+    <p>And we don't need a clause for every lattice. A sparser lattice always contains a denser
+    one inside it (take every second point), so forbidding the denser one forbids the sparser
+    automatically; only lattices in a narrow band of areas need clauses at all. At
+    <code>n = 10</code> that is 4,585 clauses over 530 offsets &mdash; complete coverage of
+    every single-copy lattice packing, compiled into the model rather than tested after the
+    fact.</p>
+    <p>Packings with several copies per period can't be written down exhaustively like that
+    &mdash; but any <em>individual</em> one is trivial to forbid, and that turns out to be
+    enough. The loop is <b>counterexample-guided refinement</b>: solve the model as it stands,
+    hand the resulting piece to the packing checker, and if the checker finds an arrangement
+    that beats the target, add one clause saying the piece must collide with <em>that</em>
+    arrangement, then solve again. Repeat until the checker comes back empty. Every clause
+    added corresponds to a real packing, so a valid piece is never wrongly excluded, and on
+    termination the piece genuinely passes.</p>
+    <p>Its weakness is instructive. Each clause kills roughly one arrangement, so the loop only
+    converges once few remain to kill &mdash; and a piece with too few cells is beaten by
+    astronomically many of them. Asking for 25 cells at <code>n = 10</code>, the loop ground on
+    indefinitely; fixing the count at 38 and searching there converges, because at 38 cells
+    there is far less left to forbid.</p>
+
+    <h3>Knowing when to stop looking</h3>
+    <p>A search that stops improving tells you nothing: maybe there is nothing better, maybe you
+    just ran out of patience. Distinguishing those two is worth more than another day of
+    searching, and there is a cheap way to do it.</p>
+    <p>Throw away the hard half of the problem. Keep the constraints that say the tilted packing
+    is valid and that no <em>single-copy</em> lattice beats the target &mdash; drop every
+    multi-copy clause. That is a <b>relaxation</b>: every genuine piece still satisfies it, but
+    many impostors do too. Relaxations are useless for producing answers and excellent for ruling
+    them out, because the implication only runs one way:</p>
+    <div class="claim">
+      <p>relaxation infeasible &nbsp;&rArr;&nbsp; <b>no piece exists at all</b></p>
+      <p>relaxation optimum is <i>K</i> &nbsp;&rArr;&nbsp; <b>no piece has fewer than <i>K</i>
+      cells</b></p>
+      <p style="margin-top:.5em;font-size:.95rem;color:var(--mut)">Both directions fail if you
+      read them backwards. A <em>feasible</em> relaxation means only "not ruled out" &mdash; at
+      <code>n = 5.51</code> it cheerfully returns a 14-cell piece whose real ratio is 0.67.</p>
+    </div>
+    <p>Because it is cheap, it can be swept. Over scales from 5.00 to 6.28 and every sub-cell
+    offset admitting the 180&deg; symmetry, the relaxation is <b>infeasible everywhere below
+    <code>n</code> &asymp; 6.245</b> &mdash; no symmetric piece exists at any smaller scale,
+    full stop &mdash; and from there up it solves to a proven optimum of exactly <b>23</b>. The
+    23-cell piece above attains that bound. So it is not merely the best found: within that
+    family it is optimal, and no amount of further searching there can help.</p>
+    <p>Which is exactly the value of a negative result. It says where <em>not</em> to look, and
+    what has to change to make progress &mdash; here, giving up the 180&deg; symmetry that made
+    the search fast in the first place.</p>
+    <p>And that is not hypothetical: the 22-cell piece in the table below is what happens when
+    you do. It is this 23-cell piece with a single cell deleted &mdash; and since that cell had a
+    partner across the centre, removing it <em>destroys the symmetry</em>. The result is no
+    longer a member of the family the proof covers, so there is no contradiction in its being
+    smaller. A result of this shape is only ever as strong as the family it quantifies over, and
+    the cheapest way to beat one is to step outside it.</p>
+    <div class="claim warn">
+      <p>Everything here is an <b>upper</b> bound: a 22-cell polyomino <em>exists</em>. Nobody
+      has shown 21 is impossible &mdash; no lower bound on the minimum is known at all.</p>
+    </div>
+    <p>There is a second surprise hiding in the same question. Ask instead for a piece with
+    <em>more</em> cells &mdash; 24, or 25, or 26 &mdash; and every answer is also infeasible.
+    Cells cannot simply be added: a piece has to avoid every rotated copy of itself, and 23 is
+    where that runs out. So 23 is the maximum as well as the minimum, and at this scale and
+    offset the set of workable shapes is not a vast landscape to be searched but <b>exactly two
+    polyominoes</b> &mdash; genuinely distinct ones, not reflections of each other, differing
+    only by shifting a cell at each end. The arrangement, it turns out, very nearly dictates the
+    piece.</p>
+
+    <p class="fineprint">One caveat worth keeping in view: this is a statement about
+    180&deg;-symmetric pieces at one arrangement angle, sampled on a grid of scales. A feasible
+    window narrower than the sampling step would slip between the samples.</p>
+  </div>
+</section>
+
+
+<section>
+  <div class="measure">
+    <h2 class="serif">Where it stands</h2>
+    <p class="kicker">Smaller is better; the ratio must stay above 1.</p>
+  </div>
+  <div class="scroll measure">
+    <!-- This table is generated from results.json by sync_table.py.  Edit anything else on the
+         page freely, but changes between the RESULTS markers will be overwritten. -->
+    <!-- RESULTS:BEGIN -->
+    <table>
+      <thead><tr><th>scale n</th><th>cells</th><th>D<sub>aligned</sub>/D<sub>tilted</sub></th>
+        <th>&rho; tilted</th><th>&rho; aligned</th><th>verified to</th></tr></thead>
+      <tbody>
+        <tr class="best"><td>6.24402</td><td>22</td><td>1.007</td><td>0.652</td><td>0.647</td><td>5 copies</td></tr>
+        <tr class="best"><td>6.24403</td><td>23</td><td>1.096</td><td>0.681</td><td>0.622</td><td>6 copies</td></tr>
+        <tr><td>6.78869</td><td>27</td><td>1.052</td><td>0.676</td><td>0.643</td><td>6 copies</td></tr>
+        <tr><td>7.75278</td><td>30</td><td>1.095</td><td>0.576</td><td>0.526</td><td>4 copies</td></tr>
+        <tr><td>10</td><td>47</td><td>1.016</td><td>0.543</td><td>0.534</td><td>2 copies</td></tr>
+        <tr><td>10</td><td>50</td><td>1.028</td><td>0.577</td><td>0.562</td><td>3 copies</td></tr>
+        <tr><td>11</td><td>55</td><td>1.107</td><td>0.525</td><td>0.474</td><td>2 copies</td></tr>
+        <tr><td>11</td><td>58</td><td>1.126</td><td>0.553</td><td>0.492</td><td>3 copies</td></tr>
+        <tr><td>12</td><td>68</td><td>1.119</td><td>0.545</td><td>0.487</td><td>2 copies</td></tr>
+        <tr><td>14</td><td>87</td><td>1.208</td><td>0.513</td><td>0.424</td><td>2 copies</td></tr>
+        <tr><td>22 <span style="color:var(--mut)">(prior work)</span></td><td>183</td><td>1.202</td><td>0.437</td><td>0.363</td><td>2 copies</td></tr>
+      </tbody>
+    </table>
+    <!-- RESULTS:END -->
+  </div>
+  <div class="measure">
+    <p>The starting point was 339 cells. "Checked to <em>m</em> copies" means every
+    grid-aligned packing repeating with at most <em>m</em> copies per period has been enumerated
+    and shown infeasible &mdash; equivalently every <em>m</em>-copy lattice packing, over every
+    period shape, shear and aspect ratio. What remains open is packings with more copies per
+    period, and aperiodic ones.</p>
+    <p>The two smallest entries were not designed at all: they came out of the solver searching
+    every valid piece at a given scale, and neither is a rasterisation of anything. Note also
+    that their scales are not whole numbers. Since <code>D_aligned</code> depends only on the
+    piece, the right scale is the smallest one at which the piece still packs &mdash; and at
+    integer scale the 27-cell piece <em>fails</em>, with a 4-copy packing beating it by half a
+    percent. Shrinking the arrangement by 1.5% is what makes it work.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Figures are rendered from the actual cell data at one array entry per grid cell. Aligned
+  densities are best-known, not proven optimal.</p>
+</footer>
+</div>
+
+</body>
+</html>
