@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uniform random polyominoes</title>
+<style>
+:root{
+  --ground:#F6F7FA; --panel:#FFFFFF; --ink:#15171D; --mut:#666C7E;
+  --rule:#DDE1EA; --acc:#3B5BF0; --accw:#EEF1FE; --ok:#2e7d4f; --pend:#96690f;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ground:#0E1014; --panel:#15181F; --ink:#E9EBF2; --mut:#9AA0B2;
+        --rule:#252932; --acc:#7D93FF; --accw:#161B2E; --ok:#6fbf8f; --pend:#d3a34a;}
+}
+:root[data-theme=dark]{--ground:#0E1014; --panel:#15181F; --ink:#E9EBF2; --mut:#9AA0B2;
+        --rule:#252932; --acc:#7D93FF; --accw:#161B2E; --ok:#6fbf8f; --pend:#d3a34a;}
+:root[data-theme=light]{--ground:#F6F7FA; --panel:#FFFFFF; --ink:#15171D; --mut:#666C7E;
+        --rule:#DDE1EA; --acc:#3B5BF0; --accw:#EEF1FE; --ok:#2e7d4f; --pend:#96690f;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font:17px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+.wrap{max-width:1060px;margin:0 auto;padding:0 1.25rem 4rem}
+h1{font-size:1.7rem;margin:2.2rem 0 .3rem;letter-spacing:-.01em}
+.lede{color:var(--mut);max-width:46rem}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;
+  background:color-mix(in srgb,var(--ink) 7%,transparent);padding:.1em .35em;border-radius:4px}
+a{color:var(--acc)}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:12px;
+  padding:1.1rem 1.25rem;margin:1.4rem 0}
+.card h2{margin:.1rem 0 .4rem;font-size:1.25rem}
+.sub{color:var(--mut);font-size:.92em;margin:.1rem 0 .6rem}
+.badge{display:inline-block;font-size:.72em;letter-spacing:.06em;text-transform:uppercase;
+  padding:.15em .55em;border-radius:99px;border:1px solid currentColor;vertical-align:2px;margin-left:.5em}
+.ok{color:var(--ok)} .pend{color:var(--pend)}
+.stats{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin:.3rem 0 .8rem;
+  font-size:.9em;color:var(--mut)}
+.stats b{color:var(--ink);font-weight:600}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.9rem}
+figure{margin:0;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.5rem}
+figure img{width:100%;height:auto;display:block;image-rendering:pixelated}
+figcaption{font-size:.78em;color:var(--mut);margin-top:.35rem}
+footer{color:var(--mut);font-size:.85em;border-top:1px solid var(--rule);
+  margin-top:2.5rem;padding-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Uniform random polyominoes</h1>
+<p class="lede">Each image is a single polyomino drawn <b>uniformly at random</b> among all
+fixed polyominoes of its size, sampled by a provably-uniform Markov chain (relocate a random
+non-cut cell to a uniform perimeter site; the kernel is symmetric, so the uniform distribution
+is stationary).  Uniform polyominoes sit in the branched-polymer universality class: sparse
+dendrites with R<sub>g</sub> ~ n<sup>&nu;</sup>, &nu; &asymp; 0.64 &mdash; nothing like compact
+blobs.  Cells are colored by graph distance from an extremal cell to show the branch
+structure.</p>
+<p class="lede" style="font-size:.95em">Sampler, validation suite (exact-count cross-checks,
+chi-square uniformity against OEIS <a href="https://oeis.org/A001168">A001168</a>, two-seed
+convergence, autocorrelation) and reproduction instructions:
+<a href="https://github.com/AdamScherlis/manyomino">AdamScherlis/manyomino</a>.
+A size appears here only after two independently-seeded chains agree on
+&lang;R<sub>g</sub>&sup2;&rang; and every shown snapshot is &ge;5&tau; into its chain.</p>
+
+<section class="card">
+<h2>n = 1,000<span class="badge ok">two-seed converged</span></h2>
+<p class="sub">independent chains from a 1&times;1000 bar and a &radic;n&times;&radic;n
+rectangle agree: |z| = 0.06 on &lang;R<sub>g</sub>&sup2;&rang;</p>
+<div class="stats">
+  <div>&lang;R<sub>g</sub>&rang; <b>36.8</b></div>
+  <div>&tau; <b>2.5e+06</b> moves</div>
+  <div>ESS <b>26</b> (bar) / <b>20</b> (rect)</div>
+  <div>chain length <b>2.0e+08</b> moves each</div>
+</div>
+<div class="panels"><figure><img src="figs/n1000_bar_200000000.png" alt="random polyomino, n=1000"><figcaption>bar-seeded chain, step 2.00e+08 &middot; R<sub>g</sub> = 43</figcaption></figure><figure><img src="figs/n1000_rect_200000000.png" alt="random polyomino, n=1000"><figcaption>rect-seeded chain, step 2.00e+08 &middot; R<sub>g</sub> = 36</figcaption></figure><figure><img src="figs/n1000_bar_150000000.png" alt="random polyomino, n=1000"><figcaption>bar-seeded chain, step 1.50e+08 &middot; R<sub>g</sub> = 32</figcaption></figure><figure><img src="figs/n1000_rect_150000000.png" alt="random polyomino, n=1000"><figcaption>rect-seeded chain, step 1.50e+08 &middot; R<sub>g</sub> = 43</figcaption></figure></div>
+</section>
+<section class="card"><h2>Still equilibrating<span class="badge pend">running</span></h2><ul><li><b>n = 3,000</b> &mdash; two-seed |z| = 7.8, ESS = 4/5</li><li><b>n = 2,000</b> &mdash; waiting for both chains</li></ul></section>
+<footer>Generated 2026-08-08 20:29 UTC from the manyomino production runs.</footer>
+</div>
+</body>
+</html>
