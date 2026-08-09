@@ -60,17 +60,27 @@ convergence, autocorrelation) and reproduction instructions:
 <a href="https://github.com/AdamScherlis/manyomino">AdamScherlis/manyomino</a>.
 A size appears here only after two independently-seeded chains agree on
 &lang;R<sub>g</sub>&sup2;&rang; and every shown snapshot is &ge;5&tau; into its chain.</p>
+<section class="card">
+<h2>Measured scaling</h2>
+<p class="sub">radius of gyration vs size over the converged chains; the slope is the
+branched-polymer exponent (literature &nu; &asymp; 0.6408).  Independent PERM
+(non-MCMC) cross-checks agree at n &le; 1000, and give Klarner's growth constant
+&lambda; = 4.058 (exact: 4.0626&hellip;).  Equilibrium structure: &asymp;0.073
+independent cycles and &asymp;1.195 perimeter sites per cell.</p>
+<figure style="max-width:40rem"><img src="figs/nufit.svg" alt="log-log plot of radius of
+gyration vs size with nu fit"></figure>
+</section>
 
 <section class="card">
 <h2>n = 30,000<span class="badge ok">two-seed converged</span></h2>
 <p class="sub">independent chains from a stringy bar seed and a compact
-&radic;n&times;&radic;n rectangle seed agree: |z| = 0.61 on
+&radic;n&times;&radic;n rectangle seed agree: |z| = 0.37 on
 &lang;R<sub>g</sub>&sup2;&rang;</p>
 <div class="stats">
-  <div>&lang;R<sub>g</sub>&rang; <b>324.0</b></div>
-  <div>&tau; <b>1.1e+06</b> moves</div>
-  <div>ESS <b>18</b> (bar) / <b>27</b> (rect)</div>
-  <div>chain length <b>8.0e+07</b> moves each</div>
+  <div>&lang;R<sub>g</sub>&rang; <b>321.4</b></div>
+  <div>&tau; <b>1.0e+06</b> moves</div>
+  <div>ESS <b>27</b> (bar) / <b>56</b> (rect)</div>
+  <div>chain length <b>1.1e+08</b> moves each</div>
 </div>
 <div class="panels"><figure><img src="figs/n30000_bar_80000000.png" alt="random polyomino, n=30000"><figcaption>bar-seeded chain, step 8.00e+07 &middot; R<sub>g</sub> = 357</figcaption></figure><figure><img src="figs/n30000_rect_80000000.png" alt="random polyomino, n=30000"><figcaption>rect-seeded chain, step 8.00e+07 &middot; R<sub>g</sub> = 293</figcaption></figure><figure><img src="figs/n30000_bar_40000000.png" alt="random polyomino, n=30000"><figcaption>bar-seeded chain, step 4.00e+07 &middot; R<sub>g</sub> = 293</figcaption></figure><figure><img src="figs/n30000_rect_40000000.png" alt="random polyomino, n=30000"><figcaption>rect-seeded chain, step 4.00e+07 &middot; R<sub>g</sub> = 310</figcaption></figure></div>
 </section>
@@ -139,8 +149,8 @@ A size appears here only after two independently-seeded chains agree on
 </div>
 <div class="panels"><figure><img src="figs/n1000_bar_200000000.png" alt="random polyomino, n=1000"><figcaption>bar-seeded chain, step 2.00e+08 &middot; R<sub>g</sub> = 43</figcaption></figure><figure><img src="figs/n1000_rect_200000000.png" alt="random polyomino, n=1000"><figcaption>rect-seeded chain, step 2.00e+08 &middot; R<sub>g</sub> = 36</figcaption></figure><figure><img src="figs/n1000_bar_150000000.png" alt="random polyomino, n=1000"><figcaption>bar-seeded chain, step 1.50e+08 &middot; R<sub>g</sub> = 32</figcaption></figure><figure><img src="figs/n1000_rect_150000000.png" alt="random polyomino, n=1000"><figcaption>rect-seeded chain, step 1.50e+08 &middot; R<sub>g</sub> = 43</figcaption></figure></div>
 </section>
-<section class="card"><h2>Still equilibrating<span class="badge pend">running</span></h2><ul><li><b>n = 100,000</b> &mdash; waiting for both chains</li></ul></section>
-<footer>Generated 2026-08-09 16:12 UTC from the manyomino production runs.</footer>
+<section class="card"><h2>Still equilibrating<span class="badge pend">running</span></h2><ul><li><b>n = 300,000</b> &mdash; waiting for both chains</li><li><b>n = 100,000</b> &mdash; waiting for both chains</li></ul></section>
+<footer>Generated 2026-08-09 17:09 UTC from the manyomino production runs.</footer>
 </div>
 </body>
 </html>
