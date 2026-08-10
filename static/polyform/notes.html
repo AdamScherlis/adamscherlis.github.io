@@ -18,7 +18,7 @@ h1 { font-size:1.4rem; } h2 { font-size:1.15rem; margin-top:2rem; } a { color:in
 <div class="sub">Longer-form commentary that used to live on the
 <a href="results.html">results page</a>, moved here to keep that page terse.
 Newest at the top.</div>
-<p class="legend">Contents: <a href="#mirror">reflections are load-bearing</a> · <a href="#chevron">the chevron</a> · <a href="#sixteen">the last sixteen</a> · <a href="#seven-wrong">the missing seven</a> · <a href="#gallery-essay">the high-k set</a></p>
+<p class="legend">Contents: <a href="#mirror">reflections are load-bearing</a> · <a href="#chevron">the chevron</a> · <a href="#sixteen">the last sixteen</a> · <a href="#seven-wrong">the missing seven</a> · <a href="#gallery-essay">the high-k set</a> · <a href="#second-100x">the second 100&times;</a> · <a href="#edge-order">the edge-order retraction</a> · <a href="#stab">the S-tab</a></p>
 
 <h2 id="gallery-essay">What the high-k tilings look like as a set</h2>
 <p class="note">They are worth looking at as a set. The high-k tilings are not subtle variations on a
@@ -191,6 +191,128 @@ factor from somewhere else. That is real, and it is <i>not</i> enough. On the rh
 those are the sizes richest in tilings. Rhombille has produced <b>21 shapes at
 k&#8202;=&#8202;6 and none at seven</b>. A constraint that vanishes at a third of all sizes cannot
 account for a 62-to-0 split.</p>
+
+
+
+<h2 id="second-100x">The second 100&times;, as it happened</h2>
+<p class="legend">Moved from the speed section, 9 August 2026. The full optimisation journey: the wrong turn, the wrong measurement, both contention casualties, and the profile-driven kernel work.</p>
+<p class="note"><b>Is there another 100×?</b> Yes &#8212; and finding out where took a wrong
+turn worth recording, because the first answer this page gave was measured wrong.</p>
+
+<p class="note">Benchmarking at frontier sizes rather than small ones matters, because the class mix
+shifts hard: at n&#8202;=&#8202;11 polyhexes <b>81% of shapes are non-tilers</b>, where small-n
+benchmarks are mostly tilers. A tiler exits the pipeline at the first stage that succeeds; a non-tiler
+pays for every stage, because each must <i>fail</i> before the next runs. And exhaustive failure is the
+expensive case for exact cover: it tries every candidate group at every admissible torus index, a toll
+that does not shrink for hopeless shapes. So the first move is to run the cheaper discriminator first.</p>
+
+<p class="note">The third row is the point: once the k-search sits behind the non-tiling proof, it is
+<b>no longer the bottleneck at all</b>. Making it instantaneous would buy nothing measurable.
+<code>prove_nontiler</code> is ~99% of what remains, so it is the only thing worth attacking.</p>
+
+<p class="note"><b>A measurement that was simply wrong.</b> An earlier version of this section reported
+that Myers's class-based search beat our compiled engine 6.88× in aggregate, and concluded that the
+fix was to route the tail to it. That number was taken while nine SAT jobs were pinning all fourteen
+cores. Re-run idle, the <i>same 91 shapes</i> cost <b>2.4&#8239;s of engine time instead of
+195.4&#8239;s</b> &#8212; an 80× swing, and the conclusion inverts. Within-process stage ratios did
+survive the contention (the reorder measures 1.55× under both conditions, because both stages inflate
+together), which is exactly why the bad number was not obvious: some ratios are robust to a loaded box
+and comparisons between two different algorithms, with different memory and allocation profiles, are
+not.</p>
+
+<p class="note"><b>Where the next 10× actually is.</b> Profiling <code>prove_nontiler</code> at
+n&#8202;=&#8202;11 splits it <b>57% corona enumeration / 42% surround search</b> &#8212; and both are
+plain interpreted Python, spending <b>44 million function calls on 91 shapes</b> (5.4M
+<code>iso_apply</code>, 6.1M <code>mat_vec</code>, 11.2M <code>len</code>). That is the same profile the
+neighbour context and cover kernels had before they were compiled for 8&#8211;16× apiece. The
+bottleneck is not the algorithm, and it is not the engine choice: it is that the one stage which now
+dominates everything is the one stage never moved to C.</p>
+
+<p class="note"><b>So it was taken.</b> Profiling <code>prove_nontiler</code> put ~57% of it in
+<code>coronas</code>, a Python recursion doing bigint AND on 260-bit masks &#8212; 3.4M recursive calls
+for 91 shapes. The algorithm was already right; only the arithmetic was slow. Masks reach ~442 bits, so
+they became seven-word <code>uint64</code> bitsets and each disjointness test became a few word ANDs.
+The kernel mirrors the reference branch-for-branch, including the odd overflow rule (append, <i>then</i>
+test <code>len&#8202;&gt;&#8202;cap</code>, so <code>cap=0</code> reports overflow the moment one corona
+exists); verified identical in contents <i>and</i> order over 1807 comparisons across three families at
+several caps, zero mismatches. That alone is <b>13×</b> on coronas.</p>
+
+<p class="note">Then the surround search, which the corona kernel promoted to the bottleneck. Two
+changes, both about not recomputing what is already known. <code>try_place</code> re-derived the same
+tile image every time a candidate isometry was retried on another branch, so the cell image, ring image
+and vertex-neighbour lookup are now memoised per call. And it found the touching tiles by scanning every
+cell's vertex neighbours &#8212; about 11&#8202;×&#8202;12 dict probes &#8212; when
+<code>nb.ring</code> is by construction the tile's external vertex-neighbour halo, and the overlap scan
+just above has already established that no new cell is owned. Any owned neighbour must therefore lie in
+the ring image: the same set in ~24 probes.</p>
+
+<p class="note">The last two came from re-profiling rather than guessing. The corona kernel was
+spending 13% of <code>prove_nontiler</code> in its own <i>interface</i>: a 442-bit mask shifted and
+masked seven times is seven bigint temporaries, times ~330 masks per call, so it now hands the limbs
+over with <code>int.to_bytes</code> and memcpys them. And <code>iso_compose</code> was 589k calls each
+three Python frames deep &#8212; itself, <code>mat_vec</code>, <code>mat_mul</code> &#8212; so the search
+uses a flattened local copy while <code>geom.iso_compose</code> stays the reference definition.</p>
+
+<p class="note">The remaining gap to 10× is the same shape as the gap that was just closed:
+<code>try_place</code> and the recursion around it are still interpreted &#8212; 45% of what is left
+&#8212; and <code>coronas</code> shows what they would be worth compiled. That is the next piece of
+work, not a mystery.</p>
+
+<p class="note"><b>A second contention casualty, caught this time.</b> Midway through, the
+n&#8202;=&#8202;12 polyhex row was launched on ten cores; the very next benchmark reported
+<code>prove_nontiler</code> at 24.1&#8239;ms, twice its true value, and the &#8220;speedup&#8221; of a
+change that had not yet been written to disk. Same failure that produced the 6.88× above, one section
+earlier, with the diagnosis already written down. The row was cancelled &#8212; 683,101 shapes
+extrapolating to four to six hours &#8212; and re-measured idle. <b>Benchmarks and sweeps cannot share
+a machine</b>, and knowing that is apparently not the same as remembering it.</p>
+
+
+<h2 id="edge-order">The edge-order retraction</h2>
+<p class="legend">Moved from the design-space section, 9 August 2026. A claim, its collapse into tautology, and the engine check it left behind.</p>
+<p class="note"><b>And an honest retraction.</b> An earlier version of this section claimed the
+driver was edge count alone, on the grounds that the trihex has a larger symmetry group than the
+dihex yet performs worse. That comparison is <i>confounded</i> — the trihex has more edges as well
+as more symmetry — and the table above contains its own refutation: the square domino has exactly
+the hexagon's six edges and a quarter of its symmetry, and not one of its 729 arrow decorations
+forces more than a single orbit. At fixed edge count, symmetry matters enormously. Conversely the
+square prototile has eight symmetries and only four edges, and also forces nothing. What the data
+actually supports is narrower and duller: <b>the hexagon is the only shape tested with both six or
+more edges and a symmetry group of order eight or more</b>, and both deficiencies — too few edges,
+too little symmetry — are individually fatal. With a single specimen in that corner, the two
+effects cannot be separated. Finding a second shape with both properties, on any grid, is the
+experiment that would settle it.</p>
+
+<p class="note"><b>A tautology that turned into an engine check.</b> The retraction above named
+the experiment that would settle things: find a second shape with both properties. Searching all
+eleven grids turned up an irresistible-looking candidate — <b>six triangles merged into a regular
+hexagon</b>, same six edges, same twelve symmetries, but living on the finer triangular grid where
+it can sit at offsets the hexagonal grid forbids. It reaches k&#8202;=&#8202;5 with the same
+winning labels, and it was briefly reported here as an independent reproduction of the record.
+<b>It is nothing of the kind</b>, as a reader pointed out: all tilings of the plane by regular
+hexagons are the honeycomb — hexagons cannot be offset the way squares can, since a shifted row
+leaves gaps — so every hexagon in every tiling sits on the honeycomb no matter how fine the grid
+beneath it. The extra placements of a <i>single</i> hexagon buy no extra <i>tilings</i>. It is the
+same decorated problem restated, and its answer was guaranteed before it was computed.</p>
+
+<p class="note">What the exercise is worth keeping for is a different kind of check. Two backends
+with different cell shapes, different residue counts, different symmetry bookkeeping and different
+code paths produced spectra that agree <b>decoration for decoration</b> — 195 isohedral, 102 at
+k&#8202;=&#8202;2, 12 at k&#8202;=&#8202;4, 24 at k&#8202;=&#8202;5, 396 with no tiling — and the
+triangular run went to kmax&#8202;8, so it independently reconfirms that nothing appears at
+k&#8202;=&#8202;7 or 8. That is a strong consistency test of the engine, and no evidence at all
+about decorations. The design-space corner still holds exactly one shape.</p>
+
+
+<h2 id="stab">Why the S-tab wins</h2>
+<p class="legend">Moved from the taxonomy, 9 August 2026.</p>
+<p class="note">So the honest headline is not the one this section led with. The hexagon's
+k&#8202;=&#8202;5 is real, but it describes a <i>marked</i> tile — a hexagon with arrows drawn on
+its edges, which is a Wang-style colouring rather than a shape. Among rules that can be cut into
+the boundary of an unmarked tile, the best result here is <b>k&#8202;=&#8202;3</b>, from the S-tab
+on the L-tromino: eight decorations that force three orbits on a shape which, undecorated, tiles by
+translation. That the S-tab should be the winner is a small vindication of the type — it was the
+one marking in the taxonomy that had to be pointed out rather than found by sweeping, and it is the
+only one whose defining symmetry both survives being carved and still breaks mirror images.</p>
 
 
 </body></html>
