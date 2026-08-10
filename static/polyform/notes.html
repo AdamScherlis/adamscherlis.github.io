@@ -18,6 +18,7 @@ h1 { font-size:1.4rem; } h2 { font-size:1.15rem; margin-top:2rem; } a { color:in
 <div class="sub">Longer-form commentary that used to live on the
 <a href="results.html">results page</a>, moved here to keep that page terse.
 Newest at the top.</div>
+<p class="legend">Contents: <a href="#mirror">reflections are load-bearing</a> · <a href="#chevron">the chevron</a> · <a href="#sixteen">the last sixteen</a> · <a href="#seven-wrong">the missing seven</a> · <a href="#gallery-essay">the high-k set</a></p>
 
 <h2 id="gallery-essay">What the high-k tilings look like as a set</h2>
 <p class="note">They are worth looking at as a set. The high-k tilings are not subtle variations on a
@@ -34,5 +35,162 @@ tilings at k&#8202;&#8805;&#8202;4. A related fact that lived beside it: the 62 
 to 49 distinct <i>polygons</i> under boundary congruence &#8212; a one-sided 11-cell polyrhombille
 and a 22-cell polypon trace the same outline, as do a polypon and its one-sided twin at
 n&#8202;=&#8202;10 (<code>count_club.py --gallery</code> derives this).</p>
+
+
+<h2 id="mirror">Reflections are load-bearing</h2>
+<p class="legend">Moved from the records section, 9 August 2026. The survey of one-sided isohedral numbers on the c&#8202;=&#8202;1 grids, and the patch-filling trap it re-sprang.</p>
+<p class="note"><b>The same question, asked of every hard shape on those two grids.</b> If
+one-sided isohedral numbers can only be larger, the natural hope is that some shape gains orbits
+when its mirror is removed &#8212; ideally landing on the missing seven. All thirteen shapes at
+k&#8202;=&#8202;5 or 6 on the honeycomb and the square lattice were re-classified under direct
+isometries, with anything the k-search could not settle taken to a SAT patch at 12, 16, 20 and
+24&#8202;cells square. The answer is that <b>eleven of the thirteen stop tiling altogether</b>
+&#8212; proven one-sided non-tilers &#8212; and the remaining two keep the isohedral number they
+already had, five staying five and six staying six. <b>Not one gains an orbit.</b></p>
+
+<p class="note">That is a sharper statement than it first looks. Reflections in these tilings are
+never a mild convenience that a chiral tile could pay for with a few extra transitivity classes;
+they are either irrelevant or load-bearing, and when they are load-bearing their removal does not
+cost orbits, it costs the tiling. Thirteen shapes, and the middle case &#8212; a tile that still
+tiles but needs more classes to do it &#8212; does not occur once. The last of the thirteen is also the best warning against
+optimism here. It is a 13-hex that admits no one-sided tiling with k&#8202;&#8804;&#8202;12 and
+fills patches of 12, 16, 20 <i>and</i> 24&#8202;cells square without complaint &#8212; which reads
+exactly like a tile of enormous one-sided isohedral number. It is not. At 28&#215;28 the formula
+goes UNSAT and it joins the non-tilers. Two other shapes in the same batch died at
+20&#215;20 after filling 16&#215;16. &#8220;Fills a large patch&#8221; is weak evidence about the
+plane, and how weak depends on a scale nothing tells you in advance.</p>
+
+<p class="note"><b>Do the records survive a mirror ban?</b> One-sided isohedral numbers can only
+be <i>larger</i> than free ones &#8212; forbidding reflections removes symmetries a tiling might
+have leaned on, so a shape needing nine orbits with mirrors could need more without them. Since
+polyhex results carry no alignment caveat either way, a one-sided polyhex above ten would be an
+honest record in its own category. So it was worth asking of the two best shapes here.</p>
+
+<p class="note">The exclusion search said k&#8202;=&#8202;1&#8230;12 all impossible for both, which
+looks exactly like a record and is not one. <b>Neither shape tiles at all without reflections.</b>
+A 12&#215;12 patch is UNSAT under direct isometries for the 9-anisohedral 11-hex and for the
+8-anisohedral 10-hex, so their one-sided isohedral number is not thirteen-or-more; it does not
+exist. The engine already knew &#8212; its ordinary corona exhaustion refutes both in milliseconds
+under the direct view &#8212; which is the point worth keeping: an exclusion search reporting
+&#8220;no tiling with k&#8202;&#8804;&#8202;12&#8221; and a shape that simply cannot tile produce
+<i>the same output</i>. That is the conflation <a href="results.html#strip">Part VII</a> was built to break, met
+here from the opposite direction, in the middle of a record hunt. These tiles are essentially
+reflective: the mirror is not decoration on their tilings, it is load-bearing.</p>
+
+
+<h2 id="chevron">Can the chevron be made honest?</h2>
+<p class="legend">Moved from the records section, 9 August 2026. Why no carvable marking rescues the k&#8202;=&#8202;10 tetrakis chevron from its grid qualifier.</p>
+<p class="note"><b>Can the chevron be made honest?</b> That k&#8202;=&#8202;10 is stated for
+tilings aligned to the tetrakis grid, the convention used throughout this page — and as a free
+polygon, ignoring the grid, the chevron is merely isohedral. The standard repair is to carve the
+boundary: replace straight edges with interlocking profiles so that only the intended contacts fit,
+making alignment a consequence of the shape rather than an assumption. For this tile the repair
+runs into a specific obstruction, and it is worth stating because it is not obvious.</p>
+
+<p class="note">Of the four marking types, only three can be carved at all (see
+<a href="results.html#taxonomy">the taxonomy</a>): jigsaw tabs, S-tabs, and lopsided asymmetric tabs. Of those,
+the <b>S-tab is the only one that distinguishes a tile from its mirror image</b> — an S meets an S,
+while a reflected tile presents a Z, and the two refuse. That is exactly the property one wants for
+pinning down placements. But the chevron's minimal tiling is <b>half reflected</b>: of the forty
+tiles in its fundamental domain, twenty are direct and twenty are mirror images, and the shape does
+not tile one-sided <i>at all</i> — banning reflections kills every tiling with k&#8202;≤&#8202;12.
+So on every edge where the tiling mates a tile with its own reflection, an S-tab is inadmissible,
+and only mirror-blind jigsaw tabs remain — precisely the notch that cannot tell the two apart.
+The carving that would enforce alignment is the carving that destroys the tiling.</p>
+
+<p class="note">Marking only <i>some</i> edges is the natural escape — leave the mirror-meeting
+edges plain and carve the rest — so it is worth reporting exactly why that fails too. In the
+10-orbit tiling <b>every one of the chevron's eleven edges meets a reflected copy somewhere</b>, so
+no edge admits an S-tab. Worse, the edges are promiscuous: edge 1 must mate with edges 2, 3 and 10
+in the same chirality and with 5, 8 and 9 reflected — <b>six different partners</b> — and every
+other edge accepts several. A carved profile on edge 1 would have to interlock with six distinct
+profiles and their mirror images at once, which forces it to be the straight edge. For this tiling,
+carving cannot work at all.</p>
+
+<p class="note">So the chevron's k&#8202;=&#8202;10 stays grid-qualified, and the honest record for
+an <i>unmarked polygon</i> belongs elsewhere — to the <b>9-anisohedral 11-hex</b> above. Polyhexes
+carry no caveat at all, by an argument that applies to no other family here: any tiling by a polyhex
+decomposes into the hexagons it is built from, and the honeycomb is the unique tiling of the plane
+by regular hexagons, so every copy is forced onto the same grid. Alignment is not a convention for
+polyhexes, it is a theorem. <b>k&#8202;=&#8202;9 is therefore a genuine, unqualified anisohedral
+number for a plain polygon</b>, while the chevron's 10 is a statement about tetrakis-aligned
+tilings. The distinction is worth keeping sharp: for polyiamonds it can go either way — triangles
+tile in shifted rows, so alignment must be argued shape by shape — and for the grids built from
+several cells per unit it is a convention throughout, exactly as in the classical polyomino
+literature.</p>
+
+
+<h2 id="sixteen">The last sixteen decorations</h2>
+<p class="legend">Moved from Part VII, 9 August 2026. The mechanism paragraphs it condenses are on the algorithms page; this is the endgame story and the DRAT caveat.</p>
+<p class="note"><b>It does not, and for a structural reason.</b> The corona machinery assumes every
+tile has the same set of legal neighbours &#8212; true for a plain polyform, false for a decorated
+one, where a tile in a different aspect presents different labels and so admits a <i>different</i>
+set of neighbours. Its candidate lists are indexed by neighbour cell-set, which cannot express a
+condition on orientation at all. Pushed through it anyway, a decoration is refuted only when the
+undecorated shape already is, and for a hexagon or a dihex that is never. Corona exhaustion proves
+exactly nothing here, at any depth.</p>
+
+<p class="note"><b>The strip transfer matrix.</b> Suppose the decorated tile tiles the plane.
+Restrict that tiling to a vertical strip of w columns: each row carries a state &#8212; which aspect
+covers each of its w cells &#8212; from a finite set, and consecutive rows must be compatible. So
+the tiling induces a <b>bi-infinite path</b> through a finite directed graph, and a finite graph
+carries one exactly when repeatedly deleting states with no successor, or no predecessor, leaves
+something behind. If that fixpoint empties, <b>no tiling exists at all, for any k</b>. Unlike a
+kmax sweep it does not stop at some isohedral number; unlike a corona proof it is not confined to a
+bounded neighbourhood. Soundness runs one way, which is the useful way: the strip&#8217;s border
+cells carry no constraint against the world outside, so the graph is too permissive, never too
+strict. It can fail to prove; it cannot wrongly prove.</p>
+
+<p class="note">The cost is small because the geometry factors out. For a one-cell tile the whole
+transition relation is three A&#8202;&#215;&#8202;A tables, one per lattice direction, so geometry
+is touched A&#178; times and the rest is bitwise work on Python integers. Multi-cell shapes need the
+alphabet refined from &#8220;which aspect&#8221; to &#8220;which aspect, and which of the
+shape&#8217;s own cells sits here&#8221;, which pins the covering copy exactly &#8212; any
+<i>other</i> placement covering that cell would overlap, which the matching test already rejects.
+And rows are grown through the compatibility graph rather than sieved from the A^w product, which
+at width&#8202;5 on a hexagon is 7,488 rows instead of 248,832. That settles <b>95,842</b> of
+the 95,934, most of them at width 2 or 3.</p>
+
+<p class="note"><b>What the global test cannot see, a local one can.</b> Row sets grow about
+sixfold per unit of width and the successor tables are quadratic in them, so width&#8202;7 on a
+dihex would want ~77&#8202;GB: the transfer matrix simply stops. The remainder goes to two other
+instruments. <b>Patch exhaustion</b> places tiles outward from the origin keeping every isometry
+and checks the matching rule between every touching pair, asking only whether a disc can be
+<i>covered</i> &#8212; tiles hang over the boundary freely, since demanding exact coverage of a
+region would be unsound (an L-tromino tiles the plane and cannot cover a 3&#215;3 square). Then
+<b>CDCL</b>: give every cell of a w&#8202;&#215;&#8202;h patch a variable per symbol, demand
+exactly one, forbid every incompatible adjacent pair. Any plane tiling restricted to the patch
+satisfies that formula, so UNSAT is a proof for every k &#8212; and a clause-learning solver goes
+where both hand-rolled searches stop. Between them, <b>92</b> decorations the
+strip could not reach: 52 by patch, 40 by SAT. <b>None are left.</b></p>
+
+<p class="note">The last forty are the interesting ones, and they are not aperiodic after all. Every
+one fills an 8&#215;8 patch comfortably, admits no periodic tiling on any torus up to
+8&#215;8, and is refuted only at 12&#215;12 &#8212; an obstruction at a scale no strip of width 6 or
+disc of radius 5 could ever have reached. Four independent solvers agree on all sixteen final
+refutations, and drat-trim certified the proofs it could; pysat returned truncated DRAT on the
+rest, so those rest on solver agreement rather than a checked proof, which is worth saying plainly
+rather than implying more rigour than is there.</p>
+
+
+<h2 id="seven-wrong">Two wrong explanations for the missing seven</h2>
+<p class="legend">Moved from Part IV, 9 August 2026. Both were published briefly and refuted by predictions checked against data already on disk.</p>
+<p class="note"><b>Why is a harder question, and two tempting answers are both wrong.</b> The first
+is <i>shadowing</i>: seven-orbit tilings exist, but any shape flexible enough for seven is also
+coverable in six, so it is filed as a six. That predicts the known k&#8202;=&#8202;6 shapes should
+mostly admit seven-orbit tilings as well. <b>Zero of twenty-six do.</b> For these shapes,
+seven-orbit tilings simply do not exist.</p>
+
+<p class="note">The second is arithmetic. For a tile with trivial symmetry &#8212; which every
+high-k shape has &#8212; each orbit contributes q tiles to a fundamental domain, so the
+divisibility law becomes c&#8202;|&#8202;n&#8202;&#183;&#8202;k&#8202;&#183;&#8202;q, and a k
+sharing a factor with c is admissible at every point-group order while a coprime k needs the
+factor from somewhere else. That is real, and it is <i>not</i> enough. On the rhombille tiling
+(c&#8202;=&#8202;3) seven is fully admissible whenever three divides n &#8212; six admissible
+(q,&#8202;torus) pairs at n&#8202;=&#8202;9, 12 and 15, exactly as many as six enjoys &#8212; and
+those are the sizes richest in tilings. Rhombille has produced <b>21 shapes at
+k&#8202;=&#8202;6 and none at seven</b>. A constraint that vanishes at a third of all sizes cannot
+account for a 62-to-0 split.</p>
+
 
 </body></html>
