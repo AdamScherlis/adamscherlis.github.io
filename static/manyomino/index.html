@@ -56,9 +56,9 @@ blobs.  Cells are colored by graph distance from an extremal cell to show the br
 structure.</p>
 <figure style="margin:1.2rem 0;background:#fff;border:1px solid var(--rule);
 border-radius:10px;padding:.6rem"><img style="width:100%;height:auto;display:block;
-image-rendering:pixelated" src="figs/hero_n30000.png" alt="uniform random polyomino
-with 30,000 cells"><figcaption style="font-size:.78em;color:var(--mut);margin-top:.3rem">
-a single uniform sample, n = 30,000 (colored by graph distance)</figcaption></figure>
+image-rendering:pixelated" src="figs/hero_n100000.png" alt="uniform random polyomino
+with 100,000 cells"><figcaption style="font-size:.78em;color:var(--mut);margin-top:.3rem">
+a single uniform sample, n = 100,000 (colored by graph distance)</figcaption></figure>
 <p class="lede" style="font-size:.95em">Sampler, validation suite (exact-count cross-checks,
 chi-square uniformity against OEIS <a href="https://oeis.org/A001168">A001168</a>, two-seed
 convergence, autocorrelation) and reproduction instructions:
@@ -75,6 +75,19 @@ independent cycles and &asymp;1.195 perimeter sites per cell.</p>
 <figure style="max-width:40rem;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.5rem"><img style="width:100%;height:auto;display:block" src="figs/nufit.png" alt="log-log plot of radius of gyration vs size with nu fit"></figure>
 </section>
 
+<section class="card">
+<h2>n = 100,000<span class="badge ok">two-seed converged</span></h2>
+<p class="sub">independent chains from a stringy bar seed and a compact
+&radic;n&times;&radic;n rectangle seed agree: |z| = 0.31 on
+&lang;R<sub>g</sub>&sup2;&rang;</p>
+<div class="stats">
+  <div>&lang;R<sub>g</sub>&rang; <b>640.5</b></div>
+  <div>&tau; <b>1.2e+06</b> moves</div>
+  <div>ESS <b>10</b> (bar) / <b>11</b> (rect)</div>
+  <div>chain length <b>4.7e+07</b> moves each</div>
+</div>
+<div class="panels"><figure><img src="figs/n100000_bar_60000000.png" alt="random polyomino, n=100000"><figcaption>bar-seeded chain, step 6.00e+07 &middot; R<sub>g</sub> = 680</figcaption></figure><figure><img src="figs/n100000_rect_150000000.png" alt="random polyomino, n=100000"><figcaption>rect-seeded chain, step 1.50e+08 &middot; R<sub>g</sub> = 708</figcaption></figure><figure><img src="figs/n100000_bar_50000000.png" alt="random polyomino, n=100000"><figcaption>bar-seeded chain, step 5.00e+07 &middot; R<sub>g</sub> = 559</figcaption></figure><figure><img src="figs/n100000_rect_100000000.png" alt="random polyomino, n=100000"><figcaption>rect-seeded chain, step 1.00e+08 &middot; R<sub>g</sub> = 643</figcaption></figure></div>
+</section>
 <section class="card">
 <h2>n = 30,000<span class="badge ok">two-seed converged</span></h2>
 <p class="sub">independent chains from a stringy bar seed and a compact
@@ -153,8 +166,8 @@ independent cycles and &asymp;1.195 perimeter sites per cell.</p>
 </div>
 <div class="panels"><figure><img src="figs/n1000_bar_200000000.png" alt="random polyomino, n=1000"><figcaption>bar-seeded chain, step 2.00e+08 &middot; R<sub>g</sub> = 43</figcaption></figure><figure><img src="figs/n1000_rect_200000000.png" alt="random polyomino, n=1000"><figcaption>rect-seeded chain, step 2.00e+08 &middot; R<sub>g</sub> = 36</figcaption></figure><figure><img src="figs/n1000_bar_150000000.png" alt="random polyomino, n=1000"><figcaption>bar-seeded chain, step 1.50e+08 &middot; R<sub>g</sub> = 32</figcaption></figure><figure><img src="figs/n1000_rect_150000000.png" alt="random polyomino, n=1000"><figcaption>rect-seeded chain, step 1.50e+08 &middot; R<sub>g</sub> = 43</figcaption></figure></div>
 </section>
-<section class="card"><h2>Still equilibrating<span class="badge pend">running</span></h2><ul><li><b>n = 300,000</b> &mdash; waiting for both chains</li><li><b>n = 100,000</b> &mdash; two-seed |z| = 7.3, ESS = 3/7</li></ul></section>
-<footer>Generated 2026-08-09 19:13 UTC from the manyomino production runs.</footer>
+<section class="card"><h2>Still equilibrating<span class="badge pend">running</span></h2><ul><li><b>n = 300,000</b> &mdash; waiting for both chains</li></ul></section>
+<footer>Generated 2026-08-19 03:20 UTC from the manyomino production runs.</footer>
 </div>
 </body>
 </html>
