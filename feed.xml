@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Adam Scherlis</title>
+    <link>https://adam.scherl.is/</link>
+    <atom:link href="https://adam.scherl.is/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Blog posts by Adam Scherlis</description>
+    <language>en</language>
+    <lastBuildDate>Tue, 11 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Utilitarian inequality metrics</title>
+      <link>https://adam.scherl.is/blog/inequality-metrics/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/inequality-metrics/</guid>
+      <pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>TL;DR: Use Atkinson with <script type="math/tex">\epsilon = 1</script> or generalized entropy with <script type="math/tex">\alpha=0</script>.</p>
+<p>Inequality indices are numerical metrics of income (or wealth, etc) inequality.</p>
+<p>There are some downsides to society coordinating around a few canonical numerical metrics, like <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart's law</a>; there are also big upsides, like making it harder to cherry-pick statistics, and staying grounded in something reality-based rather than making policy based on vibes.</p>
+<p>But if you're <em>going</em> to coordinate on a metric, you should pick a good one!</p>
+<p>Inequality comes in many forms. Even sticking to income inequality, there's an infinite-dimensional space of income spectra; a "moderately unequal" society might be one with a broad bell-curve of income centered at a typical value, or a narrow distribution plus a long tail of billionaires, or a bimodal distribution with two distinct clusters, etc.</p>
+<p>An inequality metric collapses this variety down to a single number. In the process, it inevitably makes strong assumptions about <em>how bad</em> it thinks different kinds of inequality are. If the metric is designed haphazardly, those assumptions might be very far from reasonable! Worse, the people using the metric may have very little intuitive of sense of what those assumptions <em>are</em>. A good metric should make good tradeoffs, but at the very least you should know which tradeoffs you're making.</p>
+<p>I think the most popular indices (especially Gini) make bad assumptions, and some others -- notably the Atkinson and generalized-entropy metrics -- make assumptions that are about as good as we could hope for.</p>
+<p>In this post I argue for a somewhat broader class of inequality metrics, which I call "utilitarian". In a future post I'll argue for the Atkinson and GE indices in particular.</p>
+<h2>Why not Gini?</h2>
+<p>The Gini coefficient is <em>far and away</em> the most popular income-inequality metric; if only one metric is reported in a given context, it's almost always <a href="https://en.wikipedia.org/wiki/Gini_coefficient">Gini</a>.</p>
+<p>Pros: Gini is fairly easy to calculate, and you can draw a nice diagram to explain how it's defined. It also satisfies the most basic desiderata of an income inequality metric: in particular, it always decreases when money is transferred from higher to lower incomes, is zero for perfect equality, and does not depend on the currency unit you use to measure income.</p>
+<p>Cons: The Gini coefficient was designed to be easy to explain with a nice diagram, which unfortunately has nothing to do with weighting different kinds of inequality against each other.</p>
+<p>As a consequence, I think it makes bad tradeoffs. The following countries have Gini coefficients of 0.1:</p>
+<ul>
+<li>In Country A, ~89% of people have the same income and ~11% make 1/10 that income. </li>
+<li>In Country A', 90% of people have the same income and 10% are completely destitute.</li>
+<li>In Country B, ~99% of people have the same income, while the top ~1.2% have 10× that income.</li>
+<li>In Country B', nearly all people have the same income, while one person has 10% of the total income of the entire country.</li>
+<li>In Country C, 50% of people have the same income, and the other 50% have 1.5× that income.</li>
+</ul>
+<p>By my lights, B' seems far worse than B, and A' seems far worse than A. Also, both A' and B' seem much worse than C.</p>
+<p>The comparison of A vs. B (or A' vs. B') is to some extent a matter of what effect you're trying to measure; if you're more concerned about plutocracy vs. extreme poverty, you might make different tradeoffs.</p>
+<p>On the other hand, I think Gini fails to measure different levels of poverty in any reasonable way; zero income is much worse than low income, especially if we're defining income to include government programs. The Gini coefficient completely loses sensitivity in this limit, and starts to depend only on the number of low-income people, but not on how much income they actually have.</p>
+<p>It also fails to measure extreme income concentration reasonably, losing sensitivity (in the limit) to the degree of concentration (the number of high-income people) and depending only on their total income.</p>
+<p>Whether or not you agree with the utilitarian arguments I make in this post, I think you should be using utilitarian inequality metrics. The fact that they can be derived from <em>any</em> reasonable philosophical position gives them a sort of groundedness and robustness that I think other metrics lack.</p>
+<p>And whether or not you agree with <em>that</em>, I think you should cook up some hypothetical countries before using any metric! For anything! Get a gut-level sense of what 0.1 or 0.3 or 0.99 might mean in practice.</p>
+<h2>Utilitarian inequality metrics</h2>
+<p>I think trying to capture the effects of (relative) poverty and the effects of a few outlier super-wealthy individuals in the same metric is basically a mistake. Also, none of them do it. People who are concerned about plutocracy usually point to individuals like Elon Musk and Jeff Bezos, who have incomes on the order of 10 to 100 billion dollars. That's definitely a lot of money; I think it's reasonable to worry about how much power this gives a small number of people. It's also less than 0.4% of the total income of all Americans. It affects the Gini coefficient of the US by less than 0.004. (The number for wealth is similar.)</p>
+<p>Instead, I think it's better to focus on what inequality metrics are good at: capturing the intuition that unevenly-distributed resources leave people worse off in an overall sense.</p>
+<p>There's a very clean utilitarian case against economic inequality, which I think captures this pretty well:</p>
+<ul>
+<li>People have diminishing marginal utility of money (and most other resources): an addition $1,000 changes your life a lot more if you're making $10k rather than $100k.</li>
+<li>Therefore, giving additional marginal resources to people who already have more leads to less total utility than giving it to people who have less.</li>
+<li>More formally: utility functions are concave and Jensen's inequality applies.</li>
+</ul>
+<p>I don't think this simple model captures everything that's bad about inequality; income disparities have some bad externalities. But I do think it captures <em>most</em> of it.</p>
+<p>It also leads directly to a class of inequality metrics that are fairly easy to define and calculate, and which can be adjust to fit any utility function. Given a function <script type="math/tex">U</script> and a mean income <script type="math/tex">\mu</script> we can define two metrics:</p>
+<p>
+<script type="math/tex">a = 1 - U^{-1}(\mathbf E_y[U(y)]) / \mu</script>
+</p>
+<p>
+<script type="math/tex">b = U(\mu) - \mathbf E_y[U(y)]</script>
+</p>
+<p>where <script type="math/tex">y</script> is the income of an individual and <script type="math/tex">\mathbf E_y</script> is the average over all individuals.</p>
+<p>The <script type="math/tex">a</script>-index measures the fraction of total income that is wasted (in a utilitarian sense) due to inequality. If <script type="math/tex">a = 0.25</script>, then a perfectly-equal society with 75% of the total income is judged by your utility function to be just as good as the actual one.</p>
+<p>The <script type="math/tex">b</script>-index measures the loss to average utility due to inequality, directly in "utils". Depending on your utility function this may have additional interpretations.</p>
+<p>The Atkinson index is a family of indices which corresponds to <script type="math/tex">a</script> for power-law and logarithmic utility functions. Generalized entropy indices are the corresponding <script type="math/tex">b</script>-indices.</p>
+<p>These indices have been discovered multiple times, mostly by people who didn't have utility functions in mind at all; I think they have a mathematical elegance (and some nice practical properties) that make them appealing even without any of the utilitarian motivation.</p>
+<p>I think logarithmic utility is the best-supported model, but that's a story for a future post. (This gives you metrics that are functions of the geometric mean of income.)</p>
+<h3>Aside: the veil of ignorance</h3>
+<p>The Rawlsian "veil of ignorance" argument, contrary to the above, suggests that we should focus entirely on maximizing the welfare of the worst-off in society, and that the relative (or absolute!) welfare among everyone else simply doesn't matter in comparison.</p>
+<p>It also assumes that someone behind the veil would be infinitely risk-averse. I don't know about you, but given the choice between being born into:</p>
+<ul>
+<li>Country A, where half the population lives on $1/day and the other half lives on $200/day</li>
+<li>Country B, where one person lives on $0.99/day and everyone else lives on $100/day</li>
+</ul>
+<p>I would have a strong preference for B. Moral considerations aside, thinking only of my own wellbeing (as Rawls assumes), I am perfectly willing to risk a slightly worse bad outcome if I can nearly eliminate the risk of that outcome.</p>
+<p>Apparently John Harsanyi made a similar argument, almost 20 years before Rawls, and arrived at a conclusion in support of utilitarianism.</p>
+<h2>Tradeoffs</h2>
+<p>Holding inequality constant, it is good for the average person to be wealthier. As a society, we should be trying to increase abundance to some extent, and trying to decrease inequality to some extent. These trade off against each other. (I'm not claiming current policy is Pareto-efficient!)</p>
+<p>Utilitarian inequality metrics suggest a particular set of tradeoffs: those that maximize average (or total) utility. This can be translated directly into a rate at which the metric trades off against average income. So if we take them literally, these metrics make policy recommendations that extend beyond inequality itself.</p>
+<p>As I noted above, however, these metrics don't capture the full impact of inequality. You could try to incorporate that by making different tradeoffs which weight inequality more strongly. (There's an upper bound here: a policy that makes everyone worse off, but affects the rich the most, is still not a very good policy.)</p>
+<p>You might also have other, non-utilitarian constraints on which policies you'll favor, or even consider. Personally I think making policymaking a bit more utilitarian would be a big improvement over the status quo; you might have very different views.</p>
+<p>So I'll retreat to a weaker demand: if you're going to use an inequality metric at all, make it a utilitarian one -- even if you're not a utilitarian.</p>]]></description>
+    </item>
+    <item>
+      <title>Ternary plots are underrated</title>
+      <link>https://adam.scherl.is/blog/ternary-plots/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/ternary-plots/</guid>
+      <pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>My <a href="https://adam.scherl.is/blog/grapefruit/">post</a> on the grapefruit-juice effect contains a ternary plot of citrus fruits. Here it is again (<a href="https://commons.wikimedia.org/wiki/File:Citrus_tern_cb_simplified_1.svg">source</a>):</p>
+<p><img alt="Ternary plot of citrus fruit" src="https://adam.scherl.is/assets/ternary/citrus.png" /></p>
+<p>Ternary plots are great! They're used in a number of specialized fields, but I think they would be more widely popular if people were more familiar and comfortable with them. Let's make it happen.</p>
+<p>Look at the citrus fruit plot. Every data point on that plot corresponds to a species of citrus, whose ancestry is some mixture of mandarins, pomelos, and citrons. The three corners are the ancestral species themselves, which are 100% themselves and 0% anything else. To take an example from somewhere inside the plot, most lemons are about 20% pomelo, 30% mandarin, and 50% citron. You can read that off from the grid lines: mandarin ancestry is shown by vertical position, with 0%-mandarin fruits along the bottom of the triangle and the mandarin itself at the top. The "lemons" cluster is about 30% of the way up (between the yellow horizontal lines marked "20%" and "40%"), so it's 30% mandarin. Similarly, lemons are 20% of the way from the right edge (0% pomelo) to the bottom-left corner (100% pomelo).</p>
+<p>Note that there are three variables (percent pomelo/mandarin/citron ancestry), but they are not independent; they always sum to 100%, so there are only two independent "degrees of freedom". This is why you can make a two-dimensional plot of the three-dimensional data.</p>
+<p>The one confusing thing about ternary plots is that the axis lines are usually only marked on one edge. For example, the horizontal lines marking mandarin ancestry are labeled on the right-hand side; on the left, you instead have angled labels in blue, which correspond to the sloped lines for pomelo ancestry. Most ternary plots don't use different colors in the helpful way this one does; I think the best way to read them is to look at a corner (100% of something), identify the opposite edge (0% of that thing), find the lines parallel to that edge, and read off the labels on whichever side of the triangle is oriented to match those lines. (If the labels aren't helpfully rotated to match up with the lines, you can instead go with whichever side reaches 100% at the corner and 0% at the side in question.)</p>
+<h2>Use case</h2>
+<p>You can (and should) use a ternary plot to display any kind of quantitative data with:</p>
+<ol>
+<li>Three numerical components to each data point</li>
+<li>All components non-negative (positive or zero)</li>
+<li>A constraint on the sum of the three components</li>
+</ol>
+<p>Actually, if you instead have a constraint on a different linear combination of the components, you can still make (something like) a ternary plot; it just won't be an equilateral triangle. If the second rule (non-negativity) doesn't apply you can <em>still</em> make a ternary plot, but some points will fall outside the triangle, so you'll have to extend your grid lines.</p>
+<p>The rest of this post is fun examples.</p>
+<h2>Mixing diagrams</h2>
+<p>Most ternary diagrams are for mixtures of things, where the sum constraint corresponds to the fact that percentages have to add to 100%. The citrus fruit diagram is one example.</p>
+<p><a href="https://commons.wikimedia.org/wiki/File:SoilTexture_USDA.svg">This</a> mixing diagram for soil has gone somewhat viral:</p>
+<p><img alt="Ternary plot of soil" src="https://adam.scherl.is/assets/ternary/soil.svg" /></p>
+<p>Clay, silt, and sand have a technical definition in terms of grain size. Below .05mm, sand becomes silt; below .002mm, silt becomes clay. So this plot gives a sort of low-dimensional projection of the infinite-dimensional space of granular mixtures. In fact, you can think of an arbitrary granular mixture as having a sort of spectrum of grain sizes, described by a spectral density function, and this plot shows a two-dimensional quotient of the vector space of those functions...</p>
+<p>Speaking of spectra, one can also make a ternary plot for RGB colors! <a href="https://commons.wikimedia.org/wiki/File:CIExy1931_sRGB_gamut_D65.png">Here</a> it is, embedded in the broader space of all possible colors:</p>
+<p><img alt="Ternary plot of sRGB gamut" src="https://adam.scherl.is/assets/ternary/sRGB.png" /></p>
+<p>The colors outside the triangle are too saturated to be displayed on a standard computer screen. The horseshoe shape is a little harder to explain; maybe in a future post.</p>
+<p><img alt="Flammability ternary plot" src="https://adam.scherl.is/assets/ternary/methane.svg" /></p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Flammability_diagram_methane.svg">This</a> plot shows the conditions for a mixture of methane, nitrogen, and oxygen to be flammable. (Note that the grid-line labels are oriented unhelpfully, so you have to be careful about using the correct scale when reading off percentages.)</p>
+<p><img alt="De Finetti diagram" src="https://adam.scherl.is/assets/ternary/de-finetti.svg" /></p>
+<p>And <a href="https://commons.wikimedia.org/wiki/File:De_Finetti_diagram.svg">here</a>'s one for frequencies of different alleles.</p>
+<h2>Other ternary plots</h2>
+<p><a href="https://en.wikipedia.org/wiki/QAPF_diagram">QAPF diagrams</a> are basically two mixing triangles glued together:</p>
+<p><img alt="QAPF diagram" src="https://adam.scherl.is/assets/ternary/qapf.svg" /></p>
+<p>Sums and differences of the electronegativities of a pair of atoms can be used to construct a sort of ternary diagram of bond types, called a <a href="https://www.meta-synthesis.com/webbook/37_ak/triangles.php">van Arkel--Ketalaar triangle</a>:</p>
+<p><img alt="bond triangle" src="https://adam.scherl.is/assets/ternary/van-arkel.jpg" /></p>
+<p>(Hmm. One could apply that trick to quite a lot of things...)</p>
+<p>The baryon decuplet is often drawn in a sort of ternary diagram of quark content -- although the chart slightly predates the idea of quarks:</p>
+<p><img alt="Baryon decuplet" src="https://adam.scherl.is/assets/ternary/baryons.png" /></p>
+<p>(<a href="https://www.researchgate.net/publication/382614169_On_the_Energy_Budget_of_Quarks_and_Hadrons_Their_Inconspicuous_Strong_Charge_and_the_Impact_of_Coulomb_Repulsion_on_the_Charged_Ground_States">source</a>)</p>
+<p>Actually, there's some deep math behind that: the triangular lattice appears here as the root lattice of the Lie group <script type="math/tex">A_2</script>, also known as <script type="math/tex">SU(3)</script>. In most derivations, the lattice itself shows up as a diagonal slice through a 3D Cartesian grid; the lattice points are all the points with integer coordinates that sum to zero.</p>
+<p>Ternary plots are also used in astrophysics, for non-gaussian statistics (measurements involving a triangle of three points in the sky at once). Unfortunately, these are usually displayed with two axes for ratios of edge lengths of the triangle, instead of as a ternary plot of the three <em>angles</em>, which sum to 180 degrees. Also, they're Fourier-transformed.</p>
+<p><img alt="Ternary plot of non-Gaussianities" src="https://adam.scherl.is/assets/ternary/nongaussian.webp" /></p>]]></description>
+    </item>
+    <item>
+      <title>The grapefruit juice effect</title>
+      <link>https://adam.scherl.is/blog/grapefruit/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/grapefruit/</guid>
+      <pubDate>Sun, 09 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>The medication I'm taking for insomnia interacts badly with grapefruit juice. This isn't much of a issue, yet; the cravings are still manageable. I only dream about grapefruit sometimes. I was never the kind of person to <a href="https://slatestarcodex.com/2014/06/09/minutes-from-the-michigan-rationalist-meetup/">blow my whole budget on the stuff</a>. The biggest problem, really, is that a mischievous imp or demon has been going around replacing all of the nonalcoholic drinks at every Bay Area house party with grapefruit Spindrift and <em>pamplemousse</em> LaCroix.</p>
+<p>The most common reaction I get, when I bring this up, is "oh yeah, I [had/have] to avoid grapefruit because I [was/am] taking [medication]", with a different medication every time.</p>
+<p>What's up with that?</p>
+<h2>Furanocoumarins, CYP3A4, and you</h2>
+<p>There are a handful of cytochrome P450 ("CYP") enzymes in your liver that metabolize a huge variety of pharmaceutical compounds. The big ones are CYP2D6, CYP3A4, CYP3A5, and maybe a couple others.</p>
+<p>Any time you're thinking of taking a medication, I recommend looking up how it's metabolized, especially if it's not the only thing you're taking. Two drugs that are metabolized by the same enzyme will very frequently have interaction effects.</p>
+<p>You can also get pharmacogenetic testing done, to see whether you're likely to be producing an unusually high or low amount of one of these enzymes; this can be translated into dosage adjustments for many (most?) medications. The effect can be in either direction; CYP enzymes convert active forms of some drugs into inactive compounds, but for other drugs they actually convert an inactive precursor into the active form. </p>
+<p>The relevant component of grapefruit juice -- or "GFJ", if you want to sound like a hip pharmacodynamicist -- is the furanocoumarins, a class of mildly-toxic chemicals related to coumarin. (Coumarin is present in some kinds of cinnamon; it's also why tonka beans are illegal in the US.) Furanocoumarins can <a href="https://www.bmj.com/content/346/bmj.f1">irreversibly</a> inhibit CYP enzymes, especially CYP3A4 and CYP3A5; at that point you have to wait for your body to produce more enzymes, which takes days.</p>
+<p>(Furanocoumarins also inhibit membrane transport proteins; independently of any CYP effects, this can make drugs less effective.)</p>
+<h2>How real is this?</h2>
+<p>The effect sizes in the literature are not small. A review by <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3071161/">Hanley et al (2011)</a> demonstrates that for patients drinking moderate amounts of grapefruit juice, the blood concentration (AUC, i.e. integrated over time) is more than doubled for many drugs; in some cases it may increase by a factor of ten (although studies vary a lot).</p>
+<p>On the other hand, many of these numbers got asterisks for "administration of GFJ in a manner deemed to be inconsistent with usual dietary consumption"; poking through a few papers, this typically means that they made their research subjects drink glasses of double-strength grapefruit juice three times a day (or "DS GFJ tid", as the kids say) for a few days. There are also some "acute GFJ exposure" annotations. (On the other other hand, even a single glass of single-strength GFJ is often enough to cause an AUC ratio of 2 or more.)</p>
+<p>The paper points out a major hole in the usual "GFJ inhibits CYP3A" story: "Grapefruit juice is unique among CYP3A inhibitors because, when consumed in usual dietary volumes, only enteric CYP3A is affected. Therefore, GFJ has no impact on the pharmacokinetics of CYP3A substrate drugs administered intravenously, and does not prolong the plasma half-life of orally administered agents." </p>
+<p>In other words, grapefruit juice, which in ideal circumstances remains outside your liver, only gets to destroy the CYP enzymes in your gut; this is relevant for some drugs (those that are metabolized very quickly by CYP3A while still in the gut), but not most. They say that "grapefruit juice will only cause a clinically relevant interaction if all of the following conditions are met: (1) the drug is given orally; (2) the drug is significantly metabolized by CYP3A; and (3), the drug normally undergoes extensive first-pass metabolism by enteric CYP3A."</p>
+<p>This seems pretty important! But I'm not sure how to square it with the papers they survey; if most drugs get through the gut without interacting much with CYP3A, I don't see why <em>any</em> quantity of GFJ should be expected to have these kinds of effects. They say that "[t]he number of drugs where GFJ causes a strong degree of CYP3A inhibition (AUC ratio ≥ 5) is quite small", but 5 seems like quite a high bar to me.</p>
+<p>They end up concluding that "<script type="math/tex; mode=display">f</script>or the majority of patients, complete avoidance of grapefruit juice is unwarranted", but I'm not sure I believe them.</p>
+<p>I'm pretty confused about this!</p>
+<h2>Not all grapefruit</h2>
+<p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6152415/">Liu et al (2017)</a> found that, while red grapefruit has a little over 200 ug/g (dry weight) of bergamottin (a furanocoumarin), white grapefruit has only 11 ug/g. Pomelos, an ancestor of grapefruits, can have more than 600 ug/g, although some varieties have almost none.</p>
+<h2>Not just grapefruit</h2>
+<p>This post was prompted by a friend of mine casually mentioning that they'd heard that other citrus fruits had the same interactions. This seemed plausible, and also kind of concerning; I've only ever seen warnings about grapefruit from doctors, medical documents, etc.</p>
+<p>Fun fact: grapefruit, like lemons, limes, oranges, and most other popular citrus fruits, is a hybrid. There are four main ancestral citrus species, so you can make fun triangular and tetrahedral visualizations of citrus ancestry:</p>
+<p><img alt="A ternary diagram of citrus fruit ancestry" src="https://adam.scherl.is/assets/grapefruit/citrus.png" /></p>
+<p>This chart is missing one major ancestor, the micrantha, which is a component of most limes but not other citrus.</p>
+<p>Looking at this chart, one might suspect that furanocoumarin content might be related to pomelo ancestry, and that many other kinds of citrus might also have furanocoumarins in somewhat lower amounts. </p>
+<p>(I did some of this research while consuming a lime popsicle; I was not very happy to learn that Persian limes, unlike Key limes, have pomelo ancestry.)</p>
+<p>But is that actually true?</p>
+<p>According to one paper, "<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142757">The Distribution of Coumarins and Furanocoumarins in Citrus Species Closely Matches Citrus Phylogeny and Reflects the Organization of Biosynthetic Pathways</a>" (2015) by Dugrand-Judek et al, it is. Pomelos, as Liu found, are worse than grapefruit. It turns out that micranthas have an enormous amount of the stuff, and even Key limes are about as bad as grapefruits; Persian (Tahiti) limes, the most common species, are several times <em>worse</em>. Sweet oranges and some kinds of mandarin have very little, but Nasnaran mandarins have several times more than grapefruits do. Lemons have several times less than grapefruit. (I'm reading all of this off of a bar graph; the text of the paper only has numbers for a few species. There's supposedly a supplementary file with all of the data, but I can't figure out how to get it.)</p>
+<p>A word of warning: Furanocoumarin content can depend very strongly on the particular variety of a citrus fruit, not just the species (<a href="https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/am-pdf/10.1002/pca.3499">Alperth et al (2024)</a>), so take all of this with however much salt you take your limes with.</p>
+<h2>Spilling some tea</h2>
+<p>One of the main furanocoumarins that gets mentioned in this context is bergamottin, as in bergamot, the citrus fruit used to flavor Earl Grey. I drink kind of a lot of Earl Grey, so I was curious whether it contains a significant amount of bergamottin.</p>
+<p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8303230/">Arigò et al (2021)</a> looked into this. They found that Earl Grey has only about 0.01 mg/L of furanocoumarins; for comparison, lemon juice has 1.08 mg/L and bergamot juice has a whopping 29.3 mg/L. They didn't look at grapefruit juice, to my annoyance, but presumably it's somewhere between lemon and bergamot.</p>
+<p>(The methodology of the paper is interesting. They obtain various beverages from "a local market", but make their <em>limoncello</em> by hand; the lemon extract has to sit for a month before it's ready. One has to wonder whether this entire paper is the result of a grad student trying to pass off their hobby as research.)</p>
+<h2>Not just CYP3A4?</h2>
+<p>Wikipedia casually mentions that "Cytochrome isoforms affected by grapefruit components include CYP1A2, CYP2C9, and CYP2D6, but CYP3A4 is the major CYP enzyme in the intestine."</p>
+<p>Diving into the abstract of a paper kind of at random: "Apparent selectivity toward CYP3A4 does occur with the furanocoumarin dimers. In contrast, bergamottin showed rather stronger inhibitory effect on CYP1A2, CYP2C9, CYP2C19, and CYP2D6 than on CYP3A4." (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0003986100918356?via%3Dihub">Tassaneeyakul et al, 2000</a>)
+Hanley et al claim that "Although the FCs inhibit multiple CYP enzymes in vitro, clinically significant inhibition by GFJ has only been unequivocally shown for CYP3A. For example, GFJ does not interact with theophylline (CYP1A2 substrate) or warfarin (CYP2C9 substrate)".</p>
+<p>A lot of lists of grapefruit-affected meds, including on Wikipedia, use CYP3A4 metabolism as a major criterion. Based on my (shallow) research, it looks like this might be missing kind of a lot? Maybe you should just assume furanocoumarins affect anything metabolized by CYP? (And let's not forget those membrane transport proteins.)</p>
+<p>(On the other hand, there are studies on the interaction of grapefruit juice with a wide range of specific drugs, so in many cases you don't need to use CYP enzymes as a proxy.)</p>
+<h2>Conclusion</h2>
+<p>Maybe we should ban all citrus fruit, just to be safe.</p>]]></description>
+    </item>
+    <item>
+      <title>n-ary Huffman coding</title>
+      <link>https://adam.scherl.is/blog/huffman/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/huffman/</guid>
+      <pubDate>Sat, 08 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>Huffman coding is a method for constructing optimal prefix codes!</p>
+<h2>Codes and trees</h2>
+<p>As previously alluded to on this blog, a code represents an implicit set of beliefs about the frequency distribution of different kinds of text. Longer codewords represent lower implied frequencies. Prefix codes give each symbol in the alphabet a fixed codeword with a fixed length, so the implied beliefs include "the probability of a symbol is independent of whatever came before it"; this is obviously not true, but it simplifies the encoding and decoding process immensely. Prefix codes are designed so that no delimiters are needed between codewords; no codeword is a prefix of another, so it's never ambiguous whether you've reached the end of an encoded symbol.</p>
+<p>You can visualize the codewords of a code with a tree. At every node, you branch in a different direction depending on the next bit (or trit or whatever). Here's an example for Morse code:</p>
+<p><img alt="A tree whose nodes and leaves are annotated with letters, its edges with dots and dashes" src="https://adam.scherl.is/assets/huffman/Morse.jpg" /></p>
+<p>Morse code is not a prefix code, so some symbols are placed on internal nodes rather than leaves. For example, "A" is a prefix of "L".</p>
+<p>You can also think of this tree as dividing up probability space. At the top, we have 100% probability of some symbol occurring. This is divided into 50% probability of a symbol whose codeword starts with dash (anything to the left) and 50% for dot (anything to the right). This gets subdivided further as we go down the tree. Note that Morse code keeps the most common letters further up, in the high-probability region, and puts the rarest ones at the bottom, with the low-probability long codewords.</p>
+<p>In the case of Morse code, once we get past the very top, we need to divide up probability at each node between "left", "right", and "output the symbol here and move on to the next letter". In the case of a prefix code things are simpler; no symbols live on the internal nodes, so it's always a 50-50 split between the two child nodes, until you reach the leaves. If we're building a ternary code, our tree will instead split three ways, etc.</p>
+<p>So, given some estimated symbol frequencies, how do we build a tree like this? If the frequencies are all powers of two (or in general, n), it's easy: just make sure each symbol ends up on the appropriate tier. But if not, there will be many ways to approximate the true distribution. We want the tree that provides the shortest expected length for a symbol chosen according to the estimated distribution; this will correspond to the shortest encoded length for a sufficiently long text.</p>
+<h2>Huffman coding</h2>
+<p>(I was going to link to a nice friendly intro to Huffman coding here. <a href="https://en.wikipedia.org/wiki/Huffman_coding">Wikipedia</a> has a surprisingly clunky one. Please let me know if you have a better one!)</p>
+<p>I haven't seen a good derivation of the n-ary case of Huffman coding anywhere, so here's a proof (sketch) of optimality that builds up the algorithm in a couple steps. I'll state lemmas, followed by the general ideas for their proofs.</p>
+<p>Let's say we're designing an n-ary code C for an alphabet A of k symbols:</p>
+<p>Lemma: Having at most one incomplete node (with fewer than n children), located at the bottom rung of the tree, is optimal (i.e. never suboptimal).</p>
+<p>Proof idea: If you have an incomplete node further up, you can move a symbol up the tree, improving expected length. If you have multiple incomplete nodes at the bottom, you can shuffle symbols until all but one node is complete (or a node is empty, at which point it becomes a leaf and can take a symbol).</p>
+<p>Lemma: If there is one incomplete node, it will have ((k-2) mod (n-1)) + 2 children.</p>
+<p>Sub-lemma: A complete n-ary tree has a number of leaves equivalent to 1 modulo (n-1)</p>
+<p>Proof idea: by induction</p>
+<p>Lemma: Putting the ((k-2) mod (n-1)) + 2 least-frequent symbols together as children of a node is optimal.</p>
+<p>Proof idea: It is optimal to have ((k-2) mod (n-1)) + 2 symbols together at the bottom rung, and swapping them with less-frequent symbols can only improve the expected length.</p>
+<p>Lemma: Construct a node whose children are leaves labeled with the least-frequent ((k-2) mod (n-1)) + 2 symbols. Replace it with a leaf, labeled with a new symbol. This gives us a code for a modified alphabet A', where all the child symbols of the original node are replaced with the new symbol. Construct a frequency distribution for A' that is equal to the original distribution for A, except for the new symbol, whose frequency is the sum of the child symbols' frequencies. Construct the rest of the tree, above this leaf, arbitrarily. This new code C' is optimal for this distribution if and only if C is optimal for the original distribution.</p>
+<p>Proof idea: The length of C' is one digit shorter than C when one of the child symbols comes up, and equal otherwise. Therefore the expected length of C' is equal to the expected length of C minus P(new leaf), which is a constant that does not depend on the rest of the tree.</p>
+<p>Theorem: The following algorithm is optimal: construct a node N whose children are leaves labeled with the least-frequent ((k-2) mod (n-1)) + 2 symbols. Then, (recursive step) carry out this algorithm to construct an optimal code C' for a new alphabet A' where those symbols are merged. Locate the leaf of C' labeled with the new merged symbol and replace it with N, to obtain C, an optimal code for the original alphabet A.</p>
+<p>Proof idea: by induction.</p>]]></description>
+    </item>
+    <item>
+      <title>Review: Parsifal at the SF Opera</title>
+      <link>https://adam.scherl.is/blog/parsifal/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/parsifal/</guid>
+      <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>I saw Wagner's <em>Parsifal</em> a couple weeks ago with a bunch of Twitter opera nerds.</p>
+<p><em>Parsifal</em> has a reputation among opera fans for being long, melodramatic, self-indulgent, and having a slow-moving plot; but given that these are opera fans, perhaps these should be taken as compliments. One should also note that "opera" may not be the correct term; according to Wikipedia, Wagner preferred to describe it as <em>Ein B&uuml;hnenweihfestspiel</em>. For over thirty years it was only performed at the Bayreuth Festival, which is sort of like a 19th-century Burning Man for Wagner diehards. </p>
+<p>According to one of the Twitter nerds, Wagner deliberately designed the theater at Bayreuth with uncomfortable wooden chairs, in order to heighten the audience's awareness of their bodies and make them conscious participants in a sacred ritual rather than mere disembodied watchers. (There are two intermissions, lest the audience become <em>too</em> aware of their bodies.) SF Opera did not choose to replace their comfortable cushioned seats with wooden ones, so I am forced to dock them some authenticity points. I also suspect that Bayreuth 1882 didn't have a screen with live English subtitles.</p>
+<p>One of my friends observed that the score was "mostly leitmotifs", which is maybe to be expected; Wagner (or more accurately, his fans) popularized the term and concept of a leitmotif. I wasn't listening for this, but I did start to get a funny feeling in the third act that the music had run out of <a href="https://en.wikipedia.org/wiki/Information_content">surprisal</a>. The score is <a href="https://x.com/qd_forall/status/1984100765074620718">actually fairly intricate</a>, but its predictability smooths out the experience.</p>
+<p>The general style of opera imposes some harsh constraints on pacing; it's hard for much to happen when every line of dialogue takes a minute to sing. Many operas are adapted from plays, and abridged ruthlessly in the process. <em>Parsifal</em> is loosely based on two versions of the story of Sir Percival and the Holy Grail. You may be expecting Parsifal to go in quest of the Grail; this happens in one of the sources, but Wagner opts for the version where the Grail remains safely under the protection of a company of Grail Knights for the duration. Instead, the drama centers around the Holy Spear (Lance of Longinus), to the extent that it centers around a MacGuffin at all; arguably it centers around Parsifal's mommy issues. (SF Opera, in a decision completely in line with everything in the libretto, gave Parsifal's love interest Kundry and the ghost of his dead mother identical costumes.) </p>
+<p>Between the general demands of the format and the characters' tendency to communicate everything in the form of an agonized soliloquy about their past misdeeds, not a whole lot happens. <em>Parsifal</em> consists essentially of half a dozen conversations; two happening over lunch, three while Kundry is trying to take a nap, and one interrupted by someone throwing a sharp object at Parsifal. Go read the <a href="https://en.wikipedia.org/wiki/Parsifal#Summary">Wikipedia plot summary</a> if you want to know more; it contains nearly every detail of the <em>B&uuml;hnenweihfestspiel.</em> Most of the plot happens in backstory; Act I Scene I is in large part a compressed infodump, which I thought was a neat way to fit the square peg of convoluted Arthurian myth into the round hole of endless dialogue. On the other hand, it's easy to miss things; Amfortas spends the better part of an hour bemoaning his sinful unworthiness, which comes across as a bit unwarranted if you didn't quite catch that bit of the backstory. (He was seduced by Kundry and lost control of the Spear.)</p>
+<p>That's not to say it's boring. Between the intense emotions, the stirring music, the (over)complicated symbolism, and the visual spectacle, I was sometimes overwhelmed, but mostly locked into a sort of trance or fugue state. Films and plays are consumed sequentially; the <em>B&uuml;hnenweihfestspiel</em> is consumed in parallel. It washes over you for four or five hours (SF Opera's version was on the shorter side), and then you find yourself with new, inarticulable opinions on guilt, redemption, comparative religion, and magic dinnerware.</p>
+<p>The SF Opera made some interesting staging decisions. I enjoyed Parisifal's bright-red medieval-Japanese-inspired armor in the second act, and Amfortas's pope-hat shenanigans in the first and third. I was amused by the overwhelming number of triangles and circles, attached to anything associated with the Holy Spear and Holy Grail (respectively); this reminded me inescapably of <em>The Da Vinci Code</em>. I was pleasantly befuddled by the pairs of squires in the first act, with their long braids joined to one another at the ends. The costumes were absolutely gorgeous. (Someone in our party complained that the flower maidens' dresses looked silly; this is true, but it's also one of the criticisms leveled at the very first showing of <em>Parsifal</em>, so maybe silly dresses are traditional.)</p>
+<p>I poked through Google Images afterwards to see some of the costumes from other <em>Parsifal</em> stagings. (This was partly in preparation for my Amfortas Halloween costume, which was a bit of a flop. As it turns out, Berkeley millennials aren't huge Wagner buffs, and "he's basically the Fisher King" didn't really help. I eventually gave up and started introducing myself as King Arthur. My glowing, fake-blood-adorned Grail was a big success, though -- "props" to online communion-cup suppliers for that one -- and I got to sing a few bars of German for one of my more inquisitive friends.) There's a lot of variety! One is soon tempted to start dreaming up one's own staging of <em>Parsifal</em>. The Twitter nerds turned this into a game -- I think "Muppets <em>Parsifal</em>" was the uncontested winner, although I would happily pay money to see "<em>Parsifal</em> and <em>RENT</em>, but the settings are swapped".</p>
+<p>Most of the characters in <em>Parsifal</em> are highly preoccupied by their guilt about their past sins, and desperate for redemption. Kundry and Amfortas get it. Contrary to the usual tropes, they don't actually do anything to earn their redemption; it is brought on abruptly by external forces. The exception, "innocent fool" Parsifal, is also the only character who really does anything. The two Holy MacGuffins function in the plot mechanically as a layer of indirection between noble deeds and spiritual rewards; this allows the more agentic characters (Titurel in backstory narration, Parsifal on stage) to obtain them (through faith and works, respectively), carry them around, and use them to fix their depressed friends. In this way, <em>Parsifal</em> presages the psychiatric profession.</p>
+<p>Something about <em>Parsifal</em> encourages a parasocial orientation towards the characters. Perhaps it's because there's so few of them: six named characters, and Titurel (at least in this staging) yells his few lines from offstage. It might also be the pacing: watching <em>Parsifal</em> is a lot like spending an afternoon with a few friends. A few things happen, but not many; your friends complain about their lives, inquire about each others' health, tell rambling anecdotes about their exes and parents, eat, drink, engage in a quick duel to the death, &amp;c. Somewhere in the second or third hour of the <em>B&uuml;hnenweihfestspiel</em>, you stop watching for plot beats and simply start marinating in the characters' general vibe. You find yourself wondering if you should congratulate Parisfal and Kundry on their engagement, ask Gurnemanz for advice, or get dinner with Amfortas. He must be lonely what with his dad passing, and he's out of the house a lot more now that the chronic pain thing is gone -- and he's a great sommelier -- ah, wait, that's right. Fictional.</p>
+<p><em>Parsifal</em> is famous for its incoherent soup of symbolism and themes from different religions. (The <em>Chronicle's</em> review is titled "A 'Parsifal' so gorgeous you don't care what it means".) Despite being centered on the Holy Grail and Holy Spear, it never mentions Jesus by name, instead saying "the Redeemer" or similar. (SF Opera opted to double down on this by ignoring the stage direction for Parsifal to wave the Holy Spear around and make the Sign of the Cross with it.) Kundry has apparently been reincarnating as various femme fatales for at least two millennia, unless that line was metaphorical. I have perhaps lived in the Bay Area too long to appreciate the Westernized Buddhist themes. On the way out, I complained to one of the Twitter nerds that I hadn't picked up on much Buddhism. He looked confused. "Did you not notice all the times they were singing about the unbearable suffering borne of desire?" Now that he mentioned it, I had. "But that's how everyone talks!"</p>
+<p>But out of all the religious lenses one might use to interpret <em>Parsifal</em>, I kept finding myself coming back to the one I know best. Something about Amfortas, who bears the burden of standing before a sacred vessel and bringing forth redemption for his people, reminded me of the High Priest entering the Holy of Holies on Yom Kippur, standing before the Ark of the Covenant, and trembling in awe as he intones the Tetragrammaton. Maybe it was the hat. The Grail Knights, separated by their religious mission from most of their countrymen, hesitant to accept converts, felt somehow familiar. Parsifal's quick rejection of the flower maidens began to make more sense -- what would his late sainted mother think, after all, if he married some shiksa? Kundry, on the other hand, is canonically (the reincarnation of) a Jewish princess. The show begins with an old man kvetching, a second character humblebragging about her Birthright trip (while still jetlagged), and a third character describing their health problems ad nauseum. It continues with an exploration of the guilt-based neuroses of everyone and their mother. It ends, for all intents and purposes, with challah and Manischewitz.</p>
+<p>I hesitate a bit, before publicly singing the praises of a Wagner <em>B&uuml;hnenweihfestspiel</em>. The guy has a bad reputation. I get it, I get why; Wagner was perhaps not a perfect mensch, he maybe had a lot of chutzpah, he was perhaps not overflowing with love for his fellow man in some instances. A good name, it is written, is above riches; a bad one is -- I don't know the Midrash on this one -- it's like a thorn in your side. Like a wound that won't heal.</p>
+<p>But I have the cure. A wound caused by chutzpah can be cured by chutzpah. If <em>Parsifal</em> is dogged by any spiritual malaise, any ancient burden of guilt, I think I know just the staging and costuming choices that can fix it.</p>]]></description>
+    </item>
+    <item>
+      <title>GPTF-8: A tokenizer-based character encoding</title>
+      <link>https://adam.scherl.is/blog/gptf8/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/gptf8/</guid>
+      <pubDate>Thu, 06 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>There are two steps to any byte-based character encoding.</p>
+<p>The first and much more interesting step is the translation from written language -- in all its chaotic glory -- to a fixed inventory of "characters", from which any string can be built up as a sequence. In the modern day, this is almost always delegated to Unicode, a huge list of characters with slots (codepoints) numbered from 0 to 1,114,111 (or <code>0x10FFFF</code> in hexadecimal), of which 159,801 are currently assigned actual characters. These characters include Latin letters, typographical symbols, Cyrillic, Greek, hanzi/kanji/hanja, emoji, hieroglyphs, and a bewildering variety of control codes and other special-purpose characters.</p>
+<p>The boring step is assigning each character a string of bytes, such that any byte string can be unambiguously interpreted as a sequence of characters.</p>
+<p>The boring step is still interesting! In particular, any such encoding can be interpreted as a set of beliefs about how frequent different characters are. The closer this belief is to reality, the more efficient the encoding. (Conversely, you can use frequency statistics to design a Huffman code that's close to optimal for that distribution.)</p>
+<p>The most common choice by far is UTF-8, which uses a clever scheme to stay backwards-compatible with ASCII (the old single-byte 128-character format often called "plain text" by Anglophones) while assigning short 2-byte strings to the next 1,920 Unicode characters and longer 3- or 4-byte strings to the remaining ones. Less common is UTF-16 (baked into Windows at a deep level), which requires 2 bytes for an ASCII character, or any of the next 63,360 Unicode characters, and 4 bytes for anything else. You can see the tradeoff here: UTF-8 believes text to be mostly ASCII with occasional other Unicode characters sprinkled in, mostly from the first couple thousand codepoints; UTF-16 believes it to be nearly random Unicode from the Basic Multilingual Plane, with very rare exceptions. (Rare enough in practice, as it turns out, that a large fraction of UTF-16 implementations have bugs related to the 4-byte "astral plane" characters.) UTF-32 believes all Unicode characters are equally common, and accordingly gives each a 4-byte sequence; it doesn't get much use.</p>
+<p>But in the year 2025, we have access to much more precise beliefs about text! The best such beliefs (as represented by the weights of pretrained language models) go far beyond mere frequency statistics, and represent complicated conditionals like the probability that a string beginning with "The capital of France is " will end with "Paris". Encodings based on these are currently topping <a href="https://www.mattmahoney.net/dc/text.html">the charts</a> on efficiency.</p>
+<p>Even before a neural net is trained, some weak beliefs about text are baked in at the level of the tokenizer. A tokenizer's vocabulary is, in its own way, much like the Unicode character inventory: it's a set of short strings from which any longer string can be built up. (It's a bit different in that many of the tokens represent substrings of other tokens, but the tokenizer itself provides a canonical way to represent a given string.) These days, token vocabularies are almost always constructed via byte-pair encoding, which does a pretty good job at covering the most frequent text strings; GPT-4o's tokenizer has tokens for " modernization" and " Congressional" (with leading spaces).</p>
+<p>Here's a puzzle: Unicode has over 1 million codepoints. GPT-4o's tokenizer, which can represent any Unicode string, has 200,019 tokens in its vocabulary. How does this add up?</p>
+<p>As it turns out, GPT's tokenizer (ever since GPT-2) operates on bytes, not Unicode characters. In practice you should interpret those bytes as representing fragments of UTF-8, but in principle you could train a language model with this tokenizer on any byte-oriented data. For the rarer, higher-numbered Unicode characters, there is no token for the full 4-byte UTF-8 sequence, and a single character will be split across multiple tokens. (Back in the GPT-2 days, curly "smart" quotation marks and apostrophes took up two tokens each; GPT-4o has separate tokens for a smart quote vs. a smart quote preceded by a space.)</p>
+<p>This allows the tokenizer to represent a more accurate set of beliefs than those baked into UTF-8 or the other Unicode formats. Unlike Unicode, the GPT tokenizer understands that the idea of modernization comes up more often than, say, anything written in the Sidetic language, which has been extinct for over 2,000 years. (But if you do want to write in Sidetic, the tokenizer will happily oblige -- at a rate of four tokens per letter.)</p>
+<p>Let's say we want to harness this power, and encode our documents as strings of tokens. We still need to map tokens to bytes. Fortunately, we already have a way of mapping numbered vocab elements to strings of bytes, such that the lower-numbered elements get shorter strings... UTF-8!</p>
+<p>(We would get better results from a Huffman code, and I even figured out once how to create a byte-oriented Huffman code, but that would be less funny.)</p>
+<p>We can even use Python's built-in UTF-8 encoder, because of the magic of <code>surrogatepass</code>. (Cognitive error: look into this at your own risk; there are horrors here of which I have deliberately not spoken.)</p>
+<p>Python code:</p>
+<pre><code class="language-py">import tiktoken
+
+enc = tiktoken.encoding_for_model(&quot;gpt-4o&quot;)
+
+def gptf8_encode(s: str):
+    toks = enc.encode(s)
+    chrs = ''.join(chr(t) for t in toks)
+    byts = chrs.encode(errors='surrogatepass')
+    return byts
+
+def gptf8_decode(byts: bytes):
+    chrs = byts.decode(errors='surrogatepass')
+    toks = [ord(c) for c in chrs]
+    s = enc.decode(toks)
+    return s
+</code></pre>
+<p>This compresses the raw Markdown of this blog post from 5,877 bytes (in ASCII or UTF-8) down to 3,141.</p>]]></description>
+    </item>
+    <item>
+      <title>Review: K-Pop Demon Hunters (2025)</title>
+      <link>https://adam.scherl.is/blog/kpop/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/kpop/</guid>
+      <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>(This review contains spoilers for the entire plot of the film.)</p>
+<p><em>K-Pop Demon Hunters</em> is a very popular movie. It is the first Netflix movie to hit #1 at the box office. It is "the first film soundtrack on the Billboard Hot 100 to have four of its songs in the top ten". When you Google it, a little scrolling marquee appears with a reference to a joke from the movie. My friends keep talking about it. So I figured I'd check it out.</p>
+<p>The movie does some interesting things with animation, importing a lot of anime tropes and visual effects into the realm of 3D animation. For me this mostly fell flat; a bunch of them landed in the uncanny valley, or were otherwise jarring. That said, the choreogrpahed fight scenes are very well-executed and fun; a friend described the feeling of watching them as "like watching someone play Beat Saber really well", and I agree. The movie's songs are also pretty good. (Honestly, I'm not a huge K-pop fan, but they're very catchy and I expect them to be stuck in my head for a while.) One song in particular was handled cleverly; more on that below.</p>
+<p>Spoilers follow!</p>
+<p>I expected cool visuals and catchy music from the beginning; the real surprise, as the movie approached its climax, was how engaging I found it on a thematic level. The film sets up a simple Manichean world of good and evil, then dives into an exploration of the troubling psychological implications of this setup, weaving together the protagonist's personal growth and the viewer's increasingly conflicted understanding of the movie's cosmology. Then it throws away all the metaphorical structure in the last few minutes, stabs the problem with a sword, and brings back the status quo. I found this very frustrating! I think it could've been on par with some of the best Disney and Pixar movies, thematically, if it only had the courage of its convictions. (I wasn't expecting <em>The Godfather</em>.)</p>
+<p>Our protagonist is Rumi, a singer in the K-pop group Huntr/x. Together with her bandmates Mira and Zoey, she maintains the Honmoon, the (somewhat porous) magical veil protecting our world from evil demons. They also stab any demons who get through the Honmoon with swords. The Honmoon is sustained by good vibes from successful concerts; fortunately, they're extremely good musicians and have legions of dedicated fans. Occasionally Huntr/x fight demons on stage; fans assume this is part of the show, so they don't really bother with kayfabe. (Wikipedia says they "lead double lives"; I disagree. If you don't need to change outfits between singing and slaying, you're leading a very single life. I think most actual K-pop idols are leading doubler lives than that. But I digress.) But Rumi has a dark secret; while her late mother was part of the previous generation's trio of demon-hunting singers (It's a Buffy-style "into every generation" deal), her father was -- a demon! (The implied relationship, and her mother's fate, are never explored beyond this; I can't tell if this was a bold choice or laziness.) Most demons are fairly unconvincing humans even before they morph into their demonic forms; the first demon we meet is watering a plant with a pot of coffee. They also have purple webbed "patterns" on their skin, which Huntr/x tend to use as final confirmation before pulling out the swords. Rumi was born with a tiny bit of pattern, which has expanded over the years to cover much of her body. She is deeply ashamed of this and has kept the patterns scrupulously hidden, even from her bandmates, as she was encouraged to do by her adoptive mother Celine (one of her mom's bandmates).</p>
+<p>Huntr/x's goal in the film is to be even better K-pop idols so that they can create a "Golden Honmoon", which will be completely demon-proof. Rumi secretly hopes that this will also rid her of her patterns. But just when they seem to be on the verge of success, the demons send a boy band to defeat them. One of the demon boys, Jinu, turns out to have a secret of his own: He used to be human! He has been turned into a demon by the demon king Gwi-Ma through a typically Faustian deal (earthly power, temptation to sin, loss of his soul, etc). Gwi-Ma, we learn, controls Jinu (and, apparently, all demons) via shame and regret. Jinu learns of Rumi's patterns and tells her about his past; both characters start to hope for a shared redemption. (In particular, they make plans for Jinu to sabotage his band's performance, hoping that he can stay on the human side of the Golden Honmoon.) But meanwhile, trouble is brewing; Rumi has newfound empathy for the demons she mows down by the dozen, and mixed feelings about the lyrics of her band's new anti-demon diss track, "Takedown". ("'Cause I see your real face, and it's ugly as sin / Time to put you in your place, 'cause you're rotten within / When your patterns start to show / It makes the hatrеd wanna grow outta my veins") She starts falling behind in battle and can't seem to get through a rehearsal without losing her voice. Her patterns keep growing. All of this strife is tearing holes in the Honmoon. This comes to a head at the big show-down concert for the Idol Awards; demons impersonating Mira and Zoey perform "Takedown" and reveal Rumi's patterns; she flees, and the news of Huntr/x's "breakup" tears the Honmoon to shreds.</p>
+<p>Rumi confronts first Jinu, who has lost all hope and is thoroughly in the grip of Gwi-Ma, and then Celine, who encourages her (as usual) to hide her patterns and try to "fix" things. At one point, Celine says "our faults and fears must never be seen", which we've heard from Mira earlier in the film. Rumi, distraught (and looking increasingly demonic), accuses Celine of failing to love "all of" her. "If this is the Honmoon I'm supposed to protect," she says, "then I'll be glad to see it destroyed." The demon boy band begins a final performance where they sing about unhealthy parasocial relationships for a newly-aboveground Gwi-Ma and legions of sorta-depressed-but-enraptured fans ("I'm the only one who'll love your sins / Feel thе way my voice gets underneath your skin").</p>
+<p>Let's pause here. We've learned that demons (or at least some of them) are just humans who have given in to shame and fear and lost hope of redemption. Rumi, on the verge of despair, has glowing patterns just like those on Jinu, the most human-looking of the demons. Her maternal figure encouraged her and her bandmates to hide their flaws; this has now pushed Rumi to the point of questioning her cosmic role as one of the guardians of the <em>increasingly impenetrable barrier between humans and demons</em>. So obviously we're going to learn that the Honmoon was a mistake and that there's a better way to integrate the human and demon worlds, right? And the demons, or at least Jinu, will get a second chance? And maybe we're getting some critique of how people engage with K-pop idols?</p>
+<p>Just kidding! As things move towards the obvious resolution on an emotional level (Rumi's bandmates sing about their respective personality "flaws", recontextualizing them as positive traits), they backslide on a cosmological level. Huntr/x has a dramatic battle against Gwi-Ma and his boy band, where they stab the demon king and his demon minions with swords; then they make a new Honmoon, better than ever, powered by the soul-energy of their even-more-devoted fans. (It's rainbow, not golden, but the effect seems to be the same). Hoards of demons get killed or banished back to the underworld; I think maybe Gwi-Ma gets killed but I wasn't really paying attention. A newly-ensouled Jinu sacrifices himself to save Rumi, neatly avoiding the question of which side of the barrier he'd have ended up on. Rumi, for her part, no longer seems remotely bothered by the task of slaughtering demons at an industrial scale.</p>
+<p>At the end of the film, it's uncanny how <em>little</em> has changed, for both Rumi and her world. The Honmoon is stronger than before -- although, really, it seems to have been holding up alright from the beginning. The demons (traumatized failures?) are trapped in the underworld, where they (apparently?) belong, and the (charmingly flawed but ontologically immaculate) humans are safe up top. Rumi is basically the same, except that she's not ashamed of her patterns, which are also pretty and rainbow now. I think this is supposed to symbolize her (and her friends' and fans') acceptance of her flaws, but her major flaw has pretty much been fixed. Her bandmates are also more willing to talk openly with each other about their flaws and insecurities, although they really don't seem to have been shy about this before. They're also willing to <em>sing</em> about their insecurities, but this is a somewhat confusing kind of growth. (I don't really think it matters whether Taylor Swift's songs are about specific relationships she's had; a lot of good art isn't autobiographical in that way.) The largest sign of character growth is in their relationship with their fans -- instead of hiding from fans when out in public, they are happy to engage with them. This seems nice, but not really that big a deal.</p>
+<p>(There's a possible interpretation here where Rumi's previous shame about showing skin is fundamentally about sexuality, or intimate relationships, but the movie doesn't really seem to be angling for this.)</p>
+<p>There's something annoyingly self-referential about Rumi's "flaw". She's ashamed of her patterns, which are the physical manifestation of her shame about them. She hides them from her bandmates, who (we learn) are much more upset about the hiding than the patterns themselves. This is maybe a good metaphor for a lot of personal problems, but most such problems don't go away as soon as you acknowledge them. (Her bandmates -- abrasive Mira and people-pleasing Zoey -- get much less recursive personality traits to struggle with.) We are maybe supposed to think that she's hiding other problems, but if so, there isn't room in the movie for them. As for the fans, despite the movie's insistence that Huntr/x really loves their fans, while the demonic Saja Boys are merely exploiting them, the experience of the fans seems pretty similar in both cases. (It's also not clear to me that a healthy parasocial relationship is simply one where the idol says "for the fans!" a lot backstage.)</p>
+<p>Above all, I wish the movie hadn't made its entire cosmology a metaphor for an unhealthy way of handling emotions, spelled out the metaphor in increasingly direct terms, and then left it untouched. It's hard not to walk away with the message that personal growth and spiritual redemption are only for people who are "essentially good" rather than "essentially bad", and that at any rate they're less important than keeping the essentially-bad people in their place.</p>
+<p>My friend Tamera suggests an alternate ending: the demons, no longer held back by the Honmoon, swarm the concert -- only to find themselves given new spiritual strength by Huntr/x's music. (This is nearly foreshadowed; audience members' chests glow blow when they're particularly touched by the music, and Jinu leaves behind a glowing blue ball which we're told is the "soul" he regained thanks to Rumi's guidance.) The demons realize they have the power to fight back, overthrow Gwi-Ma, and either turn back into humans or go to their eternal rest. I think this would be much more consistent with the message the movie is going for, and doesn't undo all the work it does in building up the demons and Honmoon as symbols.</p>]]></description>
+    </item>
+    <item>
+      <title>Maxwell's Demon and the Arrow of Time</title>
+      <link>https://adam.scherl.is/blog/maxwell/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/maxwell/</guid>
+      <pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>SIMPLICIO: So, I really don't get why Maxwell's demon is supposed to be impossible. Why can't I just attach a wheel to a ratchet, stick it in a gas that's in thermal equilibrium, and wait for a random fluctuation to turn it? It'll keep turning in one direction, and I should be able to harness that to extract at least a little bit of power.</p>
+<p>SALVIATI: As it turns out, you can't really build a ratchet at microscopic scale!</p>
+<p>SIMPLICIO: No, I mean a macroscopic one.</p>
+<p>SALVIATI: Ah. Well, then it's going to take a really big, unlikely fluctuation to create enough of a gust to turn it -- a thermodynamic miracle.</p>
+<p>SIMPLICIO: I'm a patient man.</p>
+<p>SALVIATI: My next objection is that even a macroscopic ratchet won't be ideal. Let's be concrete. How does your ratchet work?</p>
+<p>SIMPLICIO: A wheel with sawtooth teeth, pressed against a spring-loaded pin, like in a ratchet strap.</p>
+<p>SALVIATI: And when you turn the wheel one tooth, the pin snaps back down into place to block it?</p>
+<p>SIMPLICIO: Exactly.</p>
+<p>SALVIATI: Then you have two options. Either the mechanism is frictionless -- in which case the pin, once set in motion, will bounce around forever and never settle down enough to block the tooth -- or it has friction, which dissipates the pin's kinetic energy as heat. But in that case, we need to model the ratchet's constituent atoms, not just its macroscopic parts.</p>
+<p>SIMPLICIO: Can't we just treat friction as an unexamined fundamental force?</p>
+<p>SALVIATI: Only if you want to break conservation of energy. If the kinetic energy is lost to "friction", and not just transformed into another kind of energy, then all the energy in the gas will eventually leak out through the ratchet.</p>
+<p>SIMPLICIO: Okay, so my ratchet is made of atoms. Why is this a problem?</p>
+<p>SALVIATI: They'll be in thermal equilibrium with the gas, so they're vibrating around a bunch. Once in a great while, the pin will get jostled by this, hard enough to push the spring back and allow the ratchet to move the wrong way.</p>
+<p>SIMPLICIO: Surely that won't happen as often as the gusts that turn it the right way!</p>
+<p>SALVIATI: Remember that the gusts of wind are exponentially unlikely; every molecule that participates in them lowers the odds by an additional multiplicative factor.</p>
+<p>SIMPLICIO: Okay, I'll grant that both processes are comparably rare. It still seems like a strange coincidence that the miraculous gusts and the miraculous jostles should happen at exactly the same rate. They seem unrelated.</p>
+<p>SALVIATI: I think they have to match up. Systems in thermal equilibrium don't have an arrow of time -- any process has to happen equally often in both directions. That includes the wheel turning one way or another.</p>
+<p>SIMPLICIO: I believe you, but that's pretty abstract. Is there a more mechanistic explanation, for the specific case of the ratchet? Some way to connect the jostles to the gusts?</p>
+<p>SALVIATI: Let's see. It's not just the macroscopic behavior that's reversible in equilibrium. Things will happen equally often in forward and reverse at a microscopic level. Let's imagine that we can take a detailed video of everything that happens when the wheel turns the correct way, from miracle-gust to heat dissipation, at a molecular level. When I play this video backwards, it should look just like a typical example of the wheel turning the wrong way. Instead of heat dissipating through the mechanism at the end, random molecular movements at the beginning happen to conspire to concentrate energy near the pin. Then, instead of the pin being slowed by friction in the mechanism, the mechanism sort of twitches and throws the pin into motion. That allows the wheel to turn -- we only need it to turn a tiny bit, to place the pin on top of a tooth, so this doesn't require much 'miracle juice'. The spring pushes the pin down the sloped side of the tooth, the wheel turns harder, and then just as the pin reaches the bottom of the slope, the wheel's kinetic energy gets transferred to the gas, creating a brief gust of wind that quickly dissipates. You can see how that's the same as the gust driving the wheel, just in reverse. So the time-reversed version of a miraculous fluctuation is just an ordinary dissipative process. </p>
+<p>SIMPLICIO: Is, um, miracle juice a real thing? Can we compare the amount of miracle juice needed for the forward and reverse videos?</p>
+<p>SALVIATI: Hmmm. Yes, it is! Let's pretend I had something concrete in mind, like the log-probability of the miraculous process. That's going to correspond exactly to the decrease in entropy that happens at the 'miraculous' step, either to create a gust or to jostle the pin. Entropy stays constant during the main operation of the ratchet -- from jostle to gust, or vice versa -- and then increases when the dissipative step happens at the end, either from friction or from the final gust mixing with the gas.</p>
+<p>SIMPLICIO: I feel like we're just sweeping my confusion about the equal-probability coincidence under a big rug labeled ENTROPY. Why is the entropy decrease the same for the jostle miracle and the gust miracle?</p>
+<p>SALVIATI: I think the best I can do there is to connect it to energy. In both cases, the miracle involves a concentration of energy into a few degrees of freedom. Those degrees of freedom -- the gust, or the jostling part of the mechanism -- won't have much entropy; there's very few microstates in that macrostate. In other words, the macroscopic description pins down the microscopic motion pretty well. But now every other degree of freedom, for all the other gas molecules and ratchet atoms in the system, is deprived of that energy. This constrains their motion a bit, makes them a little less unpredictable; you end up with fewer microstates per macrostate -- less entropy.</p>
+<p>SIMPLICIO: Is there some law relating the amount of energy concentration to the amount of change in entropy?</p>
+<p>SALVIATI: The ratio between them is usually called "temperature".</p>
+<p>SIMPLICIO: That feels a bit like a magic trick, but I'm relieved that we can ground it out in terms of energy. That at least makes sense: kinetic energy gets concentrated into one big gust of air, then pushed into the wheel, the spring, the pin, and finally into the mechanism as heat. And what you're saying is that when the ratchet slips back the wrong way, the same amount of energy is flowing in the reverse order.</p>
+<p>SALVIATI: Precisely!</p>
+<p>SIMPLICIO: There's still something here that seems unsatisfying. Let's see. Okay, at some time <script type="math/tex">t</script>, I observe the wheel turning the wrong way. What you're saying is that I should hypothesize a recent, miraculous event that jostled the pin out of the way. Something feels fishy about invoking a miracle like that.</p>
+<p>SALVIATI: That probably should feel fishy. You have a strong sense of what kinds of physical processes are common, and which aren't; but that intuition is grounded in everyday life, where entropy is always increasing. Thermal equilibrium is very different. Entropy is nearly always near its maximum value, with occasional downward fluctuations. When you see something low-entropy happening, the best guess for its future behavior is that entropy will increase back towards the maximum -- that's no different from everyday life. But the best guess for its past behavior is that entropy was steadily decreasing until just a moment ago! That's the hypothesis that requires the smallest downward fluctuation, and the smallest miracle.</p>
+<p>SIMPLICIO: Okay, let me see what that means in practice. Suppose I observe an egg at rest, a meter above the floor. My best guess -- in normal life, or in equilibrium -- is that it's about to fall and break. But what you're saying is that, if this observation was sampled from a system in equilibrium, the best guess for its recent behavior is that it was lying on the floor, smashed, only to spontaneously fix itself and leap into the air.</p>
+<p>SALVIATI: Correct!</p>
+<p>SIMPLICIO: But -- hold on. "Thermal equilibrium" is pretty close to a uniform distribution over microstates, right?</p>
+<p>SALVIATI: Yes, plus a constraint on total energy. Modulo some handwaving about microcanonical and canonical ensembles...</p>
+<p>SIMPLICIO: That seems like a decent Bayesian prior. Why doesn't this argument apply to the actual past? Entropy seems to be low now, but why should we hypothesize that it was even lower in the past? Maybe this very moment is the most ordered moment in history, and the real history of the world looks like a video played in reverse! One year ago it was 2026, and I was a year older -- and one year from now it'll be 2026 again!</p>
+<p>SALVIATI: That's the Boltzmann paradox! Honestly, I think the best argument against it is just that it produces absurd results. The universe started in a low-entropy state; we don't really know why, but the hypothesis seems to be necessary.</p>
+<p>SIMPLICIO: What do we actually know about the initial state of the universe?</p>
+<p>SALVIATI: Based on normal Big Bang cosmology, it was at some point much smaller, in a hot, dense state -- and also, I might add, an extremely flat and smooth state. Suspiciously so, some might say.</p>
+<p>SIMPLICIO: Do we know how it got so flat and smooth? Or is that where we have to appeal to "things were really low-entropy" as a kind of deus ex machina?</p>
+<p>SALVIATI: That's what cosmic inflation is supposed to explain. It hypothesizes an early stage of very rapid exponential expansion. It seems to hold together as a theory -- although some people object to the initial conditions required. See, you need to start out with nearly all of the universe's energy concentrated into potential energy for a quantum field, and if you try to quantify how 'fine-tuned' or 'special' that state is, it's even more special than the flat, smooth state after inflation.</p>
+<p>SIMPLICIO: Er. Is that just saying that entropy increases during the inflation step?</p>
+<p>SALVIATI: According to a talk at a conference I once attended, yes. But the Q&amp;A session afterwards was extremely loud and confusing.</p>
+<p>SIMPLICIO: How are we supposed to judge any theory about the past if "entropy increased" is a necessary hypothesis and also requires fine-tuning the initial conditions?</p>
+<p>SALVIATI: I think that's where I take issue with something you said earlier, about Bayesian priors. I think the uniform distribution must be a pretty bad prior after all, and we should be using something closer to a Solomonoff prior. I don't think it's a problem to posit a very low-entropy initial condition, as long as it's also a very simple one in some computational sense.</p>
+<p>SIMPLICIO: So you've reduced a confusing conceptual problem to a provably uncomputable one.</p>
+<p>SALVIATI: Yes! And now it's not my fault that I don't know the right answer.</p>]]></description>
+    </item>
+    <item>
+      <title>Rainbows, fractals, and crumpled paper: H&amp;ouml;lder continuity</title>
+      <link>https://adam.scherl.is/blog/allrgb/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/allrgb/</guid>
+      <pubDate>Mon, 03 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>One of my favorite website is <a href="https://allrgb.com/">allRGB</a>. It's a collection of images which each contain every 24-bit RGB color exactly once. Most of them (though not all) are square 4096-by-4096 images. (In general, we can imagine doing this with <script type="math/tex">n^2</script>-level color for any <script type="math/tex">n</script>, producing <script type="math/tex">n^3\times n^3</script> images; allRGB is the case <script type="math/tex">n=16</script>.)</p>
+<p>People take that prompt in a ton of different directions; many of the images use clever dithering tricks to simulate a smaller color palette, others arrange their pixels into tiny regions of similar color, etc. But I think my favorites are the ones that attempt to arrange colors as <em>smoothly</em> as possible, like <a href="https://allrgb.com/order-from-chaos">Order from Chaos</a> or <a href="https://allrgb.com/smooth">Smooth</a>.</p>
+<p>(Many of the images look smoother than they are, because of small-scale dithering or stripes or similar -- you have to zoom in to see the actual grain.)</p>
+<p>How smooth can these images get? To be more precise: what's the smallest <script type="math/tex">C</script> such that there exists a bijection <script type="math/tex">f: [n^3]^2 \to [n^2]^3</script> for which <script type="math/tex">|f(x)-f(y)| \le C</script> for all <script type="math/tex">x,y</script> such that <script type="math/tex">|x-y|=1</script>?</p>
+<p>(Or, probably better: what is the smallest <script type="math/tex">C</script> such that <script type="math/tex">|f(x)-f(y)| \le C |x-y| \forall x,y</script>? This is equivalent if we use the Manhattan metric and is the discrete version of Lipschitz continuity.)</p>
+<p>We can also think of this problem in a different guise: given a (discretized) square of paper, we want to crumple it up into a (discretized) cube such that it fills the cube uniformly and is stretched out as little as possible in the process.</p>
+<p>If we use Euclidean distance in both image space and color space, then we can rule out <script type="math/tex">C=1</script> with some casework (which I have misplaced, so you'll have to trust me). The allrgb image called "Smooth" achieves <script type="math/tex">C=2</script> in a way that looks likely to generalize, so the only remaining question is whether <script type="math/tex">C=\sqrt 2</script> is possible.</p>
+<p>Of course, this problem also generalizes to maps between <script type="math/tex">a</script>- and <script type="math/tex">b</script>-dimensional space, i.e. <script type="math/tex">[n^a]^b \to [n^b]^a</script>, for any <script type="math/tex">a > b</script>. (We can also ask about <script type="math/tex">a < b</script>, which includes the case of trying to make allRGB images smooth in the inverse sense -- keeping similar colors as close together as possible. It's not too hard to show that in this case we have to accept pretty large discontinuities.)</p>
+<p>Starting with the simplest nontrivial case, <script type="math/tex">(a,b) = (2,1)</script>, we are presented with the challenge of trying to smoothly biject a line onto a square. This is extremely easy in the discrete setting we're working in: just weave back and forth in rows, boustrophedon-style.</p>
+<p>But it feels like something's missing from this approach -- or even that of "Smooth" -- compared to, say, "Order from Chaos". You can imagine taking <script type="math/tex">n\to\infty</script> and turning the latter into a nice continuous map from <script type="math/tex">[0, 1]^2 \to [0, 1]^3</script> by progressively adding more detail; if you try that with the alternating-rows map, it fails to converge. If you try it with "Smooth", the <script type="math/tex">8\times 8</script> grid of lines turns into an <script type="math/tex">\frac n2 \times \frac n2</script> grid, which also fails to converge.</p>
+<p>As it turns out there's a very beautiful solution to this for the <script type="math/tex">(2,1)</script> case, called the <a href="https://en.wikipedia.org/wiki/Hilbert_curve">Hilbert curve</a>. It's an example of a space-filling curve, that is, a continuous, surjective map from the interval to the square. In other words, it's a fractal curve with fractal dimension 2. (It's not injective, and no space-filling curve can be injective, but I think it only fails this mildly; in particular there's a finite number of preimages for each point on the square, unless I'm mistaken.) <a href="https://xkcd.com/195/">xkcd</a> famously used this to map out IP address space graphically.</p>
+<p>How continuous are these maps? The obvious generalization of our definition of smoothness above gives Lipschitz continuity, i.e. <script type="math/tex">|f(x)-f(y)| \le C |x-y|</script> for some <script type="math/tex">C</script>; this would mean that our map "stretches out" the interval by a finite amount <script type="math/tex">C</script>. But (exercise for the reader) this is impossible.</p>
+<p>On the other hand, continuity alone is pretty weak; we can do better.</p>
+<p>The Hilbert curve has the nice property that a interval of length <script type="math/tex">r</script> of the unit interval gets mapped to a reasonably compact region of area <script type="math/tex">r</script> in the square, which has a diameter on the order of <script type="math/tex">\sqrt r</script>. This implies the property  <script type="math/tex">|f(x)-f(y)| \le C |x-y|^{1/2}</script>, which is called H&ouml;lder continuity (with exponent 1/2).</p>
+<p>Can we use space-filling curves to construct H&ouml;lder-continuous versions of our allRGB images? Not directly. You can chain together Hilbert-curve maps to go down from 2 dimensions to 1 and then back up to 3, but the <a href="https://allrgb.com/hilbert-curve">gorgeous result</a> is discontinuous everywhere. (You can also do this with <a href="https://allrgb.com/z">a Z-order curve</a>, which has a particularly simple algorithm -- just interleave and deinterleave the bits of your coordinates to get your color components.)</p>
+<p>As it turns out, this question <a href="https://mathoverflow.net/questions/204007/best-h%C3%B6lder-exponents-of-surjective-maps-from-the-unit-square-to-the-unit-cube">has been asked</a> before! The accepted answer links to two great papers on the subject. The <a href="https://link.springer.com/article/10.1007/PL00009375">first</a>, by R. Stong, uses a clever fractal construction to solve the problem for <script type="math/tex">\mathbb Z^a \to \mathbb Z^b</script>. The <a href="https://arxiv.org/abs/math/0302308">second</a> shows (very nonconstructively) that this implies a map <script type="math/tex">\mathbb R^a \to \mathbb R^b</script>; I think you can make this much more constructive, though, by taking advantage of the fractal nature of Stong's construction. (In the <script type="math/tex">(3,2)</script> case, we construct a fractal curve with fractal dimension <script type="math/tex">3/2</script> in the plane, then map two of these Lipschitz-continuously to 3D space.)</p>
+<p>Unfortunately, as far as I can tell, this construction on <script type="math/tex">\mathbb R^a \to \mathbb R^b</script> does not restrict to a bijection between hypercubes; it zigzags around too much to be able to cut out a contiguous chunk like that. So some version of this problem remains open.</p>]]></description>
+    </item>
+    <item>
+      <title>FTL travel and scientific realism</title>
+      <link>https://adam.scherl.is/blog/ftl-travel/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/ftl-travel/</guid>
+      <pubDate>Sat, 01 Nov 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>It's November! I'm not doing <a href="https://www.inkhaven.blog/">Inkhaven</a>, or NaNoWriMo (<a href="https://lithub.com/nanowrimo-is-shutting-down/">RIP</a>), or <a href="https://qntm.org/more">writing a short story every day</a>, or quitting shaving or anything else. But I (along with some housemates) am going to try to write a blog post of at least 500 words every day of the month. (Inkhaven is just down the street a bit and I'm hoping to benefit from some kind of proximity effect.)</p>
+<p>Today: Llamamoe on Discord complains about</p>
+<blockquote>
+<p>people who respect science but say "and in the past we thought the earth was flat and everything we currently think is impossible might end up possible" and refuse to acknowledge that some things are in fact fundamentally impossible, like true FTL travel</p>
+</blockquote>
+<p>And elaborates:</p>
+<blockquote>
+<p>Like in principle FTL could be possible. But it would require everything we think we know about physics to turn out to have been wrong, and not slightly but completely, with no real exceptions.</p>
+</blockquote>
+<p>I'm actually gonna side with the FTL believers on this one, with some caveats.</p>
+<p>(Content warning: physicist discussing philosophy)</p>
+<h2>Map and territory</h2>
+<p>The case for FTL being "fundamentally impossible" is pretty straightforward: relativity is generally accepted as a "correct" physical theory; relativity says FTL is fundamentally impossible; therefore FTL is fundamentally impossible.</p>
+<p>For the purposes of this post, I think it's basically true that FTL is fundamentally impossible <em>according to relativity</em>. (Tachyons, in theories which contain them, are probably better-modeled as something similar to the classic "shadows can move faster than light" brainteaser.)</p>
+<p>The flaw in this argument is that "correctness" of theories in physics doesn't go as far as we might like it to. Sure, relativity has passed many difficult experimental tests with flying colors. This is enough for us to accept it as a highly accurate model of reality. When it makes quantitative predictions, we will happily adopt those predictions with pretty high confidence. But I want to distinguish the following claims:</p>
+<ul>
+<li>FTL travel is probably impossible</li>
+<li>FTL travel is impossible</li>
+<li>FTL travel is "fundamentally" impossible</li>
+</ul>
+<p>The first claim requires relativity to be right about most things (and for FTL travel to not be a likely exception); the second requires relativity to be right about FTL travel in particular; and the third claim requires relativity to be right about <em>everything</em>, such that we can adopt not just its predictions but its internal ontology. As I'll explain below, I think this last claim is a lot stronger than the other two, and requires some nonobvious philosophical commitments.</p>
+<h2>Predictions and ontologies</h2>
+<p>There's a long track record of physical theories being extremely good models, but ultimately wrong in a way that is fatal for their basic ontology of the world. Newtonian physics (and <a href="https://en.wikipedia.org/wiki/Galilean_invariance">Galilean relativity</a> in particular) is a good example. At this point, some skepticism towards the ontology is warranted.</p>
+<p>I think working physicists vary a lot in how strongly they believe in scientific realism. The actual work of physics only requires (some degree of) consensus on the trustworthiness of theories in terms of their predictions; individual physicists are free to treat the internal language of the theories (in terms of electrons, fiber bundles, wavefunctions, etc) as a literal description of reality, as a formal symbol-game with no truth value, or anything in between.</p>
+<p>If you take an anti-realist stance, then physical theories are really just tools for making predictions about the world, with some colorful mnemonics attached to the prediction-making machinery. If you take a realist stance, then physical theories are not just making predictions, but also telling us all kinds of wonderful things about an unseen world of electrons and fiber bundles and so on. On the other hand, according to the realist stance, most physical theories to date have been wrong about the interesting part, and successful at predictions kind of by accident.</p>
+<p>I'm going to try to take an awkward middle-of-the-road position here: one that's realist enough to let us ascribe some truth to the colorful stories our theories tell, but anti-realist enough to survive the ontological apocalypses that happen whenever a theory is superseded by a more correct one.</p>
+<h2>Kuhn</h2>
+<p>I'm going to throw in a shout-out to a blog post on Kuhn, <a href="https://samzdat.com/2018/05/31/science-cannot-count-to-red-thats-probably-fine/">"Science Cannot Count to Red. That’s Probably Fine."</a>, by Lou Keep. In particular:</p>
+<blockquote>
+<p>Newtonian physics makes several ontological claims (the universe is corporeal particles), Ptolemaic astronomy the same (circles are fitting for the heavens due to their divinity), etc. Both of these are wrong. Newtonian physics, however, can solve many more puzzles. "Amount of puzzles solved" is commensurable - it carries from one scientific set to another, there's a quantifiable, comparable idea of progress. The ontologies of the paradigms display no such progress.</p>
+</blockquote>
+<p>I think this is a bit too strong. I'd say we make some ontological progress too: just as the quantitative predictions of wrong-but-useful models are approximately correct, I think the ontological claims are often approximately correct in an appropriate sense.</p>
+<h2>Approximate ontological correctness</h2>
+<p>As an example, Newtonian physics claims that spacetime is invariant under the Galilean group Gal(3). Relativity claims it's invariant under the group SO(3, 1). The former is a <a href="https://en.wikipedia.org/wiki/Group_contraction">group contraction</a> of the latter, so we can view Newtonian physics as making a kind of "qualitatively approximately correct" claim: spacetime is invariant under something that is <em>approximately</em> Gal(3), in the appropriate limit.</p>
+<p>Similarly, atomic nuclei are not indivisible point particles, but they are <em>approximately</em> so, on the scale at which chemistry happens.</p>
+<p>There's something kind of absurd about this, to be sure. The ontologies of physical theories have a reassuring crisp, absolute flavor to them; trying to believe them only in an "approximate" sense means throwing the crispness while trying to keep everything else. But I think it's in line with how we use informal ontologies in everyday life. When we claim something is rectangular, we're not insisting on geometrical perfection; we're saying that it is "approximately" a four-sided shape with four right angles. (Note that we're not even claiming it has "approximately four" sides; Colorado's border is officially defined by 697 straight boundary lines.)</p>
+<h2>All models are wrong?</h2>
+<p>Some say that "all models are wrong, but some models are useful." This is a fairly anti-realist stance; I would probably modify that to "most models are wrong", and add that we don't know which of our models, if any, are right.</p>
+<p>Personally I'd bet on the perfect correctness of quantum mechanics, against that of quantum field theory, and very tentatively in favor of some version of relativity, but probably not in 3+1 dimensions.</p>
+<p>What I mean by this is that I think quantum field theory is merely <em>approximately</em> ontologically correct, but that QM is exactly ontologically correct -- the true substance of reality is something "ontologically approximately like" a bunch of quantum fields, but it's <em>precisely</em> a wavefunction in an appropriate Hilbert space. And likewise, there is probably something worth calling spacetime that is in some sense a Lorentzian manifold, but probably not a 3+1-dimensional one. For example, it might be a 10+1-dimensional manifold compactified onto a 3+1-dimensional base.</p>
+<h2>Back to FTL travel</h2>
+<p>It's actually pretty unclear where that leaves FTL travel (through the ordinary 3+1-dimensional spacetime of general relativity).</p>
+<p>My best guess is actually that it's "approximately fundamentally impossible": FTL travel is arguably possible, but only in situations where (3+1-dimensional) spacetime itself is close to breaking down.</p>
+<p>As an example, the "ER=EPR correpondence" speculates that strong enough quantum entanglement between distant objects can be usefully modeled as a wormhole physically connecting the objects. (One thought experiment involves Alice and Bob creating a pair of black holes far apart from each other, entangling them by throwing in a bunch of Bell pairs, and then diving through the event horizons to meet each other in the wormhole's interior.)</p>
+<p>To the extent that spacetime is a real thing, you can't move faster than light through it, just as relativity says. But the claim that "spacetime exists and has 3+1 dimensions" is itself only approximately true.</p>]]></description>
+    </item>
+    <item>
+      <title>A factorial puzzle</title>
+      <link>https://adam.scherl.is/blog/permutohedra/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/permutohedra/</guid>
+      <pubDate>Tue, 25 Feb 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<h2>Problem</h2>
+<p>I saw <a href="https://math.stackexchange.com/questions/5038292/a-factorial-puzzle">this post</a> on Math Stack Exchange recently. Unfortunately, it got closed while I was solving it, so I emailed the OP a summary and am writing it up here.</p>
+<p>In the course of some representation theory research, OP came across a mysterious function that produces, for each <script type="math/tex">n\in\mathbb{N}</script>, a set of <script type="math/tex">(n-1)</script>-tuples of natural numbers of size <script type="math/tex">n!</script>. They give some fairly gnarly Mathematica code to compute it, and ask for a simple characterization. They also list the sets for <script type="math/tex">n=1,2,\dots,5</script>.</p>
+<p>So there's actually three very different puzzles here, with the same answer. In increasing order of sophistication:</p>
+<ol>
+<li>Stare at the given sets until the pattern becomes clear.</li>
+<li>Reverse-engineer and golf the Mathematica code.</li>
+<li>Solve the original representation-theory problem.</li>
+</ol>
+<p>I'm not feeling sophisticated, so we're going to do the first one.</p>
+<p>If you want to try it yourself, stop reading here. Spoilers follow.</p>
+<h2>Clues</h2>
+<p>There are a couple observations we can make about the given example sets:</p>
+<ol>
+<li>Per OP, they each consist of the vertices of a convex polytope which is combinatorially equivalent to the <a href="https://en.wikipedia.org/wiki/Permutohedron">permutohedron</a>.</li>
+<li>The edges of each polytope have coordinates that are all zero or one (in one orientation).</li>
+</ol>
+<p>As a reminder, the standard <script type="math/tex">(n-1)</script>-dimensional permutohedron is the convex hull of the <script type="math/tex">n!</script> permutations of the vector <script type="math/tex">[1,2,\dots,n]</script>. (These lie in a hyperplane of codimension <script type="math/tex">1</script> in <script type="math/tex">\mathbb{R}^n</script>.)</p>
+<p>In other words, the vertices of the permutohedron are linear combinations of standard basis vectors, with the coefficients of each vector being a permutation of <script type="math/tex">(1,2,\dots,n)</script>.</p>
+<h2>Guess</h2>
+<p>We will wildly conjecture that our mystery function gives a linear transformation of the standard permutohedron. Therefore, its vertices should be linear combinations of some unknown set of vectors in <script type="math/tex">\mathbb{R}^{n-1}</script>, with the coefficients again being a permutation of <script type="math/tex">(1,2,\dots,n)</script>.</p>
+<p>What do we know about these vectors?</p>
+<p>Consider the standard permutohedron again: every edge is a permutation of the vector <script type="math/tex">[+1, -1, 0, \dots, 0]</script>, which is a difference of two standard basis vectors. These are also the edges of the <script type="math/tex">(n-1)</script>-simplex formed by the standard basis vectors.</p>
+<p>We know that the edges of our polytope are zero-one vectors, which is to say, edges and diagonals of the unit <script type="math/tex">(n-1)</script>-cube. So it would make sense if the unknown vectors are the vertices of some <script type="math/tex">(n-1)</script>-simplex embedded in that cube.</p>
+<p>A little bit of squinting at the first few sets reveals that this <em>almost</em> works, for the simplex with vertices e.g. <script type="math/tex">[0, 0, 0], [0, 0, 1], [0, 1, 1], [1, 1, 1]</script>. It gives the correct shape, but translated away from the origin.</p>
+<p>How do we translate back? Note that there is always one vertex of our polytope which is at least as close to the origin as any other corner along all axes simultaneously. This is the vertex whose coefficients are <script type="math/tex">(n,\dots,2,1)</script> in decreasing order. The coordinates of that vertex are cumulative sums of the coefficients, i.e. triangle numbers.</p>
+<p>So the polytope is just a permutohedron "jammed into the corner" of the positive orthant by a linear transformation, with coordinates given by cumulative sums of permutations with triangle numbers subtracted.</p>
+<h2>Solution</h2>
+<p>In equations:</p>
+<p>The mystery set for <script type="math/tex">n</script> is given by the <script type="math/tex">n!</script> vectors <script type="math/tex">w^\sigma</script> for <script type="math/tex">\sigma\in S_n</script> with components given by
+<script type="math/tex; mode=display">w^\sigma_j = \sum_{i=1}^{j-1}(\sigma(i) - i) \qquad i\in[1..n],j\in[1..(n-1)]</script>
+</p>
+<p>In Python:</p>
+<pre><code class="language-py">import numpy as np
+from itertools import permutations
+
+for perm in permutations(range(n)):
+    print(np.cumsum(np.array(perm) - np.arange(n))[:-1])
+</code></pre>]]></description>
+    </item>
+    <item>
+      <title>Hex runes</title>
+      <link>https://adam.scherl.is/blog/hex-runes/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/hex-runes/</guid>
+      <pubDate>Tue, 07 Jan 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>I blogged about these <a href="https://adam.scherlis.com/2022/10/28/cryptic-symbols/">in 2022</a> and promised an explanation "soon". Here it is!</p>
+<p>A fun notation for byte values:</p>
+<p><img alt="An angular glyph with a central vertical line and four lines on each side, labeled with powers of 2 from 1 to 128" src="https://adam.scherl.is/assets/hex-runes/FF_rune.svg" width="50%" /></p>
+<p>But it looks a little nicer if you round things off:</p>
+<p><img alt="A grid of many rounded glyphs" src="https://adam.scherl.is/assets/hex-runes/runes_many.svg" /></p>
+<p>In the usual notation, that's <code>03 . 24 3F 6A 88 85 A3 08 D3</code> and so on.</p>
+<p>The angular form is somewhat inspired by Norse runes, especially <a href="https://en.wikipedia.org/wiki/Bind_rune">bind runes</a>. The round form is intended to be mistakable for as many Latin, Greek, and Cyrillic letters as possible.</p>
+<p>I have since learned about <a href="https://en.wikipedia.org/wiki/Cistercian_numerals">Cistercian numerals</a>, which are a fun medieval take on the same concept.</p>
+<h2>Code</h2>
+<p>As usual, there's a <a href="https://github.com/AdamScherlis/notebooks-python/blob/main/codes/hexrunes.ipynb">messy notebook</a>.</p>]]></description>
+    </item>
+    <item>
+      <title>Randomly-generated shape pendants</title>
+      <link>https://adam.scherl.is/blog/shape-pendants/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/shape-pendants/</guid>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>I handed out laser-cut pendants this past Burning Man that looked like this:</p>
+<p><img alt="wooden pendants in a variety of symmetrical jagged shapes" src="https://adam.scherl.is/assets/shape-pendants/pendants.jpg" width="75%" /></p>
+<p>I made 72 of them, each a unique shape, with rotational symmetry of varying orders.</p>
+<h2>Shapes</h2>
+<p>My desiderata were approximately:</p>
+<ul>
+<li>Unique shapes</li>
+<li>Vaguely circular</li>
+<li>Lots of random detail</li>
+<li>Somewhat symmetric</li>
+<li>Smooth enough for the laser cutter to handle</li>
+</ul>
+<p>Describing the shapes in polar coordinates and taking a Fourier series made it pretty easy to get all of this.</p>
+<p>We can make the function periodic with period <script type="math/tex">2\pi</script> (for a closed shape) or <script type="math/tex">2\pi/N</script> (for <script type="math/tex">N</script>-fold rotational symmetry) by limiting the frequencies in the series to multiples of <script type="math/tex">1</script> or <script type="math/tex">N</script> (respectively).</p>
+<p>The shape of the amplitude spectrum controls the general vibe of the shapes, and the phases determine all the details. Fractals and many kind of natural textures have power-law spectra, so I used that for the amplitudes and generated the phases <script type="math/tex">\phi_k \sim U(0, 2\pi)</script> uniformly randomly:</p>
+<p>
+<script type="math/tex; mode=display">r(\theta) = r_0 + \sum_{k=1}^{k_{\text{max}}} (kN)^{-\alpha} \cos(kN\theta + \phi_k) </script>
+</p>
+<p>Then I fiddled with the hyperparameters (power-law exponent <script type="math/tex">\alpha</script>, highest frequency <script type="math/tex">k_\text{max}N</script> before the smoothness cutoff, constant term <script type="math/tex">r_0</script>, order <script type="math/tex">N</script> of rotational symmetry) until I liked the batches of shapes coming out of my script.</p>
+<h2>Cutting</h2>
+<p>Most laser cutters at hackerspaces seem to be hooked up to computers running LightBurn, which is pretty similar in interface to Inkscape or Adobe Illustrator. It imports SVG seamlessly (often with distance units and layers intact), so I try to keep my workflow inside Python as much as possible, then in Inkscape for any touch-ups or manual steps, and then in LightBurn to set details of cuts and engraving and any last-minute issues I forgot.</p>
+<p>For this project, I added the Burning Man logos in Inkscape. (I also drew them myself, because I didn't like anything I found in SVG.) Just before the cut, my friend Cody suggested giving them holes for necklaces or keychains, which I added in LightBurn. In hindsight, I wish I'd done both of those in Python, with the hole position chosen automatically.</p>
+<p>The aftermath: </p>
+<p><img alt="wooden square with jagged symmetrical shapes cut out, with laser cutter visible in background" src="https://adam.scherl.is/assets/shape-pendants/pendants-cut.jpg" width="50%" /></p>
+<h2>Ephemerality?</h2>
+<p>The photo at the top of the post is the only decent one I took. You'll have to trust me that the pile of 72 pendants looked cool; 72 different people have them now.</p>
+<h2>Code</h2>
+<p>My Jupyter notebook is <a href="https://github.com/AdamScherlis/notebooks-python/blob/main/lasers/tokens/tokens.ipynb">here</a>.</p>
+<p>Most of the hard-coded "magic numbers" are things I just fiddled with repeatedly until things looked right.</p>]]></description>
+    </item>
+    <item>
+      <title>Morse code prosigns</title>
+      <link>https://adam.scherl.is/blog/morse-prosigns/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/morse-prosigns/</guid>
+      <pubDate>Sat, 04 Jan 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>It's not technically true that SOS is the universal distress signal in Morse code.</p>
+<p>SOS is a sequence of three letters, <code>... --- ...</code>, with brief pauses between the letters.</p>
+<p>The distress signal is <code>...---...</code>, a signal "letter" composed of nine dots and dashes. It's a <a href="https://en.wikipedia.org/wiki/Prosigns_for_Morse_code">prosign</a>, which is sort of like an ASCII control code. Formally, it should be written <span style="text-decoration:overline;">SOS</span>, with an overbar, which means "the dots and dashes for SOS but without pauses".</p>
+<p>(Oddly, <a href="https://www.youtube.com/watch?v=0RfU5r63AXY">this 80's cult classic</a> has backing vocals singing something like <code>... ---...</code>, or S<span style="text-decoration:overline;">OS</span>.)</p>
+<p>Wikipedia <a href="https://en.wikipedia.org/wiki/SOS">notes</a> that you can also chop up the distress signal into <code>...- --.. .</code>, "VZE", so <span style="text-decoration:overline;">VZE</span> is an equally valid way to write the same prosign.</p>
+<p>Ditto <span style="text-decoration:overline;">3B</span>, <span style="text-decoration:overline;">IETMS</span>, and <span style="text-decoration:overline;">EEETTTEEE</span>.</p>
+<p>So naturally I wrote some code to find fun equivalent abbreviations for hypothetical prosigns.</p>
+<p>There isn't much worth mentioning, algorithmically; just make a hash map with prosigns as keys and words as values, then run through a dictionary and populate it, then sort however you want.</p>
+<p>Some fun results:</p>
+<p><span style="text-decoration:overline;">ABSINTHE</span> = <span style="text-decoration:overline;">PHIALS</span><br />
+<span style="text-decoration:overline;">ACID</span> = <span style="text-decoration:overline;">EMAIL</span><br />
+<span style="text-decoration:overline;">BEER</span> = <span style="text-decoration:overline;">THIN</span><br />
+<span style="text-decoration:overline;">BIOLOGY</span> = <span style="text-decoration:overline;">THEOLOGY</span><br />
+<span style="text-decoration:overline;">BOSS</span> = <span style="text-decoration:overline;">NEWBIE</span><br />
+<a href="https://en.wikipedia.org/wiki/Time_Cube"><span style="text-decoration:overline;">CUBE</span> = <span style="text-decoration:overline;">TRUTH</span></a><br />
+<span style="text-decoration:overline;">DADAISM</span> = <span style="text-decoration:overline;">NEWSBEAT</span><br />
+<span style="text-decoration:overline;">ELECTION</span> = <span style="text-decoration:overline;">FICTION</span><br />
+<span style="text-decoration:overline;">ENWOVEN</span> = <span style="text-decoration:overline;">LOGIC</span><br />
+<span style="text-decoration:overline;">HREF</span> = <span style="text-decoration:overline;">SERVE</span><br />
+<span style="text-decoration:overline;">INTERNET</span> = <span style="text-decoration:overline;">ULTRA</span><br />
+<span style="text-decoration:overline;">MAINE</span> = <span style="text-decoration:overline;">MAUI</span><br />
+<span style="text-decoration:overline;">NAMED</span> = <span style="text-decoration:overline;">XML</span><br />
+<span style="text-decoration:overline;">PERL</span> = <span style="text-decoration:overline;">WILD</span><br />
+<span style="text-decoration:overline;">WEED</span> = <span style="text-decoration:overline;">WINE</span>  </p>
+<p>Inevitably, the best ones were offensive to public morals and basic decency, and have been omitted. Consider it an incentive to write some code yourself.</p>
+<p>And yes, some of these pairs have a lot of trivial overlap. Someone should really implement <a href="https://blog.plover.com/lang/anagram-scoring.html">this algorithm</a> for these things.</p>
+<p>Is this the opposite of an anagram? Different letters but in the same order?</p>]]></description>
+    </item>
+    <item>
+      <title>Iterated log coding</title>
+      <link>https://adam.scherl.is/blog/iterlog-coding/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/iterlog-coding/</guid>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+<script type="math/tex; mode=display">\pi = +2^{+2^{+2^{-2^{-2^{+2^{-2^{\cdots}}}}}}}</script>
+</p>
+<h2>Floats with just the sign bits</h2>
+<p>I've created a new format for encoding real numbers on computers. I'm proud of it! Let's dive in.</p>
+<h2>Real number formats</h2>
+<p>We have some real value <script type="math/tex">x\in\mathbb R</script>. Could be positive or negative or zero, large or small. How can we store it in a bitstring?</p>
+<p>Fixed-point numbers have one bit for the sign of <script type="math/tex">x</script> (positive or negative) and <script type="math/tex">n-1</script> bits for its absolute value <script type="math/tex">|x|</script>, in binary, with an implied decimal point in some fixed location. (They actually usually use two's-complement instead of representing <script type="math/tex">|x|</script> directly, but let's not get into that right now.)</p>
+<p>Floating-point numbers basically use scientific notation. One bit for the sign of <script type="math/tex">x</script> (positive or negative), some bits for an integer exponent, and some more for the significand. This is more flexible because it maintains constant <em>relative</em> precision instead of <em>absolute</em> precision. Note that the exponent is the floor of the logarithm of the absolute value, <script type="math/tex">\lfloor\log |x|\rfloor</script>, and the significand accounts for the fractional part (mantissa): <script type="math/tex">\exp(\log |x| - \lfloor \log |x| \rfloor)</script>. (I'm using <script type="math/tex">\log(a)</script> and <script type="math/tex">\exp(a)</script> to mean <script type="math/tex">\log_2(a)</script> and <script type="math/tex">2^a</script>, or <script type="math/tex">\log_b(a)</script> and <script type="math/tex">b^a</script> if you want to generalize to an arbitrary base.)</p>
+<p><a href="https://en.wikipedia.org/wiki/Logarithmic_number_system">Logarithmic number systems</a> are similar, but a bit more elegant: instead of separating the integer part of the logarithm from the fractional part and encoding them separately, it's just a direct fixed-point representation of <script type="math/tex">\log |x|</script> and a separate sign bit for <script type="math/tex">x</script>.</p>
+<p>At this point things are getting kind of interesting: we have a sign bit for <script type="math/tex">x</script> and another (inside the fixed-point representation) for <script type="math/tex">\log |x|</script>. This second sign bit tells us whether the number is large (<script type="math/tex">x\ge1</script> or <script type="math/tex">x\le -1</script>) or small (<script type="math/tex">-1 < x < 1</script>).</p>
+<p><a href="https://en.wikipedia.org/wiki/Symmetric_level-index_arithmetic">Symmetric level-index</a> representations go farther, and let you represent truly enormous numbers: they encode the number of times you need to take a logarithm to make <script type="math/tex">x</script> be a reasonable size, as well as what's left over after the final logarithm. Like logarithmic number systems, they have two sign bits, one for <script type="math/tex">x</script> and one for its <em>first</em> logarithm.</p>
+<p>But we can do better.</p>
+<h2>Introducing the iterated-log format</h2>
+<p>Let's describe <script type="math/tex">x</script>, a little at a time.</p>
+<p>First: is it positive or negative? That's determined by the sign <script type="math/tex">s_0 = \text{sgn}\, x</script>, counting zero as positive. What's left over is the absolute value <script type="math/tex">|x|</script>.</p>
+<p>Then: is it large in magnitude or small? Take <script type="math/tex">x_1 = \log |x|</script> and find its sign, <script type="math/tex">s_1 = \text{sgn}\, x_1</script>. The information left over is <script type="math/tex">|x_1|</script>.</p>
+<p>Then: is it very large-or-small, like -10,000 and +0.0001, or just moderately large-or-small, like 1.3 or -0.8? This is determined by <script type="math/tex">s_2 = \text{sgn}\, x_2</script>, where <script type="math/tex">x_2 = \log |x_1|</script>. (To elaborate a bit: we're asking about whether <script type="math/tex">x_1 = \log |x|</script> is large in magnitude, because very large-or-small numbers have very positive-or-negative logs, i.e. large ones.)</p>
+<p>You can see where we go from here. We define <script type="math/tex">x_3 = \log |x_2|</script> and take its sign <script type="math/tex">s_3</script>. At this point things are getting a bit abstract, but we can still interpret this sign: positive values indicate that <script type="math/tex">x</script> is extremely large, extremely small, or very close to <script type="math/tex">\pm 1</script>; negative values indicate that it's somewhere in between.</p>
+<p>Okay, so what's our proposed format? It's essentially just:</p>
+<p>
+<script type="math/tex; mode=display">s_0s_1s_2s_3\cdots</script>
+</p>
+<p>So a small positive number begins <script type="math/tex">(+-\ldots)</script>, a large negative one begins <script type="math/tex">(-+\ldots)</script>, etc.</p>
+<p>This might not seem like enough information to reconstruct the number, but it is: every additional sign restricts the range of possible values, and any level of precision for a given number can be achieved with enough signs.</p>
+<h2>Gray code and lexicographic ordering</h2>
+<p>Let's stop at three signs' worth of precision for now and see what we have, in order:</p>
+<pre><code>-++
+-+-
+---
+--+
++-+
++--
+++-
++++
+</code></pre>
+<p>Well, that's funny! It's a <a href="https://en.wikipedia.org/wiki/Gray_code">Gray code</a>. Cute, but maybe not the most practical.</p>
+<p>Let's convert our signs to bits, moving to a standard lexicographic ordering in the process. The rules for this are straightforward:</p>
+<ul>
+<li>For the first bit, <script type="math/tex">1</script> means positive and <script type="math/tex">0</script> means negative.</li>
+<li>Every negative sign flips the encoding for subsequent bits</li>
+</ul>
+<h2>Rounding and padding</h2>
+<p>So far, a finite string of sign bits specifies an interval, not a single value.</p>
+<p>To fix a well-defined value for every bitstring and handle some annoying fencepost issues, let's specify that:</p>
+<ul>
+<li>An empty sequence of signs represents zero</li>
+<li>If the sign sequence <script type="math/tex">S</script> represents <script type="math/tex">x</script>, then <script type="math/tex">+S</script> represents <script type="math/tex">2^x</script>...</li>
+<li>...and <script type="math/tex">-S</script> represents <script type="math/tex">-2^x</script>
+</li>
+<li>After converting signs to bits, an extra <script type="math/tex">1</script> is appended, followed by an arbitrary number of zeroes for padding</li>
+<li>The all-zero bitstring represents <code>NaN</code></li>
+</ul>
+<p>This gives us the following values for sequences of up to two signs:</p>
+<pre><code>-+ [0 0 1] -2
+-  [0 1 0] -1
+-- [0 1 1] -0.5
+   [1 0 0] 0
++- [1 0 1] 0.5
++  [1 1 0] 1
+++ [1 1 1] 2
+</code></pre>
+<p>Note that the trailing <script type="math/tex">1000\ldots</script> that we append has a nice semantic interpretation; with infinitely many zeroes appended, it decodes to </p>
+<p>
+<script type="math/tex; mode=display">\pm-++\ldots = \pm 2^{-\infty} = 0</script>
+</p>
+<p>which is what we want an empty sequence to represent anyway.</p>
+<p>So an alternative prescription, if you like mathematical elegance over efficiency, is to append an infinite string of zeroes and take the limit.</p>
+<!-- 
+Similarly, \(000\ldots\) in principle represents \(-\infty\), although the lack of a finite-length encoding for \(111\ldots = \infty\) makes this somewhat less useful.
+
+And in addition to \(1000\ldots = +0\), there's also \(0111\ldots = -0\), so we have the usual fencepost ambiguity of infinite decimals. -->
+
+<h2>Code</h2>
+<p>The prototype implementation is in a notebook <a href="https://github.com/AdamScherlis/notebooks-python/blob/main/math/iterlog_coding.ipynb">here</a>, warts and all. There's also some bonus math which I might explain in a later post.</p>
+<h2>Every 7-bit number</h2>
+<p>I know 7 is a weird bit depth, but it's just enough to show off the killer features of this format:</p>
+<ul>
+<li>Lexicographic ordering</li>
+<li>Wide range of values</li>
+<li>Symmetric across zero</li>
+<li>Any value representable in <script type="math/tex">n</script> bits is representable in <script type="math/tex">n+1</script> bits</li>
+<li>Numbers too large to represent in any float format</li>
+<li>Numbers too small to represent in any float format</li>
+<li>Numbers extremely close to 1</li>
+<li>Exciting fractally-nonuniform spacing of values</li>
+<li>Wildly unpredictable precision</li>
+<li>etc.</li>
+</ul>
+<pre><code>[0 0 0 0 0 0 1] -2.004e+19728
+[0 0 0 0 0 1 0] -65536
+[0 0 0 0 0 1 1] -81.17181
+[0 0 0 0 1 0 0] -16
+[0 0 0 0 1 0 1] -8.577492
+[0 0 0 0 1 1 0] -6.342907
+[0 0 0 0 1 1 1] -4.857702
+[0 0 0 1 0 0 0] -4
+[0 0 0 1 0 0 1] -3.460937
+[0 0 0 1 0 1 0] -3.100556
+[0 0 0 1 0 1 1] -2.88577
+[0 0 0 1 1 0 0] -2.665144
+[0 0 0 1 1 0 1] -2.457229
+[0 0 0 1 1 1 0] -2.280274
+[0 0 0 1 1 1 1] -2.062328
+[0 0 1 0 0 0 0] -2
+[0 0 1 0 0 0 1] -1.942081
+[0 0 1 0 0 1 0] -1.791163
+[0 0 1 0 0 1 1] -1.706441
+[0 0 1 0 1 0 0] -1.632527
+[0 0 1 0 1 0 1] -1.573569
+[0 0 1 0 1 1 0] -1.528956
+[0 0 1 0 1 1 1] -1.47253
+[0 0 1 1 0 0 0] -1.414214
+[0 0 1 1 0 0 1] -1.355236
+[0 0 1 1 0 1 0] -1.297032
+[0 0 1 1 0 1 1] -1.250515
+[0 0 1 1 1 0 0] -1.189207
+[0 0 1 1 1 0 1] -1.115474
+[0 0 1 1 1 1 0] -1.044274
+[0 0 1 1 1 1 1] -1.000011
+[0 1 0 0 0 0 0] -1
+[0 1 0 0 0 0 1] -0.9999894
+[0 1 0 0 0 1 0] -0.9576033
+[0 1 0 0 0 1 1] -0.8964802
+[0 1 0 0 1 0 0] -0.8408964
+[0 1 0 0 1 0 1] -0.7996703
+[0 1 0 0 1 1 0] -0.7709909
+[0 1 0 0 1 1 1] -0.737879
+[0 1 0 1 0 0 0] -0.7071068
+[0 1 0 1 0 0 1] -0.6791035
+[0 1 0 1 0 1 0] -0.6540409
+[0 1 0 1 0 1 1] -0.6354978
+[0 1 0 1 1 0 0] -0.6125473
+[0 1 0 1 1 0 1] -0.5860148
+[0 1 0 1 1 1 0] -0.5582966
+[0 1 0 1 1 1 1] -0.5149116
+[0 1 1 0 0 0 0] -0.5
+[0 1 1 0 0 0 1] -0.4848889
+[0 1 1 0 0 1 0] -0.4385438
+[0 1 1 0 0 1 1] -0.4069625
+[0 1 1 0 1 0 0] -0.3752142
+[0 1 1 0 1 0 1] -0.3465279
+[0 1 1 0 1 1 0] -0.3225228
+[0 1 1 0 1 1 1] -0.2889391
+[0 1 1 1 0 0 0] -0.25
+[0 1 1 1 0 0 1] -0.2058587
+[0 1 1 1 0 1 0] -0.1576564
+[0 1 1 1 0 1 1] -0.1165842
+[0 1 1 1 1 0 0] -0.0625
+[0 1 1 1 1 0 1] -0.01231955
+[0 1 1 1 1 1 0] -1.525879e-05
+[0 1 1 1 1 1 1] -4.99e-19729
+[1 0 0 0 0 0 0] 0
+[1 0 0 0 0 0 1] 4.99e-19729
+[1 0 0 0 0 1 0] 1.525879e-05
+[1 0 0 0 0 1 1] 0.01231955
+[1 0 0 0 1 0 0] 0.0625
+[1 0 0 0 1 0 1] 0.1165842
+[1 0 0 0 1 1 0] 0.1576564
+[1 0 0 0 1 1 1] 0.2058587
+[1 0 0 1 0 0 0] 0.25
+[1 0 0 1 0 0 1] 0.2889391
+[1 0 0 1 0 1 0] 0.3225228
+[1 0 0 1 0 1 1] 0.3465279
+[1 0 0 1 1 0 0] 0.3752142
+[1 0 0 1 1 0 1] 0.4069625
+[1 0 0 1 1 1 0] 0.4385438
+[1 0 0 1 1 1 1] 0.4848889
+[1 0 1 0 0 0 0] 0.5
+[1 0 1 0 0 0 1] 0.5149116
+[1 0 1 0 0 1 0] 0.5582966
+[1 0 1 0 0 1 1] 0.5860148
+[1 0 1 0 1 0 0] 0.6125473
+[1 0 1 0 1 0 1] 0.6354978
+[1 0 1 0 1 1 0] 0.6540409
+[1 0 1 0 1 1 1] 0.6791035
+[1 0 1 1 0 0 0] 0.7071068
+[1 0 1 1 0 0 1] 0.737879
+[1 0 1 1 0 1 0] 0.7709909
+[1 0 1 1 0 1 1] 0.7996703
+[1 0 1 1 1 0 0] 0.8408964
+[1 0 1 1 1 0 1] 0.8964802
+[1 0 1 1 1 1 0] 0.9576033
+[1 0 1 1 1 1 1] 0.9999894
+[1 1 0 0 0 0 0] 1
+[1 1 0 0 0 0 1] 1.000011
+[1 1 0 0 0 1 0] 1.044274
+[1 1 0 0 0 1 1] 1.115474
+[1 1 0 0 1 0 0] 1.189207
+[1 1 0 0 1 0 1] 1.250515
+[1 1 0 0 1 1 0] 1.297032
+[1 1 0 0 1 1 1] 1.355236
+[1 1 0 1 0 0 0] 1.414214
+[1 1 0 1 0 0 1] 1.47253
+[1 1 0 1 0 1 0] 1.528956
+[1 1 0 1 0 1 1] 1.573569
+[1 1 0 1 1 0 0] 1.632527
+[1 1 0 1 1 0 1] 1.706441
+[1 1 0 1 1 1 0] 1.791163
+[1 1 0 1 1 1 1] 1.942081
+[1 1 1 0 0 0 0] 2
+[1 1 1 0 0 0 1] 2.062328
+[1 1 1 0 0 1 0] 2.280274
+[1 1 1 0 0 1 1] 2.457229
+[1 1 1 0 1 0 0] 2.665144
+[1 1 1 0 1 0 1] 2.88577
+[1 1 1 0 1 1 0] 3.100556
+[1 1 1 0 1 1 1] 3.460937
+[1 1 1 1 0 0 0] 4
+[1 1 1 1 0 0 1] 4.857702
+[1 1 1 1 0 1 0] 6.342907
+[1 1 1 1 0 1 1] 8.577492
+[1 1 1 1 1 0 0] 16
+[1 1 1 1 1 0 1] 81.17181
+[1 1 1 1 1 1 0] 65536
+[1 1 1 1 1 1 1] 2.004e+19728
+</code></pre>]]></description>
+    </item>
+    <item>
+      <title>Math facts: 2025</title>
+      <link>https://adam.scherl.is/blog/new-year-2025/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/new-year-2025/</guid>
+      <pubDate>Tue, 31 Dec 2024 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>As you have no doubt heard by now,</p>
+<p>
+<script type="math/tex; mode=display">
+\begin{align}
+2025 &= 1^3 + 2^3 + 3^3 + 4^3 + 5^3 + 6^3 + 7^3 + 8^3 + 9^3\\
+&= (1+2+3+4+5+6+7+8+9)^2
+\end{align}
+</script>
+</p>
+<p>thanks to <a href="https://en.wikipedia.org/wiki/Squared_triangular_number">Nicomachus's theorem</a>.</p>
+<p>In other words, 2025 is the square of the 9th triangle number.</p>
+<p>But 9 is <em>also</em> the square of a triangle number!</p>
+<p>
+<script type="math/tex; mode=display">
+\begin{align}
+9 &= 1^3 + 2^3\\
+&= (1+2)^2
+\end{align}
+</script>
+</p>
+<p>Defining some notation for triangle and square numbers,</p>
+<p>
+<script type="math/tex; mode=display">
+\begin{align}
+\triangle n &:= \frac{n(n+1)}2\\ 
+\square n &:= n^2
+\end{align}
+</script>
+</p>
+<p>we can summarize things thus:</p>
+<p>
+<script type="math/tex; mode=display">2025 = \square \triangle \square \triangle 2.</script>
+</p>
+<p>This is fairly benign magic; dabblers in the dark arts may wish to try <script type="math/tex">\triangle\square\triangle\triangle 2</script> instead.</p>]]></description>
+    </item>
+    <item>
+      <title>New Blog!</title>
+      <link>https://adam.scherl.is/blog/new-blog/</link>
+      <guid isPermaLink="true">https://adam.scherl.is/blog/new-blog/</guid>
+      <pubDate>Mon, 30 Dec 2024 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>Welcome! I finally got sick of WordPress.</p>
+<p>I considered various static site generators but they seemed like less fun than doing it myself.</p>
+<p>Features will be added when I feel like adding them.</p>]]></description>
+    </item>
+  </channel>
+</rss>

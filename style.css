@@ -30,3 +30,10 @@ a:hover {
 img {
     max-width: 100%;
 }
+/* RSS badge */
+.rss-badge {
+    height: 0.8em;
+    width: auto;
+    vertical-align: baseline;
+    margin-left: 0.2em;
+}
