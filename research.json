@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-07-01",
+    "source": "dmodel",
+    "venue": "the dmodel blog",
+    "title": "Discovering Concept-Editing Algorithms With LLM Agents",
+    "url": "https://dmodel.ai/concept-erasure/"
+  },
+  {
+    "date": "2025-02-28",
+    "source": "LW",
+    "venue": "LessWrong",
+    "title": "Estimating the Probability of Sampling a Trained Neural Network at Random",
+    "url": "https://www.lesswrong.com/posts/ubhqr7n57S4nwgc56/estimating-the-probability-of-sampling-a-trained-neural"
+  },
+  {
+    "date": "2024-06-14",
+    "source": "EleutherAI",
+    "venue": "the EleutherAI blog",
+    "title": "Experiments in Weak-to-Strong Generalization",
+    "url": "https://blog.eleuther.ai/weak-to-strong/"
+  }
+]

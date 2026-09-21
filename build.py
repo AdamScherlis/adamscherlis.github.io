@@ -1,3 +1,4 @@
+import json
 import markdown
 import os
 import re
@@ -46,12 +47,25 @@ for post in blog_posts:
 
     if not draft or draft.lower() == "false":
         post_bullets.append((date, f"<li><a href='blog/{post}'>{title}</a> [{date}]</li>"))
-        feed_items.append((date, post, title, content_html))
+        feed_items.append((date, f"{SITE_URL}/blog/{post}/", title, content_html))
 
 post_bullets.sort(key=lambda x: x[0], reverse=True)
 posts_html = "\n".join([post_bullet for _, post_bullet in post_bullets])
 
-homepage_html = homepage_template.format(posts=posts_html)
+# Research posts hosted elsewhere, listed in research.json
+with open("research.json", "r") as file:
+    research_posts = json.load(file)
+research_posts.sort(key=lambda x: x["date"], reverse=True)
+
+research_bullets = []
+for r in research_posts:
+    research_bullets.append(
+        f"        <li>({r['source']}) <a href=\"{r['url']}\">{r['title']}</a> [{r['date']}]</li>"
+    )
+    feed_items.append((r["date"], r["url"], r["title"], f"<p>Published on {r['venue']}.</p>"))
+research_html = "\n".join(research_bullets)
+
+homepage_html = homepage_template.format(posts=posts_html, research=research_html)
 
 with open("index.html", "w") as file:
     file.write(homepage_html)
@@ -71,8 +85,7 @@ def rfc822(date):
 feed_items.sort(key=lambda x: x[0], reverse=True)
 
 items_xml = []
-for date, post, title, content_html in feed_items:
-    url = f"{SITE_URL}/blog/{post}/"
+for date, url, title, content_html in feed_items:
     items_xml.append(f"""    <item>
       <title>{escape(title)}</title>
       <link>{url}</link>

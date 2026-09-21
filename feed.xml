@@ -6,7 +6,14 @@
     <atom:link href="https://adam.scherl.is/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blog posts by Adam Scherlis</description>
     <language>en</language>
-    <lastBuildDate>Tue, 11 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Discovering Concept-Editing Algorithms With LLM Agents</title>
+      <link>https://dmodel.ai/concept-erasure/</link>
+      <guid isPermaLink="true">https://dmodel.ai/concept-erasure/</guid>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>Published on the dmodel blog.</p>]]></description>
+    </item>
     <item>
       <title>Utilitarian inequality metrics</title>
       <link>https://adam.scherl.is/blog/inequality-metrics/</link>
@@ -403,6 +410,13 @@ def gptf8_decode(byts: bytes):
 <p>My best guess is actually that it's "approximately fundamentally impossible": FTL travel is arguably possible, but only in situations where (3+1-dimensional) spacetime itself is close to breaking down.</p>
 <p>As an example, the "ER=EPR correpondence" speculates that strong enough quantum entanglement between distant objects can be usefully modeled as a wormhole physically connecting the objects. (One thought experiment involves Alice and Bob creating a pair of black holes far apart from each other, entangling them by throwing in a bunch of Bell pairs, and then diving through the event horizons to meet each other in the wormhole's interior.)</p>
 <p>To the extent that spacetime is a real thing, you can't move faster than light through it, just as relativity says. But the claim that "spacetime exists and has 3+1 dimensions" is itself only approximately true.</p>]]></description>
+    </item>
+    <item>
+      <title>Estimating the Probability of Sampling a Trained Neural Network at Random</title>
+      <link>https://www.lesswrong.com/posts/ubhqr7n57S4nwgc56/estimating-the-probability-of-sampling-a-trained-neural</link>
+      <guid isPermaLink="true">https://www.lesswrong.com/posts/ubhqr7n57S4nwgc56/estimating-the-probability-of-sampling-a-trained-neural</guid>
+      <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>Published on LessWrong.</p>]]></description>
     </item>
     <item>
       <title>A factorial puzzle</title>
@@ -804,6 +818,13 @@ And in addition to \(1000\ldots = +0\), there's also \(0111\ldots = -0\), so we 
       <description><![CDATA[<p>Welcome! I finally got sick of WordPress.</p>
 <p>I considered various static site generators but they seemed like less fun than doing it myself.</p>
 <p>Features will be added when I feel like adding them.</p>]]></description>
+    </item>
+    <item>
+      <title>Experiments in Weak-to-Strong Generalization</title>
+      <link>https://blog.eleuther.ai/weak-to-strong/</link>
+      <guid isPermaLink="true">https://blog.eleuther.ai/weak-to-strong/</guid>
+      <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>Published on the EleutherAI blog.</p>]]></description>
     </item>
   </channel>
 </rss>
