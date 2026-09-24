@@ -1,0 +1,245 @@
+<title>Monotiles in Every Dimension</title>
+<meta name="description" content="A strongly aperiodic monotile in every dimension d ≥ 2, built from Chair44 and the Spectre by keyed products, and an analysis of why Chair44's own face rules do not extend past d = 3.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<script>
+window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, chtml: { scale: 0.96 } };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" async></script>
+<style>
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #17202a;
+  --muted: #56616e;
+  --rule: #d6dbe1;
+  --accent: #1d6a86;
+  --accent-soft: #e2eff4;
+  --neg: #9a4a24;
+  --neg-soft: #f6e9e2;
+  --code-bg: #eef1f4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0f1419; --surface: #161d24; --ink: #e2e8ee; --muted: #9aa6b2; --rule: #2b3540;
+    --accent: #62b4d2; --accent-soft: #15303b; --neg: #e09a73; --neg-soft: #33231b; --code-bg: #1b242d;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1419; --surface: #161d24; --ink: #e2e8ee; --muted: #9aa6b2; --rule: #2b3540;
+  --accent: #62b4d2; --accent-soft: #15303b; --neg: #e09a73; --neg-soft: #33231b; --code-bg: #1b242d;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 17px; line-height: 1.62;
+  padding-inline: 18px; padding-block: 40px 80px;
+}
+main { max-width: 44rem; margin: 0 auto; display: grid; gap: 0; }
+h1, h2, h3, .eyebrow, th, .label {
+  font-family: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+}
+h1 { font-size: 2.35rem; line-height: 1.12; font-weight: 600; margin: 0.2rem 0 0.8rem; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: 1.45rem; font-weight: 600; margin: 2.8rem 0 0.6rem; text-wrap: balance; padding-top: 1.1rem; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.12rem; font-weight: 600; margin: 1.8rem 0 0.4rem; text-wrap: balance; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; color: var(--accent); font-weight: 600; }
+.lede { font-size: 1.12rem; color: var(--ink); }
+p { margin: 0.7rem 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 0.86em; background: var(--code-bg); padding: 0.05em 0.3em; border-radius: 3px; }
+.theorem {
+  background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+  padding: 0.9rem 1.1rem; margin: 1.1rem 0;
+}
+.theorem.neg { border-left-color: var(--neg); }
+.theorem .label { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 600; display: block; margin-bottom: 0.2rem; }
+.theorem.neg .label { color: var(--neg); }
+.proof { border-left: 1px solid var(--rule); padding-left: 1rem; margin: 0.8rem 0 1.2rem; }
+.proof > p:first-child::before { content: "Proof. "; font-style: italic; }
+.qed { float: right; }
+.status { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 12px; margin: 1.4rem 0; }
+.status div { background: var(--surface); border: 1px solid var(--rule); padding: 0.7rem 0.9rem; }
+.status .label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); display: block; }
+.status .pos { color: var(--accent); font-weight: 600; }
+.status .negv { color: var(--neg); font-weight: 600; }
+.tablewrap { overflow-x: auto; margin: 1rem 0; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: 0.82rem; font-weight: 600; color: var(--muted); letter-spacing: 0.03em; }
+tr:last-child td { border-bottom: 0; }
+td.n { text-align: right; white-space: nowrap; }
+.chip { font-family: "IBM Plex Sans Condensed", system-ui, sans-serif; font-size: 0.75rem; padding: 0.05rem 0.45rem; border-radius: 999px; white-space: nowrap; }
+.chip.ok { background: var(--accent-soft); color: var(--accent); }
+.chip.no { background: var(--neg-soft); color: var(--neg); }
+ol, ul { padding-left: 1.3rem; }
+li { margin: 0.3rem 0; }
+.small { font-size: 0.9rem; color: var(--muted); }
+footer { margin-top: 3rem; font-size: 0.88rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 1rem; }
+@media (max-width: 480px) { body { font-size: 16px; } h1 { font-size: 1.9rem; } }
+</style>
+
+<main>
+<div class="eyebrow">Research note · September 2026</div>
+<h1>Strongly aperiodic monotiles in every dimension</h1>
+<p class="lede">Chair44 is a strongly aperiodic monotile in $\mathbb{E}^3$: it tiles space, and every tiling has a finite symmetry group. This note does two things. First, it builds a strongly aperiodic monotile in $\mathbb{E}^d$ for every $d \ge 2$, using keyed products of Chair44 and the Spectre. Second, it analyses the more literal generalization, a decorated $d$-dimensional chair with face bumps. That analysis explains why Chair44 works and gives strong evidence that its mechanism does not extend past $d = 3$.</p>
+
+<div class="status">
+  <div><span class="label">Every d ≥ 2</span><span class="pos">Monotile constructed</span><br><span class="small">Keyed products; written proof below</span></div>
+  <div><span class="label">d-chair, face rules, d = 4, 5</span><span class="negv">No working substitution found</span><br><span class="small">Obstruction verified by computer</span></div>
+  <div><span class="label">Chair44 certificates</span><span class="pos">Independently reproduced</span><br><span class="small">From the substitution alone</span></div>
+</div>
+
+<p class="small">Sources: <a href="https://arxiv.org/abs/2609.19214">Tsiokos, <i>A Strongly Aperiodic Monotile in Three Dimensions</i></a>; <a href="https://arxiv.org/abs/2609.24779">Goodman-Strauss, <i>Notes on a strongly aperiodic monotile in $E^3$</i></a>; <a href="https://arxiv.org/abs/2609.23783">Flicker, <i>Matching Rules for a Three-Dimensional Strongly Aperiodic Monotile</i></a>; <a href="https://www.quantamagazine.org/updates/transformation/">Quanta, <i>Transformation</i></a>; <a href="https://arxiv.org/abs/2305.17743">Smith, Myers, Kaplan, Goodman-Strauss, <i>A chiral aperiodic monotile</i></a>; <a href="https://github.com/yamaton/aperiodic-chair-lab">aperiodic-chair-lab</a>. Code for every computation here is in <a href="code/">code/</a>.</p>
+
+<h2>1. The theorem</h2>
+
+<div class="theorem">
+<span class="label">Theorem A</span>
+For every $d \ge 2$ there is a closed topological $d$-ball $T_d \subset \mathbb{E}^d$ that tiles $\mathbb{E}^d$ by congruent copies (reflections allowed), such that every tiling by $T_d$ has only finitely many symmetries. In particular no tiling has a translational period, a screw motion, or any other symmetry of infinite order. Every tiling is homochiral.
+</div>
+
+<p>Explicitly, with $S$ the keyed Spectre in $\mathbb{E}^2$ and $Q$ the keyed Chair44 in $\mathbb{E}^3$ (Section 3):</p>
+<p style="text-align:center">$T_{2k} = S^{\bowtie k}, \qquad T_{2k+1} = Q \bowtie S^{\bowtie (k-1)},$</p>
+<p>where $\bowtie$ is the <em>keyed product</em> defined below. So $T_4 = S\bowtie S$, $T_5 = Q \bowtie S$, $T_6 = S\bowtie S\bowtie S$ (or $Q\bowtie Q$), and so on. Every $d\ge 2$ is a sum of 2s and 3s.</p>
+
+<h3>Why a plain product is not enough</h3>
+<p>The product $A\times B$ of two aperiodic monotiles tiles $\mathbb{E}^{a+b}$ by product tilings $\mathcal{T}_A\times\mathcal{T}_B$, but these are not its only tilings. Copies can slide against each other. For example, over each tile of an $A$-tiling one can stack an independent $B$-tiling, and more tangled mixtures are possible. Controlling every such tiling directly is not obvious. The keyed product adds small bumps that forbid sliding. They force every tiling to be an exact product, and exact products are easy to control.</p>
+
+<h3>Keyed monotiles</h3>
+<p>A <b>cap</b> is a small bump or dent on a flat patch of boundary. In local coordinates it is the graph</p>
+<p style="text-align:center">$z = \varepsilon\,k\,\phi(u), \qquad \phi(u)=\prod_{i=1}^{n-1}(1-u_i^2)\,\Bigl(1+\sum_{i=1}^{n-1} c_i u_i\Bigr),\quad u\in[-1,1]^{n-1},$</p>
+<p>with fixed distinct $c_i\in(0,\tfrac1{n})$ and a nonzero integer <b>key</b> $k$. Its <b>frame</b> is the ordered tangent axes plus the normal. This is the curved cap of the chair-lab registration note, written in $n-1$ variables.</p>
+
+<p>A <b>keyed monotile</b> is a closed topological ball $T\subset\mathbb{E}^n$ together with a decomposition of $\partial T$ into finitely many closed flat <b>pieces</b>, each carrying at least one cap, such that:</p>
+<ol>
+<li><b>(K1) Mates exist.</b> In every tiling by $T$, every cap $c$ of every tile is matched on an open patch by a cap $c'$ of another tile with key $-k$.</li>
+<li><b>(K2) Mates cover pieces.</b> If $c$ lies on piece $\pi$ of tile $A$ and its mate $c'$ lies on piece $\pi'$ of tile $B$, then the unique isometry taking $c'$ onto $c$ with reversed normal maps $\pi'$ onto $\pi$. Hence $B$ fills the far side of all of $\pi$.</li>
+<li><b>(K3) Aperiodicity.</b> $T$ admits a tiling, and every tiling by $T$ has only finite-order symmetries.</li>
+</ol>
+
+<div class="theorem">
+<span class="label">Lemma 1 (cap rigidity)</span>
+If two caps agree on an open patch under an isometry $R$, then $R$ identifies their whole base boxes, centres and ordered axes, reverses the normal, and the keys satisfy $k'=\pm k$. Caps with different $|k|$ never agree on an open patch.
+</div>
+<div class="proof">
+<p>This is Lemma 2 of the chair-lab note, in $n-1$ variables. Agreement on an open set extends by polynomial identity to the full algebraic graph. The $(n-2)$-flats contained in the graph are exactly the $2(n-1)+1$ zero hyperplanes $u_i=\pm1$ and $1+\sum c_iu_i=0$ at $z=0$: restrict to a line and look at the leading coefficient. So $R$ preserves the box, and it fixes the ordered axes because the $c_i$ are distinct and positive. The height scale then gives $k'=\pm k$. <span class="qed">□</span></p>
+</div>
+<p class="small">(K1) follows from Lemma 1 plus local finiteness, as in the chair-lab note's Lemma 1: a tiling by a bounded tile containing a ball is locally finite, so each cap point is approached from outside by finitely many tiles. One of their boundary sheets must agree with the cap on an open patch, and only a cap of key $-k$ can do so.</p>
+
+<h3>The keyed product</h3>
+<p>Let $(T_1,\text{pieces},\text{caps})\subset\mathbb{E}^{m_1}$ and $(T_2,\dots)\subset\mathbb{E}^{m_2}$ be keyed monotiles. Fix interior points $y_\ast\in\operatorname{int}T_2$ and $x_\ast\in\operatorname{int}T_1$. Define $T_1\bowtie T_2\subset\mathbb{E}^{m_1+m_2}$ as the product $T_1\times T_2$ with its caps replaced as follows:</p>
+<ul>
+<li>for each cap $c$ of $T_1$ (point $p_c$, frame $F_c$, key $k$), one cap at $(p_c, y_\ast)$ on the piece $\pi\times T_2$, with frame $F_c\oplus\mathrm{id}_{T_2}$;</li>
+<li>for each cap $e$ of $T_2$, one cap at $(x_\ast, p_e)$ on the piece $T_1\times\sigma$, with frame $\mathrm{id}_{T_1}\oplus F_e$.</li>
+</ul>
+<p>Give every cap type its own key magnitude, keeping the signs. The pieces of $T_1\bowtie T_2$ are the products $\pi\times T_2$ and $T_1\times\sigma$. With caps small enough, the result is still a closed ball.</p>
+
+<div class="theorem">
+<span class="label">Lemma 2 (keyed product)</span>
+$T_1\bowtie T_2$ is a keyed monotile. Every tiling by it is an exact product $\{\varphi(T_1)\times\psi(T_2):\varphi\in\mathcal{T}_1,\ \psi\in\mathcal{T}_2\}$ of a $T_1$-tiling and a $T_2$-tiling.
+</div>
+<div class="proof">
+<p><b>Mates are aligned.</b> (K1) holds by Lemma 1. Let $c$ be a cap of type $(c_1, y_\ast)$ on tile $P=(\varphi,\psi)$. Its mate has key $-k$, so it is of type $(c_1', y_\ast)$ with $c_1'$ a complementary $T_1$-cap. By Lemma 1 the mate's tile is $P\circ(R_1\times\mathrm{id})$, where $R_1$ is the cap-pair isometry of $(c_1,c_1')$ in $\mathbb{E}^{m_1}$. The factor on $\mathbb{E}^{m_2}$ is the identity because the frame of $T_2$ at $y_\ast$ is matched to itself. By (K2) for $T_1$, $R_1$ maps $\pi'$ onto $\pi$, so the mate fills the far side of $\pi\times T_2$. The same holds for caps on $T_1\times\sigma$, with the roles swapped. This proves (K2).</p>
+<p><b>One component.</b> Take the tiles reachable from one tile through mate relations. Their union $U$ is closed. Every piece of every tile in $U$ is covered from the other side by a tile in $U$. So the topological boundary of $U$ lies in the union of piece boundaries, a locally finite union of sets of codimension 2. A closed set whose boundary has codimension 2 is empty or everything, so $U=\mathbb{E}^{m_1+m_2}$. All relative placements along the way are product isometries, so every tile is placed as $(\varphi,\psi)$ with respect to one common splitting.</p>
+<p><b>Exact product.</b> Across $\pi\times T_2$ faces neighbours share $\psi$; across $T_1\times\sigma$ faces they share $\varphi$. Suppose $(\varphi,\psi)$ has neighbour $(\varphi',\psi)$ across $\pi$ and neighbour $(\varphi,\psi')$ across $\sigma$. The $\pi$-neighbour of $(\varphi,\psi')$ has the form $(\varphi'',\psi')$, and the $\sigma$-neighbour of $(\varphi',\psi)$ has the form $(\varphi',\psi^\ast)$. Now $\varphi'(T_1)$ and $\varphi''(T_1)$ both fill the far side of $\pi$ near $\pi$, and $\psi'(T_2)$ and $\psi^\ast(T_2)$ both fill the far side of $\sigma$. So the tiles $(\varphi'',\psi')$ and $(\varphi',\psi^\ast)$ overlap in interior points, which forces them to be the same tile. Local commutation plus connectivity means every slice $\{y\}$ sees the same $T_1$-arrangement $\mathcal{T}_1$, and likewise for $T_2$. Each slice arrangement is a tiling by $T_1$: every $T_1$-cap is matched by a complementary cap with the same frame, so the capped copies of $T_1$ fit together.</p>
+<p><b>(K3).</b> A product tiling exists. Let $g$ be a symmetry of an exact product tiling. $T_1\bowtie T_2$ has no self-isometry, so $g$ is the placement of one tile composed with the inverse placement of another, which is a product isometry $(g_1,g_2)$. Then $g_1\in\operatorname{Sym}(\mathcal{T}_1)$ and $g_2\in\operatorname{Sym}(\mathcal{T}_2)$ both have finite order, so $g$ does too. <span class="qed">□</span></p>
+</div>
+
+<p>Theorem A follows by induction from the two base cases in Section 3. Homochirality also passes to products: in each factor all placements have the same determinant.</p>
+
+<h2>2. Base cases</h2>
+
+<h3>The keyed Spectre $S$ ($d=2$)</h3>
+<p>Take the equilateral polygon Tile(1,1) and put two caps on each of its 14 edges: key $+1$ at one quarter of the edge and $-1$ at three quarters, measured along the counterclockwise boundary. The $+$ cap's axis points along the boundary direction and the $-$ cap's axis points against it. The caps play the role of the Spectre's curved edges.</p>
+<ul>
+<li>(K2): a $+$ cap at $1/4$ of an edge can only mate with a $-$ cap at $3/4$ of an edge traversed the other way. The cap-pair isometry then maps that whole edge onto ours, reversed. So tilings are edge-to-edge.</li>
+<li>Mixed chirality is excluded. A reflected tile traverses a shared edge in the same direction as its neighbour, which would put $+$ against $+$.</li>
+<li>(K3): a tiling by $S$ is therefore an edge-to-edge tiling by copies of Tile(1,1) under direct isometries, up to one global reflection. Such tilings exist, and all of them are nonperiodic (Smith–Myers–Kaplan–Goodman-Strauss). Adjacent edges align, so tiles take only the 12 orientations at multiples of 30°. A symmetry of infinite order would then have to be a translation or a glide reflection, whose square is a translation, and neither exists.</li>
+</ul>
+
+<h3>The keyed Chair44 $Q$ ($d=3$)</h3>
+<p>Take the seven-cube chair. Put eight caps on each of its 24 unit panels, at the eight points $(\pm\tfrac18,\pm\tfrac14),(\pm\tfrac14,\pm\tfrac18)$ with the panel's frame. Key them by Chair44's twelve signed port classes. The pieces are the panels.</p>
+<ul>
+<li>(K2): a cap's position and frame determine its panel. The panel centre is a fixed offset from the cap centre along the cap's axes. So a mate owns the unit cube across the panel. This is Lemma 3 of the chair-lab note, which also shows that relative frames are proper signed permutations with integer shifts.</li>
+<li>With (K2), the component argument of Lemma 2 shows every tiling is registered on $\mathbb{Z}^3$, with every panel matched by the complementary panel. That is exactly the discrete system with the 44-contact atlas.</li>
+<li>(K3) is Tsiokos's discrete theorem: unique parent, halving identity, no periods, $|\operatorname{Sym}|\le 24$. Its finite parts are Lean-checked in the original release. They are rebuilt independently below from nothing but the eight child frames.</li>
+</ul>
+
+<div class="tablewrap"><table>
+<thead><tr><th>Chair44 certificate</th><th>Tsiokos</th><th>This rebuild (<code>repro_chair44.py</code>)</th></tr></thead>
+<tbody>
+<tr><td>Contacts in the substitution tilings</td><td class="n">30</td><td class="n">30</td></tr>
+<tr><td>Signed port classes</td><td class="n">12</td><td class="n">12</td></tr>
+<tr><td>Legal contacts / geometric candidates</td><td class="n">44 / 1,194</td><td class="n">44 / 1,194</td></tr>
+<tr><td>Candidates with reflections</td><td class="n">2,388 → 44</td><td class="n">2,388 → 44</td></tr>
+<tr><td>Parent contacts: candidates → disjoint → legal</td><td class="n">697 → 116 → 44</td><td class="n">697 → 116 → 44</td></tr>
+<tr><td>Halved parent atlas equals fine atlas</td><td>yes</td><td>yes</td></tr>
+<tr><td>First shells / surviving completion</td><td class="n">33 / 15</td><td class="n">33 / 15, each with a unique parent</td></tr>
+</tbody></table></div>
+
+<h2>3. Why the d-chair does not simply generalize</h2>
+
+<p>Goodman-Strauss notes that the L-tile and its eight-child substitution exist in every dimension. The natural guess is a decorated $d$-chair: $2^d-1$ unit cubes, a notch, bumps on its $d\,2^d$ unit panels, and a choice of child frames. I built a general engine for this family and tested it thoroughly. Its model is the chair-lab/Tsiokos method in any $d$:</p>
+<ol>
+<li>choose child frames $H_c$ for the $2^d$ children;</li>
+<li>close the set of contacts under substitution;</li>
+<li>give each panel an orbit of $|B_{d-1}|=2^{d-1}(d-1)!$ ports and key them by the finest classes the closed contacts allow;</li>
+<li>compute the legal atlas and parent atlas, and check halving and unique parents.</li>
+</ol>
+<p>Any face-local bump or matching-arrow rule obeyed by the substitution tilings is a coarsening of these classes. So if this finest version fails, every face-local decoration of that substitution fails.</p>
+
+<h3>What makes Chair44 work</h3>
+<p>For each exposed cell $w$ of a tile, the <b>virtual pointer</b> is the frame the sibling filling that cell would have if the tile were a supertile centre: $V = G\,H_w$. Pointer contacts identify every outer panel with a notch face, which sorts panels into $d$ groups by the notch axis $j$ of their virtual pointer. Across every face-to-face contact, the two virtual pointers then differ by a fixed rotation $D_j$ that depends only on $j$. I call this <b>VP-consistency</b>. It is what keeps the port classes from collapsing.</p>
+
+<div class="theorem">
+<span class="label">Observation (computed)</span>
+In Chair44 only three relations occur: $D_z$ is swap $x\leftrightarrow y$ with $z\mapsto -z$, and $D_x=D_y^{-1}$ is a quarter turn about $z$. The $z$-group is Flicker's self-matching colour A. The $x,y$ groups form the complementary pair B/C.
+</div>
+
+<p>The child frames then have a short closed form. Let $P_w$ be the "frozen" frame: a 2D-chair rotation or reflection on the $xy$-block together with a sign on $z$. Let $K$ be the 3-cycle $x\to y\to z\to x$. Then</p>
+<p style="text-align:center">$H_w = P_w\,K^{\sin\theta(w)},$</p>
+<p>where $\theta(w)$ is the angle of the $xy$-rotation. The hidden $\mathbb{Z}/3$ pose records a distinguished axis. It is copied along central and anticentral chains and reset at twisted children. Two further facts explain the rest of the proof:</p>
+<ul>
+<li><b>Weak self-similarity holds automatically.</b> Identify each supertile face with the outer faces of the child cell at the supertile's box corner. This leaves all 12 classes intact. Those corner "carrier" faces coincide across every aligned or pointer contact of supertiles, and that is why the parent atlas halves back onto itself.</li>
+<li><b>The abstract maximal rule set is not enough.</b> Using only the 30 substitution contacts as the rule, parents can meet in 44 ways. The bump realization saturates to exactly the self-reproducing set.</li>
+</ul>
+
+<h3>What happens in d = 3, 4, 5</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Experiment</th><th>Result</th><th></th></tr></thead>
+<tbody>
+<tr><td>d = 3, all 6,561 child-frame choices</td><td>6,555 collapse to 4 classes (atlas 186). 3 are a frozen control (atlas 62; parents unconstrained, 398). 3 are Chair44 up to relabelling the hidden pose.</td><td><span class="chip ok">Chair44 unique</span></td></tr>
+<tr><td>d = 3, strong self-similarity imposed</td><td>6,558 collapse to 1 class, 3 to 3 classes</td><td><span class="chip no">collapses</span></td></tr>
+<tr><td>VP equations, d = 3 (exact solver)</td><td>2 solutions up to symmetry: the control and Chair44</td><td><span class="chip ok">matches search</span></td></tr>
+<tr><td>VP equations, d = 4</td><td>9 solutions, all <b>frozen</b>: child frames generate a group of order 16 that acts simply transitively on notch directions (2D×2D block products). Atlas 158; parent contacts unconstrained (3,354).</td><td><span class="chip no">no hidden state</span></td></tr>
+<tr><td>VP equations, d = 5</td><td>36 solutions, all frozen (group order 32)</td><td><span class="chip no">no hidden state</span></td></tr>
+<tr><td>VP equations with reflections, d = 4</td><td>36 solutions: frozen, or forced to flat ports</td><td><span class="chip no">no hidden state</span></td></tr>
+<tr><td>d = 4, random, annealed and contact-minimised child frames</td><td>Non-frozen choices sit on a flat plateau of 8 classes (atlas 1,896). The best contact count found is 83, still with 8 classes and parents unconstrained.</td><td><span class="chip no">degenerate</span></td></tr>
+<tr><td>d = 4, one or two changes from each frozen solution</td><td>Best: 48 classes, group order 32, atlas 316, parent contacts 6,708</td><td><span class="chip no">fails halving</span></td></tr>
+<tr><td>d = 4, Chair44 on three axes plus a passive axis</td><td>Best: 48 classes, atlas 328, parent contacts 7,736</td><td><span class="chip no">fails halving</span></td></tr>
+<tr><td>d = 5, Chair44 frames ⊕ 2D-chair rotations</td><td>576 classes (not degenerate), atlas 670, but 49,161 of 50,218 disjoint parent placements are legal: axes 4 and 5 never mix</td><td><span class="chip no">fails halving</span></td></tr>
+<tr><td>d = 4, mirrored central child</td><td>every port forced flat</td><td><span class="chip no">no rules</span></td></tr>
+<tr><td>4D prism chair (3-chair × interval)</td><td>129 dissections of its double, 128 of which mix the axes. Sampled substitutions have ~19,000 contacts and one port class.</td><td><span class="chip no">collapses</span></td></tr>
+<tr id="alt"><td>d = 4, alternating two substitutions</td><td>Inconclusive. The coupled equations propagate weakly, and the backtracking solver did not finish within the time budget. It found no solutions in the 82 of 117 phase-a branches it completed, but it also failed to recover the known frozen solutions on a control run, so the zero count is not evidence either way.</td><td><span class="chip no">not settled</span></td></tr>
+</tbody></table></div>
+
+<div class="theorem neg">
+<span class="label">Conclusion (computational, not a proof)</span>
+With the standard dissection and unrotated central and anticentral children, the twisted solution of the virtual-pointer equations exists only in $d=3$, where the rotation group factors as $S_4 = D_4\cdot C_3$. In $d=4$ and $5$ every solution is frozen, and the non-frozen substitutions I sampled collapse. So a decorated $d$-chair for $d\ge4$ would need non-face-local features (edge or corner keys that couple three or more tiles), a different dissection, or a different mechanism. Whether one exists is open.
+</div>
+
+<h2>4. What is proved and what is cited</h2>
+<ul>
+<li><b>Proved here:</b> Lemma 2 (keyed products) and the reduction of Theorem A to the two base cases.</li>
+<li><b>Adapted from the chair-lab note (AI-assisted, not externally reviewed):</b> cap rigidity (Lemma 1), (K1), and the panel-ownership step behind (K2) for the chair.</li>
+<li><b>Cited:</b> nonperiodicity of homochiral Tile(1,1) tilings, and existence of edge-to-edge ones (Smith–Myers–Kaplan–Goodman-Strauss). Chair44's discrete unique-hierarchy theorem (Tsiokos; finite checks Lean-verified in the original release and independently recomputed here).</li>
+<li><b>Computational only:</b> everything in Section 3.</li>
+</ul>
+
+<footer>Written with Claude Code. Code, data and conventions: <a href="code/">code/</a> (start with <code>code/README.md</code>).</footer>
+</main>
