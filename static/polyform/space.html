@@ -278,7 +278,7 @@ be surrounded</b>. The depth-2 surround search is exhaustive and finds no such p
 (it exhausts after 23,624 nodes), so the ring cannot tile. Mirror images are allowed throughout, so the result holds
 with or without them. The rotations-only run proves it again independently, with its own candidate list
 (24,049 nodes).</p>
-<p>That search uses Myers's reductions, which assume a tiling. A second search on the raw candidates (no reductions at all), which would pin the Heesch number, is still running. Consistently, no periodic tiling exists with
+<p>That search uses Myers's reductions, which assume a tiling. On the raw candidates (no reductions at all) 1-coronas exist, so its Heesch number is at least 1. A depth-2 search on the raw candidates, which would pin it at exactly 1, ran for 83 minutes without finishing, so that stays open. The non-tiling proof does not depend on it. Consistently, no periodic tiling exists with
 up to 2 orbits or 6 tiles per period, and the whuts solver found none.</p>
 <p class="note">How it was found: branching on the first uncovered cell in scan order ran past 5&#8202;million nodes at
 depth 2 without deciding. Branching on the most-constrained cell instead (the ring's hole alone admits only 4 placements) settles it in
