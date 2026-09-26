@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polyform Tiling in Space</title>
+<style>
+:root {
+  --paper: #faf9f6; --ink: #1f2833; --muted: #5d6b7a; --rule: #d8d5cc;
+  --accent: #33638a; --accent-soft: #e7eef4; --ok: #2e7d4f; --ok-soft: #e4f0e8;
+  --pend: #96690f; --pend-soft: #f5ecd8; --card: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #151a20; --ink: #e6e8ea; --muted: #98a4b0; --rule: #313a44;
+    --accent: #7aaccf; --accent-soft: #1d2b38; --ok: #6fbf8f; --ok-soft: #1c2f24;
+    --pend: #d3a34a; --pend-soft: #33290f; --card: #1b222a;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #151a20; --ink: #e6e8ea; --muted: #98a4b0; --rule: #313a44;
+  --accent: #7aaccf; --accent-soft: #1d2b38; --ok: #6fbf8f; --ok-soft: #1c2f24;
+  --pend: #d3a34a; --pend-soft: #33290f; --card: #1b222a;
+}
+html { background: var(--paper); }
+body { margin: 0; color: var(--ink); background: var(--paper);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  line-height: 1.55; font-size: 17px; }
+main { max-width: 60rem; margin: 0 auto; padding: 2.5rem 16px 5rem; }
+header.masthead { border-bottom: 2px solid var(--ink); padding-bottom: 1.1rem; margin-bottom: 2rem; }
+.masthead h1 { font-size: 1.9rem; margin: 0; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+.masthead .sub { font-family: ui-sans-serif, system-ui, sans-serif; color: var(--muted); font-size: 0.85rem; margin-top: 0.35rem; }
+h2 { font-size: 1.25rem; font-weight: 600; margin: 2.6rem 0 0.4rem; text-wrap: balance; scroll-margin-top: 0.8rem; }
+h2 .stage { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.7rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 0.15rem; }
+p { max-width: 42rem; }
+p.note { color: var(--muted); font-size: 0.92rem; }
+a { color: var(--accent); }
+.status { font-family: ui-sans-serif, system-ui, sans-serif; display: inline-block; padding: 0.1rem 0.55rem;
+  border-radius: 99px; font-size: 0.72rem; letter-spacing: 0.04em; font-weight: 600; vertical-align: 0.12em; }
+.status.ok { background: var(--ok-soft); color: var(--ok); }
+.status.warn { background: var(--pend-soft); color: var(--pend); }
+.tablewrap { overflow-x: auto; margin: 1rem 0 0.4rem; }
+table { border-collapse: collapse; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.86rem;
+  font-variant-numeric: tabular-nums; }
+caption { caption-side: top; text-align: left; font-size: 0.78rem; color: var(--muted); padding-bottom: 0.4rem; }
+th, td { padding: 0.32rem 0.7rem; text-align: right; }
+th { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600;
+  border-bottom: 1.5px solid var(--ink); }
+td { border-bottom: 1px solid var(--rule); }
+th:first-child, td:first-child { text-align: left; }
+td.match { color: var(--ok); font-weight: 600; text-align: center; }
+td.part { color: var(--pend); font-weight: 600; text-align: center; }
+td.miss { color: #b3372f; font-weight: 700; text-align: center; }
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem 1.4rem; margin: 1.2rem 0; }
+figure { margin: 0; background: #fff; border: 1px solid var(--rule); border-radius: 6px; padding: 0.7rem; }
+figure img { width: 100%; height: auto; display: block; max-height: 17rem; object-fit: contain; }
+figcaption { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.78rem; color: #5d6b7a; margin-top: 0.4rem; }
+.method { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 1.1rem 1.4rem; margin-top: 1rem; max-width: 44rem; }
+.method p { font-size: 0.95rem; margin: 0.5rem 0; }
+code { font-family: ui-monospace, Menlo, monospace; font-size: 0.85em; background: var(--accent-soft); padding: 0.05em 0.3em; border-radius: 3px; }
+pre { font-family: ui-monospace, Menlo, monospace; font-size: 0.8rem; background: var(--card); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 0.8rem 1rem; overflow-x: auto; }
+footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-family: ui-sans-serif, system-ui, sans-serif;
+  color: var(--muted); font-size: 0.78rem; }
+</style>
+<main>
+<header class="masthead">
+  <h1>Polyform tiling in three dimensions</h1>
+  <div class="sub">The same classification, one dimension up: polycubes and three other space-filling honeycombs
+    · <a href="index.html">← the plane (validation ledger)</a> · <a href="algorithms.html">how the algorithms work →</a></div>
+</header>
+
+<p>
+The <a href="index.html">plane-tiling engine</a> decides, for every polyform of a size, whether it tiles
+by translations alone, isohedrally, only <i>k</i>-anisohedrally, or not at all. Everything there assumed two
+coordinates. This page is the same pipeline rewritten once for <b>Z<sup>d</sup></b> and run in space:
+on cubes (polycubes) and on the other three lattice honeycombs whose cells are all congruent: rhombic dodecahedra,
+truncated octahedra and hexagonal prisms. 4564 free polycubes up to n&#8202;=&#8202;8 are classified,
+and every tiling reported was re-checked by an independent verifier before it was counted.
+</p>
+<p>
+<b>Headline.</b> Every polycube of up to 7 cells tiles space. That includes the four flat
+heptacubes whose heptominoes cannot tile the plane; one of them, the <b>U-heptacube</b>, has no isohedral
+tiling and needs exactly two orbits of tiles. Among the 3811 octocubes, 2472 tile by
+translation, 1337 isohedrally and 1 only with two orbits. The one remaining octocube, the <b>ring octocube</b> (a 3&#215;3 square annulus), is <b>proved not to tile space</b>, with or without mirror images. That makes it a smallest polycube that cannot tile space: every polycube with fewer cells tiles.
+</p>
+
+<h2 id="engine"><span class="stage">Method</span>One engine for any dimension</h2>
+<div class="method">
+<p><b>Honeycombs from a Gram matrix.</b> A lattice honeycomb is the Voronoi tessellation of a lattice; its cells
+are coded by lattice coordinates, and the Gram matrix is all the geometry there is. The point group (every
+integer <i>M</i> with <i>M</i><sup>T</sup><i>GM</i>&#8202;=&#8202;<i>G</i>), the facet neighbours (Voronoi-relevant vectors)
+and the touching neighbours (via Voronoi vertices computed in exact rationals) are derived, not typed in.
+This yields cubes (48 symmetries, 6 facets, 26 touching cells), rhombic dodecahedra (12 facets, 18 touching), truncated
+octahedra (14 and 14) and hexagonal prisms (24 symmetries, 8 facets, 20 touching), plus squares and hexagons for checking against the plane.</p>
+<p><b>Space groups by exact cover.</b> Because every cell is a lattice point, the honeycomb's symmetry group is
+symmorphic, Z<sup>d</sup>&#8202;&#8906;&#8202;<i>P</i>, and a candidate tiling group is a triple: a subgroup <i>Q</i> of the
+point group (all 98 subgroups of the octahedral group, found by joins because some need three generators),
+a <i>Q</i>-invariant sublattice, and a cocycle <i>Q</i>&#8202;&#8594;&#8202;Z<sup>d</sup>/&#923; modulo coboundaries and
+conjugacy. A <i>k</i>-orbit tiling is an exact cover of the quotient torus by <i>k</i> orbits of placements, exactly as in
+the plane. What is new is scale: an asymmetric octocube needs index-384 sublattices for the full octahedral group, and
+Z<sup>3</sup> has 564&#8202;655 of them. A small C kernel filters invariant ones, and the enumerated groups are shape-independent,
+so they are cached on disk.</p>
+<p><b>Non-tiling proofs</b> are Myers's: candidate neighbours, arc consistency, corona elimination, then a surround search.
+In 3D the surround search can also branch on the most-constrained frontier cell. That is still complete, and on planar
+non-tilers it gives the same verdict in 110 of 110 cases with far fewer nodes.</p>
+<p><b>Verification.</b> Every positive verdict is re-checked by <code>verify_tiling</code>, which ignores groups and covers.
+It takes the placed tiles and the translation lattice and checks that each cell of one complete residue system lies in
+exactly one tile.</p>
+</div>
+
+<h2 id="validation"><span class="stage">Validation</span>Checked against the plane and against OEIS <span class="status ok">class for class</span></h2>
+<p>Run on squares and hexagons, the new engine must reproduce the planar engine, which is itself validated against
+Myers's tables. It does, row by row, including every anisohedral <i>k</i> (Myers's 180° level is folded into
+isohedral, since the 3D hierarchy has no analogue of it). The planar hexagon rows use surround depth 3, as the planar
+engine does.</p>
+<div class="tablewrap"><table>
+<caption>Polyominoes through the 3D engine, against results/square-n.json</caption>
+<tr><th>n</th><th>shapes</th><th>cavity</th><th>lattice</th><th>isohedral</th><th>anisohedral (k)</th><th>non-tiler</th><th>unresolved</th><th>ref</th></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>3</td><td>2</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>4</td><td>5</td><td>0</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>5</td><td>12</td><td>0</td><td>9</td><td>3</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>6</td><td>35</td><td>0</td><td>24</td><td>11</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>7</td><td>108</td><td>1</td><td>41</td><td>63</td><td>0</td><td>3</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>8</td><td>369</td><td>6</td><td>121</td><td>221</td><td>2:1</td><td>20</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>9</td><td>1285</td><td>37</td><td>213</td><td>828</td><td>2:8&ensp;4:1</td><td>198</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>10</td><td>4655</td><td>195</td><td>522</td><td>2504</td><td>2:41&ensp;3:3</td><td>1390</td><td>0</td><td class="match">✓</td></tr>
+</table></div>
+<div class="tablewrap"><table>
+<caption>Polyhexes through the 3D engine, against results/hex-n.json</caption>
+<tr><th>n</th><th>shapes</th><th>cavity</th><th>lattice</th><th>isohedral</th><th>anisohedral (k)</th><th>non-tiler</th><th>unresolved</th><th>ref</th></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>3</td><td>3</td><td>0</td><td>3</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>4</td><td>7</td><td>0</td><td>6</td><td>1</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>5</td><td>22</td><td>0</td><td>12</td><td>10</td><td>0</td><td>0</td><td>0</td><td class="match">✓</td></tr>
+<tr><td>6</td><td>82</td><td>1</td><td>36</td><td>40</td><td>2:1</td><td>3</td><td>1</td><td class="match">✓</td></tr>
+<tr><td>7</td><td>333</td><td>2</td><td>60</td><td>230</td><td>2:3&ensp;3:1</td><td>32</td><td>5</td><td class="match">✓</td></tr>
+</table></div>
+<p class="note">Enumeration: free polycubes 1, 1, 2, 7, 23, 112, 607, 3811
+(= OEIS A038119 ✓); one-sided
+1, 1, 2, 8, 29, 166, 1023, 6922 (= A000162 ✓); fixed polycubes
+and fixed rhombic-dodecahedron animals match A001931 and A039742 (in <code>tests/test_space.py</code>).</p>
+
+<h2 id="polycubes"><span class="stage">Polycubes</span>Free polycubes, reflections allowed <span class="status ok">n ≤ 8</span></h2>
+<div class="tablewrap"><table>
+<caption>Free polycubes: tiling class of every shape (mirror images allowed in the tiling)</caption>
+<tr><th>n</th><th>shapes</th><th>cavity</th><th>lattice</th><th>isohedral</th><th>anisohedral (k)</th><th>non-tiler</th><th>unresolved</th></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>2</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>7</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>23</td><td>0</td><td>20</td><td>3</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>6</td><td>112</td><td>0</td><td>96</td><td>16</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>7</td><td>607</td><td>0</td><td>403</td><td>203</td><td>2:1</td><td>0</td><td>0</td></tr>
+<tr><td>8</td><td>3811</td><td>0</td><td>2472</td><td>1337</td><td>2:1</td><td>1</td><td>0</td></tr>
+</table></div>
+<p>No polycube of up to 7 cells has a sealed cavity or fails to tile. A sealed cavity needs a closed shell
+of cubes around it, which takes far more than eight. The anisohedral column is almost empty: in the plane, 22 of the 369
+octominoes are isohedral but not 180°-tilers, and one needs two orbits. In space, extra room makes tiling easier;
+only 1 heptacube and 1 octocube need more than one orbit.</p>
+
+<div class="figs">
+<figure><img src="figs/space/u-heptacube.svg" alt="The U-heptacube: a flat 5-bar with both ends turned up. The U-heptomino does not tile the plane." loading="lazy"><figcaption>The U-heptacube: a flat 5-bar with both ends turned up. The U-heptomino does not tile the plane.</figcaption></figure>
+<figure><img src="figs/space/u-heptacube-tiling.svg" alt="A verified 2-orbit tiling (colour = orbit). There is no isohedral tiling: every group was tried." loading="lazy"><figcaption>A verified 2-orbit tiling (colour = orbit). There is no isohedral tiling: every group was tried.</figcaption></figure>
+<figure><img src="figs/space/flat7-1.svg" alt="Flat heptacube whose heptomino is a plane non-tiler …" loading="lazy"><figcaption>Flat heptacube whose heptomino is a plane non-tiler …</figcaption></figure>
+<figure><img src="figs/space/flat7-1-tiling.svg" alt="… tiles space isohedrally; the tiling group's point group is a single 3-fold rotation." loading="lazy"><figcaption>… tiles space isohedrally; the tiling group's point group is a single 3-fold rotation.</figcaption></figure>
+<figure><img src="figs/space/flat7-2.svg" alt="The holey heptomino as a slab: in space its hole is a tunnel, not a cavity …" loading="lazy"><figcaption>The holey heptomino as a slab: in space its hole is a tunnel, not a cavity …</figcaption></figure>
+<figure><img src="figs/space/flat7-2-tiling.svg" alt="… and the slab tiles isohedrally." loading="lazy"><figcaption>… and the slab tiles isohedrally.</figcaption></figure>
+<figure><img src="figs/space/flat7-3.svg" alt="The third non-tiling heptomino, as a slab …" loading="lazy"><figcaption>The third non-tiling heptomino, as a slab …</figcaption></figure>
+<figure><img src="figs/space/flat7-3-tiling.svg" alt="… is isohedral in space too." loading="lazy"><figcaption>… is isohedral in space too.</figcaption></figure>
+</div>
+<p class="note">All four flat heptacubes over the four heptominoes that cannot tile the plane tile space, each verified.
+The U-heptacube is the only one of them, and the only heptacube, that needs two orbits.</p>
+<div class="figs">
+<figure><img src="figs/space/k2-octocube.svg" alt="The one octocube with isohedral number 2: the U-heptacube plus a tooth under the middle of the bar." loading="lazy"><figcaption>The one octocube with isohedral number 2: the U-heptacube plus a tooth under the middle of the bar.</figcaption></figure>
+<figure><img src="figs/space/k2-octocube-tiling.svg" alt="A verified 2-orbit tiling, colour = orbit. It is also the octocube needing the most copies per period (6, below)." loading="lazy"><figcaption>A verified 2-orbit tiling, colour = orbit. It is also the octocube needing the most copies per period (6, below).</figcaption></figure>
+</div>
+
+<h2 id="whuts"><span class="stage">Polycubes</span>Tiles per period: an external check on all 3811 octocubes <span class="status ok">exact match</span></h2>
+<p>The <a href="https://github.com/gepa71/whuts-solver">whuts solver</a> reports, for every octocube, the fewest copies in a
+periodic pattern: the least <i>c</i> for which <i>c</i> placed copies and their translates by some lattice partition space.
+That measure differs from the isohedral number (a 1-orbit tiling can need several copies per period, and <i>c</i> copies can
+form several orbits), but it is computable by the same machinery with no group structure at all (<code>tiles_per_period</code>),
+so it gives an independent external check.</p>
+<div class="tablewrap"><table>
+<caption>Octocubes by fewest tiles per translational period, c ≤ 6</caption>
+<tr><th>copies</th><th>ours, rotations</th><th>whuts</th><th></th><th>ours, with mirrors</th></tr>
+<tr><td>1</td><td>2472</td><td>2472</td><td class="match">✓</td><td>2472</td></tr>
+<tr><td>2</td><td>1320</td><td>1320</td><td class="match">✓</td><td>1321</td></tr>
+<tr><td>3</td><td>4</td><td>4</td><td class="match">✓</td><td>3</td></tr>
+<tr><td>4</td><td>13</td><td>13</td><td class="match">✓</td><td>13</td></tr>
+<tr><td>5</td><td>0</td><td>0</td><td class="match">✓</td><td>0</td></tr>
+<tr><td>6</td><td>1</td><td>1</td><td class="match">✓</td><td>1</td></tr>
+<tr><td>none found</td><td>1</td><td>1</td><td class="match">✓</td><td>1</td></tr>
+</table></div>
+<p>With copies placed by rotations only (the whuts convention) the two distributions agree exactly, including the single
+octocube that needs six copies and the ring, for which neither search finds anything. Allowing mirror images changes
+exactly 1 shape:
+<code>[[0,0,0],[0,0,1],[0,0,2],[0,1,1],[0,2,0],[0,2,1],[1,0,1],[1,1,1]]</code> drops from 3 copies to 2,
+by pairing with its reflection.</p>
+
+<h2 id="direct"><span class="stage">Polycubes</span>Rotations only <span class="status ok">one-sided, n ≤ 8</span></h2>
+<p>A physical polycube cannot be turned into its mirror image. Restricting both the shapes and the tiling groups to proper
+rotations (the planar project's "Spectre mode") makes the one-sided polycubes the natural objects. Shapes that need
+more than one orbit or fail to tile, by size: n&#8202;=&#8202;7: 5, n&#8202;=&#8202;8: 8. The record is the tooth octocube above, isohedral number 2 with mirrors, which with rotations alone has no tiling of three orbits and a verified one of <b>4</b>. Banning mirrors doubles its isohedral number.</p>
+<div class="tablewrap"><table>
+<caption>One-sided polycubes: tilings by rotations and translations only</caption>
+<tr><th>n</th><th>shapes</th><th>cavity</th><th>lattice</th><th>isohedral</th><th>anisohedral (k)</th><th>non-tiler</th><th>unresolved</th></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>2</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>8</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>29</td><td>0</td><td>26</td><td>3</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>6</td><td>166</td><td>0</td><td>148</td><td>18</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>7</td><td>1023</td><td>0</td><td>716</td><td>302</td><td>2:5</td><td>0</td><td>0</td></tr>
+<tr><td>8</td><td>6922</td><td>0</td><td>4611</td><td>2303</td><td>2:6&ensp;4:1</td><td>1</td><td>0</td></tr>
+</table></div>
+
+<h2 id="honeycombs"><span class="stage">Other honeycombs</span>Rhombic dodecahedra, truncated octahedra, hexagonal prisms</h2>
+<p>The same code, a different Gram matrix. In brief: every polyform of up to 6 rhombic dodecahedra tiles space; every polyform of up to 6 truncated octahedra tiles space; hexagonal prisms first fail at n&#8202;=&#8202;6 (5 non-tilers).</p>
+<div class="tablewrap"><table>
+<caption>Polyrhons: rhombic dodecahedra (face-centred cubic)</caption>
+<tr><th>n</th><th>shapes</th><th>cavity</th><th>lattice</th><th>isohedral</th><th>anisohedral (k)</th><th>non-tiler</th><th>unresolved</th></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>4</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>20</td><td>0</td><td>19</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>131</td><td>0</td><td>103</td><td>28</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>6</td><td>1211</td><td>0</td><td>928</td><td>281</td><td>2:2</td><td>0</td><td>0</td></tr>
+</table></div><div class="tablewrap"><table>
+<caption>Truncated octahedra (body-centred cubic)</caption>
+<tr><th>n</th><th>shapes</th><th>cavity</th><th>lattice</th><th>isohedral</th><th>anisohedral (k)</th><th>non-tiler</th><th>unresolved</th></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>2</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>6</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>35</td><td>0</td><td>33</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>251</td><td>0</td><td>187</td><td>64</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>6</td><td>2602</td><td>0</td><td>1929</td><td>669</td><td>2:4</td><td>0</td><td>0</td></tr>
+</table></div><div class="tablewrap"><table>
+<caption>Hexagonal prisms</caption>
+<tr><th>n</th><th>shapes</th><th>cavity</th><th>lattice</th><th>isohedral</th><th>anisohedral (k)</th><th>non-tiler</th><th>unresolved</th></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>2</td><td>2</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>3</td><td>5</td><td>0</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>4</td><td>20</td><td>0</td><td>19</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>5</td><td>89</td><td>0</td><td>67</td><td>22</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>6</td><td>569</td><td>0</td><td>443</td><td>120</td><td>2:1</td><td>5</td><td>0</td></tr>
+</table></div>
+<p>The hexagonal prisms carry a built-in check. A prism cannot be laid on its side (the honeycomb's symmetries keep the
+hexagonal axis vertical), so a flat, one-layer shape can only tile layer by layer. It must therefore classify exactly as
+its polyhex does, except that a polyhex's hole becomes a tunnel that nothing can fill. The engine is never told this,
+and the table below comes out as it must. Where the planar run left a hexahex unresolved, the prism run
+proves it a non-tiler (presumably because the layers above and below give the surround search more to contradict). Myers lists it as a non-tiler too.</p>
+<div class="tablewrap"><table>
+<caption>Flat hexagonal-prism shapes against polyhexes (3D engine on both)</caption>
+<tr><th>n</th><th>flat prisms</th><th>polyhexes</th><th>flat prism classes</th><th>polyhex classes (hole → non-tiler)</th><th></th></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>translation 1</td><td>translation 1</td><td class="match">✓</td></tr>
+<tr><td>2</td><td>1</td><td>1</td><td>translation 1</td><td>translation 1</td><td class="match">✓</td></tr>
+<tr><td>3</td><td>3</td><td>3</td><td>translation 3</td><td>translation 3</td><td class="match">✓</td></tr>
+<tr><td>4</td><td>7</td><td>7</td><td>isohedral 1, translation 6</td><td>isohedral 1, translation 6</td><td class="match">✓</td></tr>
+<tr><td>5</td><td>22</td><td>22</td><td>isohedral 10, translation 12</td><td>isohedral 10, translation 12</td><td class="match">✓</td></tr>
+<tr><td>6</td><td>82</td><td>82</td><td>isohedral 40, k=2 1, nontile 5, translation 36</td><td>isohedral 40, k=2 1, nontile 4, translation 36, unresolved 1</td><td class="match">✓ settles more</td></tr>
+</table></div>
+
+<h2 id="ring"><span class="stage">The first non-tiler</span>The ring octocube does not tile space <span class="status ok">proved</span></h2>
+<div class="figs" style="max-width:32rem">
+<figure><img src="figs/space/ring-octocube.svg" alt="The ring octocube: eight cubes around an empty centre." loading="lazy"><figcaption>The ring octocube: eight cubes around an empty centre.</figcaption></figure>
+<figure><img src="figs/space/ring-chain.svg" alt="Its hole can only be filled by a second ring threaded through it; each fills the other's hole." loading="lazy"><figcaption>Its hole can only be filled by a second ring threaded through it; each fills the other's hole.</figcaption></figure>
+</div>
+<p>The 3&#215;3 square annulus is the only polycube with at most eight cells that does not tile space. Its centre is a tunnel,
+not a cavity, so it survives the cheap tests. The centre must be filled by another ring threaded through it at right angles,
+like links of a chain. Every one of the candidate neighbours also survives arc consistency and corona elimination, so no
+single corona is contradictory. The contradiction appears one layer out: <b>the centre and all of its neighbours cannot all
+be surrounded</b>. The depth-2 surround search is exhaustive and finds no such patch
+(it exhausts after 23,624 nodes), so the ring cannot tile. Mirror images are allowed throughout, so the result holds
+with or without them. The rotations-only run proves it again independently, with its own candidate list
+(24,049 nodes).</p>
+<p>That search uses Myers's reductions, which assume a tiling. A second search on the raw candidates (no reductions at all), which would pin the Heesch number, is still running. Consistently, no periodic tiling exists with
+up to 2 orbits or 6 tiles per period, and the whuts solver found none.</p>
+<p class="note">How it was found: branching on the first uncovered cell in scan order ran past 5&#8202;million nodes at
+depth 2 without deciding. Branching on the most-constrained cell instead (the ring's hole alone admits only 4 placements) settles it in
+23,624 nodes.
+The planar non-tilers, where both orders can be run to completion, give identical verdicts under both.</p>
+
+<h2 id="reproduce"><span class="stage">Reproduce</span>Commands</h2>
+<pre>scripts/build_latfast.sh                          # optional C kernel (ctypes)
+.venv/bin/python scripts/run_classify_space.py cube 1 2 3 4 5 6 7 8 --kmax 2
+.venv/bin/python scripts/probe_space.py cube 8 --kmax 2 --depth 3
+.venv/bin/python scripts/run_period_space.py cube 8 --cmax 6
+.venv/bin/python scripts/render_space.py tiling cube out.svg '[[0,0,0],[0,0,1],[0,0,2],[0,0,3],[0,0,4],[0,1,0],[0,1,4]]' 2
+.venv/bin/python scripts/gen_space_page.py        # this page, from results/space/</pre>
+
+<footer>
+Engine: <code>polyform.space</code> (dimension-generic) · page generated from <code>results/space/*.json</code> by
+<code>scripts/gen_space_page.py</code> · references: OEIS A038119, A000162, A001931, A039742; whuts solver (github.com/gepa71/whuts-solver).
+</footer>
+</main>
+</html>
