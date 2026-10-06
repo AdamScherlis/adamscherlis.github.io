@@ -19,6 +19,7 @@ def main():
     ap.add_argument("--root-name", default="Adam")
     ap.add_argument("--root-password", required=True)
     ap.add_argument("--claude", action="store_true")
+    ap.add_argument("--api", help="Game server URL, if the frontend is served from elsewhere.")
     args = ap.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -32,6 +33,8 @@ def main():
             pg = ctx.new_page()
             pg.on("pageerror", lambda e: errors.append(f"pageerror: {e}"))
             pg.on("console", lambda m: m.type == "error" and errors.append(f"console: {m.text}"))
+            if args.api:
+                path += ("&" if "?" in path else "?") + "api=" + args.api
             pg.goto(args.url + "/" + path)
             pg.wait_for_selector("#players li", state="attached")
             return pg
