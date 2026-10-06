@@ -198,3 +198,40 @@ def test_vp_counting(env):
     g.apply_tool("give_items", {"player": "Alice", "item": "Victory Points", "quantity": 2})
     g.apply_tool("give_items", {"player": "Alice", "item": "victory point", "quantity": 1})
     assert g.vp(g.store.player_by_name("Alice")["id"]) == 3
+
+
+def test_claude_sets_action_limits(env):
+    client, app, _ = env
+    root = signup(client, "Adam")
+    app.state.store.set_root(app.state.store.player_by_name("Adam")["id"])
+    alice = signup(client, "Alice")
+    client.post("/api/root/start", headers=root, json={})
+    g = app.state.game
+    from nomic_server.claude import build_snapshot
+    from nomic_server.game import ToolError
+    assert "Spam limits: up to 5 per player per round" in build_snapshot(g, 1)
+
+    for bad in [{}, {"max_actions_per_round": 0}, {"max_actions_per_round": 101},
+                {"max_text_len": 49}, {"max_text_len": "lots"}]:
+        with pytest.raises(ToolError):
+            g.apply_tool("set_action_limits", bad)
+    assert g.state["settings"]["max_actions_per_round"] == 5   # nothing half-applied
+
+    g.apply_tool("set_action_limits", {"max_actions_per_round": 1, "max_text_len": 60})
+    s = state(client)
+    assert s["state"]["settings"]["max_actions_per_round"] == 1
+    assert s["state"]["settings"]["max_text_len"] == 60
+    assert s["log"][-1]["text"] == ("Claude set the limits to 1 Action per player per round "
+                                    "and 60 characters per Action.")
+    assert "Spam limits: up to 1 per player per round" in build_snapshot(g, 1)
+
+    r = client.post("/api/act", headers=alice, json={"action": "Propose Rule", "text": "x" * 61})
+    assert r.status_code == 400 and "60 characters" in r.json()["error"]
+    assert client.post("/api/act", headers=alice,
+                       json={"action": "Propose Rule", "text": "short"}).status_code == 200
+    r = client.post("/api/act", headers=alice, json={"action": "Propose Rule", "text": "again"})
+    assert r.status_code == 400 and "all 1 of your" in r.json()["error"]
+
+    g.apply_tool("set_action_limits", {"max_text_len": 2000})   # one field at a time
+    assert g.state["settings"]["max_actions_per_round"] == 1
+    assert g.state["settings"]["max_text_len"] == 2000

@@ -7,7 +7,8 @@ import time
 
 import anthropic
 
-from .game import ToolError, fmt_duration, fmt_items
+from .game import (ACTIONS_PER_ROUND_BOUNDS, TEXT_LEN_BOUNDS, ToolError, fmt_duration,
+                   fmt_items)
 
 MAX_API_CALLS = 30
 
@@ -22,7 +23,8 @@ big screen at a live event, players act from their phones, and everyone reads th
 <text>" to the Log; it has no automatic effect. Effects happen only when you implement them.
 - During the Claude Phase (now), you may use your tools to edit the Constitution (add, amend, \
 repeal Rules), edit players' Inventories (give or take Items), edit the available Actions, change \
-the duration of the Player Phase, and append messages to the Log. Every change you make is \
+the duration of the Player Phase, change the spam limits (how many Actions each player may take \
+per round, and how long Action text may be), and append messages to the Log. Every change you make is \
 recorded in the Log automatically. You cannot delete Log entries, add or remove players, or \
 change anything else.
 - Items are named things in Inventories, such as "Victory Point". Reuse existing item names \
@@ -90,6 +92,16 @@ TOOLS = [
     _tool("set_player_phase_duration",
           "Set how long each Player Phase lasts, starting with the next one.",
           {"seconds": {"type": "integer", "minimum": 10, "maximum": 604800}}, ["seconds"]),
+    _tool("set_action_limits",
+          "Set the spam limits: how many Actions each player may take per round (all Actions "
+          "combined, on top of any per-Action limits) and/or the maximum length of Action text. "
+          "Omit a field to leave it unchanged. Takes effect immediately.",
+          {"max_actions_per_round": {"type": "integer", "minimum": ACTIONS_PER_ROUND_BOUNDS[0],
+                                     "maximum": ACTIONS_PER_ROUND_BOUNDS[1]},
+           "max_text_len": {"type": "integer", "minimum": TEXT_LEN_BOUNDS[0],
+                            "maximum": TEXT_LEN_BOUNDS[1],
+                            "description": "Maximum characters of text per Action."}},
+          []),
     _tool("post_to_log", "Append a message from you to the Log (announcements, rulings, flavor).",
           {"message": {"type": "string"}}, ["message"]),
 ]
@@ -110,6 +122,8 @@ def build_snapshot(game, round_no):
         f"# Game state at the start of the Claude Phase of Round {round_no}",
         f"Current time: {time.strftime('%A %Y-%m-%d %H:%M %Z')}",
         f"Player Phase duration: {fmt_duration(s['player_phase_seconds'])}",
+        f"Spam limits: up to {s['settings']['max_actions_per_round']} per player per round "
+        f"(all Actions combined), {s['settings']['max_text_len']} characters per Action",
         "",
         "## Constitution",
     ]

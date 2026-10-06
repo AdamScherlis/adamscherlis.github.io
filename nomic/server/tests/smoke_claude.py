@@ -24,7 +24,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--key-file", default="~/nomic_key")
     ap.add_argument("--model", default="claude-opus-5-5")
+    ap.add_argument("--propose", action="append", metavar="NAME:TEXT",
+                    help="Replace the default proposals (NAME is Alice, Bob, or Carol).")
     args = ap.parse_args()
+    proposals = [tuple(p.split(":", 1)) for p in args.propose] if args.propose else PROPOSALS
     key = Path(args.key_file).expanduser().read_text().strip()
     with tempfile.TemporaryDirectory() as d:
         app = create_app(data_dir=d, api_key=key)
@@ -36,7 +39,7 @@ def main():
             app.state.store.set_root(app.state.store.player_by_name("Adam")["id"])
             c.post("/api/root/settings", headers=tokens["Adam"], json={"model": args.model})
             c.post("/api/root/start", headers=tokens["Adam"], json={})
-            for name, text in PROPOSALS:
+            for name, text in proposals:
                 r = c.post("/api/act", headers=tokens[name],
                            json={"action": "Propose Rule", "text": text})
                 assert r.status_code == 200, r.text
@@ -60,6 +63,9 @@ def main():
             for p in s["state"]["players"]:
                 print(p["name"], p["inventory"])
             print("\n== Actions ==", [a["name"] for a in s["state"]["actions"]])
+            st = s["state"]["settings"]
+            print("== Limits ==", st["max_actions_per_round"], "actions/round,",
+                  st["max_text_len"], "chars")
 
 
 if __name__ == "__main__":

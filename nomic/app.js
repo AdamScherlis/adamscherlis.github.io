@@ -34,7 +34,8 @@ let clockOffset = 0;    // server clock minus client clock, seconds
 let pollAbort = null;
 let immediate = true;
 let prevRules = null;
-let settingsFilled = false;
+let settingsBase = null;   // server values the settings form was last filled with
+let settingsDirty = false; // root has edited the form since then
 let lastClaudeKey = null;
 
 // ---------------------------------------------------------------- API
@@ -387,16 +388,19 @@ function renderRoot() {
   };
   for (const b of document.querySelectorAll('[data-root]')) b.hidden = !show[b.dataset.root];
 
+  // Claude can change some of these too, so keep the form in sync with the
+  // server unless root is in the middle of editing it.
   const form = $('settings-form');
-  if (!settingsFilled && rootInfo) {
-    fillSelect(form.model, rootInfo.models, S.settings.model);
-    fillSelect(form.effort, rootInfo.efforts, S.settings.effort);
-    form.player_phase_seconds.value = S.player_phase_seconds;
-    for (const k of ['max_actions_per_round', 'max_text_len', 'claude_timeout_s', 'log_context_entries']) {
-      form[k].value = S.settings[k];
+  const current = currentSettings();
+  if (rootInfo && !settingsDirty && JSON.stringify(current) !== JSON.stringify(settingsBase)) {
+    if (!form.model.options.length) {
+      fillSelect(form.model, rootInfo.models, current.model);
+      fillSelect(form.effort, rootInfo.efforts, current.effort);
     }
-    form.skip_idle.checked = S.settings.skip_idle;
-    settingsFilled = true;
+    for (const [k, v] of Object.entries(current)) {
+      if (k === 'skip_idle') form[k].checked = v; else form[k].value = v;
+    }
+    settingsBase = current;
   }
   if (rootInfo) {
     const u = rootInfo.usage;
@@ -408,6 +412,16 @@ function renderRoot() {
       `tokens (${cr.toLocaleString()} cached), ${out.toLocaleString()} output tokens ` +
       `≈ $${cost.toFixed(2)} at Opus 5.5 prices.`;
   }
+}
+
+const NUMERIC_SETTINGS = ['player_phase_seconds', 'max_actions_per_round', 'max_text_len',
+                          'claude_timeout_s', 'log_context_entries'];
+
+function currentSettings() {
+  const out = { model: S.settings.model, effort: S.settings.effort, skip_idle: S.settings.skip_idle,
+                player_phase_seconds: S.player_phase_seconds };
+  for (const k of NUMERIC_SETTINGS.slice(1)) out[k] = S.settings[k];
+  return out;
 }
 
 function fillSelect(sel, options, value) {
@@ -531,13 +545,19 @@ function wire() {
     e.preventDefault();
     if (await rootCmd('announce', { text: $('announce-text').value })) $('announce-text').value = '';
   };
+  $('settings-form').addEventListener('input', () => { settingsDirty = true; });
   $('settings-form').onsubmit = async (e) => {
     e.preventDefault();
     const f = e.target;
-    const body = { model: f.model.value, effort: f.effort.value, skip_idle: f.skip_idle.checked };
-    for (const k of ['player_phase_seconds', 'max_actions_per_round', 'max_text_len',
-                     'claude_timeout_s', 'log_context_entries']) body[k] = Number(f[k].value);
-    if (await rootCmd('settings', body)) settingsFilled = false;
+    const values = { model: f.model.value, effort: f.effort.value, skip_idle: f.skip_idle.checked };
+    for (const k of NUMERIC_SETTINGS) values[k] = Number(f[k].value);
+    // Send only what root changed, so a stale form can't undo Claude's edits.
+    const body = {};
+    for (const [k, v] of Object.entries(values)) if (!settingsBase || v !== settingsBase[k]) body[k] = v;
+    if (!Object.keys(body).length || await rootCmd('settings', body)) {
+      settingsDirty = false;
+      settingsBase = null;   // refill from the server on the next render
+    }
   };
   $('reset-btn').onclick = async () => {
     if (!confirm('Reset the game? The Constitution, Log, Actions and Inventories go back to the ' +

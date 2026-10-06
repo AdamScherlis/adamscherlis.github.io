@@ -61,13 +61,14 @@ grants them.
 ## How a round works
 
 1. **Player Phase** (default 1 minute): players press Action buttons; each adds
-   "`<player> did <Action>: <text>`" to the Log. Infrastructure limits (root can
-   change them): 5 Actions per player per round, 1000 characters each.
+   "`<player> did <Action>: <text>`" to the Log. Spam limits (Claude and root can
+   both change them, within 1–100 Actions and 50–10,000 characters): 5 Actions per
+   player per round, 1000 characters each.
 2. **Claude Phase**: the server sends Claude (default `claude-opus-5-5`, effort
    `medium`) the Constitution, players and inventories, Actions, and the Log
    (this round in full, plus the previous 200 entries), and runs a tool loop.
-   Claude's tools edit the Constitution, Inventories, Actions, and Player Phase
-   duration, and post to the Log; every edit is logged automatically and shows
+   Claude's tools edit the Constitution, Inventories, Actions, Player Phase
+   duration, and spam limits, and post to the Log; every edit is logged automatically and shows
    up live. Claude's summarized reasoning streams to the "Claude's notes" panel.
 3. Next round.
 
@@ -97,3 +98,4 @@ and moves on to the next round.
 - `tests/test_game.py` — API tests with a scripted Claude (`uv run pytest`)
 - `tests/smoke_claude.py` — one real Claude Phase (costs cents)
 - `tests/ui_check.py` — drives the UI in headless Chrome and saves screenshots
+- `tests/ui_settings_check.py` — root Settings form stays in sync with Claude's edits

@@ -36,8 +36,8 @@ DEFAULT_SETTINGS = {
     # If a Player Phase ends with no player actions, restart its timer instead
     # of running a (paid, log-cluttering) Claude Phase. Root can turn this off.
     "skip_idle": True,
-    # Infrastructure guard rails (root-adjustable), on top of anything the
-    # Constitution or per-Action limits say.
+    # Spam limits, on top of any per-Action limits. Claude and root can change
+    # them (within the bounds below).
     "max_actions_per_round": 5,
     "max_text_len": 1000,
     "claude_timeout_s": 600,
@@ -46,6 +46,8 @@ DEFAULT_SETTINGS = {
 
 DEFAULT_PLAYER_PHASE_SECONDS = 60
 MIN_PHASE_SECONDS, MAX_PHASE_SECONDS = 10, 7 * 24 * 3600
+ACTIONS_PER_ROUND_BOUNDS = (1, 100)
+TEXT_LEN_BOUNDS = (50, 10000)
 MODELS = ["claude-opus-5-5", "claude-sonnet-5-5", "claude-fable-5-1", "claude-haiku-4-5"]
 EFFORTS = ["low", "medium", "high", "xhigh", "max"]
 
@@ -310,7 +312,8 @@ class Game:
             st["effort"] = changes["effort"]
         if "skip_idle" in changes:
             st["skip_idle"] = bool(changes["skip_idle"])
-        for key, lo, hi in [("max_actions_per_round", 1, 100), ("max_text_len", 50, 10000),
+        for key, lo, hi in [("max_actions_per_round", *ACTIONS_PER_ROUND_BOUNDS),
+                            ("max_text_len", *TEXT_LEN_BOUNDS),
                             ("claude_timeout_s", 30, 3600), ("log_context_entries", 0, 2000)]:
             if key in changes:
                 v = int(changes[key])
@@ -648,6 +651,31 @@ class Game:
             raise ToolError(f"seconds must be between {MIN_PHASE_SECONDS} and {MAX_PHASE_SECONDS}.")
         self.state["player_phase_seconds"] = sec
         return self._change(f"Claude set the Player Phase duration to {fmt_duration(sec)}.")
+
+    def tool_set_action_limits(self, max_actions_per_round=None, max_text_len=None):
+        if max_actions_per_round is None and max_text_len is None:
+            raise ToolError("Give max_actions_per_round and/or max_text_len.")
+        new = {}
+        for key, value, (lo, hi) in [("max_actions_per_round", max_actions_per_round,
+                                      ACTIONS_PER_ROUND_BOUNDS),
+                                     ("max_text_len", max_text_len, TEXT_LEN_BOUNDS)]:
+            if value is None:
+                continue
+            try:
+                v = int(value)
+            except (TypeError, ValueError):
+                raise ToolError(f"{key} must be an integer.")
+            if not lo <= v <= hi:
+                raise ToolError(f"{key} must be between {lo} and {hi}.")
+            new[key] = v
+        self.state["settings"].update(new)
+        bits = []
+        if "max_actions_per_round" in new:
+            n = new["max_actions_per_round"]
+            bits.append(f"{n} Action{'s' if n != 1 else ''} per player per round")
+        if "max_text_len" in new:
+            bits.append(f"{new['max_text_len']} characters per Action")
+        return self._change(f"Claude set the limits to {' and '.join(bits)}.")
 
     def tool_post_to_log(self, message):
         message = self._text(message, "message", 2000)
