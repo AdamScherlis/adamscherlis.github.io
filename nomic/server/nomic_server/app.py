@@ -217,6 +217,10 @@ def create_app(data_dir=None, api_key=None, claude_runner=None):
     async def index():
         return FileResponse(FRONTEND_DIR / "index.html")
 
+    @app.get("/backend.json")
+    async def backend_json():
+        return {"api": None}  # served from the game server itself: use the same origin
+
     @app.get("/{name}")
     async def frontend(name: str):
         if name not in FRONTEND_FILES:

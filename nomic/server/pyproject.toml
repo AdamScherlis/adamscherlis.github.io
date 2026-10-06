@@ -10,7 +10,11 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["httpx", "pytest"]
+dev = [
+    "httpx",
+    "playwright>=1.63.0",
+    "pytest",
+]
 
 [tool.uv]
 package = false

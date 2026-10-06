@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constitutional Promptocracy</title>
+<meta name="description" content="A Claude-powered Nomic: propose rules, persuade the AI, win Victory Points.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%93%9C%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand">
+    <h1>Constitutional Promptocracy</h1>
+    <span class="tagline">a Claude-powered Nomic</span>
+  </div>
+  <div id="phase" class="phase" aria-live="polite">
+    <span id="phase-round"></span>
+    <span id="phase-name">Connecting…</span>
+    <span id="phase-timer" class="timer"></span>
+  </div>
+  <div id="account" class="account"></div>
+</header>
+
+<div id="banner" class="banner" hidden></div>
+
+<nav id="tabs" class="tabs" aria-label="Sections">
+  <button data-tab="play" class="active">Play</button>
+  <button data-tab="log">Log</button>
+  <button data-tab="constitution">Constitution</button>
+  <button data-tab="players">Players</button>
+</nav>
+
+<main id="grid">
+  <div class="col col-left">
+    <section id="panel-play" class="panel" data-panel="play">
+      <div id="auth" hidden>
+        <h2>Join the game</h2>
+        <form id="auth-form" autocomplete="on">
+          <label>Name <input id="auth-name" name="username" maxlength="24" autocomplete="username" required></label>
+          <label>Password <input id="auth-pw" name="password" type="password" autocomplete="current-password" required></label>
+          <div class="row">
+            <button type="submit" data-mode="signup" class="primary">Sign up</button>
+            <button type="submit" data-mode="login">Log in</button>
+          </div>
+          <p id="auth-error" class="error" role="alert"></p>
+          <p class="hint">Pick any name and password. You can watch without an account.</p>
+        </form>
+      </div>
+      <div id="you" hidden>
+        <h2>Your Actions <span id="actions-used" class="muted small"></span></h2>
+        <div id="actions"></div>
+        <h2>Your Inventory</h2>
+        <ul id="my-inventory" class="items"></ul>
+      </div>
+      <div id="root" hidden>
+        <h2>Root controls</h2>
+        <div class="row wrap" id="root-buttons">
+          <button data-root="start" class="primary">Start game</button>
+          <button data-root="pause">Pause</button>
+          <button data-root="resume" class="primary">Resume</button>
+          <button data-root="end_phase">End Player Phase now</button>
+          <button data-root="abort_claude">Cut Claude Phase short</button>
+        </div>
+        <form id="announce-form" class="row">
+          <input id="announce-text" placeholder="Announcement for the Log…" maxlength="2000">
+          <button type="submit">Announce</button>
+        </form>
+        <details id="root-settings">
+          <summary>Settings</summary>
+          <form id="settings-form" class="settings">
+            <label>Player Phase (seconds) <input name="player_phase_seconds" type="number" min="10" max="604800"></label>
+            <label>Model <select name="model"></select></label>
+            <label>Effort <select name="effort"></select></label>
+            <label>Max actions per player per round <input name="max_actions_per_round" type="number" min="1" max="100"></label>
+            <label>Max action text length <input name="max_text_len" type="number" min="50" max="10000"></label>
+            <label>Claude Phase timeout (seconds) <input name="claude_timeout_s" type="number" min="30" max="3600"></label>
+            <label>Log entries shown to Claude <input name="log_context_entries" type="number" min="0" max="2000"></label>
+            <label class="check"><input name="skip_idle" type="checkbox"> Skip Claude Phase when nobody acted (restart the timer instead)</label>
+            <div class="row"><button type="submit" class="primary">Save settings</button></div>
+          </form>
+          <p id="root-usage" class="muted small"></p>
+          <div class="row"><button id="reset-btn" class="danger">Reset game…</button></div>
+        </details>
+        <p id="root-error" class="error" role="alert"></p>
+      </div>
+    </section>
+
+    <section id="panel-players" class="panel" data-panel="players">
+      <h2>Scoreboard</h2>
+      <ol id="players" class="players"></ol>
+      <div id="join-qr" class="join" hidden>
+        <div id="qr"></div>
+        <p>Join at <strong id="join-url"></strong></p>
+      </div>
+    </section>
+  </div>
+
+  <div class="col col-mid">
+    <section id="panel-claude" class="panel claude-panel" data-panel="log" hidden>
+      <details id="claude-details">
+        <summary><span id="claude-title">Claude</span></summary>
+        <div id="claude-notes" class="notes"></div>
+      </details>
+    </section>
+    <section id="panel-log" class="panel" data-panel="log">
+      <h2>Log</h2>
+      <button id="log-older" class="link" hidden>Load older entries</button>
+      <ol id="log" class="log"></ol>
+      <button id="log-jump" class="jump" hidden>↓ New entries</button>
+    </section>
+  </div>
+
+  <div class="col col-right">
+    <section id="panel-constitution" class="panel constitution" data-panel="constitution">
+      <h2>The Constitution</h2>
+      <ol id="rules" class="rules"></ol>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <a href="?view=projector">Projector view</a> ·
+  <a href="./">Player view</a> ·
+  <a href="../">adam.scherl.is</a>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
