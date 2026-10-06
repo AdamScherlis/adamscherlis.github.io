@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Start the game server and its public tunnel as systemd user services.
 # They keep running after this shell exits (but not across reboots or logouts).
+# NOMIC_PUBLISH=0 ./start.sh skips publishing the tunnel URL to backend.json on GitHub.
 set -euo pipefail
 cd "$(dirname "$0")"
 PORT="${NOMIC_PORT:-8787}"
@@ -17,6 +18,7 @@ fi
 systemd-run --user --unit=nomic-server --collect -p Restart=on-failure -p RestartSec=3 \
     --working-directory="$PWD" -- "$UV" run python -m nomic_server serve --port "$PORT"
 systemd-run --user --unit=nomic-tunnel --collect -p Restart=on-failure -p RestartSec=5 \
-    --working-directory="$PWD" -- "$UV" run python tunnel.py --port "$PORT"
+    --working-directory="$PWD" -- "$UV" run python tunnel.py --port "$PORT" \
+    $([ "${NOMIC_PUBLISH:-1}" = 0 ] && echo --no-publish)
 
 echo "Started. Check on it with ./status.sh; stop with ./stop.sh"

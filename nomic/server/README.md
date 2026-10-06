@@ -27,6 +27,8 @@ default branch via the GitHub API (using `gh`) whenever it changes, i.e. every
 time cloudflared restarts. Pages takes a minute or two to pick that up; open
 pages re-read `backend.json` when they lose the server, so they recover on
 their own. Pull before pushing other changes, since these commits land on the remote.
+`NOMIC_PUBLISH=0 ./start.sh` skips publishing; the game is then reachable at the
+tunnel URL itself (the server serves the frontend too) or via `?api=<tunnel URL>`.
 
 Things that stop the game: the laptop sleeping, losing network, or logging out.
 
