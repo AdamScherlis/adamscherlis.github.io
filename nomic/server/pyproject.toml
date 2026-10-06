@@ -1,0 +1,16 @@
+[project]
+name = "nomic-server"
+version = "0.1.0"
+description = "Backend for Constitutional Promptocracy, a Claude-powered Nomic"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic",
+    "fastapi",
+    "uvicorn[standard]",
+]
+
+[dependency-groups]
+dev = ["httpx", "pytest"]
+
+[tool.uv]
+package = false
