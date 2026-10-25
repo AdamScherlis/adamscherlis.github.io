@@ -33,7 +33,7 @@ In other words, grapefruit juice, which in ideal circumstances remains outside y
 
 This seems pretty important! But I'm not sure how to square it with the papers they survey; if most drugs get through the gut without interacting much with CYP3A, I don't see why *any* quantity of GFJ should be expected to have these kinds of effects. They say that "[t]he number of drugs where GFJ causes a strong degree of CYP3A inhibition (AUC ratio ≥ 5) is quite small", but 5 seems like quite a high bar to me.
 
-They end up concluding that "\[f\]or the majority of patients, complete avoidance of grapefruit juice is unwarranted", but I'm not sure I believe them.
+They end up concluding that "[f]or the majority of patients, complete avoidance of grapefruit juice is unwarranted", but I'm not sure I believe them.
 
 I'm pretty confused about this!
 
