@@ -13,6 +13,8 @@ phones / projector ──► adam.scherl.is/nomic (GitHub Pages, static)
                                                                     └─ Claude API (key: ~/nomic_key)
 ```
 
+Moving to another machine? See `HANDOFF.md` for what lives outside the repo.
+
 ## Running it
 
 ```bash
