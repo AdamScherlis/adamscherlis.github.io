@@ -28,6 +28,30 @@ how to bring the game up somewhere else.
 | Python env | `nomic/server/.venv` | No | `uv sync` recreates it. |
 | Side worktree | `~/personal/adamscherlis.github.io.nomic` (branch `nomic`) | No | Same commit as `master`; nothing unique in it. |
 
+### Moving the playtest game
+
+On the old machine, the playtest game was exported (with the server stopped) to
+`nomic/server/data/export/nomic-data-2026-11-05.tar.gz`. It holds a consistent
+single-file `nomic.sqlite` (no `-wal`/`-shm` needed) and `root_password.txt`.
+
+Move it **privately**: scp, a USB stick, a private cloud folder, or a *separate
+private* repo. Don't put it on any branch of the site repo. Every branch of a
+public repo is public, and the database contains player names, password hashes
+and session-token hashes, and `root_password.txt` is plain text.
+
+On the new machine, after cloning:
+
+```bash
+cd ~/personal/adamscherlis.github.io/nomic/server
+mkdir -p data
+tar -xzf /path/to/nomic-data-2026-11-05.tar.gz -C data/
+chmod 600 data/root_password.txt
+sqlite3 -readonly data/nomic.sqlite "pragma integrity_check; select count(*) from players;"   # ok, 3
+```
+
+Then continue with the bring-up below, and skip `make-root`, since the root account
+`Adam` comes with the data. Players' existing logins stay valid.
+
 ## Machine prerequisites
 
 - **Linux with a systemd user session**: `start.sh` uses `systemd-run --user`.
@@ -54,7 +78,7 @@ cd ~/personal/adamscherlis.github.io/nomic/server
 # put the API key at ~/nomic_key, and the data/ files here if you're keeping the old game
 uv sync
 uv run pytest -q tests                                   # 7 tests, no API calls
-uv run python -m nomic_server make-root Adam             # only for a fresh data/; prints a password
+uv run python -m nomic_server make-root Adam             # only for a fresh data/ (skip if you restored the export)
 ./start.sh
 ./status.sh                                              # shows the tunnel URL, then "Published ..."
 ```
