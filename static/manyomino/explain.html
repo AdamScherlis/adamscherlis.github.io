@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manyomino</title>
+<meta name="description" content="Uniformly random polyominoes with a million cells, and the Markov chain that makes them.">
+<style>
+/* Layout: a single reading column with figures that break out to the full wrap; every
+   polyomino sits on the same dark "plate" in both themes, charts sit on the page panel. */
+:root{
+  --ground:#F6F7FA; --panel:#FFFFFF; --ink:#15171D; --mut:#666C7E;
+  --rule:#DDE1EA; --rule2:#EDF0F6; --acc:#3B5BF0; --accw:#EEF1FE;
+  --s1:#2a78d6;   /* relocate + transplant (the new chain) */
+  --s2:#eb6834;   /* relocate only (the old chain) */
+  --s3:#1baf7a;   /* reference values */
+  --plate:#0D0F16; --plate-ink:#E9EBF2; --plate-mut:#9AA0B2; --plate-rule:#262A36;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--ground:#0E1014; --panel:#15181F; --ink:#E9EBF2; --mut:#9AA0B2;
+    --rule:#252932; --rule2:#1B1F27; --acc:#7D93FF; --accw:#161B2E;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; color-scheme:dark}
+}
+:root[data-theme="dark"]{--ground:#0E1014; --panel:#15181F; --ink:#E9EBF2; --mut:#9AA0B2;
+    --rule:#252932; --rule2:#1B1F27; --acc:#7D93FF; --accw:#161B2E;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:17px/1.65 var(--sans)}
+a{color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+code,.mono{font-family:var(--mono)}
+code{font-size:.9em;background:color-mix(in srgb,var(--ink) 7%,transparent);padding:.1em .35em;border-radius:4px}
+sup,sub{line-height:0}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.measure{max-width:35rem;margin-inline:auto}
+.measure p{margin:0 0 1.05em}
+.scroll{overflow-x:auto}
+
+header.hero{padding-block:3.6rem 1.6rem}
+.eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 1rem}
+.eyebrow a{color:inherit}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,5.4vw,3.5rem);line-height:1.06;
+  margin:0 0 1rem;letter-spacing:-.02em;text-wrap:balance;max-width:20ch}
+h1 sup{font-size:.5em;vertical-align:.95em;letter-spacing:0}
+.standfirst{font-size:1.14rem;color:var(--mut);max-width:41rem;margin:0}
+.standfirst b{color:var(--ink);font-weight:600}
+
+section{margin:0 0 4.2rem}
+h2{font-family:var(--serif);font-weight:600;font-size:1.72rem;line-height:1.15;letter-spacing:-.015em;
+  margin:0 0 .25rem;text-wrap:balance}
+h2 + .kicker{color:var(--mut);font-size:.95rem;margin:0 0 1.5rem}
+h3{font-size:1.02rem;margin:2rem 0 .5rem}
+hr.keyline{border:0;border-top:1px solid var(--rule);margin:0 0 3.6rem}
+
+figure{margin:2.2rem 0}
+figcaption{font-size:.87rem;color:var(--mut);margin-top:.7rem;max-width:40rem;line-height:1.5}
+figcaption b{color:var(--ink);font-weight:600}
+
+/* --- the plate: every polyomino is drawn on this, in both themes */
+.plate{background:var(--plate);border-radius:12px;border:1px solid var(--plate-rule);overflow:hidden;position:relative}
+.viewer canvas{display:block;width:100%;height:min(68vh,640px);min-height:340px;touch-action:pan-y;cursor:grab}
+.viewer.active canvas{touch-action:none}
+.viewer.active canvas:active{cursor:grabbing}
+.viewer .bar{position:absolute;right:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.viewer .hint{position:absolute;left:14px;top:14px;font:12px var(--mono);color:var(--plate-mut);pointer-events:none}
+@media (max-width:640px){.viewer .hint{top:auto;bottom:40px}}
+.viewer.active .hint .idle{display:none}
+.viewer:not(.active) .hint .live{display:none}
+.viewer .readout{position:absolute;right:14px;bottom:12px;font:11px var(--mono);color:var(--plate-mut);pointer-events:none}
+.pbtn{font:600 13px var(--sans);color:var(--plate-ink);background:#1B1F2B;border:1px solid #343A4B;border-radius:8px;
+  padding:.38rem .7rem;cursor:pointer;min-width:2.2rem}
+.pbtn:hover{background:#262B3A}
+.pbtn[aria-pressed="true"]{background:#2C3350;border-color:#5B6BB8}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font:13px var(--mono);color:var(--plate-mut)}
+
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}
+.ladder .plate img,.strip .plate img{display:block;width:100%;height:auto}
+.ladder p{margin:.45rem 0 0;font-size:.82rem;color:var(--mut)}
+.ladder p b{color:var(--ink);font-family:var(--mono);font-weight:600}
+@media (max-width:720px){.ladder{grid-template-columns:repeat(2,1fr)}}
+.strip{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}
+.strip p{margin:.45rem 0 0;font-size:.82rem;color:var(--mut)}
+@media (max-width:560px){.strip{grid-template-columns:1fr}}
+
+/* --- facts row */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:2.2rem 0}
+.facts > div{padding:1rem .9rem 1rem 0;min-width:0}
+.facts > div + div{border-left:1px solid var(--rule);padding-left:.9rem}
+.facts .v{font:600 1.7rem/1.1 var(--serif);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.facts .l{font-size:.82rem;color:var(--mut);margin-top:.3rem;line-height:1.35}
+@media (max-width:720px){.facts{grid-template-columns:repeat(2,1fr)}
+  .facts > div:nth-child(3){border-left:0;padding-left:0}
+  .facts > div:nth-child(n+3){border-top:1px solid var(--rule)}}
+
+.claim{border-left:3px solid var(--acc);background:var(--accw);padding:.9rem 1.1rem;border-radius:0 8px 8px 0;margin:1.4rem 0}
+.claim p{margin:0}
+.claim p + p{margin-top:.5em;font-size:.95rem;color:var(--mut)}
+
+/* --- move diagrams */
+.moves{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.moves .panel{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:.9rem;min-width:0}
+.moves svg{display:block;width:100%;height:auto}
+.moves .cap{font-size:.84rem;color:var(--mut);margin:.5rem 0 0}
+.moves .cap b{color:var(--ink)}
+@media (max-width:640px){.moves{grid-template-columns:1fr}}
+.cell{fill:color-mix(in srgb,var(--ink) 22%,var(--panel));stroke:var(--panel);stroke-width:1.5}
+.cell.b{fill:var(--s1)} .cell.c{fill:var(--ink)} .cell.gone{fill:none;stroke:var(--mut);stroke-dasharray:3 3;stroke-width:1.2}
+.dgl{font:italic 600 13px var(--serif);fill:var(--panel)}
+.arrow{fill:none;stroke:var(--mut);stroke-width:1.5}
+
+/* --- live race */
+.race{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.race .lane{min-width:0}
+.race canvas{display:block;width:100%;aspect-ratio:1/1}
+.race .tag{display:flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:600;margin:0 0 .45rem}
+.race .tag i{width:10px;height:10px;border-radius:50%;flex:none}
+.race .stat{font:12px var(--mono);color:var(--mut);margin:.45rem 0 0;font-variant-numeric:tabular-nums}
+.race .stat b{color:var(--ink);font-weight:600}
+@media (max-width:560px){.race{grid-template-columns:1fr}}
+.controls{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin:.9rem 0 .2rem;font-size:.9rem;color:var(--mut)}
+.btn{font:600 .9rem var(--sans);color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:.42rem .9rem;cursor:pointer}
+.btn:hover{border-color:var(--mut)}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0E1014}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#0E1014}}
+.controls label{display:flex;align-items:center;gap:.5rem}
+.controls input[type=range]{width:9rem;accent-color:var(--acc)}
+
+/* --- charts */
+.chart{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:1rem 1rem .6rem}
+.chart h3{margin:0 0 .1rem;font-size:1rem}
+.chart .sub{margin:0 0 .6rem;font-size:.85rem;color:var(--mut)}
+.plot{position:relative}
+.plot svg{display:block;max-width:100%}
+.plot .grid{stroke:var(--rule2);stroke-width:1}
+.plot .axis{stroke:var(--rule);stroke-width:1}
+.plot .tick{font:11px var(--sans);fill:var(--mut);font-variant-numeric:tabular-nums}
+.plot .alabel{font:12px var(--sans);fill:var(--mut)}
+.plot .dlabel{font:600 12px var(--sans);fill:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1.1rem;font-size:.84rem;color:var(--mut);margin:0 0 .4rem}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.tip{position:absolute;z-index:2;pointer-events:none;background:var(--ink);color:var(--ground);font-size:12px;line-height:1.4;
+  padding:.4rem .6rem;border-radius:6px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tableview{margin-top:.5rem;font-size:.84rem;color:var(--mut)}
+.tableview summary{cursor:pointer;width:max-content}
+table{border-collapse:collapse;font-size:.86rem;font-variant-numeric:tabular-nums;margin:.6rem 0}
+th,td{text-align:right;padding:.3rem .8rem;border-bottom:1px solid var(--rule2);white-space:nowrap}
+th{font-weight:600;color:var(--mut);border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;padding-left:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.two > *{min-width:0}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+
+ul.checks{list-style:none;padding:0;margin:1.2rem 0}
+ul.checks li{padding:.75rem 0;border-top:1px solid var(--rule)}
+ul.checks li:last-child{border-bottom:1px solid var(--rule)}
+ul.checks b{display:block}
+ul.checks span{color:var(--mut);font-size:.93rem}
+.refs{font-size:.86rem;color:var(--mut)}
+.refs li{margin:.35rem 0}
+footer{color:var(--mut);font-size:.85rem;border-top:1px solid var(--rule);margin-top:1rem;padding-block:1.2rem 3rem}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+
+.eqn{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;font-family:var(--serif);font-size:1.15rem}
+.frac{display:inline-flex;flex-direction:column;align-items:center;line-height:1.25}
+.frac > span:first-child{border-bottom:1px solid currentColor;padding:0 .35rem .1rem}
+.frac > span:last-child{padding:.1rem .35rem 0}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="wrap">
+  <p class="eyebrow">Random geometry &middot; Markov chain Monte Carlo &middot; <a href="index.html">older gallery &rarr;</a></p>
+  <h1>One polyomino out of 10<sup>623,406</sup></h1>
+  <p class="standfirst">Join <b>1,024,000</b> unit squares edge to edge. There are about
+  10<sup>623,406</sup> ways to do it. The shape below is one of them, drawn so that every one
+  of those ways was equally likely. It comes from a random walk on shapes, and most of this
+  page is about making that walk fast enough to believe.</p>
+</div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <figure style="margin-top:0">
+    <div class="plate viewer" id="hero">
+      <canvas aria-label="Zoomable picture of a uniformly random polyomino with 1,024,000 cells"></canvas>
+      <div class="loading" id="hero-loading">decoding 1,024,000 cells&hellip;</div>
+      <div class="hint"><span class="idle">click or pinch to explore</span><span class="live">drag to pan &middot; scroll to zoom &middot; Esc to release</span></div>
+      <div class="bar">
+        <button class="pbtn" data-goto="tip" id="hero-tip">Fly to a tip</button>
+        <button class="pbtn" data-zoom="in" id="hero-in" aria-label="Zoom in">+</button>
+        <button class="pbtn" data-zoom="out" id="hero-out" aria-label="Zoom out">&minus;</button>
+        <button class="pbtn" data-zoom="fit" id="hero-fit">Whole shape</button>
+      </div>
+      <div class="readout" data-readout></div>
+    </div>
+    <figcaption>A uniformly random fixed polyomino with <b>1,024,000 cells</b>. Colour is
+    distance through the shape from its middle cell (gold) to the farthest tips (blue): the
+    longest route across it runs 59,067 steps, though the whole thing fits in a
+    6,134&thinsp;&times;&thinsp;12,105 box. Zoom far enough and you reach the individual
+    squares.</figcaption>
+  </figure>
+</section>
+
+<section class="measure">
+  <h2>The typical polyomino is a twig</h2>
+  <p class="kicker">What &ldquo;uniformly at random&rdquo; picks, and why it is never a blob.</p>
+  <p>A polyomino is a set of squares on the grid that hang together along shared edges.
+  Count two as different if they differ by a rotation or reflection (these are <em>fixed</em>
+  polyominoes) and there are 19 with four cells, 63 with five, 2,725 with eight. The count keeps
+  multiplying by about four per added cell: it grows like
+  <span class="mono">0.317&nbsp;&times;&nbsp;&lambda;<sup>n</sup>&thinsp;/&thinsp;n</span>
+  with &lambda;&nbsp;&asymp;&nbsp;4.0626, a number known as Klarner&rsquo;s constant that nobody
+  has a formula for.</p>
+  <p>The polyominoes people draw are solid: rectangles, chunky tetris pieces. Those are a
+  vanishing minority. A solid shape has few ways to rearrange itself, while a thin branching
+  one has enormously many, so when every shape gets equal weight the thin branching ones win
+  almost every draw.</p>
+</section>
+
+<section>
+  <div class="facts">
+    <div><div class="v">70.6%</div><div class="l">of cells are load-bearing: remove one and the shape falls into pieces</div></div>
+    <div><div class="v">16.9%</div><div class="l">are dead ends, touching exactly one other cell</div></div>
+    <div><div class="v">1.195</div><div class="l">empty squares border the shape, per cell</div></div>
+    <div><div class="v">1 in 43</div><div class="l">cells&rsquo; worth of shape, on average, per enclosed hole</div></div>
+  </div>
+  <figure>
+    <div class="ladder">
+      <div><div class="plate"><img src="explain/ladder0.png" alt="uniform random polyomino with 250 cells" loading="lazy" width="520" height="520"></div><p><b>250</b> cells</p></div>
+<div><div class="plate"><img src="explain/ladder1.png" alt="uniform random polyomino with 4,000 cells" loading="lazy" width="520" height="520"></div><p><b>4,000</b> cells</p></div>
+<div><div class="plate"><img src="explain/ladder2.png" alt="uniform random polyomino with 64,000 cells" loading="lazy" width="520" height="520"></div><p><b>64,000</b> cells</p></div>
+<div><div class="plate"><img src="explain/ladder3.png" alt="uniform random polyomino with 1,024,000 cells" loading="lazy" width="520" height="520"></div><p><b>1,024,000</b> cells</p></div>
+
+    </div>
+    <figcaption>Four independent uniform samples, each with 16 times the cells of the one
+    before and each scaled to fill its frame. Without the labels you could not put them in
+    order. The radius grows like <b>n<sup>0.64</sup></b>, so the shape is a fractal of dimension
+    about 1.56: physicists know it as a <em>lattice animal</em>, in the same universality
+    class as branched polymers.</figcaption>
+  </figure>
+</section>
+
+<hr class="keyline">
+
+<section class="measure">
+  <h2>A random walk on shapes</h2>
+  <p class="kicker">How to sample from a set far too large to list.</p>
+  <p>You cannot enumerate 10<sup>623,406</sup> shapes and pick one. You also cannot simply
+  grow a shape cell by cell: every natural growth rule favours some shapes over others, and
+  the favourites are blobs. The standard answer is to start from <em>any</em> polyomino and
+  change it a little at random, over and over, using a rule whose long-run behaviour is known
+  to be uniform.</p>
+  <p>The simplest such rule moves one cell at a time. Pick a cell and a place on the boundary
+  of the shape. If taking the cell away leaves the rest in one piece, move it there.
+  Otherwise do nothing.</p>
+  <div class="claim">
+    <p><b>If every move is exactly as likely as its reverse, the walk spends equal time on every shape.</b></p>
+    <p>Moving a cell from <i>c</i> to <i>s</i> and moving it back from <i>s</i> to <i>c</i> both
+    start from the same leftover shape, so they are offered with the same probability. The
+    walk can also reach every polyomino from every other. Together those two facts make the
+    uniform distribution its only resting state.</p>
+  </div>
+  <p>This is the chain behind the <a href="index.html">gallery</a> this project started
+  with. It is correct. The question is how long it takes.</p>
+</section>
+
+<section>
+  <div class="moves">
+    <div class="panel"><div id="dg-relocate"></div>
+      <p class="cap"><b>Relocate.</b> One cell (dashed) moves to an empty square beside the shape. The dark cell
+      could not be chosen: it is load-bearing.</p></div>
+    <div class="panel"><div id="dg-transplant"></div>
+      <p class="cap"><b>Transplant.</b> A whole branch is cut at a load-bearing cell <i>c</i>, turned over, and
+      re-attached at another cell <i>c&prime;</i>, provided it fits there touching nothing else.</p></div>
+  </div>
+</section>
+
+<section class="measure">
+  <h2>The one-cell walk has a long memory</h2>
+  <p class="kicker">Measuring how slowly the one-cell walk forgets.</p>
+  <p>A sample is only as good as the walk&rsquo;s memory is short. The usual yardstick is the
+  autocorrelation time &tau;: the number of moves after which some property of the shape,
+  here its squared radius of gyration, has stopped resembling its earlier self. A run of
+  length <i>T</i> is worth about <i>T</i>&thinsp;/&thinsp;2&tau; independent samples and no more.</p>
+  <p>I measured &tau; for the one-cell walk on runs hundreds to thousands of &tau; long, at
+  sizes from 50 to 1,600 cells. It grows like
+  <b>n<sup>2.6</sup></b>. There is a simple reason it must be at least quadratic. Each move
+  carries one cell from a random place to a random place, so the mass of any large limb does
+  an unbiased random walk, one cell at a time. Shifting a limb&rsquo;s mass by its own size
+  <i>m</i> takes about <i>m</i>&sup2; of its own steps, and it only gets a share <i>m/n</i> of the
+  moves: <i>m&thinsp;n</i> moves in all, which is <i>n</i>&sup2; for the limbs that set the overall
+  shape. The measured exponent is higher still.</p>
+  <p>Extended to 1,024,000 cells that law gives &tau;&nbsp;&asymp;&nbsp;10<sup>14</sup>
+  moves. Even at a million moves a second, which is generous at that size, that is
+  about 24 years of computing for each independent sample.</p>
+</section>
+
+<section>
+  <div class="two">
+    <div class="chart"><h3>Moves needed to forget the shape</h3>
+      <p class="sub">Autocorrelation time of the squared radius, in moves, against size. Dashed lines extend each fit.</p>
+      <div id="ch-tau"></div></div>
+    <div class="chart"><h3>Starting from a solid square of 30,000 cells</h3>
+      <p class="sub">Radius of gyration against moves made, both walks from the same start.</p>
+      <div id="ch-square"></div></div>
+  </div>
+  <figure>
+    <div class="strip">
+      <div><div class="plate"><img src="explain/square_old.png" alt="30,000-cell polyomino after 67,600,000 moves: one cell at a time" loading="lazy" width="640" height="640"></div><p>One cell at a time &middot; radius 136</p></div>
+<div><div class="plate"><img src="explain/square_new.png" alt="30,000-cell polyomino after 67,600,000 moves: with branch transplants" loading="lazy" width="640" height="640"></div><p>With branch transplants &middot; radius 433</p></div>
+
+    </div>
+    <figcaption>The same 30,000-cell square after the same 6.8&thinsp;&times;&thinsp;10<sup>7</sup> moves under each walk.
+    The one-cell walk has frayed the square into something that looks random up close and is
+    still a third of its proper size. Local texture equilibrates in a few moves per cell.
+    Overall shape is what takes n<sup>2.6</sup>.</figcaption>
+  </figure>
+</section>
+
+<section class="measure">
+  <h2>Move a branch, not a cell</h2>
+  <p class="kicker">A second kind of move that changes the overall shape in one step.</p>
+  <p>Seven cells in ten are load-bearing, which is what makes the one-cell walk slow: most
+  cells cannot move. It is also an opportunity. Remove a load-bearing cell and a whole branch
+  comes loose. So pick the branch up, rotate or reflect it at random, and try to plug it in
+  at a randomly chosen cell somewhere else. If it lands on empty ground and touches the rest
+  of the shape only at its new anchor, keep it. Otherwise put it back.</p>
+  <p>The &ldquo;touches only at its anchor&rdquo; condition is what keeps the move honest. It
+  guarantees that in the new shape the branch is again exactly what comes loose when its
+  anchor is removed, so the reverse transplant exists and is proposed with the same
+  probability. Equal forward and backward odds, uniform resting state, as before. Mixing the
+  two kinds of move keeps both properties, and the one-cell moves still do the work
+  transplants cannot, such as opening and closing loops.</p>
+  <p>Cut-and-paste moves of this kind are standard for lattice <em>trees</em>, where Janse van
+  Rensburg and Madras introduced them in 1992. Here the shape may contain loops and the cells
+  have no explicit bonds, which is why the contact condition is needed.</p>
+</section>
+
+<section>
+  <figure>
+    <div class="race" id="race">
+      <div class="lane"><p class="tag"><i style="background:var(--s2)"></i>One cell at a time</p>
+        <div class="plate"><canvas id="race-a" aria-label="Live polyomino evolving by single-cell moves"></canvas></div>
+        <p class="stat" id="race-a-stat">&nbsp;</p></div>
+      <div class="lane"><p class="tag"><i style="background:var(--s1)"></i>With branch transplants</p>
+        <div class="plate"><canvas id="race-b" aria-label="Live polyomino evolving by single-cell moves and branch transplants"></canvas></div>
+        <p class="stat" id="race-b-stat">&nbsp;</p></div>
+    </div>
+    <div class="controls">
+      <button class="btn primary" id="race-run">Run</button>
+      <button class="btn" id="race-reset">Start over</button>
+      <label for="race-speed">Speed <input type="range" id="race-speed" min="3" max="6.5" step="0.1" value="4.5"> <span class="mono" id="race-speed-out"></span></label>
+    </div>
+    <div class="chart" style="margin-top:.8rem"><h3>Radius of gyration as the two walks run</h3>
+      <p class="sub">Both started from the same 25&thinsp;&times;&thinsp;40 rectangle of 1,000 cells. The green band is where a uniform sample sits two times in three.</p>
+      <div class="legend"><span><svg width="22" height="10" aria-hidden="true"><line x1="1" y1="5" x2="21" y2="5" stroke="var(--s2)" stroke-width="2"/></svg>one cell at a time</span><span><svg width="22" height="10" aria-hidden="true"><line x1="1" y1="5" x2="21" y2="5" stroke="var(--s1)" stroke-width="2"/></svg>with transplants</span></div>
+      <div class="plot" id="race-trace"></div></div>
+    <figcaption>Both walks run live in your browser at the same number of moves per second.
+    With transplants the rectangle is gone after roughly 100,000 moves, a hundred per cell, and
+    the shape keeps reinventing itself; branches flash white as they are moved. The one-cell
+    walk needs several million moves to get there, and several million more for each fresh shape.</figcaption>
+  </figure>
+</section>
+
+<section class="measure">
+  <p>With transplants in the mix the autocorrelation time drops to about
+  <b>15 moves per cell</b>, growing like n<sup>1.0</sup> over almost four
+  decades of size. The perimeter, the number of holes and the elongation of the shape all
+  relax at the same rate or faster. A walk cannot do much better than that: it has to touch
+  every cell at least once.</p>
+  <h3>Making a transplant cheap</h3>
+  <p>A move that picks up half the shape sounds expensive, and done naively it is: finding
+  the branch means flood-filling it. But most proposed transplants fail, and usually fail
+  within a few cells of the anchor, because the branch&rsquo;s root lands on something. So the
+  sampler floods the branch and the neighbourhood of the new anchor in lockstep, places each
+  branch cell as it is discovered, and stops the moment a collision with something
+  <em>proven</em> to be outside the branch appears. The decision is the same one the naive
+  version would reach; the two implementations produce bit-identical runs from the same seed.
+  With that, the cost of a move grows only like n<sup>0.53</sup>, nearly all of it spent on the large branches that do get moved.</p>
+  <p>Put together, one independent sample costs about n<sup>1.4</sup> of computing:
+  <b>about 10 minutes</b> on one core at 1,024,000 cells.</p>
+</section>
+
+<hr class="keyline">
+
+<section class="measure">
+  <h2>What the samples say</h2>
+  <p class="kicker">Two measurements with known answers, and a comparison.</p>
+  <p>A sampler like this earns trust by reproducing numbers obtained in entirely different
+  ways. Here are two that are known to high precision, and one comparison with this
+  project&rsquo;s earlier runs.</p>
+  <h3>The size exponent</h3>
+  <p>The radius of gyration should grow as n<sup>&nu;</sup>. The best published estimate,
+  from a different algorithm on shapes up to a few thousand cells, is
+  &nu;&nbsp;=&nbsp;0.6412&nbsp;&plusmn;&nbsp;0.0005. A straight-line fit to the sizes from
+  4,000 cells up gives <b>&nu;&nbsp;=&nbsp;0.6402&nbsp;&plusmn;&nbsp;0.0014</b>.</p>
+</section>
+
+<section>
+  <div class="two">
+    <div class="chart"><h3>Radius against size</h3>
+      <p class="sub">Mean radius of gyration, in cells. Error bars are smaller than the dots.</p>
+      <div id="ch-rg"></div></div>
+    <div class="chart"><h3>The same data with the power law divided out</h3>
+      <p class="sub">Mean radius &divide; n<sup>0.6412</sup>. A flat line means the exponent is right.</p>
+      <div id="ch-resid"></div></div>
+  </div>
+</section>
+
+<section class="measure">
+  <p>The orange points are the sizes published in the earlier gallery, which used the one-cell
+  walk alone. They scatter around the new curve: 5 of the 9 lie within 3% of it, and the furthest is 9% off. The radius of a single uniform sample varies by about 13% from one shape to the next, so scatter of that size is what a handful of effectively independent shapes per size would give.</p>
+  <h3>Klarner&rsquo;s constant, by counting removable cells</h3>
+  <p>Take any polyomino with n cells and add a cell on its boundary: you get one with n+1.
+  Take one with n+1 and remove a cell that is not load-bearing: you get one with n. Those
+  are the same set of pairs, counted from either end, so</p>
+  <div class="claim">
+    <p class="eqn"><span class="frac"><span>A(n+1)</span><span>A(n)</span></span> <span>=</span>
+      <span class="frac"><span>average number of empty squares bordering an n-cell shape</span><span>average number of removable cells in an (n+1)-cell shape</span></span></p>
+    <p>where A(n) is the number of polyominoes with n cells and both averages are over uniform samples.</p>
+  </div>
+  <p>The left side tends to &lambda;. So the growth rate of a count that is known exactly only for
+  a few dozen sizes can be read off two local statistics of a big sample. It is also a severe
+  test: a sampler with any bias towards thin or fat shapes gets it wrong. Series analysis of
+  exact counts gives &lambda;&nbsp;=&nbsp;4.0625696. Pooling the sizes from 1,000 cells up,
+  with one extra-long run at 2,000 cells, the samples give <b>&lambda;&nbsp;=&nbsp;4.0619&nbsp;&plusmn;&nbsp;0.0006</b>.</p>
+</section>
+
+<section>
+  <div class="chart"><h3>Growth constant estimated at each size</h3>
+    <p class="sub">&lang;boundary&rang;&thinsp;/&thinsp;&lang;removable&rang;, corrected for the known 1/n factor in A(n). The green line is the accepted value 4.0625696.</p>
+    <div id="ch-lam"></div></div>
+</section>
+
+<section class="measure">
+  <h2>What is and is not established</h2>
+  <ul class="checks">
+    <li><b>Exactly uniform on small shapes.</b><span>For every size up to 9 cells the walk visits
+    all of the fixed polyominoes (9,910 of them at n&nbsp;=&nbsp;9) with frequencies that pass a
+    chi-square test against uniform, for each kind of move and for the mixture. Its averages
+    of perimeter, removable cells and squared radius at n&nbsp;=&nbsp;9 match exact enumeration to
+    five parts in 100,000.</span></li>
+    <li><b>Every move can be undone.</b><span>A self-test replays the reverse of each accepted move
+    and checks that it is accepted and restores the shape. Across four million relocations and
+    half a million transplants, at sizes from 60 to 64,000 cells, it never failed.</span></li>
+    <li><b>The fast implementation is the slow one.</b><span>The lockstep transplant and a short
+    reference version make identical decisions: same seed, same trajectory, bit for bit, at
+    30, 300 and 3,000 cells.</span></li>
+    <li><b>Independent runs agree.</b><span>Two ladders of runs from different seeds were carried through 7 sizes. Their mean squared radii differ by 0.4 standard errors on average and 1.0 at worst.</span></li>
+    <li><b>How the big ones start.</b><span>Each size starts from a finished shape a quarter as
+    large, scaled up 2&times;, and then runs on. The scaled-up shape has the right overall form
+    but is made of 2&times;2 blocks; that fine structure takes about 40 moves per cell to decay,
+    so the first 300 moves per cell of every run (and never less than a fifth of it) are thrown away.</span></li>
+    <li><b>Not established: a proof of fast mixing.</b><span>The n<sup>1.0</sup> law is a
+    measurement of one observable&rsquo;s autocorrelation, fitted over the sizes shown. Nothing
+    rules out some other property of the shape relaxing more slowly, and the largest size
+    rests on about 39 autocorrelation times of running after burn-in, across two chains.</span></li>
+  </ul>
+  <p>Code, validation scripts and the data behind every chart are in
+  <a href="https://github.com/AdamScherlis/manyomino">AdamScherlis/manyomino</a>.</p>
+  <ul class="refs">
+    <li>E. J. Janse van Rensburg and N. Madras, &ldquo;A nonlocal Monte Carlo algorithm for lattice trees,&rdquo; <i>J. Phys. A</i> 25 (1992).</li>
+    <li>H.-P. Hsu, W. Nadler and P. Grassberger, &ldquo;Simulations of lattice animals and trees,&rdquo; <i>J. Phys. A</i> 38 (2005), for &nu;.</li>
+    <li>I. Jensen, &ldquo;Counting polyominoes: a parallel implementation for cluster computing,&rdquo; <i>ICCS 2003</i>, for &lambda;.</li>
+  </ul>
+</section>
+
+<footer>Sampled and measured November 2026. Every figure on this page is computed from the runs in the repository.</footer>
+</div>
+
+<script>
+const DATA = {"lambda_ref":4.0625696,"kappa":0.29431892645563296,"burn_n":300.0,"dedicated":{"n":2000,"samples":2000000.0,"lam":4.061902266931726,"lam_err":0.0007274267009043639,"rg2":3221.67295212,"rg2_err":3.38378717,"perim":2394.505622,"noncut":589.5039375},"sizes":[{"n":125,"chains":1,"neff":32483.27,"rg2":90.94833,"rg2_err":0.1657397,"rg":9.456225,"rg_err":0.008379025,"asph":0.3760596,"asph_err":0.00112789,"perim":153.7571,"perim_err":0.03418165,"noncut":37.87794,"noncut_err":0.023434,"holes":2.617601,"holes_err":0.007642362,"cycles":8.915558,"cycles_err":0.009558235,"leaves":22.53811,"leaves_err":0.006829046,"deg1":22.53811,"deg1_err":0.006829046,"deg2":67.52118,"deg2_err":0.01714063,"deg3":31.5122,"deg3_err":0.01266753,"deg4":3.42851,"deg4_err":0.006158723,"tau_rg2":1816.552,"tau_rg2_err":35.76635,"tau_perim":1536.736,"tau_perim_err":27.66599,"tau_noncut":975.2865,"tau_noncut_err":14.12378,"tau_asph":1371.399,"tau_asph_err":23.19166,"tau_holes":798.6595,"tau_holes_err":10.46177,"burn_n":236028.0,"sec_per_move":2.711522e-07,"rg2_sd":24.60212,"rg_sd":1.236171,"moves":147518600.0,"chain_rg2":[[90.9483289949158,0.16573971481732358]],"batches":20,"ratio":4.028017,"ratio_err":0.003169345,"lam":4.060242,"lam_err":0.0031947},{"n":250,"chains":2,"neff":25867.65,"rg2":222.5092,"rg2_err":0.3723219,"rg":14.78808,"rg_err":0.01193372,"asph":0.3715972,"asph_err":0.001140186,"perim":303.1958,"perim_err":0.05650396,"noncut":74.66512,"noncut_err":0.04187597,"holes":5.497489,"holes_err":0.01177643,"cycles":18.02228,"cycles_err":0.01694037,"leaves":43.68107,"leaves_err":0.01649773,"deg1":43.68107,"deg1_err":0.01649773,"deg2":135.5628,"deg2_err":0.04634889,"deg3":63.78672,"deg3_err":0.02734886,"deg4":6.969457,"deg4_err":0.01058975,"tau_rg2":3903.634,"tau_rg2_err":85.77194,"tau_perim":3558.665,"tau_perim_err":74.50207,"tau_noncut":2172.412,"tau_noncut_err":35.56585,"tau_asph":2742.304,"tau_asph_err":50.70474,"tau_holes":1775.748,"tau_holes_err":26.54312,"burn_n":100975.5,"sec_per_move":3.169039e-07,"rg2_sd":60.83392,"rg_sd":1.954939,"moves":252442500.0,"chain_rg2":[[222.55846116144363,0.5103578104893041],[222.4599505052006,0.5553262267318383]],"batches":40,"ratio":4.04486,"ratio_err":0.00286133,"lam":4.06104,"lam_err":0.002872776},{"n":500,"chains":1,"neff":5483.636,"rg2":543.302,"rg2_err":2.954378,"rg":23.1105,"rg_err":0.06083903,"asph":0.3710088,"asph_err":0.003097847,"perim":601.921,"perim_err":0.1999579,"noncut":148.0719,"noncut_err":0.1734438,"holes":11.22455,"holes_err":0.03341177,"cycles":36.2191,"cycles_err":0.05949494,"leaves":85.93969,"leaves_err":0.04761422,"deg1":85.93969,"deg1_err":0.04761422,"deg2":271.68,"deg2_err":0.1124677,"deg3":128.3826,"deg3_err":0.07821064,"deg4":13.99762,"deg4_err":0.02600783,"tau_rg2":7654.501,"tau_rg2_err":363.1951,"tau_perim":7938.798,"tau_perim_err":382.617,"tau_noncut":4983.85,"tau_noncut_err":190.7698,"tau_asph":5534.434,"tau_asph_err":226.8167,"tau_holes":3952.25,"tau_holes_err":135.7232,"burn_n":41973.0,"sec_per_move":5.717798e-07,"rg2_sd":147.836,"rg_sd":3.034115,"moves":104935500.0,"chain_rg2":[[543.3019743388134,2.9543780050386093]],"batches":20,"ratio":4.057119,"ratio_err":0.005747713,"lam":4.065234,"lam_err":0.005759209},{"n":1000,"chains":2,"neff":6154.451,"rg2":1323.777,"rg2_err":4.130521,"rg":36.06994,"rg_err":0.0564964,"asph":0.3683577,"asph_err":0.002291585,"perim":1199.379,"perim_err":0.2232031,"noncut":295.4129,"noncut_err":0.1475912,"holes":22.83624,"holes_err":0.04525235,"cycles":72.68332,"cycles_err":0.06788369,"leaves":170.682,"leaves_err":0.06138336,"deg1":170.682,"deg1_err":0.06138336,"deg2":543.4708,"deg2_err":0.141528,"deg3":257.6458,"deg3_err":0.1044286,"deg4":28.2014,"deg4_err":0.03003841,"tau_rg2":14505.14,"tau_rg2_err":651.8291,"tau_perim":16280.33,"tau_perim_err":774.5239,"tau_noncut":9554.339,"tau_noncut_err":351.0596,"tau_asph":10910.26,"tau_asph_err":429.5097,"tau_holes":8078.804,"tau_holes_err":273.6854,"burn_n":22306.5,"sec_per_move":7.174067e-07,"rg2_sd":361.7174,"rg_sd":4.76748,"moves":223068000.0,"chain_rg2":[[1324.1985089017735,6.195139790883643],[1323.366092833444,5.6400859012525055]],"batches":40,"ratio":4.056019,"ratio_err":0.00266255,"lam":4.060075,"lam_err":0.002665213},{"n":2000,"chains":1,"neff":2487.497,"rg2":3249.986,"rg2_err":14.20809,"rg":56.50188,"rg_err":0.1216698,"asph":0.3758789,"asph_err":0.003190208,"perim":2394.277,"perim_err":0.3227511,"noncut":589.4941,"noncut_err":0.3230317,"holes":45.85974,"holes_err":0.09174672,"cycles":145.6085,"cycles_err":0.1438585,"leaves":339.8522,"leaves_err":0.1496516,"deg1":339.8522,"deg1_err":0.1496516,"deg2":1087.719,"deg2_err":0.3651019,"deg3":515.7877,"deg3_err":0.2475269,"deg4":56.64083,"deg4_err":0.06050407,"tau_rg2":30109.79,"tau_rg2_err":2139.038,"tau_perim":36859.83,"tau_perim_err":2857.094,"tau_noncut":21146.09,"tau_noncut_err":1269.629,"tau_asph":21047.92,"tau_asph_err":1263.735,"tau_holes":17348.43,"tau_holes_err":944.4989,"burn_n":18723.0,"sec_per_move":8.545091e-07,"rg2_sd":908.1376,"rg_sd":7.586149,"moves":187242000.0,"chain_rg2":[[3249.986179487179,14.208091849992622]],"batches":20,"ratio":4.059578,"ratio_err":0.002533472,"lam":4.06188,"lam_err":0.0006992034,"lam_ladder":4.061608,"lam_ladder_err":0.002534739},{"n":4000,"chains":2,"neff":3788.811,"rg2":7853.604,"rg2_err":34.48511,"rg":87.85774,"rg_err":0.1921528,"asph":0.3694976,"asph_err":0.003551842,"perim":4784.492,"perim_err":0.8288561,"noncut":1178.417,"noncut_err":0.4494625,"holes":92.00231,"holes_err":0.1289268,"cycles":291.3502,"cycles_err":0.2142674,"leaves":678.1885,"leaves_err":0.1643455,"deg1":678.1885,"deg1_err":0.1643455,"deg2":2176.255,"deg2_err":0.516433,"deg3":1032.224,"deg3_err":0.3313164,"deg4":113.3322,"deg4_err":0.1122011,"tau_rg2":57541.4,"tau_rg2_err":3309.952,"tau_perim":73283.72,"tau_perim_err":4709.857,"tau_noncut":39403.03,"tau_noncut_err":1895.876,"tau_asph":40094.47,"tau_asph_err":1931.479,"tau_holes":33718.29,"tau_holes_err":1504.379,"burn_n":13617.0,"sec_per_move":1.101563e-06,"rg2_sd":2146.99,"rg_sd":11.60099,"moves":544764000.0,"chain_rg2":[[7853.796797327394,52.64407830148968],[7853.416051799346,46.08355546643742]],"batches":40,"ratio":4.059118,"ratio_err":0.002164382,"lam":4.060133,"lam_err":0.002164923},{"n":8000,"chains":1,"neff":953.4905,"rg2":19185.7,"rg2_err":200.0763,"rg":137.2851,"rg_err":0.7015913,"asph":0.3701807,"asph_err":0.005071769,"perim":9562.078,"perim_err":1.608474,"noncut":2354.61,"noncut_err":1.243865,"holes":184.7149,"holes_err":0.3504053,"cycles":582.6606,"cycles_err":0.562351,"leaves":1354.627,"leaves_err":0.4615877,"deg1":1354.627,"deg1_err":0.4615877,"deg2":4353.79,"deg2_err":1.135355,"deg3":2065.219,"deg3_err":0.8375755,"deg4":226.3645,"deg4_err":0.294928,"tau_rg2":109404.3,"tau_rg2_err":12528.59,"tau_perim":135915.7,"tau_perim_err":17124.76,"tau_noncut":82191.42,"tau_noncut_err":8175.058,"tau_asph":84610.33,"tau_asph_err":8609.141,"tau_holes":67553.16,"tau_holes_err":6061.915,"burn_n":6519.0,"sec_per_move":1.917411e-06,"rg2_sd":5341.603,"rg_sd":18.40514,"moves":260784000.0,"chain_rg2":[[19185.704458525353,200.07630419117342]],"batches":20,"ratio":4.060522,"ratio_err":0.00260544,"lam":4.061029,"lam_err":0.002605766},{"n":16000,"chains":2,"neff":873.8915,"rg2":46698.64,"rg2_err":441.3141,"rg":214.2184,"rg_err":0.9883955,"asph":0.3740034,"asph_err":0.00513567,"perim":19122.61,"perim_err":3.053971,"noncut":4708.541,"noncut_err":1.983985,"holes":369.1021,"holes_err":0.4403827,"cycles":1165.58,"cycles_err":0.8711217,"leaves":2708.745,"leaves_err":0.6246271,"deg1":2708.745,"deg1_err":0.6246271,"deg2":8706.717,"deg2_err":1.83395,"deg3":4131.171,"deg3_err":1.252714,"deg4":453.3674,"deg4_err":0.4623934,"tau_rg2":280995.8,"tau_rg2_err":36390.7,"tau_perim":301175.4,"tau_perim_err":38187.47,"tau_noncut":169627.4,"tau_noncut_err":16673.55,"tau_asph":150578.1,"tau_asph_err":13469.72,"tau_holes":128226.6,"tau_holes_err":10731.29,"burn_n":3654.0,"sec_per_move":2.73654e-06,"rg2_sd":12897.19,"rg_sd":28.42793,"moves":584832000.0,"chain_rg2":[[46375.121493775936,464.37064603122684],[47015.587906504064,752.2153282998294]],"batches":40,"ratio":4.061042,"ratio_err":0.002242549,"lam":4.061295,"lam_err":0.002242689},{"n":32000,"chains":1,"neff":253.812,"rg2":112457.1,"rg2_err":1785.004,"rg":332.3173,"rg_err":2.512454,"asph":0.3625542,"asph_err":0.01235406,"perim":38237.49,"perim_err":8.563344,"noncut":9422.62,"noncut_err":4.782486,"holes":739.0328,"holes_err":1.508729,"cycles":2333.93,"cycles_err":2.225311,"leaves":5413.404,"leaves_err":1.213659,"deg1":5413.404,"deg1_err":1.213659,"deg2":17414.11,"deg2_err":4.567479,"deg3":8265.705,"deg3_err":3.266398,"deg4":906.7794,"deg4_err":1.330433,"tau_rg2":452933.7,"tau_rg2_err":100536.3,"tau_perim":655241.2,"tau_perim_err":172505.3,"tau_noncut":282414.9,"tau_noncut_err":49642.17,"tau_asph":343405.8,"tau_asph_err":66569.63,"tau_holes":261633.9,"tau_holes_err":44729.11,"burn_n":1794.0,"sec_per_move":4.176586e-06,"rg2_sd":31538.18,"rg_sd":44.90035,"moves":287328000.0,"chain_rg2":[[112457.1294957983,1785.004402151079]],"batches":20,"ratio":4.057953,"ratio_err":0.002832568,"lam":4.05808,"lam_err":0.002832656},{"n":64000,"chains":2,"neff":248.2084,"rg2":275593.2,"rg2_err":4607.48,"rg":520.4959,"rg_err":4.251282,"asph":0.3666621,"asph_err":0.01401091,"perim":76488.51,"perim_err":10.28884,"noncut":18826.65,"noncut_err":8.415876,"holes":1475.851,"holes_err":1.656322,"cycles":4662.662,"cycles_err":3.551352,"leaves":10828.64,"leaves_err":2.29181,"deg1":10828.64,"deg1_err":2.29181,"deg2":34828.97,"deg2_err":7.926605,"deg3":16532.81,"deg3_err":4.638657,"deg4":1809.579,"deg4_err":2.17643,"tau_rg2":1392642.0,"tau_rg2_err":510729.5,"tau_perim":878500.6,"tau_perim_err":193603.6,"tau_noncut":741319.1,"tau_noncut_err":153137.4,"tau_asph":1160489.0,"tau_asph_err":355880.6,"tau_holes":534058.8,"tau_holes_err":89787.68,"burn_n":936.0,"sec_per_move":6.008305e-06,"rg2_sd":74730.5,"rg_sd":68.60893,"moves":599424000.0,"chain_rg2":[[275192.3,8128.091790791835],[276007.2778688525,4420.835046396202]],"batches":40,"ratio":4.062755,"ratio_err":0.00227741,"lam":4.062818,"lam_err":0.002277445},{"n":128000,"chains":1,"neff":90.12067,"rg2":691615.1,"rg2_err":21827.53,"rg":822.0868,"rg_err":12.46602,"asph":0.3776807,"asph_err":0.01680233,"perim":152986.1,"perim_err":24.03655,"noncut":37645.23,"noncut_err":20.32971,"holes":2949.101,"holes_err":4.964735,"cycles":9317.772,"cycles_err":8.449799,"leaves":21654.09,"leaves_err":8.792177,"deg1":21654.09,"deg1_err":8.792177,"deg2":69672.63,"deg2_err":18.31652,"deg3":33058.94,"deg3_err":10.52119,"deg4":3614.346,"deg4_err":4.913072,"tau_rg2":1533943.0,"tau_rg2_err":565921.4,"tau_perim":1842402.0,"tau_perim_err":745863.0,"tau_noncut":1196228.0,"tau_noncut_err":393726.9,"tau_asph":1201838.0,"tau_asph_err":405589.5,"tau_holes":1462621.0,"tau_holes_err":528481.3,"burn_n":540.0,"sec_per_move":6.949306e-06,"rg2_sd":218282.8,"rg_sd":125.6518,"moves":345600000.0,"chain_rg2":[[691615.1180555555,21827.532127220395]],"batches":20,"ratio":4.063886,"ratio_err":0.00258748,"lam":4.063917,"lam_err":0.0025875},{"n":256000,"chains":2,"neff":74.29565,"rg2":1644892.0,"rg2_err":52503.2,"rg":1273.687,"rg_err":19.09869,"asph":0.3665361,"asph_err":0.02157741,"perim":305947.3,"perim_err":43.18347,"noncut":75326.31,"noncut_err":22.02753,"holes":5901.101,"holes_err":9.035339,"cycles":18649.8,"cycles_err":10.678,"leaves":43333.35,"leaves_err":9.422888,"deg1":43333.35,"deg1_err":9.422888,"deg2":139293.9,"deg2_err":25.5737,"deg3":66114.55,"deg3_err":15.91549,"deg4":7258.206,"deg4_err":6.706534,"tau_rg2":5750397.0,"tau_rg2_err":5124477.0,"tau_perim":4513833.0,"tau_perim_err":3092010.0,"tau_noncut":1804708.0,"tau_noncut_err":596477.1,"tau_asph":2533302.0,"tau_asph_err":997275.1,"tau_holes":2985872.0,"tau_holes_err":1800745.0,"burn_n":300.0,"sec_per_move":9.032407e-06,"rg2_sd":399003.5,"rg_sd":147.852,"moves":599808000.0,"chain_rg2":[[1703416.1927272729,99172.41264844309],[1591066.287625418,42739.963701575594]],"batches":24,"ratio":4.061621,"ratio_err":0.001684843,"lam":4.061637,"lam_err":0.001684849},{"n":512000,"chains":1,"neff":51.91792,"rg2":3811319.0,"rg2_err":129533.7,"rg":1935.529,"rg_err":32.59565,"asph":0.3867367,"asph_err":0.02381135,"perim":611900.6,"perim_err":47.81508,"noncut":150525.7,"noncut_err":37.25733,"holes":11817.41,"holes_err":9.42199,"cycles":37249.75,"cycles_err":16.19917,"leaves":86601.73,"leaves_err":15.34938,"deg1":86601.73,"deg1_err":15.34938,"deg2":278765.1,"deg2_err":33.62794,"deg3":132167.0,"deg3_err":23.09586,"deg4":14466.11,"deg4_err":10.414,"tau_rg2":6346017.0,"tau_rg2_err":3154464.0,"tau_perim":5118862.0,"tau_perim_err":2291891.0,"tau_noncut":2886514.0,"tau_noncut_err":985439.5,"tau_asph":4799352.0,"tau_asph_err":2098267.0,"tau_holes":2169193.0,"tau_holes_err":645596.8,"burn_n":321.0,"sec_per_move":1.240172e-05,"rg2_sd":1019144.0,"rg_sd":252.0282,"moves":823296000.0,"chain_rg2":[[3811319.2028985503,129533.66373190518]],"batches":18,"ratio":4.065088,"ratio_err":0.001241057,"lam":4.065096,"lam_err":0.001241059},{"n":1024000,"chains":2,"neff":52.98564,"rg2":9294088.0,"rg2_err":226353.7,"rg":3029.301,"rg_err":37.11646,"asph":0.3614883,"asph_err":0.03031284,"perim":1223526.0,"perim_err":175.4934,"noncut":301438.3,"noncut_err":84.43457,"holes":23667.34,"holes_err":33.14031,"cycles":74625.68,"cycles_err":43.00324,"leaves":173288.3,"leaves_err":17.00997,"deg1":173288.3,"deg1_err":17.00997,"deg2":557195.1,"deg2_err":59.11113,"deg3":264495.6,"deg3_err":48.94117,"deg4":29021.03,"deg4_err":24.64058,"tau_rg2":5577720.0,"tau_rg2_err":2818395.0,"tau_perim":17211930.0,"tau_perim_err":15460390.0,"tau_noncut":10733080.0,"tau_noncut_err":9780533.0,"tau_asph":5031244.0,"tau_asph_err":2552974.0,"tau_holes":9704809.0,"tau_holes_err":7125224.0,"burn_n":300.0,"sec_per_move":1.804626e-05,"rg2_sd":2168613.0,"rg_sd":349.9986,"moves":1201152000.0,"chain_rg2":[[9411766.413043477,236258.04816751715],[9181313.125,411704.35249612137]],"batches":8,"ratio":4.058958,"ratio_err":0.001591598,"lam":4.058962,"lam_err":0.001591599}],"reloc":[{"n":50,"tau_rg2":3835.889229304614,"tau_rg2_err":75.31037866623156,"tau_perim":492.7658369722434,"tau_perim_err":3.5519615108944675,"rg2":27.50763317383213,"rg2_err":0.03459997120769402,"sec_per_move":3.2113341361668674e-07,"neff":31283.481567520157},{"n":100,"tau_rg2":24095.47939694859,"tau_rg2_err":800.9457964242083,"tau_perim":1437.309248164976,"tau_perim_err":11.954898503640571,"rg2":68.0467847872151,"rg2_err":0.1586935015617867,"sec_per_move":4.5764883417004253e-07,"neff":10918.034692985415},{"n":200,"tau_rg2":141361.945771207,"tau_rg2_err":9799.95083029682,"tau_perim":3979.2639694130794,"tau_perim_err":47.562660355927456,"rg2":167.8549198551346,"rg2_err":0.9625944649481184,"sec_per_move":1.0184480779553654e-06,"neff":2500.5300972024233},{"n":400,"tau_rg2":932922.44274874,"tau_rg2_err":150091.97637172107,"tau_perim":11041.529345034993,"tau_perim_err":207.16661215744838,"rg2":415.57642480081523,"rg2_err":6.664154717731823,"sec_per_move":1.663369793642196e-06,"neff":463.9822456458797},{"n":800,"tau_rg2":6085565.913199914,"tau_rg2_err":2254735.7472264594,"tau_perim":33697.62031659974,"tau_perim_err":1011.5711612603916,"rg2":999.7994920673076,"rg2_err":27.462018016005878,"sec_per_move":1.8012106526372738e-06,"neff":87.58247262492367},{"n":1600,"tau_rg2":15431117.871139482,"tau_rg2_err":10279926.004123742,"tau_perim":98707.9333305088,"tau_perim_err":5729.369197528388,"rg2":2376.2642101226993,"rg2_err":117.04539267597613,"sec_per_move":2.8713677693937263e-06,"neff":27.08716915329574}],"square_old":[[200000.0,5256.57],[400000.0,5610.35],[600000.0,5998.98],[800000.0,6393.98],[1000000.0,6762.89],[1200000.0,7136.42],[1400000.0,7474.33],[1600000.0,7822.86],[1800000.0,8096.27],[2000000.0,8374.74],[2200000.0,8586.9],[2400000.0,8803.98],[2600000.0,9011.53],[2800000.0,9204.18],[3000000.0,9355.07],[3200000.0,9560.57],[3400000.0,9717.05],[3600000.0,9825.14],[3800000.0,9946.49],[4000000.0,10078.1],[4200000.0,10193.0],[4400000.0,10300.9],[4600000.0,10415.7],[4800000.0,10496.9],[5000000.0,10574.4],[5200000.0,10649.7],[5400000.0,10782.6],[5600000.0,10893.1],[5800000.0,10993.3],[6000000.0,11032.6],[6200000.0,11121.1],[6400000.0,11183.9],[6600000.0,11291.3],[6800000.0,11309.8],[7000000.0,11376.5],[7200000.0,11437.1],[7400000.0,11544.0],[7600000.0,11587.0],[7800000.0,11704.5],[8000000.0,11729.2],[8200000.0,11796.4],[8400000.0,11941.8],[8600000.0,12016.3],[8800000.0,12073.8],[9000000.0,12148.2],[9200000.0,12175.7],[9400000.0,12269.8],[9600000.0,12294.3],[9800000.0,12363.2],[10000000.0,12400.0],[10200000.0,12485.8],[10400000.0,12580.3],[10600000.0,12627.1],[10800000.0,12654.7],[11000000.0,12725.8],[11200000.0,12700.3],[11400000.0,12755.9],[11600000.0,12779.9],[11800000.0,12853.2],[12000000.0,12892.9],[12200000.0,12965.6],[12400000.0,12964.1],[12600000.0,12996.4],[12800000.0,12987.6],[13000000.0,13065.2],[13200000.0,13096.1],[13400000.0,13110.7],[13600000.0,13160.8],[13800000.0,13218.0],[14000000.0,13254.9],[14200000.0,13226.9],[14400000.0,13352.0],[14600000.0,13369.8],[14800000.0,13391.8],[15000000.0,13476.4],[15200000.0,13545.5],[15400000.0,13519.2],[15600000.0,13552.9],[15800000.0,13610.9],[16000000.0,13695.3],[16200000.0,13711.4],[16400000.0,13766.6],[16600000.0,13699.0],[16800000.0,13661.6],[17000000.0,13742.9],[17200000.0,13782.6],[17400000.0,13827.1],[17600000.0,13867.5],[17800000.0,13831.0],[18000000.0,13882.9],[18200000.0,13981.0],[18600000.0,13945.5],[18800000.0,13974.0],[19000000.0,14043.3],[19200000.0,14137.8],[19400000.0,14151.9],[19600000.0,14198.8],[19800000.0,14210.3],[20000000.0,14290.1],[20400000.0,14331.1],[20600000.0,14358.6],[20800000.0,14353.2],[21000000.0,14272.6],[21200000.0,14262.2],[21600000.0,14331.3],[21800000.0,14400.1],[22000000.0,14456.0],[22400000.0,14497.6],[22600000.0,14580.3],[22800000.0,14571.7],[23200000.0,14601.9],[23400000.0,14614.1],[23600000.0,14630.6],[24000000.0,14704.9],[24200000.0,14689.1],[24400000.0,14763.6],[24800000.0,14871.1],[25000000.0,14882.2],[25400000.0,14883.3],[25600000.0,14853.4],[26000000.0,14870.8],[26200000.0,14893.7],[26600000.0,14953.8],[26800000.0,14948.8],[27200000.0,14951.4],[27600000.0,15026.6],[27800000.0,15074.0],[28200000.0,15149.8],[28600000.0,15235.8],[28800000.0,15202.1],[29200000.0,15224.1],[29600000.0,15349.9],[29800000.0,15351.4],[30200000.0,15435.4],[30600000.0,15382.9],[31000000.0,15401.7],[31200000.0,15451.0],[31600000.0,15510.5],[32000000.0,15568.0],[32400000.0,15605.6],[32800000.0,15696.4],[33200000.0,15689.7],[33600000.0,15714.1],[34000000.0,15919.2],[34400000.0,15848.3],[34800000.0,15947.6],[35200000.0,15972.4],[35600000.0,16064.9],[36000000.0,16109.9],[36400000.0,16190.9],[36800000.0,16275.2],[37200000.0,16276.7],[37800000.0,16398.7],[38200000.0,16384.6],[38600000.0,16478.3],[39000000.0,16536.7],[39600000.0,16621.9],[40000000.0,16677.0],[40400000.0,16821.1],[41000000.0,16775.8],[41400000.0,16748.1],[41800000.0,16825.0],[42400000.0,16905.2],[42800000.0,16987.1],[43400000.0,16899.9],[43800000.0,16941.7],[44400000.0,17065.9],[45000000.0,17192.9],[45400000.0,17166.9],[46000000.0,17241.9],[46600000.0,17359.4],[47000000.0,17339.3],[47600000.0,17246.8],[48200000.0,17288.3],[48800000.0,17379.4],[49400000.0,17480.1],[50000000.0,17625.3],[50400000.0,17604.0],[51000000.0,17729.2],[51600000.0,17806.9],[52200000.0,17795.4],[53000000.0,17808.9],[53600000.0,17836.3],[54200000.0,17919.7],[54800000.0,17901.2],[55400000.0,17871.1],[56000000.0,17902.7],[56800000.0,17859.2],[57400000.0,17970.8],[58000000.0,18003.2],[58800000.0,18081.8],[59400000.0,18066.5],[60200000.0,18011.5],[60800000.0,18012.4],[61600000.0,18056.3],[62200000.0,18148.3],[63000000.0,18274.2],[63800000.0,18242.6],[64600000.0,18268.3],[65200000.0,18297.4],[66000000.0,18364.1],[66800000.0,18490.9],[67600000.0,18444.3]],"square_new":[[100000.0,5063.49],[200000.0,5137.23],[300000.0,5219.89],[400000.0,5304.66],[500000.0,5409.78],[600000.0,5507.93],[700000.0,5602.37],[800000.0,5693.54],[900000.0,5804.38],[1000000.0,5890.82],[1100000.0,5985.94],[1200000.0,6080.77],[1300000.0,6159.22],[1400000.0,6234.74],[1500000.0,6319.31],[1600000.0,6395.55],[1700000.0,6473.12],[1800000.0,6555.49],[1900000.0,6620.67],[2000000.0,6690.03],[2100000.0,6772.62],[2200000.0,6851.59],[2300000.0,6930.56],[2400000.0,6990.82],[2500000.0,7065.12],[2600000.0,7139.12],[2700000.0,7220.6],[2800000.0,7266.47],[2900000.0,7333.43],[3000000.0,7396.84],[3100000.0,7445.87],[3200000.0,7530.73],[3300000.0,7598.6],[3400000.0,7654.56],[3500000.0,7708.96],[3600000.0,7792.81],[3700000.0,7847.12],[3800000.0,7913.1],[3900000.0,7959.28],[4000000.0,8027.25],[4100000.0,8074.05],[4200000.0,8148.44],[4300000.0,8197.46],[4400000.0,8246.75],[4500000.0,8301.47],[4600000.0,8347.14],[4700000.0,8397.4],[4800000.0,8431.46],[4900000.0,8483.48],[5000000.0,8543.7],[5100000.0,8639.24],[5200000.0,8676.28],[5300000.0,8739.09],[5400000.0,8788.21],[5500000.0,8891.93],[5600000.0,8942.99],[5700000.0,9029.77],[5800000.0,9156.77],[5900000.0,9196.91],[6000000.0,9267.3],[6100000.0,9322.08],[6200000.0,9376.75],[6300000.0,9438.67],[6400000.0,9497.84],[6500000.0,9676.7],[6600000.0,9759.14],[6700000.0,9821.24],[6800000.0,9869.61],[6900000.0,9961.81],[7000000.0,10003.3],[7100000.0,10078.5],[7200000.0,10336.9],[7300000.0,10395.2],[7400000.0,10481.0],[7500000.0,10616.9],[7600000.0,10710.7],[7800000.0,10881.3],[7900000.0,11186.2],[8000000.0,11262.1],[8100000.0,11399.7],[8200000.0,11510.2],[8300000.0,11619.1],[8500000.0,11873.8],[8600000.0,12053.5],[8700000.0,12176.3],[8800000.0,12264.3],[9000000.0,12455.9],[9100000.0,12617.2],[9200000.0,12910.2],[9400000.0,13130.4],[9500000.0,13241.8],[9600000.0,14162.8],[9800000.0,14521.1],[9900000.0,14725.0],[10100000.0,14716.2],[10200000.0,14847.8],[10400000.0,15354.3],[10500000.0,15626.7],[10700000.0,17031.9],[10800000.0,17105.4],[11000000.0,17447.5],[11100000.0,17564.9],[11300000.0,18508.3],[11400000.0,18891.1],[11600000.0,21063.6],[11800000.0,22006.4],[12000000.0,24782.9],[12100000.0,26447.6],[12300000.0,26837.2],[12500000.0,27769.6],[12700000.0,28386.0],[12800000.0,28848.6],[13000000.0,28848.0],[13200000.0,29760.2],[13400000.0,31670.3],[13600000.0,39028.7],[13800000.0,39893.2],[14000000.0,48469.7],[14200000.0,56380.9],[14400000.0,47687.8],[14600000.0,112764.0],[14800000.0,66402.2],[15100000.0,66021.8],[15300000.0,65481.9],[15500000.0,64274.3],[15700000.0,58765.4],[15900000.0,59905.0],[16200000.0,59073.0],[16400000.0,58297.3],[16700000.0,134442.0],[16900000.0,139473.0],[17100000.0,70286.2],[17400000.0,82122.6],[17600000.0,74487.5],[17900000.0,103128.0],[18200000.0,112989.0],[18400000.0,70939.2],[18700000.0,67668.5],[19000000.0,81063.2],[19200000.0,86652.1],[19500000.0,71396.2],[19800000.0,82850.9],[20100000.0,67143.1],[20400000.0,75481.9],[20700000.0,85904.2],[21000000.0,90374.1],[21300000.0,91416.8],[21600000.0,122324.0],[21900000.0,177926.0],[22200000.0,90347.0],[22500000.0,85040.8],[22900000.0,103436.0],[23200000.0,129231.0],[23500000.0,103197.0],[23900000.0,89452.7],[24200000.0,67400.8],[24600000.0,89113.4],[24900000.0,104388.0],[25300000.0,120143.0],[25700000.0,79681.0],[26000000.0,90964.8],[26400000.0,110457.0],[26800000.0,113761.0],[27200000.0,97358.7],[27600000.0,90317.8],[28000000.0,129521.0],[28400000.0,109361.0],[28800000.0,108604.0],[29200000.0,83591.4],[29600000.0,87752.8],[30100000.0,116573.0],[30500000.0,101479.0],[30900000.0,90306.5],[31400000.0,128457.0],[31800000.0,102871.0],[32300000.0,127258.0],[32800000.0,151907.0],[33300000.0,88971.7],[33700000.0,88658.9],[34200000.0,109896.0],[34700000.0,115232.0],[35200000.0,69964.7],[35700000.0,92881.1],[36300000.0,104021.0],[36800000.0,85421.2],[37300000.0,109953.0],[37900000.0,70668.5],[38400000.0,87179.2],[39000000.0,113389.0],[39500000.0,103521.0],[40100000.0,79859.6],[40700000.0,104160.0],[41300000.0,121749.0],[41900000.0,95534.0],[42500000.0,125098.0],[43100000.0,106597.0],[43700000.0,151322.0],[44400000.0,107326.0],[45000000.0,78506.5],[45700000.0,111802.0],[46300000.0,73440.8],[47000000.0,70666.9],[47700000.0,97298.7],[48400000.0,156678.0],[49100000.0,111840.0],[49800000.0,91184.7],[50500000.0,90509.7],[51200000.0,86514.5],[52000000.0,89572.4],[52700000.0,86435.5],[53500000.0,97852.3],[54300000.0,120894.0],[55100000.0,118614.0],[55900000.0,67051.0],[56700000.0,83498.3],[57500000.0,68474.8],[58300000.0,80289.3],[59200000.0,72958.7],[60000000.0,108843.0],[60900000.0,73229.4],[61800000.0,97077.6],[62700000.0,63797.8],[63600000.0,63999.1],[64500000.0,75896.7],[65500000.0,75061.4],[66400000.0,86767.6],[67400000.0,143051.0],[68300000.0,122787.0],[69300000.0,116691.0],[70300000.0,95292.2],[71400000.0,79068.0],[72400000.0,117706.0],[73400000.0,95536.0],[74500000.0,178660.0],[75600000.0,97282.9],[76700000.0,110422.0],[77800000.0,96092.5],[78900000.0,90450.9],[80100000.0,87011.7],[81200000.0,114252.0],[82400000.0,112767.0],[83600000.0,81960.5],[84800000.0,157493.0],[86100000.0,136742.0],[87300000.0,108826.0],[88600000.0,118697.0],[89900000.0,121096.0],[91200000.0,88849.5],[92500000.0,127527.0],[93800000.0,122556.0],[95200000.0,106830.0],[96600000.0,152921.0],[98000000.0,81160.9],[99400000.0,117547.0],[100800000.0,151178.0],[102300000.0,105806.0],[103800000.0,178541.0],[105300000.0,82108.5],[106800000.0,123862.0],[108400000.0,98957.6],[109900000.0,65605.4],[111500000.0,197084.0],[113200000.0,121349.0],[114800000.0,155518.0],[116500000.0,97438.7],[118200000.0,95273.9],[119900000.0,78142.0],[121600000.0,91866.4],[123400000.0,110899.0],[125200000.0,98965.7],[127000000.0,96232.7],[128800000.0,87892.7],[130700000.0,85109.0],[132600000.0,63031.9]],"square_eq":{"rg":321.53166526695975,"rg_sd":40.684643103689105},"fit_old":{"a":0.13737337178699102,"z":2.6187025149465404,"z_err":0.04005516673347146},"fit_new":{"a":15.2631210693502,"z":0.9944644115573554,"z_err":0.026647872844016447},"tau_coef":14.61623355009226,"cpu":[[125,2.7115220196771765e-07,0.0004925621817301538],[250,2.9069767441860464e-07,0.0011347772319267033],[500,5.717798075960948e-07,0.004376689008300231],[1000,4.975124378109453e-07,0.007216486802369573],[2000,8.545091379070934e-07,0.025729090731610234],[4000,8.403361344537815e-07,0.04835412108930462],[8000,1.9174105773360326e-06,0.20977303333252972],[16000,1.4705882352941177e-06,0.41322910471379715],[32000,4.1765856442811006e-06,1.8917164739195462],[64000,2.7027027027027026e-06,3.7638982623971153],[128000,6.949305555555555e-06,10.659840725539873],[256000,7.692307692307692e-06,44.23382091261548],[512000,1.2401724288712687e-05,78.70155318205398],[1024000,2e-05,111.55440822171846]],"fit_nu":{"a":0.43406605999841696,"nu":0.6403543315348653,"nu2":0.6401698751386512,"err":0.001400385255933092,"chi2":0.6491508954331336},"lam_pooled":[4.061878520715222,0.0005506056350374927],"lam_chi2":[13.972272760885678,10],"gallery":[[1000,36.8],[2000,54.1],[3000,72.7],[5000,101.5],[10000,158.6],[30000,321.4],[100000,640.5],[400000,1756],[1600000,3716]],"demo":{"n":1000,"rg":36.06993751343299,"rg_sd":4.767479859548662},"example":{"before":[[12,9],[9,5],[7,3],[7,7],[8,7],[8,2],[8,3],[11,8],[4,5],[8,4],[12,8],[7,0],[8,6],[0,10],[4,7],[2,9],[6,7],[2,7],[3,8],[13,9],[9,7],[10,9],[3,7],[4,6],[1,10],[2,8],[0,11],[10,8],[9,4],[8,1],[10,3],[14,9],[11,4],[12,7],[10,4],[4,4],[1,9],[3,6],[8,0],[5,7],[10,7],[8,5]],"after":[[0,5],[9,5],[7,3],[7,7],[8,7],[8,2],[8,3],[1,6],[4,5],[8,4],[1,5],[7,0],[8,6],[0,10],[4,7],[2,9],[6,7],[2,7],[3,8],[0,4],[9,7],[0,7],[3,7],[4,6],[1,10],[2,8],[0,11],[1,7],[9,4],[8,1],[10,3],[0,3],[11,4],[2,5],[10,4],[4,4],[1,9],[3,6],[8,0],[5,7],[10,7],[8,5]],"B":[27,7,21,10,0,33,19,31],"c":40,"a":17,"g":7,"w":15,"h":12,"reloc":{"from":[7,0],"to":[5,5],"cut":[6,7]}},"heroUrl":"explain/hero.txt"};
+// Minimal SVG charts: log/linear axes, points with error bars, lines, bands, hover, table view.
+function fmtNum(v) {
+  if (v === 0) return '0';
+  const a = Math.abs(v);
+  if (a >= 1e15 || a < 1e-4) { const e = Math.floor(Math.log10(a)), m = v / Math.pow(10, e); return (Math.abs(m - 1) < 1e-9 ? '' : m.toFixed(1) + '×') + '10' + String(e).replace(/-/, '⁻').replace(/\d/g, d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]); }
+  if (a >= 1e6) { const e = Math.floor(Math.log10(a)), m = v / Math.pow(10, e); if (Math.abs(m - Math.round(m)) < 1e-9 && Math.round(m) === 1) return '10' + String(e).replace(/\d/g, d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]); return (v / 1e6).toLocaleString('en-US', { maximumFractionDigits: 1 }) + 'M'; }
+  if (a >= 100) return Math.round(v).toLocaleString('en-US');
+  return String(+v.toPrecision(4));
+}
+function sig(v, n) { return (+v.toPrecision(n)).toLocaleString('en-US', { maximumSignificantDigits: n }); }
+
+function chart(el, cfg) {
+  const H = cfg.height || 340;
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true;
+  const holder = document.createElement('div'); holder.className = 'plot';
+  el.innerHTML = ''; el.appendChild(holder); holder.appendChild(tip);
+  if (cfg.series.filter(s => s.name).length >= 2) {
+    const lg = document.createElement('div'); lg.className = 'legend';
+    cfg.series.filter(s => s.name).forEach(s => {
+      lg.insertAdjacentHTML('beforeend', `<span><svg width="22" height="10" aria-hidden="true">${s.pts ? `<circle cx="11" cy="5" r="4" fill="${s.color}"/>` : `<line x1="1" y1="5" x2="21" y2="5" stroke="${s.color}" stroke-width="2" ${s.dash ? 'stroke-dasharray="4 3"' : ''}/>`}</svg>${s.name}</span>`);
+    });
+    el.insertBefore(lg, holder);
+  }
+  // table view
+  const det = document.createElement('details'); det.className = 'tableview';
+  let th = `<summary>Show the numbers</summary><div class="scroll"><table><thead><tr><th>series</th><th>${cfg.xname || cfg.xlabel}</th><th>${cfg.yname || cfg.ylabel}</th><th>±</th></tr></thead><tbody>`;
+  cfg.series.forEach(s => (s.pts || []).forEach(p => { th += `<tr><td>${s.name || ''}</td><td>${fmtNum(p[0])}</td><td>${sig(p[1], cfg.ysig || 5)}</td><td>${p[2] ? sig(p[2], 2) : ''}</td></tr>`; }));
+  det.innerHTML = th + '</tbody></table></div>';
+  if (!cfg.noTable) el.appendChild(det);
+
+  const T = { x: v => cfg.xlog ? Math.log10(v) : v, y: v => cfg.ylog ? Math.log10(v) : v };
+  function ticks(lo, hi, log, maxN) {
+    if (log) {
+      const out = []; const a = Math.ceil(lo - 1e-9), b = Math.floor(hi + 1e-9);
+      const step = Math.max(1, Math.ceil((b - a + 1) / maxN));
+      for (let e = a; e <= b; e += step) out.push(e);
+      if (out.length < 3) { out.length = 0; for (let e = Math.floor(lo); e <= b; e++) for (const m of [1, 2, 5]) { const v = Math.log10(m) + e; if (v >= lo - 1e-9 && v <= hi + 1e-9) out.push(v); } }
+      return out;
+    }
+    const span = hi - lo, raw = span / maxN, p = Math.pow(10, Math.floor(Math.log10(raw)));
+    const st = [1, 2, 5, 10].map(m => m * p).find(s => s >= raw);
+    const out = []; for (let v = Math.ceil(lo / st - 1e-9) * st; v <= hi + 1e-9; v += st) out.push(+v.toFixed(12));
+    return out;
+  }
+  let hot = [];
+  function render() {
+    const W = Math.max(280, holder.clientWidth), narrow = W < 380;
+    const m = { l: 58, r: cfg.rightPad != null ? (narrow ? Math.min(cfg.rightPad, 20) : cfg.rightPad) : 18, t: 14, b: 44 };
+    let xs = [], ys = [];
+    cfg.series.forEach(s => { (s.pts || []).forEach(p => { xs.push(p[0]); ys.push(p[1] - (p[2] || 0), p[1] + (p[2] || 0)); }); (s.line || []).forEach(p => { xs.push(p[0]); ys.push(p[1]); }); });
+    (cfg.bands || []).forEach(b => ys.push(b.y0, b.y1));
+    let [x0, x1] = cfg.xdomain || [Math.min(...xs), Math.max(...xs)], [y0, y1] = cfg.ydomain || [Math.min(...ys), Math.max(...ys)];
+    x0 = T.x(x0); x1 = T.x(x1); y0 = T.y(y0); y1 = T.y(y1);
+    if (!cfg.xdomain) { const p = (x1 - x0) * 0.04; x0 -= p; x1 += p; }
+    if (!cfg.ydomain) { const p = (y1 - y0) * 0.07; y0 -= p; y1 += p; }
+    const X = v => m.l + (T.x(v) - x0) / (x1 - x0) * (W - m.l - m.r), Y = v => H - m.b - (T.y(v) - y0) / (y1 - y0) * (H - m.t - m.b);
+    let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${cfg.aria || ''}">`;
+    const xt = ticks(x0, x1, cfg.xlog, narrow ? 4 : 7), yt = ticks(y0, y1, cfg.ylog, 6);
+    const lab = (t, log, f) => {
+      if (f) return f(log ? Math.pow(10, t) : t);
+      if (log && Math.abs(t - Math.round(t)) < 1e-9 && (t >= 6 || t <= -4)) return `10<tspan dy="-5" font-size="8.5">${Math.round(t)}</tspan>`;
+      return fmtNum(log ? Math.pow(10, t) : t);
+    };
+    yt.forEach(t => { const y = H - m.b - (t - y0) / (y1 - y0) * (H - m.t - m.b); s += `<line class="grid" x1="${m.l}" x2="${W - m.r}" y1="${y}" y2="${y}"/><text class="tick" x="${m.l - 8}" y="${y + 4}" text-anchor="end">${lab(t, cfg.ylog, cfg.yfmt)}</text>`; });
+    xt.forEach(t => { const x = m.l + (t - x0) / (x1 - x0) * (W - m.l - m.r); s += `<line class="grid" x1="${x}" x2="${x}" y1="${m.t}" y2="${H - m.b}"/><text class="tick" x="${x}" y="${H - m.b + 17}" text-anchor="middle">${lab(t, cfg.xlog, cfg.xfmt)}</text>`; });
+    s += `<line class="axis" x1="${m.l}" x2="${W - m.r}" y1="${H - m.b}" y2="${H - m.b}"/>`;
+    s += `<text class="alabel" x="${(m.l + W - m.r) / 2}" y="${H - 6}" text-anchor="middle">${cfg.xlabel}</text>`;
+    (cfg.bands || []).forEach(b => {
+      s += `<rect x="${m.l}" width="${W - m.l - m.r}" y="${Y(b.y1)}" height="${Y(b.y0) - Y(b.y1)}" fill="${b.color}" opacity=".13"/>`;
+      if (b.mid != null) s += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(b.mid)}" y2="${Y(b.mid)}" stroke="${b.color}" stroke-width="1.5"/>`;
+      if (b.label) s += b.left ? `<text class="dlabel" x="${m.l + 8}" y="${Y(b.labelAt != null ? b.labelAt : b.y1) - 6}">${b.label}</text>` : `<text class="dlabel" x="${W - m.r - 6}" y="${Y(b.labelAt != null ? b.labelAt : b.y1) - 6}" text-anchor="end">${b.label}</text>`;
+    });
+    hot = [];
+    cfg.series.forEach(se => {
+      if (se.line) s += `<polyline fill="none" stroke="${se.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" ${se.dash ? 'stroke-dasharray="5 4"' : ''} points="${se.line.map(p => X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1)).join(' ')}"/>`;
+      (se.pts || []).forEach(p => {
+        const x = X(p[0]), y = Y(p[1]);
+        if (p[2] && Math.abs(Y(p[1] + p[2]) - Y(Math.max(p[1] - p[2], 1e-300))) > 9) s += `<line x1="${x}" x2="${x}" y1="${Y(p[1] + p[2])}" y2="${Y(p[1] - p[2])}" stroke="${se.color}" stroke-width="1.5"/>`;
+        s += `<circle cx="${x}" cy="${y}" r="${se.r || 4.5}" fill="${se.color}" stroke="var(--panel)" stroke-width="2"/>`;
+        hot.push({ x, y, p, se });
+      });
+      if (se.label && !narrow) { const a = se.labelAt || (se.line || se.pts)[(se.line || se.pts).length - 1]; s += `<text class="dlabel" x="${X(a[0]) + (se.labelDx != null ? se.labelDx : 8)}" y="${Y(a[1]) + (se.labelDy != null ? se.labelDy : 4)}" text-anchor="${se.labelAnchor || 'start'}">${se.label}</text>`; }
+    });
+    s += `<circle class="ring" r="8" fill="none" stroke="var(--ink)" stroke-width="1.5" visibility="hidden"/></svg>`;
+    holder.querySelectorAll('svg').forEach(e => e.remove());
+    holder.insertAdjacentHTML('afterbegin', s);
+  }
+  holder.addEventListener('pointermove', e => {
+    const r = holder.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
+    let best = null, bd = 34 * 34;
+    hot.forEach(h => { const d = (h.x - px) ** 2 + (h.y - py) ** 2; if (d < bd) { bd = d; best = h; } });
+    const ring = holder.querySelector('.ring');
+    if (!best) { tip.hidden = true; ring.setAttribute('visibility', 'hidden'); return; }
+    ring.setAttribute('cx', best.x); ring.setAttribute('cy', best.y); ring.setAttribute('visibility', 'visible');
+    tip.innerHTML = (cfg.tip ? cfg.tip(best.p, best.se) : `<b>${best.se.name || ''}</b><br>${cfg.xname || cfg.xlabel}: ${fmtNum(best.p[0])}<br>${cfg.yname || cfg.ylabel}: ${sig(best.p[1], cfg.ysig || 4)}${best.p[2] ? ' ± ' + sig(best.p[2], 2) : ''}`);
+    tip.hidden = false;
+    const tw = tip.offsetWidth, left = Math.min(Math.max(4, best.x + 12), r.width - tw - 4);
+    tip.style.left = left + 'px'; tip.style.top = Math.max(4, best.y - tip.offsetHeight - 10) + 'px';
+  });
+  holder.addEventListener('pointerleave', () => { tip.hidden = true; const r = holder.querySelector('.ring'); if (r) r.setAttribute('visibility', 'hidden'); });
+  new ResizeObserver(render).observe(holder);
+  render();
+}
+
+// Pan/zoom viewer for a polyomino shipped as one nibble per cell (see analysis/poly.py).
+const RAMP = [[255, 236, 170], [255, 170, 96], [240, 96, 140], [160, 92, 236], [84, 116, 255]];
+const PLATE = [13, 15, 22];
+function rampColor(t) {
+  t = Math.max(0, Math.min(1, t)) * (RAMP.length - 1);
+  const i = Math.min(RAMP.length - 2, t | 0), f = t - i;
+  return [0, 1, 2].map(c => Math.round(RAMP[i][c] * (1 - f) + RAMP[i + 1][c] * f));
+}
+const LUT = new Uint32Array(256);
+for (let i = 0; i < 256; i++) { const c = rampColor(i / 255); LUT[i] = (255 << 24) | (c[2] << 16) | (c[1] << 8) | c[0]; }
+const PLATE32 = (255 << 24) | (PLATE[2] << 16) | (PLATE[1] << 8) | PLATE[0];
+
+function decodePoly(buf) {
+  const dv = new DataView(buf), n = dv.getInt32(0, true);
+  const b = new Uint8Array(buf, 12);
+  const X = new Int32Array(n), Y = new Int32Array(n), D = new Int32Array(n);
+  const sx = new Int32Array(n + 4), sy = new Int32Array(n + 4), sd = new Int32Array(n + 4);
+  const DX = [1, 0, -1, 0], DY = [0, 1, 0, -1];
+  let sp = 0, i = 0, maxD = 0;
+  sx[0] = dv.getInt32(4, true); sy[0] = dv.getInt32(8, true); sd[0] = 0; sp = 1;
+  while (sp > 0) {
+    sp--; const x = sx[sp], y = sy[sp], d = sd[sp];
+    X[i] = x; Y[i] = y; D[i] = d; if (d > maxD) maxD = d;
+    const m = (b[i >> 1] >> ((i & 1) << 2)) & 15; i++;
+    for (let k = 3; k >= 0; k--) if (m >> k & 1) { sx[sp] = x + DX[k]; sy[sp] = y + DY[k]; sd[sp] = d + 1; sp++; }
+  }
+  let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+  for (let j = 0; j < n; j++) { if (X[j] < x0) x0 = X[j]; if (X[j] > x1) x1 = X[j]; if (Y[j] < y0) y0 = Y[j]; if (Y[j] > y1) y1 = Y[j]; }
+  const C = new Uint8Array(n);
+  for (let j = 0; j < n; j++) C[j] = (D[j] * 255 / maxD) | 0;
+  return { n, X, Y, D, C, maxD, x0, x1, y0, y1 };
+}
+
+function PolyViewer(root, poly, opts) {
+  opts = opts || {};
+  const canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+  const readout = root.querySelector('[data-readout]');
+  let w = 0, h = 0, dpr = 1, img = null, buf32 = null;
+  let cx = (poly.x0 + poly.x1 + 1) / 2, cy = (poly.y0 + poly.y1 + 1) / 2, scale = 1, fitScale = 1;
+  let pending = false, active = false;
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    const nw = Math.max(1, Math.round(r.width * dpr)), nh = Math.max(1, Math.round(r.height * dpr));
+    const first = !img;
+    if (nw === w && nh === h) return;
+    const rel = first ? 1 : scale / fitScale;
+    w = nw; h = nh; canvas.width = w; canvas.height = h;
+    img = ctx.createImageData(w, h); buf32 = new Uint32Array(img.data.buffer);
+    fitScale = Math.min(w / (poly.x1 - poly.x0 + 1), h / (poly.y1 - poly.y0 + 1)) * 0.94;
+    scale = fitScale * rel;
+    draw();
+  }
+  function fit() { cx = (poly.x0 + poly.x1 + 1) / 2; cy = (poly.y0 + poly.y1 + 1) / 2; scale = fitScale; request(); }
+  function request() { if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; draw(); }); } }
+
+  function draw() {
+    if (!img) return;
+    buf32.fill(PLATE32);
+    const { n, X, Y, C } = poly, s = scale, ox = w / 2 - cx * s, oy = h / 2 + cy * s;
+    if (s <= 1.25) {
+      for (let i = 0; i < n; i++) {
+        const px = (X[i] * s + ox) | 0, py = (oy - (Y[i] + 1) * s) | 0;
+        if (px >= 0 && px < w && py >= 0 && py < h) buf32[py * w + px] = LUT[C[i]];
+      }
+    } else {
+      const gap = s >= 7 ? 1 : 0;
+      for (let i = 0; i < n; i++) {
+        const fx = X[i] * s + ox, fy = oy - (Y[i] + 1) * s;
+        if (fx <= -s || fx >= w || fy <= -s || fy >= h) continue;
+        const xa = Math.max(0, Math.round(fx)), xb = Math.min(w, Math.round(fx + s) - gap);
+        const ya = Math.max(0, Math.round(fy)), yb = Math.min(h, Math.round(fy + s) - gap), col = LUT[C[i]];
+        for (let yy = ya; yy < yb; yy++) { const row = yy * w; for (let xx = xa; xx < xb; xx++) buf32[row + xx] = col; }
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    // scale bar: a round number of cells, 60-160 css px long
+    const target = 110 * dpr / s; const p10 = Math.pow(10, Math.floor(Math.log10(target)));
+    const len = [1, 2, 5, 10].map(m => m * p10).reduce((a, b) => Math.abs(b - target) < Math.abs(a - target) ? b : a);
+    const L = len * s, bx = 14 * dpr, by = h - 14 * dpr;
+    ctx.strokeStyle = 'rgba(233,235,242,.85)'; ctx.lineWidth = 1.5 * dpr; ctx.beginPath();
+    ctx.moveTo(bx, by - 4 * dpr); ctx.lineTo(bx, by); ctx.lineTo(bx + L, by); ctx.lineTo(bx + L, by - 4 * dpr); ctx.stroke();
+    ctx.fillStyle = 'rgba(233,235,242,.85)'; ctx.font = (11 * dpr) + 'px ui-monospace,Menlo,Consolas,monospace';
+    ctx.fillText(len.toLocaleString('en-US') + (len === 1 ? ' cell' : ' cells'), bx, by - 8 * dpr);
+    if (readout) {
+      const z = s / dpr;
+      readout.textContent = z >= 1 ? 'one cell = ' + (z >= 10 ? Math.round(z) : z.toFixed(1)) + ' px' : 'one px = ' + (1 / z >= 10 ? Math.round(1 / z) : (1 / z).toFixed(1)) + ' cells';
+    }
+  }
+  function zoomAt(px, py, f) {     // px,py in canvas device pixels
+    const ns = Math.max(fitScale * 0.6, Math.min(40 * dpr, scale * f));
+    const wx = cx + (px - w / 2) / scale, wy = cy - (py - h / 2) / scale;
+    scale = ns; cx = wx - (px - w / 2) / scale; cy = wy + (py - h / 2) / scale;
+    request();
+  }
+  const pos = e => { const r = canvas.getBoundingClientRect(); return [(e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr]; };
+  function setActive(a) { active = a; root.classList.toggle('active', a); }
+
+  // pointers: drag to pan, two fingers to pinch.  One finger scrolls the page unless active.
+  const pts = new Map(); let pinch = 0;
+  canvas.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'touch' && !active && pts.size === 0) { pts.set(e.pointerId, pos(e)); return; }
+    setActive(true); pts.set(e.pointerId, pos(e)); canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener('pointermove', e => {
+    if (!pts.has(e.pointerId)) return;
+    const p = pos(e), q = pts.get(e.pointerId);
+    if (pts.size === 1 && active) { cx -= (p[0] - q[0]) / scale; cy += (p[1] - q[1]) / scale; request(); }
+    pts.set(e.pointerId, p);
+    if (pts.size === 2) {
+      const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      if (pinch) zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, d / pinch);
+      pinch = d; setActive(true);
+    }
+  });
+  const up = e => { pts.delete(e.pointerId); pinch = 0; };
+  canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
+  canvas.addEventListener('wheel', e => {
+    if (!active && !e.ctrlKey) return;            // don't hijack page scroll until clicked
+    e.preventDefault(); const p = pos(e); zoomAt(p[0], p[1], Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0015)));
+  }, { passive: false });
+  canvas.addEventListener('dblclick', e => { const p = pos(e); zoomAt(p[0], p[1], 2.5); });
+  document.addEventListener('pointerdown', e => { if (!root.contains(e.target)) setActive(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setActive(false); });
+  root.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.zoom; setActive(true);
+    if (k === 'fit') fit(); else zoomAt(w / 2, h / 2, k === 'in' ? 2 : 0.5);
+  }));
+  root.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => {
+    // fly to the cell farthest from the centre (a tip) at single-cell resolution
+    setActive(true);
+    let best = 0; for (let i = 1; i < poly.n; i++) if (poly.D[i] > poly.D[best]) best = i;
+    const tx = poly.X[best] + .5, ty = poly.Y[best] + .5, ts = 9 * dpr, s0 = scale, x0 = cx, y0 = cy, t0 = performance.now();
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (function step(t) {
+      const u = reduce ? 1 : Math.min(1, (t - t0) / 2600), e = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+      scale = s0 * Math.pow(ts / s0, e);
+      // pan so the target stays on a straight screen-space course
+      const k = (1 / s0 - 1 / scale) / (1 / s0 - 1 / ts || 1);
+      cx = x0 + (tx - x0) * k; cy = y0 + (ty - y0) * k; draw();
+      if (u < 1) requestAnimationFrame(step);
+    })(t0);
+  }));
+  new ResizeObserver(resize).observe(canvas);
+  resize();
+  return { fit, draw };
+}
+
+// In-browser port of the two kernels (plain versions; see src/manyomino.cpp for the fast one).
+// Polyomino lives on a W x W torus that is much larger than its extent.
+function Sampler(cells, lgW, seed) {
+  const W = 1 << lgW, mask = W - 1, n = cells.length;
+  const grid = new Int32Array(W * W);           // 0 = empty, else index + 1
+  const X = new Int32Array(n), Y = new Int32Array(n);
+  const mark = new Int32Array(n), lab = new Int8Array(n);
+  const DX = [1, 0, -1, 0], DY = [0, 1, 0, -1];
+  const G = [[1,0,0,1],[0,-1,1,0],[-1,0,0,-1],[0,1,-1,0],[1,0,0,-1],[0,1,1,0],[-1,0,0,1],[0,-1,-1,0]];
+  let stamp = 0;
+  // xorshift32-ish PRNG (mulberry32)
+  let s = seed >>> 0;
+  function rnd() { s = (s + 0x6D2B79F5) | 0; let t = Math.imul(s ^ (s >>> 15), 1 | s); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  const below = k => (rnd() * k) | 0;
+  const at = (x, y) => ((y & mask) << lgW) | (x & mask);
+  for (let i = 0; i < n; i++) { X[i] = cells[i][0]; Y[i] = cells[i][1]; grid[at(X[i], Y[i])] = i + 1; }
+  const q = [[], [], [], []], qh = [0, 0, 0, 0], par = [0, 0, 0, 0];
+  const find = a => { while (par[a] !== a) a = par[a]; return a; };
+  const stats = { rel: 0, relAcc: 0, cp: 0, cpAcc: 0, moved: 0 };
+  const flash = new Float64Array(n);            // time of each cell's last ride on a transplanted branch
+  let clock = 0;
+
+  // is P \ c connected?  lockstep BFS from the neighbours of c
+  function removable(ic) {
+    const cx = X[ic], cy = Y[ic];
+    stamp++; mark[ic] = stamp; lab[ic] = -1;
+    let ng = 0;
+    for (let d = 0; d < 4; d++) {
+      const o = grid[at(cx + DX[d], cy + DY[d])]; if (!o) continue;
+      q[ng].length = 0; q[ng].push(o - 1); qh[ng] = 0; par[ng] = ng; mark[o - 1] = stamp; lab[o - 1] = ng; ng++;
+    }
+    if (ng <= 1) return true;
+    let ncls = ng;
+    for (;;) {
+      for (let g = 0; g < ng; g++) {
+        if (qh[g] >= q[g].length) continue;
+        const j = q[g][qh[g]++], x = X[j], y = Y[j];
+        for (let d = 0; d < 4; d++) {
+          const o = grid[at(x + DX[d], y + DY[d])]; if (!o) continue;
+          const k = o - 1;
+          if (mark[k] !== stamp) { mark[k] = stamp; lab[k] = g; q[g].push(k); }
+          else if (lab[k] >= 0) { const a = find(lab[k]), b = find(g); if (a !== b) { par[a] = b; if (--ncls === 1) return true; } }
+        }
+        if (qh[g] >= q[g].length) {
+          const r = find(g); let ex = true;
+          for (let h = 0; h < ng; h++) if (find(h) === r && qh[h] < q[h].length) { ex = false; break; }
+          if (ex) return false;
+        }
+      }
+    }
+  }
+
+  function relocate() {
+    stats.rel++;
+    const ic = below(n), iu = below(n), d = below(4);
+    if (iu === ic) return false;
+    const sx = X[iu] + DX[d], sy = Y[iu] + DY[d];
+    if (grid[at(sx, sy)]) return false;
+    let k = 0;
+    for (let e = 0; e < 4; e++) { const a = grid[at(sx + DX[e], sy + DY[e])]; if (a && a - 1 !== ic) k++; }
+    if (k > 1 && below(k) !== 0) return false;
+    if (!removable(ic)) return false;
+    grid[at(X[ic], Y[ic])] = 0; X[ic] = sx; Y[ic] = sy; grid[at(sx, sy)] = ic + 1;
+    stats.relAcc++;
+    return true;
+  }
+
+  const B = [];
+  function transplant() {
+    stats.cp++;
+    const ic = below(n), d = below(4), ia = below(n), g = below(8);
+    const cx = X[ic], cy = Y[ic];
+    const o = grid[at(cx + DX[d], cy + DY[d])];
+    if (!o) return false;
+    // B = component of P \ c containing c+d, abandoned once it exceeds (n-1)/2
+    const cap = (n - 1) >> 1;
+    stamp++; mark[ic] = stamp; lab[ic] = -1;
+    B.length = 0; B.push(o - 1); mark[o - 1] = stamp; lab[o - 1] = 1;
+    for (let h = 0; h < B.length; h++) {
+      const j = B[h], x = X[j], y = Y[j];
+      for (let e = 0; e < 4; e++) {
+        const a = grid[at(x + DX[e], y + DY[e])]; if (!a) continue;
+        const k = a - 1;
+        if (mark[k] !== stamp) { mark[k] = stamp; lab[k] = 1; B.push(k); if (B.length > cap) return false; }
+      }
+    }
+    if (mark[ia] === stamp && lab[ia] === 1) return false;       // c' inside B
+    if (ia === ic && g === 0) return false;
+    const ax = X[ia], ay = Y[ia], M = G[g], m = B.length;
+    const nx = new Int32Array(m), ny = new Int32Array(m);
+    for (let i = 0; i < m; i++) {
+      const j = B[i], dx = X[j] - cx, dy = Y[j] - cy;
+      const x = ax + M[0] * dx + M[1] * dy, y = ay + M[2] * dx + M[3] * dy;
+      nx[i] = x; ny[i] = y;
+      const a = grid[at(x, y)];
+      if (a && !(mark[a - 1] === stamp && lab[a - 1] === 1)) return false;      // overlaps A
+      for (let e = 0; e < 4; e++) {
+        const b = grid[at(x + DX[e], y + DY[e])]; if (!b) continue;
+        const k = b - 1;
+        if (k === ia || (mark[k] === stamp && lab[k] === 1)) continue;
+        return false;                                                          // touches A away from c'
+      }
+    }
+    for (let i = 0; i < m; i++) grid[at(X[B[i]], Y[B[i]])] = 0;
+    for (let i = 0; i < m; i++) { const j = B[i]; X[j] = nx[i]; Y[j] = ny[i]; grid[at(nx[i], ny[i])] = j + 1; }
+    stats.cpAcc++; stats.moved += m;
+    if (m >= 6) for (let i = 0; i < m; i++) flash[B[i]] = clock;
+    return true;
+  }
+
+  function rg2() {
+    let sx = 0, sy = 0, sxx = 0;
+    const x0 = X[0], y0 = Y[0];
+    for (let i = 0; i < n; i++) { const x = X[i] - x0, y = Y[i] - y0; sx += x; sy += y; sxx += x * x + y * y; }
+    return sxx / n - (sx * sx + sy * sy) / (n * n);
+  }
+  // graph distance from a middle cell (double sweep), for colouring
+  function depths() {
+    const dist = new Int32Array(n), prev = new Int32Array(n), queue = new Int32Array(n);
+    function sweep(src) {
+      dist.fill(-1); dist[src] = 0; prev[src] = -1; let h = 0, t = 0; queue[t++] = src;
+      while (h < t) { const v = queue[h++]; for (let d = 0; d < 4; d++) { const o = grid[at(X[v] + DX[d], Y[v] + DY[d])]; if (o && dist[o - 1] < 0) { dist[o - 1] = dist[v] + 1; prev[o - 1] = v; queue[t++] = o - 1; } } }
+      return queue[t - 1];
+    }
+    const a = sweep(0), b = sweep(a);
+    let v = b; for (let i = (dist[b] >> 1); i > 0; i--) v = prev[v];
+    sweep(v);
+    return dist;
+  }
+  return { n, X, Y, relocate, transplant, rg2, depths, stats, rnd, flash, branch: B, setClock: t => { clock = t; } };
+}
+if (typeof module !== 'undefined') module.exports = { Sampler };
+
+// Page wiring.  DATA is injected by analysis/build_page.py.
+(function () {
+  const $ = id => document.getElementById(id);
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+  // ---------------------------------------------------------------- hero viewer
+  // the sample ships as base64 text (one nibble per cell underneath)
+  fetch(DATA.heroUrl).then(r => r.text()).then(txt => {
+    const bin = atob(txt.trim()), u8 = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    const poly = decodePoly(u8.buffer);
+    $('hero-loading').hidden = true;
+    PolyViewer($('hero'), poly);
+  }).catch(() => { $('hero-loading').textContent = 'could not load the sample'; });
+
+  // ---------------------------------------------------------------- move diagrams
+  function diagram(el, W, H, layers, extra) {
+    const u = 22, pad = 6;
+    let s = `<svg viewBox="0 0 ${W * u + 2 * pad} ${H * u + 2 * pad}" role="img">`;
+    const rect = (c, cls) => `<rect class="cell ${cls}" x="${pad + c[0] * u}" y="${pad + (H - 1 - c[1]) * u}" width="${u}" height="${u}" rx="2"/>`;
+    layers.forEach(([cells, cls]) => cells.forEach(c => { s += rect(c, cls); }));
+    const mid = c => [pad + (c[0] + .5) * u, pad + (H - .5 - c[1]) * u];
+    s += (extra ? extra(mid, u) : '') + '</svg>';
+    el.innerHTML = s;
+  }
+  const arrowDef = '<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--mut)"/></marker></defs>';
+  (function () {
+    const E = DATA.example, B = new Set(E.B);
+    // relocate: one tip cell moves
+    const from = E.reloc.from, to = E.reloc.to, cut = E.reloc.cut;
+    const rest = E.before.filter(c => !(c[0] === from[0] && c[1] === from[1]) && !(c[0] === cut[0] && c[1] === cut[1]));
+    diagram($('dg-relocate'), E.w, E.h, [[rest, ''], [[cut], 'c'], [[from], 'gone'], [[to], 'b']], (mid) => {
+      const a = mid(from), b = mid(to);
+      return arrowDef + `<path class="arrow" marker-end="url(#ah)" d="M${a[0] - 8} ${a[1] - 8} Q ${(a[0] + b[0]) / 2 - 50} ${(a[1] + b[1]) / 2 + 10} ${b[0] + 6} ${b[1] + 13}"/>`;
+    });
+    // transplant: branch B moves from c to c'
+    const A = E.before.filter((c, i) => !B.has(i) && i !== E.c && i !== E.a);
+    const oldB = E.before.filter((c, i) => B.has(i)), newB = E.after.filter((c, i) => B.has(i));
+    diagram($('dg-transplant'), E.w, E.h, [[A, ''], [[E.before[E.c], E.before[E.a]], 'c'], [oldB, 'gone'], [newB, 'b']], (mid, u) => {
+      const c = mid(E.before[E.c]), a = mid(E.before[E.a]);
+      const p = mid(oldB[0]), q = mid(newB[0]);
+      return arrowDef + `<text class="dgl" x="${c[0]}" y="${c[1] + 4.5}" text-anchor="middle">c</text><text class="dgl" x="${a[0]}" y="${a[1] + 4.5}" text-anchor="middle">c′</text>` +
+        `<path class="arrow" marker-end="url(#ah)" d="M${c[0] + u * .2} ${c[1] - u * 1.8} Q ${(c[0] + a[0]) / 2} ${c[1] - u * 5.2} ${a[0] + u * .3} ${a[1] - u * 1.6}"/>`;
+    });
+  })();
+
+  // ---------------------------------------------------------------- live race
+  (function () {
+    const N = DATA.demo.n, lanes = [];
+    const mk = (canvasId, statId, pcp, color) => ({ canvas: $(canvasId), stat: $(statId), pcp, color, S: null, moves: 0, trace: [], next: 1000, view: null });
+    lanes.push(mk('race-a', 'race-a-stat', 0, '--s2'), mk('race-b', 'race-b-stat', 0.4, '--s1'));
+    let running = false, raf = 0, seed = 20261114;
+    function reset() {
+      const cells = []; for (let i = 0; i < N; i++) cells.push([i % 40, (i / 40) | 0]);
+      lanes.forEach((L, k) => { L.S = Sampler(cells, 9, seed + 17 * k); L.moves = 0; L.trace = [[1, Math.sqrt(L.S.rg2())]]; L.next = 1000; L.view = null; });
+      seed += 101; drawAll(); drawTrace();
+    }
+    function drawLane(L) {
+      const c = L.canvas, dpr = Math.min(2, devicePixelRatio || 1), r = c.getBoundingClientRect();
+      const w = Math.round(r.width * dpr), h = Math.round(r.height * dpr);
+      if (c.width !== w || c.height !== h) { c.width = w; c.height = h; }
+      const ctx = c.getContext('2d'), S = L.S, n = S.n, now = performance.now();
+      let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+      for (let i = 0; i < n; i++) { const x = S.X[i], y = S.Y[i]; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      const tgt = { cx: (x0 + x1 + 1) / 2, cy: (y0 + y1 + 1) / 2, span: Math.max(x1 - x0, y1 - y0) + 5 };
+      if (!L.view) L.view = tgt; else for (const k in tgt) L.view[k] += (tgt[k] - L.view[k]) * 0.12;
+      const s = Math.min(w, h) / L.view.span, D = S.depths();
+      let md = 1; for (let i = 0; i < n; i++) if (D[i] > md) md = D[i];
+      ctx.fillStyle = 'rgb(' + PLATE.join(',') + ')'; ctx.fillRect(0, 0, w, h);
+      const sz = Math.max(1, s - (s > 5 ? 1 : 0));
+      for (let i = 0; i < n; i++) {
+        const col = rampColor(D[i] / md), f = S.flash[i] ? Math.max(0, 1 - (now - S.flash[i]) / 450) : 0;
+        ctx.fillStyle = f > 0 ? `rgb(${Math.round(col[0] + (255 - col[0]) * f)},${Math.round(col[1] + (255 - col[1]) * f)},${Math.round(col[2] + (255 - col[2]) * f)})` : `rgb(${col[0]},${col[1]},${col[2]})`;
+        ctx.fillRect(w / 2 + (S.X[i] - L.view.cx) * s, h / 2 - (S.Y[i] + 1 - L.view.cy) * s, sz, sz);
+      }
+      const rg = Math.sqrt(S.rg2());
+      L.stat.innerHTML = `<b>${L.moves.toLocaleString('en-US')}</b> moves &middot; radius <b>${rg.toFixed(1)}</b>`;
+    }
+    function drawAll() { lanes.forEach(drawLane); }
+    function drawTrace() {
+      const el = $('race-trace'), W = Math.max(280, el.clientWidth), H = 190, m = { l: 40, r: 14, t: 8, b: 36 };
+      const xmax = Math.max(5, Math.ceil(Math.log10(Math.max(1e5, lanes[0].moves)) + 0.02)), xmin = 3;
+      const eq = DATA.demo, ymax = Math.max(46, eq.rg + 2.2 * eq.rg_sd), ymin = 10;
+      const X = v => m.l + (Math.log10(Math.max(v, 1e3)) - xmin) / (xmax - xmin) * (W - m.l - m.r), Y = v => H - m.b - (v - ymin) / (ymax - ymin) * (H - m.t - m.b);
+      let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Radius of gyration against moves for the two live walks">`;
+      s += `<rect x="${m.l}" width="${W - m.l - m.r}" y="${Y(eq.rg + eq.rg_sd)}" height="${Y(eq.rg - eq.rg_sd) - Y(eq.rg + eq.rg_sd)}" fill="var(--s3)" opacity=".16"/>`;
+      for (let y = 10; y <= ymax; y += 10) s += `<line class="grid" x1="${m.l}" x2="${W - m.r}" y1="${Y(y)}" y2="${Y(y)}"/><text class="tick" x="${m.l - 7}" y="${Y(y) + 4}" text-anchor="end">${y}</text>`;
+      for (let e = xmin; e <= xmax; e++) s += `<line class="grid" x1="${X(10 ** e)}" x2="${X(10 ** e)}" y1="${m.t}" y2="${H - m.b}"/><text class="tick" x="${X(10 ** e)}" y="${H - m.b + 16}" text-anchor="middle">${e >= 6 ? `10<tspan dy="-5" font-size="8.5">${e}</tspan>` : fmtNum(10 ** e)}</text>`;
+      s += `<text class="alabel" x="${(m.l + W - m.r) / 2}" y="${H - 4}" text-anchor="middle">moves made</text>`;
+      s += `<text class="dlabel" x="${m.l + 8}" y="${Y(eq.rg + eq.rg_sd) - 5}">uniform samples</text>`;
+      lanes.forEach(L => { s += `<polyline fill="none" stroke="var(${L.color})" stroke-width="2" stroke-linejoin="round" points="${L.trace.map(p => X(p[0]).toFixed(1) + ',' + Y(Math.min(p[1], ymax)).toFixed(1)).join(' ')}"/>`; });
+      el.innerHTML = s + '</svg>';
+    }
+    let last = 0, lastTrace = 0;
+    function frame(t) {
+      if (!running) return;
+      const dt = Math.min(0.1, (t - last) / 1000 || 0.016); last = t;
+      const rate = Math.pow(10, +$('race-speed').value), k = Math.max(1, Math.round(rate * dt));
+      lanes.forEach(L => {
+        const S = L.S, t0 = performance.now();
+        S.setClock(t0);
+        let i = 0;
+        for (; i < k; i++) {
+          if (L.pcp && S.rnd() < L.pcp) S.transplant(); else S.relocate();
+          if ((i & 1023) === 1023 && performance.now() - t0 > 7) { i++; break; }
+        }
+        L.moves += i;
+        if (L.moves >= L.next) { L.trace.push([L.moves, Math.sqrt(S.rg2())]); L.next = Math.max(L.moves + 200, L.moves * 1.02); if (L.trace.length > 1500) L.trace = L.trace.filter((_, j) => j % 2 === 0); }
+      });
+      drawAll();
+      if (t - lastTrace > 250) { drawTrace(); lastTrace = t; }
+      raf = requestAnimationFrame(frame);
+    }
+    function setRunning(r) { running = r; $('race-run').textContent = r ? 'Pause' : 'Run'; if (r) { last = performance.now(); raf = requestAnimationFrame(frame); } else cancelAnimationFrame(raf); }
+    $('race-run').addEventListener('click', () => { userPaused = running; setRunning(!running); });
+    $('race-reset').addEventListener('click', reset);
+    const so = () => { $('race-speed-out').textContent = fmtNum(Math.round(Math.pow(10, +$('race-speed').value) / 1000) * 1000) + ' moves/s'; };
+    $('race-speed').addEventListener('input', so); so();
+    let userPaused = false;
+    reset();
+    new ResizeObserver(() => { drawAll(); drawTrace(); }).observe($('race-trace'));
+    // run only while on screen; never auto-start for reduced motion
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    new IntersectionObserver(es => {
+      const vis = es[0].isIntersecting;
+      if (!vis && running) setRunning(false);
+      else if (vis && !running && !userPaused && !reduce) setRunning(true);
+    }, { threshold: 0.25 }).observe($('race'));
+  })();
+
+  // ---------------------------------------------------------------- charts
+  const S1 = 'var(--s1)', S2 = 'var(--s2)', S3 = 'var(--s3)';
+  const pow = (a, z) => n => a * Math.pow(n, z);
+  (function () {
+    const fo = DATA.fit_old, fn = DATA.fit_new, fO = pow(fo.a, fo.z), fN = pow(fn.a, fn.z);
+    const nO = DATA.reloc.map(r => r.n), nN = DATA.sizes.map(r => r.n);
+    chart($('ch-tau'), {
+      xlog: true, ylog: true, xlabel: 'cells in the polyomino', ylabel: 'autocorrelation time (moves)', xname: 'cells', yname: 'τ (moves)',
+      xdomain: [40, 2.2e6], ydomain: [1e3, 1e16], rightPad: 18, ysig: 3,
+      aria: 'Autocorrelation time against size for the two walks, log-log',
+      series: [
+        { color: S2, dash: true, line: [[Math.max(...nO), fO(Math.max(...nO))], [2e6, fO(2e6)]] },
+        { color: S1, dash: true, line: [[100, fN(100)], [Math.min(...nN), fN(Math.min(...nN))]] },
+        { name: 'one cell at a time', color: S2, pts: DATA.reloc.map(r => [r.n, r.tau_rg2, r.tau_rg2_err]), line: [[Math.min(...nO), fO(Math.min(...nO))], [Math.max(...nO), fO(Math.max(...nO))]], label: 'n' + sup(fo.z.toFixed(2)), labelAt: [3e4, fO(3e4)], labelDx: -10, labelDy: -6, labelAnchor: 'end' },
+        { name: 'with transplants', color: S1, pts: DATA.sizes.map(r => [r.n, r.tau_rg2, r.tau_rg2_err]), line: [[Math.min(...nN), fN(Math.min(...nN))], [Math.max(...nN), fN(Math.max(...nN))]], label: 'n' + sup(fn.z.toFixed(2)), labelAt: [3e4, fN(3e4)], labelDx: 6, labelDy: 18 },
+      ],
+    });
+  })();
+  function sup(s) { return `<tspan dy="-5" font-size="9">${s}</tspan>`; }
+  (function () {
+    const eq = DATA.square_eq;
+    chart($('ch-square'), {
+      xlog: true, ylog: false, xlabel: 'moves made', ylabel: 'radius of gyration', xname: 'moves', yname: 'radius',
+      xdomain: [1e5, Math.max(...DATA.square_old.map(p => p[0])) * 1.15], ydomain: [0, Math.max(420, eq.rg + 2 * eq.rg_sd)], noTable: true, rightPad: 16,
+      aria: 'Radius of gyration against moves, starting from a square of 30,000 cells',
+      bands: [{ y0: eq.rg - eq.rg_sd, y1: eq.rg + eq.rg_sd, color: S3, label: 'uniform samples', labelAt: eq.rg + eq.rg_sd, left: true }],
+      series: [
+        { name: 'one cell at a time', color: S2, line: DATA.square_old.filter(p => p[0] >= 1e5).map(p => [p[0], Math.sqrt(p[1])]) },
+        { name: 'with transplants', color: S1, line: DATA.square_new.filter(p => p[0] >= 1e5).map(p => [p[0], Math.sqrt(p[1])]) },
+      ],
+    });
+  })();
+  (function () {
+    const f = DATA.fit_nu, nu0 = 0.6412;
+    const mine = DATA.sizes.map(r => [r.n, r.rg, r.rg_err]);
+    chart($('ch-rg'), {
+      xlog: true, ylog: true, xlabel: 'cells in the polyomino', ylabel: 'radius of gyration', xname: 'cells', yname: 'mean radius', ysig: 5,
+      aria: 'Mean radius of gyration against size, log-log, with power-law fit',
+      series: [
+        { color: S1, line: [[mine[0][0], f.a * Math.pow(mine[0][0], f.nu)], [mine[mine.length - 1][0], f.a * Math.pow(mine[mine.length - 1][0], f.nu)]] },
+        { color: S1, pts: mine, label: 'slope ' + f.nu.toFixed(4), labelAt: [3000, f.a * Math.pow(3000, f.nu)], labelDx: 12, labelDy: 14 },
+      ],
+    });
+    chart($('ch-resid'), {
+      xlog: true, xlabel: 'cells in the polyomino', ylabel: 'radius ÷ n^0.6412', xname: 'cells', yname: 'radius ÷ n^0.6412', ysig: 4,
+      aria: 'Mean radius divided by n to the 0.6412 against size, this work and the earlier gallery',
+      series: [
+        { name: 'this sampler', color: S1, pts: DATA.sizes.filter(r => r.n >= 250).map(r => [r.n, r.rg / Math.pow(r.n, nu0), r.rg_err / Math.pow(r.n, nu0)]) },
+        { name: 'earlier gallery (one-cell walk)', color: S2, pts: DATA.gallery.map(g => [g[0], g[1] / Math.pow(g[0], nu0)]) },
+      ],
+    });
+  })();
+  (function () {
+    const pts = DATA.sizes.filter(r => r.n >= 250).map(r => [r.n, r.lam, r.lam_err]);
+    chart($('ch-lam'), {
+      xlog: true, xlabel: 'cells in the polyomino', ylabel: 'estimate of λ', xname: 'cells', yname: 'λ estimate', ysig: 6, height: 300,
+      yfmt: v => v.toFixed(3), aria: 'Estimate of Klarner’s constant from each size, with the accepted value',
+      bands: [{ y0: DATA.lambda_ref - 1e-7, y1: DATA.lambda_ref + 1e-7, mid: DATA.lambda_ref, color: S3, label: 'accepted value 4.0625696', labelAt: DATA.lambda_ref, left: true }],
+      series: [{ color: S1, pts }],
+    });
+  })();
+})();
+
+</script>
+</body>
+</html>
