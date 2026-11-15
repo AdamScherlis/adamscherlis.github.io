@@ -36,15 +36,14 @@ with costs and stopping rules, is in <code>docs/ROADMAP.md</code> in the reposit
 </div>
 
 <ol class="problems">
-<li><b>What do grid-aligned numbers say about the polygon?</b>
-On every grid except the hexagonal one, requiring tilings to be aligned can raise a shape's
-isohedral number, or turn a tiler into a non-tiler. The ten-orbit tetrakis chevron tiles by half-turns as a
-polyabolo, and so does the six-orbit 7-cell tetrakis shape; the Heesch-3 star tiles by translation as a polyiamond. The grids form
-refinement chains — a rhombus is two pons or two triangles, a kite is two drafters, a
-tetrakis triangle is two smaller ones at 45° — so each hard shape can be reclassified on
-the finest grid that contains it. Which of the sixty-seven six-orbit-or-more
-shapes keep their number there? A related question is whether alignment can be made a
-property of the shape itself, by notching its edges, for tilings that use no reflections.</li>
+<li><b>Which grids' conventions are harmless, and why?</b>
+Requiring tilings to follow a shape's own grid can raise its isohedral number or make a
+tiler look like a non-tiler. <a href="records.html#alignment">Tested by refinement</a>,
+the effect varies sharply by family: every anisohedral polykite keeps its number, while most tetrakis shapes and polydrafters, about half the
+polyrhombilles and polypons, and most of the hard non-tilers on those grids dissolve.
+For polyhexes there is a one-line proof that tilings must follow the grid. Is there one
+for polykites? And for the shapes that survive on the other grids, does a third
+refinement change anything, or can alignment be forced by notching the edges?</li>
 
 <li><b>Is there a polyform with isohedral number seven?</b>
 None of the 81 682 298 shapes here has one, although
@@ -60,23 +59,25 @@ permit seven as freely as six at many sizes. Seven is not forbidden by anything 
 Grids with several cells per translation unit produce six-orbit tiles in bulk and four-orbit
 ones at particular parities, and have never produced a five. All
 thirteen five-orbit shapes are polyominoes, polyhexes or
-polyiamonds. Of the tilings found for the sixty-seven shapes with six or more orbits, 53 have translations as
-their only symmetries, typically six tiles per period and nothing more. That
-suggests a mechanism: a tile forced to use every rotated orientation while permitting no
-rotation as a symmetry needs as many orbits as the grid has rotations. If that is the
-rule, the spectrum is explained by the grids' rotation groups and the anomalies — the
-fives, eights, nines and tens — are the interesting part.</li>
+polyiamonds. The <a href="records.html#anatomy">stored tilings</a> show what is going on
+underneath: the commonest hard tiling by far has six tiles to a period, giving three
+orbits when a half-turn pairs them up and six when nothing does. Counting cells, the
+number of tiles in a period times n must be divisible by the number of cells c in a
+translation unit of the grid, so on a grid with c&nbsp;>&nbsp;1 a period of five or seven
+tiles is impossible at any size coprime to c. That accounts for the multi-cell grids. It
+says nothing about polyominoes and polyhexes, where c&nbsp;=&nbsp;1 and periods of five and
+ten tiles do occur while seven and fourteen never do.</li>
 
 <li><b>Finding hard tiles without classifying everything.</b>
 Every hard tile here was found by exhaustive enumeration, and enumeration is running out:
 the share of anisohedral shapes falls with size on every grid, a row of three million
 13-hexes produced nothing above five orbits, and hard tiles have no hard neighbours to
-climb towards. The alternative is to enumerate tilings instead of shapes: fix a symmetry
-group and a number of orbits, and grow the tile in all of its positions at once, so that
-only shapes that tile are ever generated. On the grids where the hard tiles are, very few
-shapes tile at the frontier — 19 of the
-5 376 764 17-rhombilles — so this
-could reach sizes far beyond any sweep.</li>
+climb towards. Enumerating tilings instead of shapes does not obviously help either: a
+tiling with six unrelated tiles per period has more ways to arrange its tiles than there
+are shapes at any size within reach, and specifying a tiler by half its boundary gains
+only a modest factor. What the stored tilings do offer is a template. A hard tiling is a
+handful of tiles per period with almost no symmetry, which is specific enough to build
+candidates by hand rather than wait for a sweep to stumble on them.</li>
 
 <li><b>Heesch numbers on the new grids.</b>
 The largest Heesch number known for any polygon is six.

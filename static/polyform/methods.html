@@ -188,8 +188,12 @@ have every smaller k excluded by exact cover as well as by SAT.</li>
 <li><b>Compiled against reference.</b> The compiled kernels reproduce the pure-Python
 reference bit for bit, including the order in which solutions are found; the test suite
 runs both.</li>
-<li><b>Witnesses.</b> Every stored tiling with four or more orbits has been expanded into
-the plane and drawn; the pictures are in the <a href="g/index.html">galleries</a>.</li>
+<li><b>Certificates.</b> For every shape with isohedral number three or more, a simplest
+tiling is stored explicitly and checked by a separate program that knows nothing about
+groups or exact cover: the tiles must cover the plane exactly once, and the tiling's full
+symmetry group, found by brute force, must have exactly the claimed number of orbits.
+All 1 552 pass. Tilings with four or more orbits are also drawn in the
+<a href="g/index.html">galleries</a>.</li>
 <li><b>An oracle for marked tiles.</b> Positive results for marked tiles are re-derived by
 a brute-force program that computes the full symmetry group of the claimed tiling and
 counts its orbits directly.</li>

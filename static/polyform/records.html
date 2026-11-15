@@ -157,6 +157,93 @@ polyominoes, polyhexes or polyiamonds. And no shape of any family has isohedral 
 seven. Both are discussed under <a href="open.html">open problems</a>.
 </p>
 
+<h2 id="alignment">What the grid convention costs</h2>
+<p>
+Every number on this site is for tilings aligned to the shape's own grid. For polyhexes
+that is no restriction, because regular hexagons fit together in only one way. For the
+other families it can be tested. The grids refine one another — a rhombus is two
+triangles, a kite or a pon is two drafters — and two of them, tetrakis and kisrhombille,
+contain smaller, turned copies of themselves. So the same polygon can be cut into smaller
+cells and classified again, where it is free to sit in positions and orientations its
+own grid forbids. A finer grid can only make tiling easier.
+</p>
+
+<p>
+This was done for every shape with isohedral number three or more on the five grids that
+have a refinement here, and for the non-tilers on those grids that had needed a dedicated
+proof. Kites and pons were taken two steps: the first, into drafters, adds no new
+placements, because those three grids have the same symmetries; the second cuts each
+drafter in three and allows copies turned by 30° and shifted by fractions of a period.
+</p>
+</div>
+<div class="tablewrap"><table class="compact">
+<thead><tr><th>family</th><th>anisohedral shapes tested</th><th>keep their number</th><th>need fewer orbits</th>
+<th>become isohedral</th><th>undecided</th><th>non-tilers tested</th><th>tile after all</th><th>undecided</th></tr></thead>
+<tbody>
+
+<tr><td><a href="families.html#kite">polykites</a></td>
+<td>85</td>
+<td>85</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>2</td>
+<td class="zero">0</td><td>2</td>
+</tr>
+
+<tr><td><a href="families.html#rhombille">polyrhombilles</a></td>
+<td>100</td>
+<td>40</td><td>6</td><td>52</td><td>2</td>
+<td>17</td>
+<td>14</td><td>3</td>
+</tr>
+
+<tr><td><a href="families.html#tetrakis">tetrakis polyaboloes</a></td>
+<td>50</td>
+<td>6</td><td>1</td><td>43</td><td class="zero">0</td>
+<td>7</td>
+<td>7</td><td class="zero">0</td>
+</tr>
+
+<tr><td><a href="families.html#kisrhombille">polydrafters</a></td>
+<td>51</td>
+<td>7</td><td class="zero">0</td><td>44</td><td class="zero">0</td>
+<td>5</td>
+<td>2</td><td>3</td>
+</tr>
+
+<tr><td><a href="families.html#triakis">polypons</a></td>
+<td>56</td>
+<td>30</td><td>1</td><td>25</td><td class="zero">0</td>
+<td>15</td>
+<td>8</td><td>7</td>
+</tr>
+
+<tr class="mark"><td>all five</td><td>342</td>
+<td>168</td><td>8</td><td>164</td><td>2</td>
+<td>46</td>
+<td>31</td><td>15</td>
+</tr>
+</tbody>
+<caption>Free and one-sided shapes together. “Undecided” means the search on the finer
+grid ran out of time or could not settle the shape at the effort used. No non-tiler was
+confirmed to remain one.</caption>
+</table></div>
+<div class="prose">
+<p>
+The families behave very differently. <b>Every polykite keeps its isohedral number</b>:
+for kites the grid convention appears to cost nothing. (The three smallest were taken a
+step further, each kite cut into eighteen, and still keep theirs.) Polyrhombilles
+and polypons split about evenly. <b>Tetrakis shapes and polydrafters mostly dissolve</b>, and so do the hard
+non-tilers: of the 46 tested,
+31 tile once their cells are cut smaller, including the
+ten-rhombus <a href="#heesch">star</a>. On those grids a Heesch number, like an isohedral
+number, is a statement about the grid as much as about the polygon.
+</p>
+<p>
+This is a test, not a proof. A shape that keeps its number at one level of refinement might
+lose it at the next, and nothing here shows that a polykite's tilings must follow the kite
+grid — though the uniformity of the result suggests there is such an argument to be found.
+</p>
+
+
 <h2 id="club">Six orbits or more</h2>
 <p>
 Sixty-seven shapes need at least six orbits:
@@ -174,31 +261,18 @@ marked “≅” share a polygon with another entry. A shape's isohedral number 
 statement about its own grid: a finer grid admits more tilings, so the same polygon can
 honestly carry different numbers on different grids.
 </p>
-<div class="callout"><p>
-<b>These are grid-aligned numbers.</b> For the polyhexes they are unconditional. For the
-other families a shape may have simpler tilings that ignore its grid, and whether it does
-can be tested: the grids refine one another (a rhombus is two triangles, a kite two
-drafters), and two of them — tetrakis and kisrhombille — contain smaller, turned copies of
-themselves, so the same polygon can be reclassified with its cells cut into smaller ones.
-</p>
 
 <p>
-Of the fifty-two shapes below tested this way,
-<b>thirty-seven collapse</b>: with smaller cells they tile
-isohedrally, nearly always by half-turns. Among them are the ten-orbit tetrakis chevron,
-the six-orbit 7-cell tetrakis shape, and most of the polyrhombilles and polypons.
-Five more drop to a smaller number of orbits, still above one.
-
-<b>Ten keep their isohedral number</b>
-(five polykites, three polyrhombilles, two polypons),
-seven of them through two successive refinements.
-Each card says which. The survivors are the robust hard tiles; the others were hard only
-because their grid made them so. The fifteen without a note are
-polyhexes, which need no test, shapes on grids with no refinement available here
-(squares, triangles, florets), or cases the search did not finish.
+Each card notes what <a href="#alignment">refinement</a> does to the shape. Of the
+fifty-two tested, thirty-seven become isohedral
+on a finer grid — among them the ten-orbit tetrakis chevron, which tiles by half-turns —
+five drop to fewer orbits, and
+<b>ten keep their number</b>
+(five polykites, three polyrhombilles, two polypons).
+The fifteen without a note are polyhexes, which need no test,
+shapes on grids with no refinement available here, or cases the search did not finish.
 </p>
 
-</div>
 </div>
 <div class="shapes">
 
@@ -410,6 +484,64 @@ Galleries of every tiling with four or more orbits, by family:
 <a href="g/index.html">all galleries</a>.
 </p>
 
+<h3 id="anatomy">What the tilings look like</h3>
+<p>
+For each of the 1 552 shapes with isohedral number three or more, one
+simplest tiling is stored as a certificate — a pair of period vectors and one placement
+per tile — and checked by a program that shares nothing with the search: it confirms
+that the tiles cover the plane exactly once, then finds the tiling's full symmetry group
+by brute force and counts the orbits. Every one has exactly the number of orbits claimed.
+The same check says what kind of tiling each is.
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>isohedral number</th><th>shapes</th><th>translations only</th><th>plus half-turns</th>
+<th>with mirrors or glides</th><th>3- or 4-fold</th><th class="l">tiles in one period (shapes)</th></tr></thead>
+<tbody>
+
+<tr><td>k = 3</td><td>1 279</td>
+<td>225</td><td>931</td><td>112</td><td>11</td>
+<td class="l"><span class="k"><b>3</b>:225</span><span class="k"><b>4</b>:4</span><span class="k"><b>6</b>:956</span><span class="k"><b>9</b>:5</span><span class="k"><b>12</b>:89</span></td></tr>
+
+<tr><td>k = 4</td><td>191</td>
+<td>39</td><td>129</td><td>18</td><td>5</td>
+<td class="l"><span class="k"><b>4</b>:39</span><span class="k"><b>8</b>:141</span><span class="k"><b>12</b>:5</span><span class="k"><b>16</b>:6</span></td></tr>
+
+<tr><td>k = 5</td><td>15</td>
+<td>1</td><td>9</td><td>5</td><td class="zero">0</td>
+<td class="l"><span class="k"><b>5</b>:1</span><span class="k"><b>10</b>:11</span><span class="k"><b>20</b>:3</span></td></tr>
+
+<tr><td>k = 6</td><td>62</td>
+<td>52</td><td>8</td><td>2</td><td class="zero">0</td>
+<td class="l"><span class="k"><b>6</b>:52</span><span class="k"><b>12</b>:10</span></td></tr>
+
+<tr><td>k = 8</td><td>3</td>
+<td>1</td><td>2</td><td class="zero">0</td><td class="zero">0</td>
+<td class="l"><span class="k"><b>8</b>:1</span><span class="k"><b>16</b>:2</span></td></tr>
+
+<tr><td>k = 9</td><td>1</td>
+<td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+<td class="l"><span class="k"><b>36</b>:1</span></td></tr>
+
+<tr><td>k = 10</td><td>1</td>
+<td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+<td class="l"><span class="k"><b>40</b>:1</span></td></tr>
+
+</tbody>
+<caption>Symmetry of one simplest tiling per shape, free and one-sided together. A shape
+may have other tilings with the same number of orbits and different symmetry.</caption>
+</table></div>
+<div class="prose">
+<p>
+Hard tilings have very little symmetry. Three-, four- and five-orbit tilings are mostly
+built on half-turns: the tiles of one period fall into pairs exchanged by a 180° rotation.
+Six-orbit tilings mostly have no symmetry beyond translation at all — six tiles in a
+period, each its own orbit. The commonest structure by far is six tiles to a period
+(1 008 of the 1 552), which gives three orbits
+when a half-turn pairs them and six when nothing does. No tiling here has seven tiles
+to a period, or fourteen, which is what a seven-orbit tiling of either kind would need.
+</p>
+
 <h3>They are isolated</h3>
 <p>
 One might hope to find such tiles by local search: start from a known hard tile and move
@@ -502,7 +634,8 @@ value is higher than the depth at which non-tiling was first proved.
 
 </tbody>
 <caption>Exact Heesch numbers of the non-tilers that needed a dedicated proof, for
-grid-aligned surrounds. Shapes disposed of by the sweeps themselves (the great majority of
+grid-aligned surrounds (on the grids other than the hexagonal one, many of these shapes
+tile on a finer grid: see <a href="#alignment">above</a>). Shapes disposed of by the sweeps themselves (the great majority of
 all non-tilers) are not included.</caption>
 </table></div>
 

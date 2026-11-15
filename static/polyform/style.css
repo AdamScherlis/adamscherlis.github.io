@@ -64,6 +64,7 @@ th:first-child, td:first-child { text-align: left; }
 td.l, th.l { text-align: left; }
 td.wrap, table.wrapcells td { white-space: normal; }
 table.wrapcells { max-width: 60rem; }
+table.compact th { white-space: normal; max-width: 6.2rem; }
 td.zero { color: var(--muted); opacity: .55; }
 tr.mark td { background: var(--accent-soft); }
 td .ok { color: var(--good); font-weight: 700; }
