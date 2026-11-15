@@ -1,0 +1,4334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Families · Polyform tilings</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site"><div class="inner">
+  <a class="brand" href="index.html">Polyform tilings</a>
+  <nav class="site">
+
+    <a href="index.html">Overview</a>
+
+    <a href="families.html" class="here">Families</a>
+
+    <a href="records.html">Hard shapes</a>
+
+    <a href="decorations.html">Edge markings</a>
+
+    <a href="methods.html">Methods</a>
+
+    <a href="open.html">Open problems</a>
+
+  </nav>
+</div></header>
+<main>
+
+<div class="prose">
+<h1>The families</h1>
+<p class="lede">
+Fifteen families of polyforms, each classified completely up to
+some size: every shape counted below is in exactly one column.
+</p>
+<p>
+Columns follow the hierarchy on the <a href="index.html#question">overview</a>: shapes with
+holes; shapes that tile by <em>translation</em>; by translations and <em>half-turns</em>
+but not translation alone; by some other <em>isohedral</em> tiling; <em>anisohedral</em>
+shapes, broken down by isohedral number; and proved <em>non-tilers</em>. “Tile %” is the
+share of hole-free shapes that tile. Isohedral numbers of four or more link to pictures of
+the tilings. A ✓ means every column of that row equals the corresponding entry in
+<a href="https://www.polyomino.org.uk/mathematics/polyform-tiling/">Myers's tables</a>.
+One-sided tables count mirror images as different shapes and forbid reflected copies in
+the tiling.
+</p>
+<ul class="toc">
+<li><a href="#square">Polyominoes</a> <span class="muted">n ≤ 15</span></li>
+<li><a href="#hex">Polyhexes</a> <span class="muted">n ≤ 13</span></li>
+<li><a href="#iamond">Polyiamonds</a> <span class="muted">n ≤ 18</span></li>
+<li><a href="#kite">Polykites</a> <span class="muted">n ≤ 15</span></li>
+<li><a href="#cairo">Polycairos</a> <span class="muted">n ≤ 13</span></li>
+<li><a href="#rhombille">Polyrhombilles</a> <span class="muted">n ≤ 17</span></li>
+<li><a href="#floret">Polyflorets</a> <span class="muted">n ≤ 13</span></li>
+<li><a href="#prismatic">Polyprisms</a> <span class="muted">n ≤ 13</span></li>
+<li><a href="#tetrakis">Tetrakis polyaboloes</a> <span class="muted">n ≤ 19</span></li>
+<li><a href="#abolo">Polyaboloes</a> <span class="muted">n ≤ 13</span></li>
+<li><a href="#kisrhombille">Polydrafters</a> <span class="muted">n ≤ 19</span></li>
+<li><a href="#triakis">Polypons</a> <span class="muted">n ≤ 25</span></li>
+<li><a href="#trihex">Trihexagonal polyforms</a> <span class="muted">n ≤ 13</span></li>
+<li><a href="#truncsq">Truncated-square polyforms</a> <span class="muted">n ≤ 12</span></li>
+<li><a href="#trunchex">Truncated-hexagonal polyforms</a> <span class="muted">n ≤ 10</span></li>
+
+</ul>
+</div>
+
+
+<div class="famhead" id="square">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-0.120 -2.120 2.240 3.240" width="37" height="54" role="img"><path d="M0.000,-0.000 L1.000,-0.000 L1.000,-1.000 L0.000,-1.000Z M0.000,-1.000 L1.000,-1.000 L1.000,-2.000 L0.000,-2.000Z M1.000,1.000 L2.000,1.000 L2.000,-0.000 L1.000,-0.000Z M1.000,-0.000 L2.000,-0.000 L2.000,-1.000 L1.000,-1.000Z" class="cell" stroke-width="0.0136" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,-1.000 L1.000,-1.000 M1.000,-1.000 L1.000,-0.000 M1.000,-0.000 L2.000,-0.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M0.000,-2.000 L0.000,-1.000 M0.000,-2.000 L1.000,-2.000 M0.000,-1.000 L0.000,-0.000 M0.000,-0.000 L1.000,-0.000 M1.000,-2.000 L1.000,-1.000 M1.000,-1.000 L2.000,-1.000 M1.000,-0.000 L1.000,1.000 M1.000,1.000 L2.000,1.000 M2.000,-1.000 L2.000,-0.000 M2.000,-0.000 L2.000,1.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polyominoes</h2>
+    <div class="sub">unit square · square tiling (4.4.4.4)
+ · <span class="badge ok">matches Myers, n ≤ 15</span>
+</div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>4 654 284</b> free shapes, n ≤ 15
+  · <b>1</b> cell per translation unit
+· first non-tiler at n = <b>7</b>
+· first anisohedral at n = <b>8</b>
+  · highest isohedral number <b>6</b>
+
+</p>
+<p>The reference family, and the gentlest grid: the share of polyominoes that tile falls
+slowly and smoothly with size. Anisohedral polyominoes are almost all 2-anisohedral; the
+single 6-anisohedral 14-omino is the only polyomino here above k&nbsp;=&nbsp;5. No polyomino of
+fifteen cells or fewer has isohedral number seven.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th><th>Myers</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>3</td><td>2</td>
+  <td class="zero">0</td><td>2</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>4</td><td>5</td>
+  <td class="zero">0</td><td>5</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>5</td><td>12</td>
+  <td class="zero">0</td><td>9</td><td>3</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>6</td><td>35</td>
+  <td class="zero">0</td><td>24</td><td>11</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>7</td><td>108</td>
+  <td>1</td><td>41</td><td>60</td><td>3</td>
+  <td class="l zero">0</td>
+  <td>3</td>
+
+  <td>97</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>8</td><td>369</td>
+  <td>6</td><td>121</td><td>199</td><td>22</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td>20</td>
+
+  <td>94</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>9</td><td>1 285</td>
+  <td>37</td><td>213</td><td>748</td><td>80</td>
+  <td class="l">9<span class="k"><b>2</b>:8</span><span class="k"><a href="g/square-k4.html"><b>4</b>:1</a></span></td>
+  <td>198</td>
+
+  <td>84</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>10</td><td>4 655</td>
+  <td>195</td><td>522</td><td>2 181</td><td>323</td>
+  <td class="l">44<span class="k"><b>2</b>:41</span><span class="k"><b>3</b>:3</span></td>
+  <td>1 390</td>
+
+  <td>69</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>11</td><td>17 073</td>
+  <td>979</td><td>783</td><td>5 391</td><td>338</td>
+  <td class="l">108<span class="k"><b>2</b>:89</span><span class="k"><b>3</b>:18</span><span class="k"><a href="g/square-k4.html"><b>4</b>:1</a></span></td>
+  <td>9 474</td>
+
+  <td>41</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>12</td><td>63 600</td>
+  <td>4 663</td><td>2 712</td><td>17 193</td><td>3 322</td>
+  <td class="l">222<span class="k"><b>2</b>:214</span><span class="k"><b>3</b>:6</span><span class="k"><a href="g/square-k4.html"><b>4</b>:2</a></span></td>
+  <td>35 488</td>
+
+  <td>40</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>13</td><td>238 591</td>
+  <td>21 474</td><td>3 179</td><td>31 881</td><td>3 178</td>
+  <td class="l">431<span class="k"><b>2</b>:406</span><span class="k"><b>3</b>:24</span><span class="k"><a href="g/square-k5.html"><b>5</b>:1</a></span></td>
+  <td>178 448</td>
+
+  <td>18</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>14</td><td>901 971</td>
+  <td>96 496</td><td>8 672</td><td>85 942</td><td>13 590</td>
+  <td class="l">900<span class="k"><b>2</b>:874</span><span class="k"><b>3</b>:24</span><span class="k"><a href="g/square-k4.html"><b>4</b>:1</a></span><span class="k"><a href="g/square-k6.html"><b>6</b>:1</a></span></td>
+  <td>696 371</td>
+
+  <td>14</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>15</td><td>3 426 576</td>
+  <td>425 449</td><td>16 621</td><td>218 760</td><td>43 045</td>
+  <td class="l">1 157<span class="k"><b>2</b>:1 107</span><span class="k"><b>3</b>:49</span><span class="k"><a href="g/square-k4.html"><b>4</b>:1</a></span></td>
+  <td>2 721 544</td>
+
+  <td>9.3</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polyominoes (n ≤ 10)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>2</td>
+  <td class="zero">0</td><td>2</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>7</td>
+  <td class="zero">0</td><td>7</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>18</td>
+  <td class="zero">0</td><td>14</td><td>4</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>60</td>
+  <td class="zero">0</td><td>42</td><td>18</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>196</td>
+  <td>1</td><td>74</td><td>112</td><td class="zero">0</td>
+  <td class="l">3<span class="k"><b>2</b>:3</span></td>
+  <td>6</td>
+
+  <td>97</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>704</td>
+  <td>11</td><td>224</td><td>388</td><td>18</td>
+  <td class="l zero">0</td>
+  <td>63</td>
+
+  <td>91</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>2 500</td>
+  <td>68</td><td>411</td><td>1 471</td><td>39</td>
+  <td class="l">13<span class="k"><b>2</b>:11</span><span class="k"><a href="g/square-direct-k4.html"><b>4</b>:2</a></span></td>
+  <td>498</td>
+
+  <td>80</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>9 189</td>
+  <td>381</td><td>1 025</td><td>4 320</td><td>150</td>
+  <td class="l">30<span class="k"><b>2</b>:26</span><span class="k"><b>3</b>:4</span></td>
+  <td>3 283</td>
+
+  <td>63</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="hex">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-1.742 -4.573 6.485 6.547" width="53" height="54" role="img"><path d="M1.500,0.866 L1.500,-0.866 L0.000,-1.732 L-1.500,-0.866 L-1.500,0.866 L0.000,1.732Z M3.000,-1.732 L3.000,-3.464 L1.500,-4.330 L0.000,-3.464 L0.000,-1.732 L1.500,-0.866Z M4.500,0.866 L4.500,-0.866 L3.000,-1.732 L1.500,-0.866 L1.500,0.866 L3.000,1.732Z" class="cell" stroke-width="0.0276" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,-1.732 L1.500,-0.866 M1.500,-0.866 L1.500,0.866 M1.500,-0.866 L3.000,-1.732" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-1.500,-0.866 L-1.500,0.866 M-1.500,-0.866 L0.000,-1.732 M-1.500,0.866 L0.000,1.732 M0.000,-3.464 L0.000,-1.732 M0.000,-3.464 L1.500,-4.330 M0.000,1.732 L1.500,0.866 M1.500,-4.330 L3.000,-3.464 M1.500,0.866 L3.000,1.732 M3.000,-3.464 L3.000,-1.732 M3.000,-1.732 L4.500,-0.866 M3.000,1.732 L4.500,0.866 M4.500,-0.866 L4.500,0.866" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polyhexes</h2>
+    <div class="sub">regular hexagon · hexagonal tiling (6.6.6)
+ · <span class="badge ok">matches Myers, n ≤ 13</span>
+</div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>4 140 438</b> free shapes, n ≤ 13
+  · <b>1</b> cell per translation unit
+· first non-tiler at n = <b>6</b>
+· first anisohedral at n = <b>6</b>
+  · highest isohedral number <b>9</b>
+
+</p>
+<p>The richest of the classical families in hard tiles: two 10-hexes need eight orbits and
+one 11-hex needs nine, all three predicted by Myers's tables and found here independently.
+The sweeps left 419 polyhexes unresolved at first; every one was
+later settled by a deeper probe, almost all as non-tilers. No polyhex of thirteen cells or fewer has
+isohedral number seven.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th><th>Myers</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>3</td><td>3</td>
+  <td class="zero">0</td><td>3</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>4</td><td>7</td>
+  <td class="zero">0</td><td>6</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>5</td><td>22</td>
+  <td class="zero">0</td><td>12</td><td>9</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>6</td><td>82</td>
+  <td>1</td><td>36</td><td>39</td><td>1</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td>4</td>
+
+  <td>95</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>7</td><td>333</td>
+  <td>2</td><td>60</td><td>197</td><td>33</td>
+  <td class="l">4<span class="k"><b>2</b>:3</span><span class="k"><b>3</b>:1</span></td>
+  <td>37</td>
+
+  <td>89</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>8</td><td>1 448</td>
+  <td>13</td><td>209</td><td>721</td><td>88</td>
+  <td class="l">36<span class="k"><b>2</b>:27</span><span class="k"><b>3</b>:7</span><span class="k"><a href="g/hex-k4.html"><b>4</b>:2</a></span></td>
+  <td>381</td>
+
+  <td>73</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>9</td><td>6 572</td>
+  <td>67</td><td>387</td><td>2 717</td><td>611</td>
+  <td class="l">73<span class="k"><b>2</b>:66</span><span class="k"><b>3</b>:5</span><span class="k"><a href="g/hex-k4.html"><b>4</b>:2</a></span></td>
+  <td>2 717</td>
+
+  <td>58</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>10</td><td>30 490</td>
+  <td>404</td><td>1 054</td><td>8 211</td><td>1 803</td>
+  <td class="l">258<span class="k"><b>2</b>:226</span><span class="k"><b>3</b>:26</span><span class="k"><a href="g/hex-k4.html"><b>4</b>:4</a></span><span class="k"><a href="g/hex-k8.html"><b>8</b>:2</a></span></td>
+  <td>18 760</td>
+
+  <td>38</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>11</td><td>143 552</td>
+  <td>2 323</td><td>1 468</td><td>19 836</td><td>2 985</td>
+  <td class="l">501<span class="k"><b>2</b>:380</span><span class="k"><b>3</b>:97</span><span class="k"><a href="g/hex-k4.html"><b>4</b>:19</a></span><span class="k"><a href="g/hex-k5.html"><b>5</b>:3</a></span><span class="k"><a href="g/hex-k6.html"><b>6</b>:1</a></span><span class="k"><a href="g/hex-k9.html"><b>9</b>:1</a></span></td>
+  <td>116 439</td>
+
+  <td>18</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>12</td><td>683 101</td>
+  <td>13 517</td><td>6 895</td><td>74 497</td><td>21 250</td>
+  <td class="l">999<span class="k"><b>2</b>:879</span><span class="k"><b>3</b>:95</span><span class="k"><a href="g/hex-k4.html"><b>4</b>:23</a></span><span class="k"><a href="g/hex-k5.html"><b>5</b>:2</a></span></td>
+  <td>565 943</td>
+
+  <td>15</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>13</td><td>3 274 826</td>
+  <td>76 570</td><td>7 001</td><td>132 611</td><td>23 564</td>
+  <td class="l">1 383<span class="k"><b>2</b>:1 097</span><span class="k"><b>3</b>:267</span><span class="k"><a href="g/hex-k4.html"><b>4</b>:14</a></span><span class="k"><a href="g/hex-k5.html"><b>5</b>:5</a></span></td>
+  <td>3 033 697</td>
+
+  <td>5.1</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polyhexes (n ≤ 11)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>3</td>
+  <td class="zero">0</td><td>3</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>10</td>
+  <td class="zero">0</td><td>9</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>33</td>
+  <td class="zero">0</td><td>17</td><td>15</td><td class="zero">0</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>147</td>
+  <td>1</td><td>66</td><td>71</td><td class="zero">0</td>
+  <td class="l">3<span class="k"><b>2</b>:3</span></td>
+  <td>6</td>
+
+  <td>96</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>620</td>
+  <td>2</td><td>106</td><td>379</td><td>29</td>
+  <td class="l">8<span class="k"><b>2</b>:8</span></td>
+  <td>96</td>
+
+  <td>84</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>2 821</td>
+  <td>18</td><td>395</td><td>1 425</td><td class="zero">0</td>
+  <td class="l">47<span class="k"><b>2</b>:40</span><span class="k"><b>3</b>:7</span></td>
+  <td>936</td>
+
+  <td>67</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>12 942</td>
+  <td>118</td><td>737</td><td>5 390</td><td>146</td>
+  <td class="l">119<span class="k"><b>2</b>:115</span><span class="k"><a href="g/hex-direct-k4.html"><b>4</b>:2</a></span><span class="k"><a href="g/hex-direct-k5.html"><b>5</b>:2</a></span></td>
+  <td>6 432</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>60 639</td>
+  <td>756</td><td>2 091</td><td>16 348</td><td class="zero">0</td>
+  <td class="l">180<span class="k"><b>2</b>:128</span><span class="k"><b>3</b>:46</span><span class="k"><a href="g/hex-direct-k4.html"><b>4</b>:4</a></span><span class="k"><a href="g/hex-direct-k6.html"><b>6</b>:2</a></span></td>
+  <td>41 264</td>
+
+  <td>31</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>286 190</td>
+  <td>4 542</td><td>2 881</td><td>39 593</td><td class="zero">0</td>
+  <td class="l">393<span class="k"><b>2</b>:237</span><span class="k"><b>3</b>:136</span><span class="k"><a href="g/hex-direct-k4.html"><b>4</b>:18</a></span><span class="k"><a href="g/hex-direct-k6.html"><b>6</b>:2</a></span></td>
+  <td>238 781</td>
+
+  <td>15</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="iamond">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-0.312 -5.508 6.624 8.418" width="42" height="54" role="img"><path d="M0.000,-0.000 L3.000,-0.000 L1.500,-2.598Z M1.500,-2.598 L4.500,-2.598 L3.000,-5.196Z M1.500,2.598 L3.000,-0.000 L0.000,-0.000Z M3.000,-0.000 L4.500,-2.598 L1.500,-2.598Z M3.000,-0.000 L6.000,-0.000 L4.500,-2.598Z" class="cell" stroke-width="0.0354" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,-0.000 L3.000,-0.000 M1.500,-2.598 L3.000,-0.000 M1.500,-2.598 L4.500,-2.598 M3.000,-0.000 L4.500,-2.598" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M0.000,-0.000 L1.500,-2.598 M0.000,-0.000 L1.500,2.598 M1.500,-2.598 L3.000,-5.196 M1.500,2.598 L3.000,-0.000 M3.000,-5.196 L4.500,-2.598 M3.000,-0.000 L6.000,-0.000 M4.500,-2.598 L6.000,-0.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polyiamonds</h2>
+    <div class="sub">equilateral triangle · triangular tiling (3.3.3.3.3.3)
+ · <span class="badge ok">matches Myers, n ≤ 18</span>
+</div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>2 666 356</b> free shapes, n ≤ 18
+  · <b>2</b> cells per translation unit
+· first non-tiler at n = <b>7</b>
+· first anisohedral at n = <b>9</b>
+  · highest isohedral number <b>8</b>
+
+</p>
+<p>Translation tilings need an even number of triangles, so that column is empty at odd
+sizes. All 66 octiamonds tile the plane — the largest size in any family with no
+non-tiler — and anisohedral polyiamonds first appear at nine cells. One 13-iamond needs
+eight orbits.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th><th>Myers</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>3</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>4</td><td>3</td>
+  <td class="zero">0</td><td>2</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>5</td><td>4</td>
+  <td class="zero">0</td><td class="zero">0</td><td>4</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>6</td><td>12</td>
+  <td class="zero">0</td><td>8</td><td>4</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>7</td><td>24</td>
+  <td class="zero">0</td><td class="zero">0</td><td>21</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>96</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>8</td><td>66</td>
+  <td class="zero">0</td><td>24</td><td>32</td><td>10</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>9</td><td>160</td>
+  <td>1</td><td class="zero">0</td><td>111</td><td>22</td>
+  <td class="l">6<span class="k"><b>2</b>:5</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:1</a></span></td>
+  <td>20</td>
+
+  <td>87</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>10</td><td>448</td>
+  <td>4</td><td>62</td><td>200</td><td>54</td>
+  <td class="l">25<span class="k"><b>2</b>:23</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:1</a></span></td>
+  <td>103</td>
+
+  <td>77</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>11</td><td>1 186</td>
+  <td>25</td><td class="zero">0</td><td>462</td><td>52</td>
+  <td class="l">53<span class="k"><b>2</b>:43</span><span class="k"><b>3</b>:8</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:2</a></span></td>
+  <td>594</td>
+
+  <td>49</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>12</td><td>3 334</td>
+  <td>108</td><td>291</td><td>1 162</td><td>534</td>
+  <td class="l">47<span class="k"><b>2</b>:38</span><span class="k"><b>3</b>:8</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:1</a></span></td>
+  <td>1 192</td>
+
+  <td>63</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>13</td><td>9 235</td>
+  <td>450</td><td class="zero">0</td><td>1 875</td><td>523</td>
+  <td class="l">97<span class="k"><b>2</b>:85</span><span class="k"><b>3</b>:9</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:2</a></span><span class="k"><a href="g/iamond-k8.html"><b>8</b>:1</a></span></td>
+  <td>6 290</td>
+
+  <td>28</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>14</td><td>26 166</td>
+  <td>1 713</td><td>539</td><td>4 195</td><td>1 339</td>
+  <td class="l">281<span class="k"><b>2</b>:274</span><span class="k"><b>3</b>:7</span></td>
+  <td>18 099</td>
+
+  <td>26</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>15</td><td>73 983</td>
+  <td>6 267</td><td class="zero">0</td><td>9 410</td><td>3 218</td>
+  <td class="l">280<span class="k"><b>2</b>:259</span><span class="k"><b>3</b>:13</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:7</a></span><span class="k"><a href="g/iamond-k5.html"><b>5</b>:1</a></span></td>
+  <td>54 808</td>
+
+  <td>19</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>16</td><td>211 297</td>
+  <td>21 988</td><td>2 625</td><td>17 978</td><td>9 315</td>
+  <td class="l">343<span class="k"><b>2</b>:324</span><span class="k"><b>3</b>:16</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:1</a></span><span class="k"><a href="g/iamond-k5.html"><b>5</b>:1</a></span><span class="k"><a href="g/iamond-k6.html"><b>6</b>:1</a></span></td>
+  <td>159 048</td>
+
+  <td>16</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>17</td><td>604 107</td>
+  <td>75 185</td><td class="zero">0</td><td>24 034</td><td>2 177</td>
+  <td class="l">345<span class="k"><b>2</b>:326</span><span class="k"><b>3</b>:16</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:3</a></span></td>
+  <td>502 366</td>
+
+  <td>5.0</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>18</td><td>1 736 328</td>
+  <td>251 590</td><td>6 177</td><td>73 175</td><td>29 426</td>
+  <td class="l">1 367<span class="k"><b>2</b>:1 344</span><span class="k"><b>3</b>:17</span><span class="k"><a href="g/iamond-k4.html"><b>4</b>:5</a></span><span class="k"><a href="g/iamond-k6.html"><b>6</b>:1</a></span></td>
+  <td>1 374 593</td>
+
+  <td>7.4</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polyiamonds (n ≤ 10)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>4</td>
+  <td class="zero">0</td><td>3</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>6</td>
+  <td class="zero">0</td><td class="zero">0</td><td>6</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>19</td>
+  <td class="zero">0</td><td>11</td><td>8</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>43</td>
+  <td class="zero">0</td><td class="zero">0</td><td>39</td><td>3</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>98</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>120</td>
+  <td class="zero">0</td><td>44</td><td>57</td><td>4</td>
+  <td class="l">7<span class="k"><b>2</b>:7</span></td>
+  <td>8</td>
+
+  <td>93</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>307</td>
+  <td>1</td><td class="zero">0</td><td>218</td><td>20</td>
+  <td class="l">10<span class="k"><b>2</b>:9</span><span class="k"><a href="g/iamond-direct-k4.html"><b>4</b>:1</a></span></td>
+  <td>58</td>
+
+  <td>81</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>866</td>
+  <td>8</td><td>110</td><td>393</td><td class="zero">0</td>
+  <td class="l">19<span class="k"><b>2</b>:13</span><span class="k"><b>3</b>:2</span><span class="k"><a href="g/iamond-direct-k4.html"><b>4</b>:4</a></span></td>
+  <td>336</td>
+
+  <td>61</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="kite">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-9.624 -5.820 10.247 16.836" width="33" height="54" role="img"><path d="M0.000,-0.000 L-3.000,-5.196 L-6.000,-3.464 L-6.000,-0.000Z M-6.000,10.392 L-3.000,5.196 L-6.000,3.464 L-9.000,5.196Z M0.000,-0.000 L-6.000,-0.000 L-6.000,3.464 L-3.000,5.196Z M-6.000,10.392 L0.000,10.392 L0.000,6.928 L-3.000,5.196Z" class="cell" stroke-width="0.0709" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M-6.000,-0.000 L0.000,-0.000 M-6.000,3.464 L-3.000,5.196 M-6.000,10.392 L-3.000,5.196" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-9.000,5.196 L-6.000,3.464 M-9.000,5.196 L-6.000,10.392 M-6.000,-3.464 L-6.000,-0.000 M-6.000,-3.464 L-3.000,-5.196 M-6.000,-0.000 L-6.000,3.464 M-6.000,10.392 L0.000,10.392 M-3.000,-5.196 L0.000,-0.000 M-3.000,5.196 L0.000,-0.000 M-3.000,5.196 L0.000,6.928 M0.000,6.928 L0.000,10.392" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polykites</h2>
+    <div class="sub">60°–90°–120°–90° kite · deltoidal trihexagonal tiling [3.4.6.4]
+ · <span class="badge ok">matches Myers, n ≤ 15</span>
+</div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>7 429 658</b> free shapes, n ≤ 15
+  · <b>6</b> cells per translation unit
+· first non-tiler at n = <b>2</b>
+· first anisohedral at n = <b>4</b>
+  · highest isohedral number <b>6</b>
+
+</p>
+<p>The family of the hat. Six kites meet at each lattice point, so translation tilings
+exist only at multiples of six and most sizes are nearly barren: no 10-kite or 11-kite
+tiles isohedrally at all. At n&nbsp;=&nbsp;8 and n&nbsp;=&nbsp;10 exactly one shape is left unresolved —
+the <a href="records.html#aperiodic">hat and the turtle</a>, counted in the
+<em>aperiodic</em> column. Five polykites need six orbits.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+<th>aperiodic</th>
+  <th>tile&nbsp;%</th><th>Myers</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+<td class="zero">0</td>
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+<td class="zero">0</td>
+  <td>50</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>3</td><td>4</td>
+  <td class="zero">0</td><td class="zero">0</td><td>3</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+<td class="zero">0</td>
+  <td>100</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>4</td><td>10</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>4</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td>5</td>
+<td class="zero">0</td>
+  <td>50</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>5</td><td>27</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">1<span class="k"><b>3</b>:1</span></td>
+  <td>26</td>
+<td class="zero">0</td>
+  <td>3.7</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>6</td><td>85</td>
+  <td>1</td><td>13</td><td>23</td><td>34</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td>13</td>
+<td class="zero">0</td>
+  <td>85</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>7</td><td>262</td>
+  <td>4</td><td class="zero">0</td><td class="zero">0</td><td>52</td>
+  <td class="l">3<span class="k"><b>2</b>:2</span><span class="k"><b>3</b>:1</span></td>
+  <td>203</td>
+<td class="zero">0</td>
+  <td>21</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>8</td><td>873</td>
+  <td>28</td><td class="zero">0</td><td class="zero">0</td><td>37</td>
+  <td class="l">2<span class="k"><b>3</b>:2</span></td>
+  <td>805</td>
+<td>1</td>
+  <td>4.7</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>9</td><td>2 917</td>
+  <td>141</td><td class="zero">0</td><td>356</td><td>399</td>
+  <td class="l zero">0</td>
+  <td>2 021</td>
+<td class="zero">0</td>
+  <td>27</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>10</td><td>10 011</td>
+  <td>702</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">14<span class="k"><b>3</b>:12</span><span class="k"><a href="g/kite-k6.html"><b>6</b>:2</a></span></td>
+  <td>9 294</td>
+<td>1</td>
+  <td>0.16</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>11</td><td>34 561</td>
+  <td>3 187</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>3</b>:2</span></td>
+  <td>31 372</td>
+<td class="zero">0</td>
+  <td>0.0064</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>12</td><td>120 815</td>
+  <td>13 967</td><td>776</td><td>3 851</td><td>6 305</td>
+  <td class="l">95<span class="k"><b>2</b>:52</span><span class="k"><b>3</b>:42</span><span class="k"><a href="g/kite-k4.html"><b>4</b>:1</a></span></td>
+  <td>95 821</td>
+<td class="zero">0</td>
+  <td>10</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>13</td><td>424 468</td>
+  <td>59 061</td><td class="zero">0</td><td class="zero">0</td><td>2 316</td>
+  <td class="l">4<span class="k"><b>2</b>:3</span><span class="k"><b>3</b>:1</span></td>
+  <td>363 087</td>
+<td class="zero">0</td>
+  <td>0.63</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>14</td><td>1 501 441</td>
+  <td>244 660</td><td class="zero">0</td><td class="zero">0</td><td>2 597</td>
+  <td class="l">20<span class="k"><b>2</b>:1</span><span class="k"><b>3</b>:15</span><span class="k"><a href="g/kite-k4.html"><b>4</b>:1</a></span><span class="k"><a href="g/kite-k6.html"><b>6</b>:3</a></span></td>
+  <td>1 254 164</td>
+<td class="zero">0</td>
+  <td>0.21</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+<tr>
+  <td>15</td><td>5 334 181</td>
+  <td>995 780</td><td class="zero">0</td><td>27 173</td><td>18 769</td>
+  <td class="l">126<span class="k"><b>2</b>:124</span><span class="k"><a href="g/kite-k4.html"><b>4</b>:2</a></span></td>
+  <td>4 292 333</td>
+<td class="zero">0</td>
+  <td>1.1</td>
+<td><span class="ok" title="every column agrees with Myers's table">✓</span></td>
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polykites (n ≤ 10)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>6</td>
+  <td class="zero">0</td><td class="zero">0</td><td>4</td><td>2</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>16</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>8</td>
+  <td class="l zero">0</td>
+  <td>8</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>48</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>48</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>158</td>
+  <td>1</td><td>21</td><td>42</td><td>14</td>
+  <td class="l zero">0</td>
+  <td>80</td>
+
+  <td>49</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>508</td>
+  <td>8</td><td class="zero">0</td><td class="zero">0</td><td>102</td>
+  <td class="l zero">0</td>
+  <td>398</td>
+
+  <td>20</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>1 708</td>
+  <td>51</td><td class="zero">0</td><td class="zero">0</td><td>69</td>
+  <td class="l zero">0</td>
+  <td>1 588</td>
+
+  <td>4.2</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>5 787</td>
+  <td>280</td><td class="zero">0</td><td>707</td><td>214</td>
+  <td class="l">5<span class="k"><b>2</b>:5</span></td>
+  <td>4 581</td>
+
+  <td>17</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>19 901</td>
+  <td>1 384</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>18 517</td>
+
+  <td>0</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="cairo">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-3.480 -10.480 9.960 12.960" width="42" height="54" role="img"><path d="M-2.000,2.000 L1.000,1.000 L2.000,-2.000 L-1.000,-3.000 L-3.000,-1.000Z M-1.000,-3.000 L2.000,-2.000 L3.000,-5.000 L1.000,-7.000 L-2.000,-6.000Z M1.000,-7.000 L3.000,-5.000 L6.000,-6.000 L5.000,-9.000 L2.000,-10.000Z" class="cell" stroke-width="0.0545" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M-1.000,-3.000 L2.000,-2.000 M1.000,-7.000 L3.000,-5.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-3.000,-1.000 L-2.000,2.000 M-3.000,-1.000 L-1.000,-3.000 M-2.000,-6.000 L-1.000,-3.000 M-2.000,-6.000 L1.000,-7.000 M-2.000,2.000 L1.000,1.000 M1.000,-7.000 L2.000,-10.000 M1.000,1.000 L2.000,-2.000 M2.000,-10.000 L5.000,-9.000 M2.000,-2.000 L3.000,-5.000 M3.000,-5.000 L6.000,-6.000 M5.000,-9.000 L6.000,-6.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polycairos</h2>
+    <div class="sub">Cairo pentagon · Cairo pentagonal tiling [3.3.4.3.4]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>4 776 093</b> free shapes, n ≤ 13
+  · <b>4</b> cells per translation unit
+· first non-tiler at n = <b>5</b>
+· first anisohedral at n = <b>5</b>
+  · highest isohedral number <b>4</b>
+
+</p>
+<p>Pentagons of the Cairo tiling, four to a translation unit. Free counts agree with OEIS
+A159866. Anisohedral polycairos start at five cells. The grid has a strong parity rhythm:
+translation and half-turn tilings exist only at even sizes, and every one of the
+seventeen 4-anisohedral polycairos has an odd number of cells.
+Nothing in this family has ever been left unresolved by a sweep.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>5</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>5</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>17</td>
+  <td class="zero">0</td><td>6</td><td>6</td><td>5</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>55</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>48</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>5</td>
+
+  <td>91</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>206</td>
+  <td>1</td><td class="zero">0</td><td>84</td><td>34</td>
+  <td class="l">25<span class="k"><b>2</b>:25</span></td>
+  <td>62</td>
+
+  <td>70</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>781</td>
+  <td>11</td><td class="zero">0</td><td class="zero">0</td><td>147</td>
+  <td class="l">50<span class="k"><b>2</b>:46</span><span class="k"><b>3</b>:2</span><span class="k"><a href="g/cairo-k4.html"><b>4</b>:2</a></span></td>
+  <td>573</td>
+
+  <td>26</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>3 099</td>
+  <td>76</td><td>146</td><td>554</td><td>326</td>
+  <td class="l">17<span class="k"><b>2</b>:17</span></td>
+  <td>1 980</td>
+
+  <td>35</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>12 421</td>
+  <td>466</td><td class="zero">0</td><td class="zero">0</td><td>1 436</td>
+  <td class="l">45<span class="k"><b>2</b>:43</span><span class="k"><a href="g/cairo-k4.html"><b>4</b>:2</a></span></td>
+  <td>10 474</td>
+
+  <td>12</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>50 725</td>
+  <td>2 604</td><td class="zero">0</td><td>3 360</td><td>1 928</td>
+  <td class="l">457<span class="k"><b>2</b>:457</span></td>
+  <td>42 376</td>
+
+  <td>12</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>208 870</td>
+  <td>13 800</td><td class="zero">0</td><td class="zero">0</td><td>1 887</td>
+  <td class="l">204<span class="k"><b>2</b>:196</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/cairo-k4.html"><b>4</b>:7</a></span></td>
+  <td>192 979</td>
+
+  <td>1.1</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>868 238</td>
+  <td>70 534</td><td>2 612</td><td>24 562</td><td>10 673</td>
+  <td class="l">657<span class="k"><b>2</b>:657</span></td>
+  <td>759 200</td>
+
+  <td>4.8</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>3 631 673</td>
+  <td>351 324</td><td class="zero">0</td><td class="zero">0</td><td>14 457</td>
+  <td class="l">253<span class="k"><b>2</b>:247</span><span class="k"><a href="g/cairo-k4.html"><b>4</b>:6</a></span></td>
+  <td>3 265 639</td>
+
+  <td>0.45</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polycairos (n ≤ 10)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>3</td>
+  <td class="zero">0</td><td class="zero">0</td><td>2</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>8</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">6<span class="k"><b>2</b>:6</span></td>
+  <td>2</td>
+
+  <td>75</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>31</td>
+  <td class="zero">0</td><td>10</td><td>11</td><td>8</td>
+  <td class="l zero">0</td>
+  <td>2</td>
+
+  <td>94</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>103</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>49</td>
+  <td class="l">7<span class="k"><b>2</b>:7</span></td>
+  <td>47</td>
+
+  <td>54</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>401</td>
+  <td>2</td><td class="zero">0</td><td>168</td><td class="zero">0</td>
+  <td class="l">6<span class="k"><b>2</b>:6</span></td>
+  <td>225</td>
+
+  <td>44</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>1 537</td>
+  <td>21</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">29<span class="k"><b>2</b>:29</span></td>
+  <td>1 487</td>
+
+  <td>1.9</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>6 157</td>
+  <td>151</td><td>290</td><td>1 095</td><td>222</td>
+  <td class="l zero">0</td>
+  <td>4 399</td>
+
+  <td>27</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>24 748</td>
+  <td>926</td><td class="zero">0</td><td class="zero">0</td><td>521</td>
+  <td class="l">32<span class="k"><b>2</b>:32</span></td>
+  <td>23 269</td>
+
+  <td>2.3</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>101 291</td>
+  <td>5 197</td><td class="zero">0</td><td>6 720</td><td>1 965</td>
+  <td class="l">14<span class="k"><b>2</b>:10</span><span class="k"><a href="g/cairo-direct-k4.html"><b>4</b>:4</a></span></td>
+  <td>87 395</td>
+
+  <td>9.1</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="rhombille">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-0.416 -9.076 6.831 11.224" width="33" height="54" role="img"><path d="M3.000,1.732 L3.000,-1.732 L0.000,-3.464 L0.000,-0.000Z M6.000,-3.464 L3.000,-5.196 L0.000,-3.464 L3.000,-1.732Z M6.000,-3.464 L6.000,-6.928 L3.000,-8.660 L3.000,-5.196Z" class="cell" stroke-width="0.0472" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,-3.464 L3.000,-1.732 M3.000,-5.196 L6.000,-3.464" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M0.000,-3.464 L0.000,-0.000 M0.000,-3.464 L3.000,-5.196 M0.000,-0.000 L3.000,1.732 M3.000,-8.660 L3.000,-5.196 M3.000,-8.660 L6.000,-6.928 M3.000,-1.732 L3.000,1.732 M3.000,-1.732 L6.000,-3.464 M6.000,-6.928 L6.000,-3.464" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polyrhombilles</h2>
+    <div class="sub">60° rhombus · rhombille tiling [3.6.3.6]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>7 859 224</b> free shapes, n ≤ 17
+  · <b>3</b> cells per translation unit
+· first non-tiler at n = <b>4</b>
+· first anisohedral at n = <b>5</b>
+  · highest isohedral number <b>6</b>
+
+</p>
+<p>60° rhombi, three to a hexagon. This is the family that produces six-orbit tiles in
+bulk: three of the twelve 5-rhombilles are 6-anisohedral — polyominoes do not reach six
+until fourteen cells — and at n&nbsp;=&nbsp;17 no shape tiles isohedrally at all, yet sixteen tile
+with six orbits. Free anisohedral polyrhombilles need 2, 3 or 6 orbits and never 4 or 5. Every polyrhombille
+is also a polyiamond, and the hard cases do tile more simply once alignment with the
+rhombille grid is dropped; the numbers are for aligned tilings.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>3</td>
+  <td class="zero">0</td><td>2</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>4</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td>3</td>
+
+  <td>25</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>12</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">5<span class="k"><b>2</b>:1</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/rhombille-k6.html"><b>6</b>:3</a></span></td>
+  <td>7</td>
+
+  <td>42</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>27</td>
+  <td class="zero">0</td><td>7</td><td>1</td><td>9</td>
+  <td class="l zero">0</td>
+  <td>10</td>
+
+  <td>63</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>78</td>
+  <td>1</td><td class="zero">0</td><td class="zero">0</td><td>10</td>
+  <td class="l">6<span class="k"><b>2</b>:4</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/rhombille-k6.html"><b>6</b>:1</a></span></td>
+  <td>61</td>
+
+  <td>21</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>208</td>
+  <td>4</td><td class="zero">0</td><td class="zero">0</td><td>27</td>
+  <td class="l">5<span class="k"><b>3</b>:5</span></td>
+  <td>172</td>
+
+  <td>16</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>635</td>
+  <td>24</td><td>51</td><td class="zero">0</td><td>102</td>
+  <td class="l">30<span class="k"><b>2</b>:30</span></td>
+  <td>428</td>
+
+  <td>30</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>1 859</td>
+  <td>105</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">10<span class="k"><b>3</b>:10</span></td>
+  <td>1 744</td>
+
+  <td>0.57</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>5 726</td>
+  <td>454</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">10<span class="k"><b>3</b>:3</span><span class="k"><a href="g/rhombille-k6.html"><b>6</b>:7</a></span></td>
+  <td>5 262</td>
+
+  <td>0.19</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>17 526</td>
+  <td>1 815</td><td>359</td><td>204</td><td>1 367</td>
+  <td class="l">20<span class="k"><b>2</b>:15</span><span class="k"><b>3</b>:5</span></td>
+  <td>13 761</td>
+
+  <td>12</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>54 620</td>
+  <td>7 056</td><td class="zero">0</td><td class="zero">0</td><td>334</td>
+  <td class="l">13<span class="k"><b>2</b>:6</span><span class="k"><b>3</b>:2</span><span class="k"><a href="g/rhombille-k6.html"><b>6</b>:5</a></span></td>
+  <td>47 217</td>
+
+  <td>0.73</td>
+
+</tr>
+
+<tr>
+  <td>14</td><td>170 479</td>
+  <td>26 528</td><td class="zero">0</td><td class="zero">0</td><td>1 386</td>
+  <td class="l">13<span class="k"><b>3</b>:13</span></td>
+  <td>142 552</td>
+
+  <td>0.97</td>
+
+</tr>
+
+<tr>
+  <td>15</td><td>536 714</td>
+  <td>97 851</td><td>1 462</td><td class="zero">0</td><td>2 440</td>
+  <td class="l">1 210<span class="k"><b>2</b>:1 203</span><span class="k"><b>3</b>:7</span></td>
+  <td>433 751</td>
+
+  <td>1.2</td>
+
+</tr>
+
+<tr>
+  <td>16</td><td>1 694 567</td>
+  <td>354 417</td><td class="zero">0</td><td class="zero">0</td><td>828</td>
+  <td class="l">23<span class="k"><b>2</b>:11</span><span class="k"><b>3</b>:12</span></td>
+  <td>1 339 299</td>
+
+  <td>0.06</td>
+
+</tr>
+
+<tr>
+  <td>17</td><td>5 376 764</td>
+  <td>1 267 680</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">19<span class="k"><b>3</b>:3</span><span class="k"><a href="g/rhombille-k6.html"><b>6</b>:16</a></span></td>
+  <td>4 109 065</td>
+
+  <td>0.0005</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polyrhombilles (n ≤ 13)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>4</td>
+  <td class="zero">0</td><td>2</td><td class="zero">0</td><td>2</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>6</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>4</td>
+
+  <td>33</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>19</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>3</b>:1</span><span class="k"><a href="g/rhombille-direct-k6.html"><b>6</b>:1</a></span></td>
+  <td>17</td>
+
+  <td>11</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>49</td>
+  <td class="zero">0</td><td>13</td><td>2</td><td>18</td>
+  <td class="l zero">0</td>
+  <td>16</td>
+
+  <td>67</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>143</td>
+  <td>1</td><td class="zero">0</td><td class="zero">0</td><td>18</td>
+  <td class="l">6<span class="k"><b>2</b>:3</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/rhombille-direct-k4.html"><b>4</b>:2</a></span></td>
+  <td>118</td>
+
+  <td>17</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>403</td>
+  <td>8</td><td class="zero">0</td><td class="zero">0</td><td>53</td>
+  <td class="l zero">0</td>
+  <td>342</td>
+
+  <td>13</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>1 235</td>
+  <td>44</td><td>90</td><td class="zero">0</td><td>54</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>1 045</td>
+
+  <td>12</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>3 681</td>
+  <td>208</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>3 473</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>11 354</td>
+  <td>894</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">1<span class="k"><a href="g/rhombille-direct-k6.html"><b>6</b>:1</a></span></td>
+  <td>10 459</td>
+
+  <td>0.0096</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>34 944</td>
+  <td>3 619</td><td>710</td><td>401</td><td>250</td>
+  <td class="l">9<span class="k"><b>2</b>:9</span></td>
+  <td>29 955</td>
+
+  <td>4.4</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>108 956</td>
+  <td>14 060</td><td class="zero">0</td><td class="zero">0</td><td>667</td>
+  <td class="l">3<span class="k"><b>2</b>:3</span></td>
+  <td>94 226</td>
+
+  <td>0.71</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="floret">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-4.881 -8.175 6.762 10.288" width="35" height="54" role="img"><path d="M-4.500,0.866 L-3.000,1.732 L0.000,-0.000 L-3.000,-1.732 L-4.500,-0.866Z M-3.000,-1.732 L0.000,-0.000 L0.000,-3.464 L-1.500,-4.330 L-3.000,-3.464Z M-1.500,-4.330 L0.000,-3.464 L1.500,-4.330 L1.500,-7.794 L-1.500,-6.062Z" class="cell" stroke-width="0.0433" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M-3.000,-1.732 L0.000,-0.000 M-1.500,-4.330 L0.000,-3.464" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-4.500,-0.866 L-4.500,0.866 M-4.500,-0.866 L-3.000,-1.732 M-4.500,0.866 L-3.000,1.732 M-3.000,-3.464 L-3.000,-1.732 M-3.000,-3.464 L-1.500,-4.330 M-3.000,1.732 L0.000,-0.000 M-1.500,-6.062 L-1.500,-4.330 M-1.500,-6.062 L1.500,-7.794 M0.000,-3.464 L0.000,-0.000 M0.000,-3.464 L1.500,-4.330 M1.500,-7.794 L1.500,-4.330" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polyflorets</h2>
+    <div class="sub">floret pentagon · floret pentagonal tiling [3.3.3.3.6]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>4 364 522</b> free shapes, n ≤ 13
+  · <b>6</b> cells per translation unit
+· first non-tiler at n = <b>2</b>
+· first anisohedral at n = <b>9</b>
+  · highest isohedral number <b>6</b>
+· nothing tiles at n = <b>5, 11</b>
+</p>
+<p>The floret pentagonal tiling is chiral — it has no mirror symmetry — so its polyforms
+are one-sided by nature and there is no separate one-sided table. It is a hostile grid: no
+5-floret and no 11-floret tiles, and of 55 624
+10-florets exactly two do, one with three orbits and one with six. Sizes divisible by six
+are the exception: at n&nbsp;=&nbsp;12 several thousand shapes tile, 78 of them with three orbits.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>3</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>67</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>8</td>
+  <td class="zero">0</td><td class="zero">0</td><td>4</td><td>4</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>25</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>12</td>
+  <td class="l zero">0</td>
+  <td>13</td>
+
+  <td>48</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>80</td>
+  <td>1</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>79</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>291</td>
+  <td>9</td><td>28</td><td>47</td><td>27</td>
+  <td class="l zero">0</td>
+  <td>180</td>
+
+  <td>36</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>1 036</td>
+  <td>58</td><td class="zero">0</td><td class="zero">0</td><td>163</td>
+  <td class="l zero">0</td>
+  <td>815</td>
+
+  <td>17</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>3 875</td>
+  <td>322</td><td class="zero">0</td><td class="zero">0</td><td>106</td>
+  <td class="l zero">0</td>
+  <td>3 447</td>
+
+  <td>3.0</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>14 561</td>
+  <td>1 640</td><td class="zero">0</td><td>916</td><td>367</td>
+  <td class="l">5<span class="k"><b>2</b>:5</span></td>
+  <td>11 633</td>
+
+  <td>10.0</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>55 624</td>
+  <td>7 948</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>3</b>:1</span><span class="k"><a href="g/floret-k6.html"><b>6</b>:1</a></span></td>
+  <td>47 674</td>
+
+  <td>0.0042</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>213 951</td>
+  <td>37 159</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>176 792</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>830 712</td>
+  <td>169 657</td><td>2 395</td><td>10 809</td><td>2 989</td>
+  <td class="l">83<span class="k"><b>2</b>:5</span><span class="k"><b>3</b>:78</span></td>
+  <td>644 779</td>
+
+  <td>2.5</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>3 244 355</td>
+  <td>760 705</td><td class="zero">0</td><td class="zero">0</td><td>8 240</td>
+  <td class="l zero">0</td>
+  <td>2 475 410</td>
+
+  <td>0.33</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+
+<div class="famhead" id="prismatic">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-6.960 -3.960 25.920 13.920" width="101" height="54" role="img"><path d="M6.000,-3.000 L-6.000,-3.000 L-6.000,2.000 L0.000,4.000 L6.000,2.000Z M12.000,9.000 L12.000,4.000 L6.000,2.000 L0.000,4.000 L0.000,9.000Z M18.000,-3.000 L6.000,-3.000 L6.000,2.000 L12.000,4.000 L18.000,2.000Z" class="cell" stroke-width="0.1091" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,4.000 L6.000,2.000 M6.000,-3.000 L6.000,2.000 M6.000,2.000 L12.000,4.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-6.000,-3.000 L-6.000,2.000 M-6.000,-3.000 L6.000,-3.000 M-6.000,2.000 L0.000,4.000 M0.000,4.000 L0.000,9.000 M0.000,9.000 L12.000,9.000 M6.000,-3.000 L18.000,-3.000 M12.000,4.000 L12.000,9.000 M12.000,4.000 L18.000,2.000 M18.000,-3.000 L18.000,2.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polyprisms</h2>
+    <div class="sub">prismatic pentagon · prismatic pentagonal tiling [3.3.3.4.4]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>5 333 962</b> free shapes, n ≤ 13
+  · <b>2</b> cells per translation unit
+· first non-tiler at n = <b>4</b>
+· first anisohedral at n = <b>5</b>
+  · highest isohedral number <b>3</b>
+
+</p>
+<p>The friendliest of the new families: the single pentagon tiles by half-turns, the first
+non-tiler appears at four cells, and a healthy share of shapes still tiles at thirteen.
+Its anisohedral shapes never exceed three orbits. Without reflections the grid's only
+point symmetry is the half-turn, so one-sided polyprisms can only tile by translation or
+half-turn, and no one-sided polyprism is anisohedral.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>3</td>
+  <td class="zero">0</td><td>2</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>5</td>
+  <td class="zero">0</td><td class="zero">0</td><td>5</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>20</td>
+  <td class="zero">0</td><td>10</td><td>9</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>95</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>56</td>
+  <td class="zero">0</td><td class="zero">0</td><td>49</td><td class="zero">0</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td>6</td>
+
+  <td>89</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>225</td>
+  <td>1</td><td>54</td><td>133</td><td>7</td>
+  <td class="l zero">0</td>
+  <td>30</td>
+
+  <td>87</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>819</td>
+  <td>11</td><td class="zero">0</td><td>498</td><td>14</td>
+  <td class="l">14<span class="k"><b>2</b>:13</span><span class="k"><b>3</b>:1</span></td>
+  <td>282</td>
+
+  <td>65</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>3 333</td>
+  <td>75</td><td>319</td><td>1 449</td><td>112</td>
+  <td class="l">3<span class="k"><b>2</b>:3</span></td>
+  <td>1 375</td>
+
+  <td>58</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>13 336</td>
+  <td>454</td><td class="zero">0</td><td>4 390</td><td>214</td>
+  <td class="l">42<span class="k"><b>2</b>:41</span><span class="k"><b>3</b>:1</span></td>
+  <td>8 236</td>
+
+  <td>36</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>55 231</td>
+  <td>2 528</td><td>1 159</td><td>11 517</td><td>1 104</td>
+  <td class="l">78<span class="k"><b>2</b>:78</span></td>
+  <td>38 845</td>
+
+  <td>26</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>229 146</td>
+  <td>13 398</td><td class="zero">0</td><td>24 261</td><td>1 361</td>
+  <td class="l">183<span class="k"><b>2</b>:179</span><span class="k"><b>3</b>:4</span></td>
+  <td>189 943</td>
+
+  <td>12</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>963 284</td>
+  <td>68 743</td><td>7 841</td><td>87 984</td><td>9 796</td>
+  <td class="l">187<span class="k"><b>2</b>:185</span><span class="k"><b>3</b>:2</span></td>
+  <td>788 733</td>
+
+  <td>12</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>4 068 503</td>
+  <td>344 206</td><td class="zero">0</td><td>131 189</td><td>7 432</td>
+  <td class="l">475<span class="k"><b>2</b>:466</span><span class="k"><b>3</b>:9</span></td>
+  <td>3 585 201</td>
+
+  <td>3.7</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polyprisms (n ≤ 9)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>4</td>
+  <td class="zero">0</td><td>3</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>8</td>
+  <td class="zero">0</td><td class="zero">0</td><td>8</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>34</td>
+  <td class="zero">0</td><td>18</td><td>15</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>97</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>106</td>
+  <td class="zero">0</td><td class="zero">0</td><td>94</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>12</td>
+
+  <td>89</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>430</td>
+  <td>2</td><td>102</td><td>258</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>68</td>
+
+  <td>84</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>1 616</td>
+  <td>21</td><td class="zero">0</td><td>988</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>607</td>
+
+  <td>62</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>6 594</td>
+  <td>149</td><td>631</td><td>2 875</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>2 939</td>
+
+  <td>54</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>26 588</td>
+  <td>901</td><td class="zero">0</td><td>8 765</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>16 922</td>
+
+  <td>34</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="tetrakis">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-0.240 -4.240 4.480 6.480" width="37" height="54" role="img"><path d="M0.000,-4.000 L0.000,-0.000 L2.000,-2.000Z M4.000,-0.000 L0.000,-0.000 L2.000,2.000Z M0.000,-0.000 L4.000,-0.000 L2.000,-2.000Z M4.000,-0.000 L4.000,-4.000 L2.000,-2.000Z" class="cell" stroke-width="0.0273" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,-0.000 L2.000,-2.000 M0.000,-0.000 L4.000,-0.000 M2.000,-2.000 L4.000,-0.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M0.000,-4.000 L0.000,-0.000 M0.000,-4.000 L2.000,-2.000 M0.000,-0.000 L2.000,2.000 M2.000,-2.000 L4.000,-4.000 M2.000,2.000 L4.000,-0.000 M4.000,-4.000 L4.000,-0.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Tetrakis polyaboloes</h2>
+    <div class="sub">quarter-square right triangle · tetrakis square tiling [4.8.8]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>5 327 372</b> free shapes, n ≤ 19
+  · <b>4</b> cells per translation unit
+· first non-tiler at n = <b>3</b>
+· first anisohedral at n = <b>7</b>
+  · highest isohedral number <b>10</b>
+
+</p>
+<p>Right triangles obtained by cutting each square along both diagonals; free and one-sided
+counts agree with OEIS A197465 and A197466. Behaviour splits by parity: translation and
+half-turn tilings occur only at even sizes, while every odd size from seven up has
+4-anisohedral shapes and almost nothing isohedral. The family holds the project's record, a nine-cell chevron with
+<a href="records.html#club">isohedral number ten</a>, and the smallest six-orbit tile by
+area, seven cells covering 1¾ unit squares.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>6</td>
+  <td class="zero">0</td><td>4</td><td>1</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>8</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>5</td>
+  <td class="l zero">0</td>
+  <td>3</td>
+
+  <td>62</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>22</td>
+  <td class="zero">0</td><td class="zero">0</td><td>9</td><td>7</td>
+  <td class="l zero">0</td>
+  <td>6</td>
+
+  <td>73</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>42</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l">8<span class="k"><b>2</b>:5</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:2</a></span><span class="k"><a href="g/tetrakis-k6.html"><b>6</b>:1</a></span></td>
+  <td>33</td>
+
+  <td>21</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>112</td>
+  <td class="zero">0</td><td>28</td><td>18</td><td>33</td>
+  <td class="l zero">0</td>
+  <td>33</td>
+
+  <td>71</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>252</td>
+  <td>1</td><td class="zero">0</td><td class="zero">0</td><td>16</td>
+  <td class="l">9<span class="k"><b>2</b>:6</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:2</a></span><span class="k"><a href="g/tetrakis-k10.html"><b>10</b>:1</a></span></td>
+  <td>226</td>
+
+  <td>10.0</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>650</td>
+  <td>9</td><td class="zero">0</td><td>102</td><td>116</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td>422</td>
+
+  <td>34</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>1 584</td>
+  <td>42</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l">45<span class="k"><b>2</b>:42</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:3</a></span></td>
+  <td>1 496</td>
+
+  <td>3.0</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>4 091</td>
+  <td>170</td><td>194</td><td>405</td><td>278</td>
+  <td class="l">53<span class="k"><b>2</b>:53</span></td>
+  <td>2 991</td>
+
+  <td>24</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>10 369</td>
+  <td>617</td><td class="zero">0</td><td class="zero">0</td><td>203</td>
+  <td class="l">44<span class="k"><b>2</b>:42</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:2</a></span></td>
+  <td>9 505</td>
+
+  <td>2.5</td>
+
+</tr>
+
+<tr>
+  <td>14</td><td>26 938</td>
+  <td>2 149</td><td class="zero">0</td><td>1 081</td><td>347</td>
+  <td class="l">58<span class="k"><b>2</b>:44</span><span class="k"><b>3</b>:8</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:6</a></span></td>
+  <td>23 303</td>
+
+  <td>6.0</td>
+
+</tr>
+
+<tr>
+  <td>15</td><td>69 651</td>
+  <td>7 112</td><td class="zero">0</td><td class="zero">0</td><td>36</td>
+  <td class="l">121<span class="k"><b>2</b>:119</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:2</a></span></td>
+  <td>62 382</td>
+
+  <td>0.25</td>
+
+</tr>
+
+<tr>
+  <td>16</td><td>182 116</td>
+  <td>22 782</td><td>1 800</td><td>4 860</td><td>6 335</td>
+  <td class="l">99<span class="k"><b>2</b>:97</span><span class="k"><b>3</b>:2</span></td>
+  <td>146 240</td>
+
+  <td>8.2</td>
+
+</tr>
+
+<tr>
+  <td>17</td><td>476 272</td>
+  <td>70 902</td><td class="zero">0</td><td class="zero">0</td><td>1 283</td>
+  <td class="l">100<span class="k"><b>2</b>:98</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:2</a></span></td>
+  <td>403 987</td>
+
+  <td>0.34</td>
+
+</tr>
+
+<tr>
+  <td>18</td><td>1 253 067</td>
+  <td>216 695</td><td class="zero">0</td><td>12 631</td><td>7 157</td>
+  <td class="l">83<span class="k"><b>2</b>:70</span><span class="k"><b>3</b>:3</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:10</a></span></td>
+  <td>1 016 501</td>
+
+  <td>1.9</td>
+
+</tr>
+
+<tr>
+  <td>19</td><td>3 302 187</td>
+  <td>651 675</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l">202<span class="k"><b>2</b>:200</span><span class="k"><a href="g/tetrakis-k4.html"><b>4</b>:2</a></span></td>
+  <td>2 650 309</td>
+
+  <td>0.0077</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided tetrakis polyaboloes (n ≤ 12)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>3</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>1</td>
+
+  <td>67</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>8</td>
+  <td class="zero">0</td><td>5</td><td>1</td><td>2</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>14</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>6</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>6</td>
+
+  <td>57</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>36</td>
+  <td class="zero">0</td><td class="zero">0</td><td>15</td><td class="zero">0</td>
+  <td class="l">4<span class="k"><b>2</b>:4</span></td>
+  <td>17</td>
+
+  <td>53</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>80</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">6<span class="k"><b>2</b>:6</span></td>
+  <td>74</td>
+
+  <td>7.5</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>206</td>
+  <td class="zero">0</td><td>48</td><td>32</td><td>24</td>
+  <td class="l zero">0</td>
+  <td>102</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>494</td>
+  <td>2</td><td class="zero">0</td><td class="zero">0</td><td>29</td>
+  <td class="l">4<span class="k"><b>2</b>:4</span></td>
+  <td>459</td>
+
+  <td>6.7</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>1 259</td>
+  <td>17</td><td class="zero">0</td><td>200</td><td>139</td>
+  <td class="l">8<span class="k"><b>2</b>:4</span><span class="k"><a href="g/tetrakis-direct-k4.html"><b>4</b>:4</a></span></td>
+  <td>895</td>
+
+  <td>28</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>3 144</td>
+  <td>84</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">40<span class="k"><b>2</b>:40</span></td>
+  <td>3 020</td>
+
+  <td>1.3</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>8 085</td>
+  <td>336</td><td>368</td><td>799</td><td class="zero">0</td>
+  <td class="l">34<span class="k"><b>2</b>:34</span></td>
+  <td>6 548</td>
+
+  <td>15</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="abolo">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-0.320 -4.320 8.640 8.640" width="54" height="54" role="img"><path d="M0.000,-4.000 L0.000,-0.000 L2.000,-2.000Z M4.000,-0.000 L0.000,-0.000 L2.000,2.000Z M0.000,-0.000 L4.000,-0.000 L2.000,-2.000Z M4.000,4.000 L4.000,-0.000 L2.000,2.000Z M4.000,-0.000 L4.000,4.000 L6.000,2.000Z M8.000,-0.000 L4.000,-0.000 L6.000,2.000Z" class="cell" stroke-width="0.0364" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,-0.000 L2.000,-2.000 M0.000,-0.000 L4.000,-0.000 M2.000,2.000 L4.000,-0.000 M4.000,-0.000 L4.000,4.000 M4.000,-0.000 L6.000,2.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M0.000,-4.000 L0.000,-0.000 M0.000,-4.000 L2.000,-2.000 M0.000,-0.000 L2.000,2.000 M2.000,-2.000 L4.000,-0.000 M2.000,2.000 L4.000,4.000 M4.000,-0.000 L8.000,-0.000 M4.000,4.000 L6.000,2.000 M6.000,2.000 L8.000,-0.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polyaboloes</h2>
+    <div class="sub">tan (half-square right triangle) · tans on the tetrakis square tiling [4.8.8]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>828 048</b> free shapes, n ≤ 13
+  · <b>2</b> cells per translation unit
+· first non-tiler at n = <b>5</b>
+· first anisohedral at n = <b>7</b>
+  · highest isohedral number <b>4</b>
+
+</p>
+<p>Classical polyaboloes are made of tans, half-square right triangles. A tan is two cells
+of the tetrakis grid, so polyaboloes are enumerated as unions of tans on that grid (counts
+agree with OEIS A006074) and classified for tilings aligned to it. Here n counts tans.
+The highest isohedral number is four, reached by a single 9-abolo.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>3</td>
+  <td class="zero">0</td><td>2</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>4</td>
+  <td class="zero">0</td><td class="zero">0</td><td>4</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>14</td>
+  <td class="zero">0</td><td>8</td><td>6</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>30</td>
+  <td class="zero">0</td><td class="zero">0</td><td>24</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>4</td>
+
+  <td>87</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>107</td>
+  <td class="zero">0</td><td>26</td><td>59</td><td>3</td>
+  <td class="l zero">0</td>
+  <td>19</td>
+
+  <td>82</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>318</td>
+  <td>2</td><td class="zero">0</td><td>153</td><td>5</td>
+  <td class="l">10<span class="k"><b>2</b>:8</span><span class="k"><b>3</b>:2</span></td>
+  <td>148</td>
+
+  <td>53</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>1 116</td>
+  <td>11</td><td>128</td><td>441</td><td>137</td>
+  <td class="l">5<span class="k"><b>2</b>:5</span></td>
+  <td>394</td>
+
+  <td>64</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>3 743</td>
+  <td>76</td><td class="zero">0</td><td>1 053</td><td>148</td>
+  <td class="l">24<span class="k"><b>2</b>:22</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/abolo-k4.html"><b>4</b>:1</a></span></td>
+  <td>2 442</td>
+
+  <td>33</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>13 240</td>
+  <td>422</td><td>335</td><td>2 676</td><td>570</td>
+  <td class="l">65<span class="k"><b>2</b>:63</span><span class="k"><b>3</b>:2</span></td>
+  <td>9 172</td>
+
+  <td>28</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>46 476</td>
+  <td>2 187</td><td class="zero">0</td><td>4 486</td><td>117</td>
+  <td class="l">105<span class="k"><b>2</b>:100</span><span class="k"><b>3</b>:5</span></td>
+  <td>39 581</td>
+
+  <td>11</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>166 358</td>
+  <td>10 625</td><td>2 195</td><td>18 834</td><td>6 518</td>
+  <td class="l">235<span class="k"><b>2</b>:234</span><span class="k"><b>3</b>:1</span></td>
+  <td>127 951</td>
+
+  <td>18</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>596 638</td>
+  <td>49 381</td><td class="zero">0</td><td>20 944</td><td>2 027</td>
+  <td class="l">217<span class="k"><b>2</b>:209</span><span class="k"><b>3</b>:8</span></td>
+  <td>524 069</td>
+
+  <td>4.2</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polyaboloes (n ≤ 11)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>4</td>
+  <td class="zero">0</td><td>3</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>6</td>
+  <td class="zero">0</td><td class="zero">0</td><td>6</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>22</td>
+  <td class="zero">0</td><td>12</td><td>10</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>56</td>
+  <td class="zero">0</td><td class="zero">0</td><td>45</td><td>4</td>
+  <td class="l zero">0</td>
+  <td>7</td>
+
+  <td>88</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>198</td>
+  <td class="zero">0</td><td>46</td><td>112</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>40</td>
+
+  <td>80</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>624</td>
+  <td>3</td><td class="zero">0</td><td>302</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>317</td>
+
+  <td>49</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>2 182</td>
+  <td>22</td><td>239</td><td>861</td><td>28</td>
+  <td class="l">6<span class="k"><b>2</b>:6</span></td>
+  <td>1 026</td>
+
+  <td>52</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>7 448</td>
+  <td>148</td><td class="zero">0</td><td>2 098</td><td>86</td>
+  <td class="l">4<span class="k"><b>2</b>:4</span></td>
+  <td>5 112</td>
+
+  <td>30</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>26 319</td>
+  <td>838</td><td>653</td><td>5 329</td><td>286</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>19 211</td>
+
+  <td>25</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>92 826</td>
+  <td>4 356</td><td class="zero">0</td><td>8 961</td><td class="zero">0</td>
+  <td class="l">18<span class="k"><b>2</b>:18</span></td>
+  <td>79 491</td>
+
+  <td>10</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="kisrhombille">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-12.554 -4.018 13.109 14.965" width="47" height="54" role="img"><path d="M0.000,-0.000 L-6.000,-0.000 L-6.000,-3.464Z M-12.000,-0.000 L-6.000,-0.000 L-6.000,3.464Z M0.000,-0.000 L-6.000,-0.000 L-6.000,3.464Z M-6.000,10.392 L-3.000,5.196 L-6.000,3.464Z M0.000,-0.000 L-3.000,5.196 L-6.000,3.464Z" class="cell" stroke-width="0.0630" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M-6.000,-0.000 L-6.000,3.464 M-6.000,-0.000 L0.000,-0.000 M-6.000,3.464 L-3.000,5.196 M-6.000,3.464 L0.000,-0.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-12.000,-0.000 L-6.000,-0.000 M-12.000,-0.000 L-6.000,3.464 M-6.000,-3.464 L-6.000,-0.000 M-6.000,-3.464 L0.000,-0.000 M-6.000,3.464 L-6.000,10.392 M-6.000,10.392 L-3.000,5.196 M-3.000,5.196 L0.000,-0.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polydrafters</h2>
+    <div class="sub">30°–60°–90° triangle · kisrhombille tiling [4.6.12]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>6 408 400</b> free shapes, n ≤ 19
+  · <b>12</b> cells per translation unit
+· first non-tiler at n = <b>3</b>
+· first anisohedral at n = <b>7</b>
+  · highest isohedral number <b>6</b>
+· nothing tiles at n = <b>11, 17</b>
+</p>
+<p>30°–60°–90° triangles, twelve to a translation unit — the grid with the most cells per
+unit and the sparsest tilings. These are edge-to-edge polydrafters. Translation tilings
+need n divisible by twelve and half-turn tilings n divisible by six. The grid is half
+left-handed and half right-handed cells, and rotations preserve handedness, so a one-sided
+shape with unequal numbers of each can never tile: every odd one-sided size is empty. The
+single unresolved 16-drafter is <a href="records.html#aperiodic">the hat</a>.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+<th>aperiodic</th>
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+<td class="zero">0</td>
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>3</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>3</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+<td class="zero">0</td>
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>3</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+<td class="zero">0</td>
+  <td>67</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>9</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>5</td>
+  <td class="l zero">0</td>
+  <td>4</td>
+<td class="zero">0</td>
+  <td>56</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>14</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>14</td>
+<td class="zero">0</td>
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>38</td>
+  <td class="zero">0</td><td class="zero">0</td><td>8</td><td>19</td>
+  <td class="l zero">0</td>
+  <td>11</td>
+<td class="zero">0</td>
+  <td>71</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>74</td>
+  <td>1</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>71</td>
+<td class="zero">0</td>
+  <td>2.7</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>185</td>
+  <td>7</td><td class="zero">0</td><td class="zero">0</td><td>29</td>
+  <td class="l">3<span class="k"><b>2</b>:2</span><span class="k"><b>3</b>:1</span></td>
+  <td>146</td>
+<td class="zero">0</td>
+  <td>18</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>414</td>
+  <td>26</td><td class="zero">0</td><td class="zero">0</td><td>10</td>
+  <td class="l">5<span class="k"><b>2</b>:5</span></td>
+  <td>373</td>
+<td class="zero">0</td>
+  <td>3.9</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>1 026</td>
+  <td>93</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">7<span class="k"><b>3</b>:7</span></td>
+  <td>926</td>
+<td class="zero">0</td>
+  <td>0.75</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>2 440</td>
+  <td>301</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>2 139</td>
+<td class="zero">0</td>
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>6 077</td>
+  <td>948</td><td>89</td><td>168</td><td>559</td>
+  <td class="l">8<span class="k"><b>2</b>:8</span></td>
+  <td>4 305</td>
+<td class="zero">0</td>
+  <td>16</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>14 926</td>
+  <td>2 830</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">3<span class="k"><b>2</b>:3</span></td>
+  <td>12 093</td>
+<td class="zero">0</td>
+  <td>0.02</td>
+
+</tr>
+
+<tr>
+  <td>14</td><td>37 454</td>
+  <td>8 349</td><td class="zero">0</td><td class="zero">0</td><td>561</td>
+  <td class="l">6<span class="k"><b>2</b>:3</span><span class="k"><b>3</b>:3</span></td>
+  <td>28 538</td>
+<td class="zero">0</td>
+  <td>1.9</td>
+
+</tr>
+
+<tr>
+  <td>15</td><td>93 749</td>
+  <td>24 155</td><td class="zero">0</td><td class="zero">0</td><td>16</td>
+  <td class="l">22<span class="k"><b>2</b>:21</span><span class="k"><a href="g/kisrhombille-k4.html"><b>4</b>:1</a></span></td>
+  <td>69 556</td>
+<td class="zero">0</td>
+  <td>0.05</td>
+
+</tr>
+
+<tr>
+  <td>16</td><td>237 035</td>
+  <td>69 320</td><td class="zero">0</td><td class="zero">0</td><td>413</td>
+  <td class="l">40<span class="k"><b>2</b>:1</span><span class="k"><b>3</b>:38</span><span class="k"><a href="g/kisrhombille-k6.html"><b>6</b>:1</a></span></td>
+  <td>167 261</td>
+<td>1</td>
+  <td>0.27</td>
+
+</tr>
+
+<tr>
+  <td>17</td><td>599 815</td>
+  <td>196 564</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>403 251</td>
+<td class="zero">0</td>
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>18</td><td>1 526 020</td>
+  <td>553 469</td><td class="zero">0</td><td>4 091</td><td>8 775</td>
+  <td class="l zero">0</td>
+  <td>959 685</td>
+<td class="zero">0</td>
+  <td>1.3</td>
+
+</tr>
+
+<tr>
+  <td>19</td><td>3 889 117</td>
+  <td>1 545 281</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>2</b>:2</span></td>
+  <td>2 343 834</td>
+<td class="zero">0</td>
+  <td>0.0001</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polydrafters (n ≤ 12)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>2</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>3</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>3</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>6</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>6</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>13</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>5</td>
+  <td class="l zero">0</td>
+  <td>8</td>
+
+  <td>38</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>28</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>28</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>66</td>
+  <td class="zero">0</td><td class="zero">0</td><td>11</td><td>19</td>
+  <td class="l zero">0</td>
+  <td>36</td>
+
+  <td>45</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>148</td>
+  <td>2</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>146</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>349</td>
+  <td>13</td><td class="zero">0</td><td class="zero">0</td><td>54</td>
+  <td class="l zero">0</td>
+  <td>282</td>
+
+  <td>16</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>828</td>
+  <td>52</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>776</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>2 005</td>
+  <td>182</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1 823</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>4 880</td>
+  <td>602</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>4 278</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>12 043</td>
+  <td>1 883</td><td>161</td><td>325</td><td>173</td>
+  <td class="l zero">0</td>
+  <td>9 501</td>
+
+  <td>6.5</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="triakis">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-0.208 -2.806 3.416 5.612" width="33" height="54" role="img"><path d="M0.000,-0.000 L1.500,-0.866 L1.500,-2.598Z M1.500,2.598 L0.000,-0.000 L0.000,1.732Z M0.000,-0.000 L3.000,-0.000 L1.500,-0.866Z M1.500,2.598 L1.500,0.866 L0.000,-0.000Z M0.000,-0.000 L1.500,0.866 L3.000,-0.000Z" class="cell" stroke-width="0.0236" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M0.000,-0.000 L1.500,-0.866 M0.000,-0.000 L1.500,0.866 M0.000,-0.000 L1.500,2.598 M0.000,-0.000 L3.000,-0.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M0.000,-0.000 L0.000,1.732 M0.000,-0.000 L1.500,-2.598 M0.000,1.732 L1.500,2.598 M1.500,-2.598 L1.500,-0.866 M1.500,-0.866 L3.000,-0.000 M1.500,0.866 L1.500,2.598 M1.500,0.866 L3.000,-0.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polypons</h2>
+    <div class="sub">30°–30°–120° triangle · triakis triangular tiling [3.12.12]
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>9 280 344</b> free shapes, n ≤ 25
+  · <b>6</b> cells per translation unit
+· first non-tiler at n = <b>2</b>
+· first anisohedral at n = <b>10</b>
+  · highest isohedral number <b>6</b>
+· nothing tiles at n = <b>17, 23</b>
+</p>
+<p>30°–30°–120° triangles, three to each triangle of the triangular grid; the classical
+polypons. Counts agree with OEIS A057784 (free) and A151531 (one-sided) as far as those
+sequences go. Tiling comes and goes with divisibility by six: nothing at all tiles at
+n&nbsp;=&nbsp;5, 17 or 23, while multiples of six are comparatively rich. Eleven polypons need six
+orbits. Two pons make a rhombus, so some of these are the same polygons as the six-orbit
+polyrhombilles.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>4</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>2</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>4</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>4</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>10</td>
+  <td class="zero">0</td><td>4</td><td class="zero">0</td><td>3</td>
+  <td class="l zero">0</td>
+  <td>3</td>
+
+  <td>70</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>13</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>3</td>
+  <td class="l zero">0</td>
+  <td>10</td>
+
+  <td>23</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>29</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>27</td>
+
+  <td>6.9</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>47</td>
+  <td class="zero">0</td><td class="zero">0</td><td>4</td><td>17</td>
+  <td class="l zero">0</td>
+  <td>26</td>
+
+  <td>45</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>100</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">5<span class="k"><b>2</b>:1</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/triakis-k6.html"><b>6</b>:3</a></span></td>
+  <td>95</td>
+
+  <td>5.0</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>181</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">1<span class="k"><b>3</b>:1</span></td>
+  <td>180</td>
+
+  <td>0.55</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>383</td>
+  <td>2</td><td>34</td><td>11</td><td>91</td>
+  <td class="l zero">0</td>
+  <td>245</td>
+
+  <td>36</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>738</td>
+  <td>9</td><td class="zero">0</td><td class="zero">0</td><td>25</td>
+  <td class="l zero">0</td>
+  <td>704</td>
+
+  <td>3.4</td>
+
+</tr>
+
+<tr>
+  <td>14</td><td>1 539</td>
+  <td>35</td><td class="zero">0</td><td class="zero">0</td><td>26</td>
+  <td class="l">9<span class="k"><b>2</b>:4</span><span class="k"><b>3</b>:4</span><span class="k"><a href="g/triakis-k6.html"><b>6</b>:1</a></span></td>
+  <td>1 469</td>
+
+  <td>2.3</td>
+
+</tr>
+
+<tr>
+  <td>15</td><td>3 087</td>
+  <td>105</td><td class="zero">0</td><td>62</td><td>187</td>
+  <td class="l">5<span class="k"><b>2</b>:5</span></td>
+  <td>2 728</td>
+
+  <td>8.5</td>
+
+</tr>
+
+<tr>
+  <td>16</td><td>6 419</td>
+  <td>302</td><td class="zero">0</td><td class="zero">0</td><td>101</td>
+  <td class="l">6<span class="k"><b>2</b>:1</span><span class="k"><b>3</b>:5</span></td>
+  <td>6 010</td>
+
+  <td>1.7</td>
+
+</tr>
+
+<tr>
+  <td>17</td><td>13 135</td>
+  <td>801</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>12 334</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>18</td><td>27 402</td>
+  <td>2 081</td><td>336</td><td>351</td><td>1 111</td>
+  <td class="l">102<span class="k"><b>2</b>:102</span></td>
+  <td>23 421</td>
+
+  <td>7.5</td>
+
+</tr>
+
+<tr>
+  <td>19</td><td>56 779</td>
+  <td>5 233</td><td class="zero">0</td><td class="zero">0</td><td>283</td>
+  <td class="l">3<span class="k"><b>2</b>:3</span></td>
+  <td>51 260</td>
+
+  <td>0.55</td>
+
+</tr>
+
+<tr>
+  <td>20</td><td>118 876</td>
+  <td>13 012</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">13<span class="k"><b>3</b>:13</span></td>
+  <td>105 851</td>
+
+  <td>0.01</td>
+
+</tr>
+
+<tr>
+  <td>21</td><td>248 384</td>
+  <td>31 772</td><td class="zero">0</td><td>862</td><td>2 963</td>
+  <td class="l">29<span class="k"><b>2</b>:29</span></td>
+  <td>212 758</td>
+
+  <td>1.8</td>
+
+</tr>
+
+<tr>
+  <td>22</td><td>521 850</td>
+  <td>76 671</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">14<span class="k"><b>3</b>:7</span><span class="k"><a href="g/triakis-k6.html"><b>6</b>:7</a></span></td>
+  <td>445 165</td>
+
+  <td>0.0031</td>
+
+</tr>
+
+<tr>
+  <td>23</td><td>1 096 261</td>
+  <td>182 421</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>913 840</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>24</td><td>2 310 793</td>
+  <td>429 860</td><td>4 100</td><td>6 123</td><td>20 161</td>
+  <td class="l">329<span class="k"><b>2</b>:321</span><span class="k"><b>3</b>:7</span><span class="k"><a href="g/triakis-k4.html"><b>4</b>:1</a></span></td>
+  <td>1 850 220</td>
+
+  <td>1.6</td>
+
+</tr>
+
+<tr>
+  <td>25</td><td>4 874 305</td>
+  <td>1 003 338</td><td class="zero">0</td><td class="zero">0</td><td>1 224</td>
+  <td class="l">4<span class="k"><b>2</b>:3</span><span class="k"><b>3</b>:1</span></td>
+  <td>3 869 739</td>
+
+  <td>0.03</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+<details>
+<summary>One-sided polypons (n ≤ 14)</summary>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>3</td>
+  <td class="zero">0</td><td class="zero">0</td><td>1</td><td>2</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>5</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>2</td>
+  <td class="l zero">0</td>
+  <td>3</td>
+
+  <td>40</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>7</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>7</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>15</td>
+  <td class="zero">0</td><td>5</td><td class="zero">0</td><td>4</td>
+  <td class="l zero">0</td>
+  <td>6</td>
+
+  <td>60</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>24</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>6</td>
+  <td class="l zero">0</td>
+  <td>18</td>
+
+  <td>25</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>49</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>3</td>
+  <td class="l zero">0</td>
+  <td>46</td>
+
+  <td>6.1</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>91</td>
+  <td class="zero">0</td><td class="zero">0</td><td>7</td><td>16</td>
+  <td class="l zero">0</td>
+  <td>68</td>
+
+  <td>25</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>183</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">2<span class="k"><b>3</b>:1</span><span class="k"><a href="g/triakis-direct-k6.html"><b>6</b>:1</a></span></td>
+  <td>181</td>
+
+  <td>1.1</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>356</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>356</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>734</td>
+  <td>3</td><td>64</td><td>19</td><td>92</td>
+  <td class="l zero">0</td>
+  <td>556</td>
+
+  <td>24</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>1 465</td>
+  <td>18</td><td class="zero">0</td><td class="zero">0</td><td>50</td>
+  <td class="l zero">0</td>
+  <td>1 397</td>
+
+  <td>3.5</td>
+
+</tr>
+
+<tr>
+  <td>14</td><td>3 017</td>
+  <td>67</td><td class="zero">0</td><td class="zero">0</td><td>50</td>
+  <td class="l">6<span class="k"><b>2</b>:3</span><span class="k"><b>3</b>:1</span><span class="k"><a href="g/triakis-direct-k4.html"><b>4</b>:2</a></span></td>
+  <td>2 894</td>
+
+  <td>1.9</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+</details>
+
+
+<div class="famhead" id="trihex">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-3.420 -3.018 11.340 11.232" width="55" height="54" role="img"><path d="M3.000,-0.000 L1.500,2.598 L-1.500,2.598 L-3.000,-0.000 L-1.500,-2.598 L1.500,-2.598Z M0.000,5.196 L-1.500,2.598 L1.500,2.598Z M6.000,5.196 L4.500,7.794 L1.500,7.794 L0.000,5.196 L1.500,2.598 L4.500,2.598Z M7.500,7.794 L4.500,7.794 L6.000,5.196Z" class="cell" stroke-width="0.0477" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M-1.500,2.598 L1.500,2.598 M0.000,5.196 L1.500,2.598 M4.500,7.794 L6.000,5.196" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-3.000,-0.000 L-1.500,-2.598 M-3.000,-0.000 L-1.500,2.598 M-1.500,-2.598 L1.500,-2.598 M-1.500,2.598 L0.000,5.196 M0.000,5.196 L1.500,7.794 M1.500,-2.598 L3.000,-0.000 M1.500,2.598 L3.000,-0.000 M1.500,2.598 L4.500,2.598 M1.500,7.794 L4.500,7.794 M4.500,2.598 L6.000,5.196 M4.500,7.794 L7.500,7.794 M6.000,5.196 L7.500,7.794" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Trihexagonal polyforms</h2>
+    <div class="sub">triangle or hexagon · trihexagonal tiling (3.6.3.6)
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>2 109 827</b> free shapes, n ≤ 13
+  · <b>3</b> cells per translation unit
+· first non-tiler at n = <b>1</b>
+· first anisohedral at n = <b>9</b>
+  · highest isohedral number <b>3</b>
+· nothing tiles at n = <b>5, 7, 8, 10, 11, 13</b>
+</p>
+<p>An Archimedean grid: hexagons and triangles, two triangles to each hexagon. A
+grid-aligned tiling covers each kind of cell in the grid's proportions, so a tile must
+contain exactly twice as many triangles as hexagons. That one counting condition makes
+every shape whose size is not a multiple of three a non-tiler before any search is run.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>2</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>4</td>
+  <td class="zero">0</td><td>2</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>75</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>9</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>9</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>30</td>
+  <td>1</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>29</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>97</td>
+  <td>7</td><td>13</td><td>20</td><td>5</td>
+  <td class="l zero">0</td>
+  <td>52</td>
+
+  <td>42</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>373</td>
+  <td>43</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>330</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>1 405</td>
+  <td>238</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1 167</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>5 630</td>
+  <td>1 237</td><td>127</td><td>419</td><td>308</td>
+  <td class="l">11<span class="k"><b>2</b>:11</span></td>
+  <td>3 528</td>
+
+  <td>20</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>22 672</td>
+  <td>6 120</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>16 552</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>93 045</td>
+  <td>29 427</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>63 618</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>384 403</td>
+  <td>138 671</td><td>1 166</td><td>5 100</td><td>4 533</td>
+  <td class="l">181<span class="k"><b>2</b>:178</span><span class="k"><b>3</b>:3</span></td>
+  <td>234 752</td>
+
+  <td>4.5</td>
+
+</tr>
+
+<tr>
+  <td>13</td><td>1 602 156</td>
+  <td>644 713</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>957 443</td>
+
+  <td>0</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+
+<div class="famhead" id="truncsq">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-3.560 -9.560 15.120 15.120" width="54" height="54" role="img"><path d="M3.000,-1.000 L1.000,-3.000 L-1.000,-3.000 L-3.000,-1.000 L-3.000,1.000 L-1.000,3.000 L1.000,3.000 L3.000,1.000Z M3.000,-7.000 L1.000,-9.000 L-1.000,-9.000 L-3.000,-7.000 L-3.000,-5.000 L-1.000,-3.000 L1.000,-3.000 L3.000,-5.000Z M9.000,-1.000 L7.000,-3.000 L5.000,-3.000 L3.000,-1.000 L3.000,1.000 L5.000,3.000 L7.000,3.000 L9.000,1.000Z M9.000,5.000 L11.000,3.000 L9.000,1.000 L7.000,3.000Z" class="cell" stroke-width="0.0636" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M-1.000,-3.000 L1.000,-3.000 M3.000,-1.000 L3.000,1.000 M7.000,3.000 L9.000,1.000" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-3.000,-7.000 L-3.000,-5.000 M-3.000,-7.000 L-1.000,-9.000 M-3.000,-5.000 L-1.000,-3.000 M-3.000,-1.000 L-3.000,1.000 M-3.000,-1.000 L-1.000,-3.000 M-3.000,1.000 L-1.000,3.000 M-1.000,-9.000 L1.000,-9.000 M-1.000,3.000 L1.000,3.000 M1.000,-9.000 L3.000,-7.000 M1.000,-3.000 L3.000,-5.000 M1.000,-3.000 L3.000,-1.000 M1.000,3.000 L3.000,1.000 M3.000,-7.000 L3.000,-5.000 M3.000,-1.000 L5.000,-3.000 M3.000,1.000 L5.000,3.000 M5.000,-3.000 L7.000,-3.000 M5.000,3.000 L7.000,3.000 M7.000,-3.000 L9.000,-1.000 M7.000,3.000 L9.000,5.000 M9.000,-1.000 L9.000,1.000 M9.000,1.000 L11.000,3.000 M9.000,5.000 L11.000,3.000" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Truncated-square polyforms</h2>
+    <div class="sub">square or octagon · truncated square tiling (4.8.8)
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>11 670 746</b> free shapes, n ≤ 12
+  · <b>2</b> cells per translation unit
+· first non-tiler at n = <b>1</b>
+· first anisohedral at n = <b>8</b>
+  · highest isohedral number <b>3</b>
+· nothing tiles at n = <b>5, 7, 9, 11</b>
+</p>
+<p>Octagons and squares in equal numbers. The same counting condition forces a tile to
+contain as many squares as octagons, so every odd size is empty.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>2</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td>1</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1</td>
+
+  <td>50</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>7</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>7</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>22</td>
+  <td>1</td><td>7</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>13</td>
+
+  <td>38</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>93</td>
+  <td>3</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>90</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>413</td>
+  <td>25</td><td>36</td><td>32</td><td>10</td>
+  <td class="l zero">0</td>
+  <td>310</td>
+
+  <td>20</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>2 073</td>
+  <td>159</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1 914</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>10 741</td>
+  <td>1 096</td><td>255</td><td>343</td><td>222</td>
+  <td class="l">11<span class="k"><b>2</b>:10</span><span class="k"><b>3</b>:1</span></td>
+  <td>8 814</td>
+
+  <td>8.6</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>57 540</td>
+  <td>7 093</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>50 447</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>312 805</td>
+  <td>45 813</td><td>894</td><td>2 394</td><td>2 470</td>
+  <td class="l">49<span class="k"><b>2</b>:47</span><span class="k"><b>3</b>:2</span></td>
+  <td>261 185</td>
+
+  <td>2.2</td>
+
+</tr>
+
+<tr>
+  <td>11</td><td>1 722 483</td>
+  <td>290 318</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1 432 165</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>12</td><td>9 564 565</td>
+  <td>1 822 861</td><td>7 140</td><td>22 082</td><td>22 308</td>
+  <td class="l">670<span class="k"><b>2</b>:670</span></td>
+  <td>7 689 504</td>
+
+  <td>0.67</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+
+<div class="famhead" id="trunchex">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-5.220 -12.844 19.440 17.894" width="59" height="54" role="img"><path d="M-3.000,-3.464 L-1.500,-4.330 L1.500,-4.330 L3.000,-3.464 L4.500,-0.866 L4.500,0.866 L3.000,3.464 L1.500,4.330 L-1.500,4.330 L-3.000,3.464 L-4.500,0.866 L-4.500,-0.866Z M1.500,-11.258 L3.000,-12.124 L6.000,-12.124 L7.500,-11.258 L9.000,-8.660 L9.000,-6.928 L7.500,-4.330 L6.000,-3.464 L3.000,-3.464 L1.500,-4.330 L0.000,-6.928 L0.000,-8.660Z M6.000,-3.464 L7.500,-4.330 L10.500,-4.330 L12.000,-3.464 L13.500,-0.866 L13.500,0.866 L12.000,3.464 L10.500,4.330 L7.500,4.330 L6.000,3.464 L4.500,0.866 L4.500,-0.866Z" class="cell" stroke-width="0.0818" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M1.500,-4.330 L3.000,-3.464 M4.500,-0.866 L4.500,0.866 M6.000,-3.464 L7.500,-4.330" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-4.500,-0.866 L-4.500,0.866 M-4.500,-0.866 L-3.000,-3.464 M-4.500,0.866 L-3.000,3.464 M-3.000,-3.464 L-1.500,-4.330 M-3.000,3.464 L-1.500,4.330 M-1.500,-4.330 L1.500,-4.330 M-1.500,4.330 L1.500,4.330 M0.000,-8.660 L0.000,-6.928 M0.000,-8.660 L1.500,-11.258 M0.000,-6.928 L1.500,-4.330 M1.500,-11.258 L3.000,-12.124 M1.500,4.330 L3.000,3.464 M3.000,-12.124 L6.000,-12.124 M3.000,-3.464 L4.500,-0.866 M3.000,-3.464 L6.000,-3.464 M3.000,3.464 L4.500,0.866 M4.500,-0.866 L6.000,-3.464 M4.500,0.866 L6.000,3.464 M6.000,-12.124 L7.500,-11.258 M6.000,3.464 L7.500,4.330 M7.500,-11.258 L9.000,-8.660 M7.500,-4.330 L9.000,-6.928 M7.500,-4.330 L10.500,-4.330 M7.500,4.330 L10.500,4.330 M9.000,-8.660 L9.000,-6.928 M10.500,-4.330 L12.000,-3.464 M10.500,4.330 L12.000,3.464 M12.000,-3.464 L13.500,-0.866 M12.000,3.464 L13.500,0.866 M13.500,-0.866 L13.500,0.866" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Truncated-hexagonal polyforms</h2>
+    <div class="sub">triangle or dodecagon · truncated hexagonal tiling (3.12.12)
+ · <span class="badge">new classification</span></div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>3 927 638</b> free shapes, n ≤ 10
+  · <b>3</b> cells per translation unit
+· first non-tiler at n = <b>1</b>
+· first anisohedral at n = <b>9</b>
+  · highest isohedral number <b>2</b>
+· nothing tiles at n = <b>4, 5, 7, 8, 10</b>
+</p>
+<p>Dodecagons and triangles, two triangles to each dodecagon; sizes must again be multiples
+of three. A dodecagon has twelve neighbours, so the number of shapes grows very fast and a
+large share of them enclose holes.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>2</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>2</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>2</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>9</td>
+  <td>1</td><td>2</td><td>1</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>5</td>
+
+  <td>38</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>40</td>
+  <td>5</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>35</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>218</td>
+  <td>45</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>173</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>1 377</td>
+  <td>394</td><td>19</td><td>26</td><td>13</td>
+  <td class="l zero">0</td>
+  <td>925</td>
+
+  <td>5.9</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>9 285</td>
+  <td>3 336</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>5 949</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>65 039</td>
+  <td>27 841</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>37 198</td>
+
+  <td>0</td>
+
+</tr>
+
+<tr>
+  <td>9</td><td>465 888</td>
+  <td>228 126</td><td>211</td><td>749</td><td>599</td>
+  <td class="l">27<span class="k"><b>2</b>:27</span></td>
+  <td>236 176</td>
+
+  <td>0.67</td>
+
+</tr>
+
+<tr>
+  <td>10</td><td>3 385 778</td>
+  <td>1 844 236</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l zero">0</td>
+  <td>1 541 542</td>
+
+  <td>0</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+
+
+</main>
+<footer class="site">
+  Generated 15 November 2026 from 350 classification rows
+  (81 682 298 shapes) by <code>site/build.py</code>; every number on this
+  site is computed from the dataset at build time.
+  Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
+  Reference tables: J.&nbsp;Myers, <a href="https://www.polyomino.org.uk/mathematics/polyform-tiling/">Polyform tiling</a>.
+</footer>
+</body>
+</html>

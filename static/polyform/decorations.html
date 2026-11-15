@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edge markings · Polyform tilings</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site"><div class="inner">
+  <a class="brand" href="index.html">Polyform tilings</a>
+  <nav class="site">
+
+    <a href="index.html">Overview</a>
+
+    <a href="families.html">Families</a>
+
+    <a href="records.html">Hard shapes</a>
+
+    <a href="decorations.html" class="here">Edge markings</a>
+
+    <a href="methods.html">Methods</a>
+
+    <a href="open.html">Open problems</a>
+
+  </nav>
+</div></header>
+<main>
+
+<div class="prose">
+<h1>Edge markings</h1>
+<p class="lede">
+Give each edge of a tile a mark, and allow two tiles to meet only where their marks fit.
+The shape is unchanged; what it can do is not. This is how the Spectre's curved edges work,
+and how Wang tiles work. Here the question is narrow: how far can markings push a simple
+tile's isohedral number?
+</p>
+
+<h2 id="rules">Four kinds of mark</h2>
+<p>
+A mark on a shared edge is seen by the two tiles from opposite sides, so their views differ
+by a half-turn about the edge's midpoint; a reflected tile sees its marks mirrored. Which
+symmetries the mark's own profile has therefore determines the matching rule completely,
+and there are four cases besides the plain edge.
+</p>
+</div>
+<div class="tablewrap"><table class="wrapcells">
+<thead><tr><th>mark</th><th class="l">its profile is symmetric under</th><th class="l">fits</th><th class="l">mirror image is</th><th class="l">can be carved into the edge?</th></tr></thead>
+<tbody>
+<tr><td>jigsaw tab</td><td class="l">reflection across the edge's bisector</td><td class="l">its opposite: bump into dent</td><td class="l">itself</td><td class="l">yes — the familiar puzzle tab</td></tr>
+<tr><td>S-tab</td><td class="l">half-turn about the edge midpoint</td><td class="l">itself</td><td class="l">a Z-tab, which it refuses</td><td class="l">yes — an S-shaped curve</td></tr>
+<tr><td>arrow</td><td class="l">reflection in the edge's own line</td><td class="l">its opposite</td><td class="l">its opposite</td><td class="l">no — a curve symmetric about its chord is the chord</td></tr>
+<tr><td>asymmetric tab</td><td class="l">nothing</td><td class="l">its opposite</td><td class="l">a different tab (four in all)</td><td class="l">yes — a lopsided bump</td></tr>
+<tr><td>colour</td><td class="l">everything</td><td class="l">itself</td><td class="l">itself</td><td class="l">no — only the straight edge qualifies</td></tr>
+</tbody></table></div>
+<div class="prose">
+<p>
+The distinction in the last column matters for what a result means. A carvable rule
+describes an ordinary unmarked shape with wiggly edges. An arrow or a colour cannot be
+realised that way: results for them are about <em>marked</em> tiles.
+</p>
+
+<h2 id="survey">The survey</h2>
+<p>
+Each row takes one prototile and one rule, assigns marks to its edges in every possible
+way, and finds the isohedral number of each marked tile. “Labels” counts the plain edge
+plus the marks available. Markings related by a symmetry of the prototile or a renaming of
+the marks are counted separately.
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>prototile</th><th class="l">rule</th><th>edges</th><th>labels</th><th>markings</th>
+<th>k = 1</th><th>k = 2</th><th>k = 3</th><th>k = 4</th><th>k = 5</th><th>no tiling</th><th>searched to k</th></tr></thead>
+<tbody>
+
+<tr><td>hexagon</td><td class="l">jigsaw</td><td>6</td><td>3</td><td>729</td>
+<td>129</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>600<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>hexagon</td><td class="l">jigsaw</td><td>6</td><td>5</td><td>15 625</td>
+<td>785</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>14 840<sup>†</sup></td><td>6</td></tr>
+
+<tr><td>hexagon</td><td class="l">S-tab</td><td>6</td><td>3</td><td>729</td>
+<td>615</td><td>12</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>102<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>hexagon</td><td class="l">colour</td><td>6</td><td>3</td><td>729</td>
+<td>525</td><td>90</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>114<sup>†</sup></td><td>6</td></tr>
+
+<tr><td>hexagon</td><td class="l">colour</td><td>6</td><td>4</td><td>4 096</td>
+<td>2 416</td><td>396</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>1 284<sup>†</sup></td><td>6</td></tr>
+
+<tr class="mark"><td>hexagon</td><td class="l">arrow</td><td>6</td><td>3</td><td>729</td>
+<td>195</td><td>102</td><td class="zero">0</td><td>12</td><td>24</td>
+<td>396<sup>†</sup></td><td>8</td></tr>
+
+<tr class="mark"><td>hexagon</td><td class="l">arrow</td><td>6</td><td>5</td><td>15 625</td>
+<td>1 013</td><td>516</td><td class="zero">0</td><td>48</td><td>48</td>
+<td>14 000<sup>†</sup></td><td>10</td></tr>
+
+<tr><td>hexagon</td><td class="l">asymmetric</td><td>6</td><td>5</td><td>15 625</td>
+<td>989</td><td>108</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>14 528<sup>†</sup></td><td>10</td></tr>
+
+<tr class="mark"><td>dihex</td><td class="l">arrow</td><td>10</td><td>3</td><td>59 049</td>
+<td>2 833</td><td>392</td><td>40</td><td class="zero">0</td><td class="zero">0</td>
+<td>55 784<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>square</td><td class="l">jigsaw</td><td>4</td><td>3</td><td>81</td>
+<td>19</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>62<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>square</td><td class="l">arrow</td><td>4</td><td>3</td><td>81</td>
+<td>81</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>square</td><td class="l">colour</td><td>4</td><td>3</td><td>81</td>
+<td>81</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>square</td><td class="l">colour</td><td>4</td><td>4</td><td>256</td>
+<td>256</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>domino</td><td class="l">jigsaw</td><td>6</td><td>3</td><td>729</td>
+<td>137</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>592<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>domino</td><td class="l">jigsaw</td><td>6</td><td>5</td><td>15 625</td>
+<td>881</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>14 744<sup>†</sup></td><td>6</td></tr>
+
+<tr><td>domino</td><td class="l">S-tab</td><td>6</td><td>3</td><td>729</td>
+<td>629</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>100<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>domino</td><td class="l">arrow</td><td>6</td><td>3</td><td>729</td>
+<td>729</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>domino</td><td class="l">colour</td><td>6</td><td>3</td><td>729</td>
+<td>729</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>I-tromino</td><td class="l">jigsaw</td><td>8</td><td>3</td><td>6 561</td>
+<td>581</td><td>48</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>5 932<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>L-tromino</td><td class="l">jigsaw</td><td>8</td><td>3</td><td>6 561</td>
+<td>423</td><td>80</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>6 058<sup>†</sup></td><td>8</td></tr>
+
+<tr class="mark"><td>L-tromino</td><td class="l">S-tab</td><td>8</td><td>3</td><td>6 561</td>
+<td>3 159</td><td>30</td><td>8</td><td class="zero">0</td><td class="zero">0</td>
+<td>3 364<sup>†</sup></td><td>4</td></tr>
+
+<tr class="mark"><td>L-tromino</td><td class="l">arrow</td><td>8</td><td>3</td><td>6 561</td>
+<td>1 917</td><td>172</td><td>4</td><td>8</td><td class="zero">0</td>
+<td>4 460<sup>†</sup></td><td>4</td></tr>
+
+<tr><td>O-tetromino</td><td class="l">jigsaw</td><td>8</td><td>3</td><td>6 561</td>
+<td>707</td><td>32</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>5 822<sup>†</sup></td><td>8</td></tr>
+
+<tr><td>triangle</td><td class="l">jigsaw</td><td>3</td><td>3</td><td>27</td>
+<td>7</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>20</td><td>8</td></tr>
+
+<tr><td>triangle</td><td class="l">arrow</td><td>3</td><td>3</td><td>27</td>
+<td>27</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>triangle</td><td class="l">colour</td><td>3</td><td>3</td><td>27</td>
+<td>27</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>kite</td><td class="l">jigsaw</td><td>4</td><td>3</td><td>81</td>
+<td>9</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>72</td><td>8</td></tr>
+
+<tr><td>kite</td><td class="l">arrow</td><td>4</td><td>3</td><td>81</td>
+<td>27</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>54</td><td>8</td></tr>
+
+<tr><td>Cairo pentagon</td><td class="l">jigsaw</td><td>5</td><td>3</td><td>243</td>
+<td>15</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>228</td><td>8</td></tr>
+
+<tr><td>Cairo pentagon</td><td class="l">arrow</td><td>5</td><td>3</td><td>243</td>
+<td>15</td><td>6</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>222</td><td>8</td></tr>
+
+<tr><td>rhombus</td><td class="l">jigsaw</td><td>4</td><td>3</td><td>81</td>
+<td>9</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>72</td><td>8</td></tr>
+
+<tr><td>rhombus</td><td class="l">arrow</td><td>4</td><td>3</td><td>81</td>
+<td>9</td><td>24</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>48</td><td>8</td></tr>
+
+<tr><td>rhombus</td><td class="l">asymmetric</td><td>4</td><td>5</td><td>625</td>
+<td>25</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>600</td><td>6</td></tr>
+
+<tr><td>floret pentagon</td><td class="l">jigsaw</td><td>5</td><td>3</td><td>243</td>
+<td>9</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>234</td><td>8</td></tr>
+
+<tr><td>floret pentagon</td><td class="l">arrow</td><td>5</td><td>3</td><td>243</td>
+<td>9</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>234</td><td>8</td></tr>
+
+<tr><td>prismatic pentagon</td><td class="l">jigsaw</td><td>5</td><td>3</td><td>243</td>
+<td>9</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>234</td><td>8</td></tr>
+
+<tr><td>prismatic pentagon</td><td class="l">arrow</td><td>5</td><td>3</td><td>243</td>
+<td>27</td><td>18</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>198</td><td>8</td></tr>
+
+<tr><td>tan</td><td class="l">jigsaw</td><td>3</td><td>3</td><td>27</td>
+<td>3</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>24</td><td>8</td></tr>
+
+<tr><td>tan</td><td class="l">arrow</td><td>3</td><td>3</td><td>27</td>
+<td>27</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>drafter</td><td class="l">jigsaw</td><td>3</td><td>3</td><td>27</td>
+<td>1</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>26</td><td>8</td></tr>
+
+<tr><td>drafter</td><td class="l">arrow</td><td>3</td><td>3</td><td>27</td>
+<td>27</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td class="zero">0</td><td>6</td></tr>
+
+<tr><td>pon</td><td class="l">jigsaw</td><td>3</td><td>3</td><td>27</td>
+<td>3</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>24</td><td>8</td></tr>
+
+<tr><td>pon</td><td class="l">arrow</td><td>3</td><td>3</td><td>27</td>
+<td>9</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>18</td><td>8</td></tr>
+
+</tbody>
+<caption>Highlighted rows reach three orbits or more. † every marking in this entry is
+proved to have no tiling at all (see below); elsewhere “no tiling” means none with at most
+the number of orbits searched.</caption>
+</table></div>
+
+<div class="prose">
+<h3>What the survey shows</h3>
+<p>
+<b>Jigsaw tabs obey a counting law.</b> Every bump must meet a dent, and with a
+mirror-symmetric tab a reflected tile has the same bumps and dents as an unreflected one.
+So a marking with unequal numbers of the two can never tile. This parity lemma accounts
+for most of the “no tiling” entries in the jigsaw rows, and under this rule every unit
+prototile tested is isohedral or nothing.
+</p>
+<p>
+<b>Arrows escape the law.</b> A reflected arrow reads as its opposite, so tilings can
+balance their marks by mixing mirror images. On the regular hexagon this takes the
+isohedral number from one to as high as five: of the 729 three-label arrow markings,
+twelve need four orbits and twenty-four need five,
+while none needs exactly three. A second pair of arrows multiplies the number of
+such markings without raising the ceiling.
+</p>
+<p>
+<b>The prototile sets the ceiling.</b> More edges do not help: the ten-edge dihex stops at
+three, and richer alphabets on the hexagon mostly produce non-tilers. A square, a triangle
+or a domino is unmoved by any arrow or colour marking — every one still tiles isohedrally.
+Among rules that can be carved into an edge, the highest isohedral number found is three,
+from S-tabs on the L-tromino.
+</p>
+</div>
+<figure class="pair">
+  <div class="plate"><img src="figs/arrow-hex-5orbit.svg" alt="Arrow-marked hexagons in a five-orbit tiling" loading="lazy">
+  <figcaption>A regular hexagon with arrow marks that needs five orbits. Colours are orbits;
+  each grey arrowhead is one matched pair of marks.</figcaption></div>
+  <div class="plate"><img src="figs/stab-ltromino-3orbit.svg" alt="L-trominoes with S-shaped tabs in a three-orbit tiling" loading="lazy">
+  <figcaption>An L-tromino with S-tabs on three edges, needing three orbits — the best
+  found for a rule that could be cut into the tile's outline.</figcaption></div>
+</figure>
+
+<div class="prose">
+<h2 id="nontiling">“No tiling found” is not “no tiling”</h2>
+<p>
+A search for periodic tilings up to k orbits that finds nothing has not shown that nothing
+exists. The marked tile might need more orbits. Or, since a marked tile is a Wang tile in
+disguise, it might tile only aperiodically — and then no periodic search would ever
+succeed. Surround arguments, which settle this for plain shapes, do not help: these marked
+tiles surround easily, and whatever stops them is not local.
+</p>
+<p>
+So the 142 782 markings in the daggered entries above were attacked with
+methods that prove non-tiling outright:
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>method</th><th>markings settled</th><th class="l">idea</th></tr></thead>
+<tbody>
+<tr><td>parity</td><td>46 848</td><td class="l wrap">unequal bumps and dents under the jigsaw rule</td></tr>
+<tr><td>strip</td><td>95 842</td><td class="l wrap">a tiling of the plane restricts to an infinite strip of fixed width; rows of the strip are states of a finite graph, and if that graph has no bi-infinite path there is no tiling</td></tr>
+<tr><td>patch search</td><td>52</td><td class="l wrap">no legal arrangement covers a disc around the origin</td></tr>
+<tr><td>SAT</td><td>40</td><td class="l wrap">a 12 × 12 patch cannot be covered; unsatisfiability is the proof</td></tr>
+<tr class="mark"><td>left open</td><td>0</td><td class="l wrap"></td></tr>
+</tbody></table></div>
+<div class="prose">
+<p>
+Every one is a genuine non-tiler. None is aperiodic, and none hides a high isohedral
+number: for these prototiles and rules, the tables above are complete. The last forty
+fill an 8 × 8 patch comfortably and fail only at 12 × 12, far beyond the reach of a strip
+or a disc — a reminder that “fills a large patch” is weak evidence of tiling. Those forty
+rest on four independent SAT solvers agreeing; exporting checkable proofs through the
+solver library proved unreliable for them, and is still to be done properly.
+</p>
+<p>
+The methods are complementary. On plain polyforms the strip test proves almost nothing and
+surround search proves almost everything; on marked tiles it is the other way round. Plain
+shapes fail to tile for local reasons, marked tiles for global ones.
+</p>
+</div>
+
+</main>
+<footer class="site">
+  Generated 15 November 2026 from 350 classification rows
+  (81 682 298 shapes) by <code>site/build.py</code>; every number on this
+  site is computed from the dataset at build time.
+  Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
+  Reference tables: J.&nbsp;Myers, <a href="https://www.polyomino.org.uk/mathematics/polyform-tiling/">Polyform tiling</a>.
+</footer>
+</body>
+</html>

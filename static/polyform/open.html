@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open problems · Polyform tilings</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site"><div class="inner">
+  <a class="brand" href="index.html">Polyform tilings</a>
+  <nav class="site">
+
+    <a href="index.html">Overview</a>
+
+    <a href="families.html">Families</a>
+
+    <a href="records.html">Hard shapes</a>
+
+    <a href="decorations.html">Edge markings</a>
+
+    <a href="methods.html">Methods</a>
+
+    <a href="open.html" class="here">Open problems</a>
+
+  </nav>
+</div></header>
+<main>
+
+<div class="prose">
+<h1>Open problems</h1>
+<p class="lede">
+What the tables do not answer, roughly in the order we would attack them. The working plan,
+with costs and stopping rules, is in <code>docs/ROADMAP.md</code> in the repository.
+</p>
+</div>
+
+<ol class="problems">
+<li><b>What do grid-aligned numbers say about the polygon?</b>
+On every grid except the hexagonal one, requiring tilings to be aligned can raise a shape's
+isohedral number, or turn a tiler into a non-tiler. The ten-orbit tetrakis chevron tiles by half-turns as a
+polyabolo, and so does the six-orbit 7-cell tetrakis shape; the Heesch-3 star tiles by translation as a polyiamond. The grids form
+refinement chains — a rhombus is two pons or two triangles, a kite is two drafters, a
+tetrakis triangle is two smaller ones at 45° — so each hard shape can be reclassified on
+the finest grid that contains it. Which of the sixty-seven six-orbit-or-more
+shapes keep their number there? A related question is whether alignment can be made a
+property of the shape itself, by notching its edges, for tilings that use no reflections.</li>
+
+<li><b>Is there a polyform with isohedral number seven?</b>
+None of the 81 682 298 shapes here has one, although
+sixty-two need six orbits and three
+need eight. Myers's tables show the same gap over a far larger range: no polyomino up to
+25 cells, polyhex up to 22, polyiamond up to 30 or polykite up to 25 has isohedral number
+seven, while eights, nines and tens all occur. Two explanations were tested here and
+refuted: the six-orbit shapes do not also admit seven-orbit tilings that the minimum
+hides (none of 26 tested does), and the counting constraints that link n, k and the grid
+permit seven as freely as six at many sizes. Seven is not forbidden by anything we know.</li>
+
+<li><b>Why sixes on some grids and fives on others?</b>
+Grids with several cells per translation unit produce six-orbit tiles in bulk and four-orbit
+ones at particular parities, and have never produced a five. All
+thirteen five-orbit shapes are polyominoes, polyhexes or
+polyiamonds. Of the tilings found for the sixty-seven shapes with six or more orbits, 53 have translations as
+their only symmetries, typically six tiles per period and nothing more. That
+suggests a mechanism: a tile forced to use every rotated orientation while permitting no
+rotation as a symmetry needs as many orbits as the grid has rotations. If that is the
+rule, the spectrum is explained by the grids' rotation groups and the anomalies — the
+fives, eights, nines and tens — are the interesting part.</li>
+
+<li><b>Finding hard tiles without classifying everything.</b>
+Every hard tile here was found by exhaustive enumeration, and enumeration is running out:
+the share of anisohedral shapes falls with size on every grid, a row of three million
+13-hexes produced nothing above five orbits, and hard tiles have no hard neighbours to
+climb towards. The alternative is to enumerate tilings instead of shapes: fix a symmetry
+group and a number of orbits, and grow the tile in all of its positions at once, so that
+only shapes that tile are ever generated. On the grids where the hard tiles are, very few
+shapes tile at the frontier — 19 of the
+5 376 764 17-rhombilles — so this
+could reach sizes far beyond any sweep.</li>
+
+<li><b>Heesch numbers on the new grids.</b>
+The largest Heesch number known for any polygon is six.
+The largest found here is four.
+
+Exact values are known only for the few hundred non-tilers that needed a special proof;
+the millions disposed of by the sweeps were only shown to have small ones. A census by
+family and size, looking for four and above, has not been done on any of the new grids.</li>
+
+<li><b>Are there aperiodic monotiles on other grids?</b>
+The method finds the hat and the turtle unprompted and finds nothing else, on any grid, up
+to the sizes computed. That is a negative result worth extending, and also a reason to
+look somewhere new: grids whose cells are themselves awkward tiles, taken from a
+many-orbit tiling of a hard shape, are natural candidates.</li>
+
+<li><b>Marked tiles.</b>
+Among edge rules that can be carved into a tile's outline, the highest isohedral number
+found is three. For the hexagon, the square and the small polyominoes surveyed, every
+marking without a periodic tiling was proved to have no tiling at all. An edge-marked
+polyform that tiles only aperiodically would be a different kind of monotile, and nothing
+here rules one out beyond those prototiles.</li>
+
+<li><b>Rows not yet computed.</b>
+Polyominoes n&nbsp;=&nbsp;16, Polyhexes n&nbsp;=&nbsp;14, Polyiamonds n&nbsp;=&nbsp;19, Polykites n&nbsp;=&nbsp;16, Polycairos n&nbsp;=&nbsp;14, Polyrhombilles n&nbsp;=&nbsp;18, Polyflorets n&nbsp;=&nbsp;14, Polyprisms n&nbsp;=&nbsp;14, Tetrakis polyaboloes n&nbsp;=&nbsp;20, Polyaboloes n&nbsp;=&nbsp;14, Polydrafters n&nbsp;=&nbsp;20, Polypons n&nbsp;=&nbsp;26, Trihexagonal polyforms n&nbsp;=&nbsp;14, Truncated-square polyforms n&nbsp;=&nbsp;13, Truncated-hexagonal polyforms n&nbsp;=&nbsp;11.</li>
+</ol>
+
+<div class="prose">
+<h2 id="closed">Tried, and not worth repeating</h2>
+<ul>
+<li><b>Bigger sweeps for higher isohedral numbers.</b> Polyhex maxima run 8, 9, 5, 5 at
+n&nbsp;=&nbsp;10 to 13; high values are isolated accidents of particular sizes, not a trend.</li>
+<li><b>Local search around known hard tiles.</b> Of 816 one-cell neighbours, none exceeds
+three orbits.</li>
+<li><b>Richer mark alphabets on a single hexagon.</b> More labels multiply the examples at
+each isohedral number without raising the maximum.</li>
+<li><b>SAT patches to prove plain shapes non-tilers.</b> Sixty to a hundred times slower
+than surround search, and proves nothing: a bounded patch can almost always be covered.</li>
+<li><b>Compiling the class-based search.</b> No faster than the exact-cover engine once
+both are compiled.</li>
+</ul>
+</div>
+
+</main>
+<footer class="site">
+  Generated 15 November 2026 from 350 classification rows
+  (81 682 298 shapes) by <code>site/build.py</code>; every number on this
+  site is computed from the dataset at build time.
+  Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
+  Reference tables: J.&nbsp;Myers, <a href="https://www.polyomino.org.uk/mathematics/polyform-tiling/">Polyform tiling</a>.
+</footer>
+</body>
+</html>
