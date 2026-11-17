@@ -2,7 +2,7 @@
   --paper: #fbfaf7; --card: #ffffff; --ink: #1c232b; --muted: #5f6b78; --rule: #dcd8ce;
   --accent: #1c5cab; --accent-soft: #e8f0fa;
   --series-1: #2a78d6; --series-2: #eb6834;
-  --cell: #cfe0f3; --cell-edge: #1c232b;
+  --cell: #cfe0f3; --cell-edge: #1c232b; --flip: #f6d9c6;
   --good: #0b6b3a;
   color-scheme: light;
 }
@@ -11,7 +11,7 @@
     --paper: #14181d; --card: #1b2128; --ink: #e7e9ec; --muted: #9aa5b1; --rule: #2f3740;
     --accent: #86b6ef; --accent-soft: #1e2a3a;
     --series-1: #3987e5; --series-2: #d95926;
-    --cell: #2c4666; --cell-edge: #dfe5ec;
+    --cell: #2c4666; --cell-edge: #dfe5ec; --flip: #6b4330;
     --good: #5fc48f;
     color-scheme: dark;
   }
@@ -90,10 +90,15 @@ details > summary { cursor: pointer; font: 600 .86rem ui-sans-serif, system-ui, 
 svg.shape .cell { fill: var(--cell); stroke: var(--cell); stroke-width: .5px; }
 svg.shape .grid { stroke: var(--cell-edge); stroke-opacity: .22; stroke-width: .6px; }
 svg.shape .edge { stroke: var(--cell-edge); stroke-width: 1.25px; }
+svg.shape .tile { fill: var(--cell); stroke: var(--cell-edge); stroke-width: 1px; }
+svg.shape .tile.flip { fill: var(--flip); }
+svg.patch { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; }
 .shapes { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .7rem; margin: 1rem 0 1.5rem; }
 .shapecard { background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: .8rem .6rem .6rem; text-align: center; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; gap: .5rem; }
 a.shapecard:hover { border-color: var(--accent); }
 .shapecard svg { margin: 0 auto; max-width: 100%; height: auto; max-height: 84px; }
+.shapes.plates { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); max-width: 54rem; }
+.shapes.plates .shapecard svg { max-height: 220px; width: auto; }
 .shapecard .cap { font: 0.76rem/1.35 ui-sans-serif, system-ui, sans-serif; color: var(--muted); }
 .shapecard .cap b { color: var(--ink); }
 .shapecard .fate { display: inline-block; margin-top: .25rem; }

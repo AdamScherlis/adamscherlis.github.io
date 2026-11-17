@@ -17,6 +17,8 @@
 
     <a href="records.html" class="here">Hard shapes</a>
 
+    <a href="monotiles.html">Monotile search</a>
+
     <a href="decorations.html">Edge markings</a>
 
     <a href="methods.html">Methods</a>
@@ -565,7 +567,7 @@ reflections, it needs them.
 <p>
 A non-tiler's <em>Heesch number</em> is the number of complete rings of copies that can be
 placed around it before the arrangement must jam. Most non-tilers fail at once; the sweeps
-dispose of those with a depth-three search. 485 shapes
+dispose of those with a depth-three search. 486 shapes
 survived that and needed a dedicated proof by SAT solver.
 </p>
 <p>
@@ -573,63 +575,73 @@ The non-tiling proofs search only placements that could occur in a tiling, which
 sound for proving non-tiling but gives only a lower bound on the Heesch number: a finite
 surround may use a placement that no tiling could. The values below were therefore
 recomputed over all placements, deepening until a ring provably cannot be completed.
-For 63 of the 485 shapes the true
+For 63 of the 486 shapes the true
 value is higher than the depth at which non-tiling was first proved.
 </p>
 
+<div class="callout"><p>
+1 shapes have not been recomputed yet and carry only a
+lower bound; they are counted in the last column.
+</p></div>
+
 </div>
 <div class="tablewrap"><table>
-<thead><tr><th>family</th><th>Heesch 0</th><th>Heesch 1</th><th>Heesch 2</th><th>Heesch 3</th><th>Heesch 4</th><th>total</th></tr></thead>
+<thead><tr><th>family</th><th>Heesch 0</th><th>Heesch 1</th><th>Heesch 2</th><th>Heesch 3</th><th>Heesch 4</th><th>bound only</th><th>total</th></tr></thead>
 <tbody>
 
 <tr><td>polyominoes</td>
 <td>2</td><td>1</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>3</td></tr>
 
 <tr><td>polyhexes</td>
 <td>4</td><td>275</td><td>78</td><td>46</td><td>2</td>
-
+<td class="zero">0</td>
 <td>405</td></tr>
 
 <tr><td>polyhexes, one-sided</td>
 <td class="zero">0</td><td class="zero">0</td><td>4</td><td>16</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>20</td></tr>
 
 <tr><td>polyiamonds</td>
 <td class="zero">0</td><td>2</td><td>5</td><td>4</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>11</td></tr>
 
 <tr><td>polykites</td>
 <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>2</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>2</td></tr>
 
 <tr><td>polyrhombilles</td>
 <td class="zero">0</td><td class="zero">0</td><td>9</td><td>7</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>16</td></tr>
 
 <tr><td>polyrhombilles, one-sided</td>
 <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>1</td></tr>
 
 <tr><td>tetrakis polyaboloes</td>
 <td class="zero">0</td><td class="zero">0</td><td>5</td><td>2</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>7</td></tr>
+
+<tr><td>polygems</td>
+<td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+<td>1</td>
+<td>1</td></tr>
 
 <tr><td>polydrafters</td>
 <td class="zero">0</td><td class="zero">0</td><td>1</td><td>4</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>5</td></tr>
 
 <tr><td>polypons</td>
 <td class="zero">0</td><td class="zero">0</td><td>2</td><td>13</td><td class="zero">0</td>
-
+<td class="zero">0</td>
 <td>15</td></tr>
 
 </tbody>
@@ -679,7 +691,7 @@ outer tiles needed to support the third. No fourth ring exists.</figcaption>
 
 </main>
 <footer class="site">
-  Generated 15 November 2026 from 350 classification rows
+  Generated 17 November 2026 from 358 classification rows
   (81 682 298 shapes) by <code>site/build.py</code>; every number on this
   site is computed from the dataset at build time.
   Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.

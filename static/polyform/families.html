@@ -17,6 +17,8 @@
 
     <a href="records.html">Hard shapes</a>
 
+    <a href="monotiles.html">Monotile search</a>
+
     <a href="decorations.html">Edge markings</a>
 
     <a href="methods.html">Methods</a>
@@ -4322,9 +4324,147 @@ large share of them enclose holes.</p>
 
 
 
+
+<div class="prose">
+<h2 id="subfamilies" style="margin-top:4rem">Sub-families</h2>
+<p>
+Shapes built from units that are themselves small polyforms. Every shape here is also
+counted in its parent family above, so these rows are not part of any total; they are
+tabulated separately because restricting to them concentrates the hard tiles.
+</p>
+</div>
+
+<div class="famhead" id="gem">
+  <div class="cellicon"><svg xmlns="http://www.w3.org/2000/svg" class="shape" viewBox="-9.831 -6.028 16.663 22.447" width="40" height="54" role="img"><path d="M0.000,-0.000 L-3.000,-5.196 L-6.000,-3.464 L-6.000,-0.000Z M-6.000,10.392 L-3.000,5.196 L-6.000,3.464 L-9.000,5.196Z M0.000,-0.000 L-6.000,-0.000 L-6.000,3.464 L-3.000,5.196Z M-6.000,10.392 L0.000,10.392 L0.000,6.928 L-3.000,5.196Z M6.000,10.392 L3.000,5.196 L0.000,6.928 L0.000,10.392Z M6.000,10.392 L0.000,10.392 L0.000,13.856 L3.000,15.588Z" class="cell" stroke-width="0.0945" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M-6.000,-0.000 L0.000,-0.000 M-6.000,3.464 L-3.000,5.196 M-6.000,10.392 L-3.000,5.196 M0.000,6.928 L0.000,10.392 M0.000,10.392 L6.000,10.392" class="grid" fill="none" vector-effect="non-scaling-stroke"/><path d="M-9.000,5.196 L-6.000,3.464 M-9.000,5.196 L-6.000,10.392 M-6.000,-3.464 L-6.000,-0.000 M-6.000,-3.464 L-3.000,-5.196 M-6.000,-0.000 L-6.000,3.464 M-6.000,10.392 L0.000,10.392 M-3.000,-5.196 L0.000,-0.000 M-3.000,5.196 L0.000,-0.000 M-3.000,5.196 L0.000,6.928 M0.000,6.928 L3.000,5.196 M0.000,10.392 L0.000,13.856 M0.000,13.856 L3.000,15.588 M3.000,5.196 L6.000,10.392 M3.000,15.588 L6.000,10.392" class="edge" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+  <div>
+    <h2>Polygems</h2>
+    <div class="sub">gem (two kites sharing a long edge: a third of a hexagon) · gems on the deltoidal trihexagonal tiling [3.4.6.4]
+ · <span class="badge">a slice of the polykites</span>
+</div>
+  </div>
+</div>
+<div class="prose">
+<p class="facts">
+  <b>148 809</b> free shapes, n ≤ 8
+  · <b>3</b> cells per translation unit
+· first non-tiler at n = <b>2</b>
+· first anisohedral at n = <b>2</b>
+  · highest isohedral number <b>6</b>
+
+</p>
+<p>A gem is two kites that share a long edge: a pentagon, a third of a hexagon. Polygems
+are polykites, and a thin slice of them — yet most of the hard polykites are in the slice.
+The hat is one of 78 4-gems (against
+873 8-kites) and the turtle one of
+450 5-gems (against 10 011
+10-kites). Here n counts gems, so each shape has 2n kites.</p>
+<p>No polygem of 2, 5 or 8 gems tiles isohedrally. For 5 gems that is true of every
+10-kite. For 2 and 8 it is special to polygems — 16-kites that tile isohedrally exist in
+their thousands — and the reason is short. The area of a 4-kite or 16-kite forces any
+isohedral tiling to have a centre of six-fold symmetry, or of three-fold symmetry with
+mirrors, at the centre of some hexagon of the grid, where six tiles meet and take one kite
+of that hexagon each. A polygem meets every hexagon in whole gems, two kites at a time.</p>
+</div>
+
+<div class="tablewrap"><table>
+<thead><tr>
+  <th>n</th><th>shapes</th><th>holes</th><th>translation</th><th>half-turn</th>
+  <th>isohedral</th><th class="l">anisohedral, by isohedral number k</th><th>non-tilers</th>
+<th>aperiodic</th>
+  <th>tile&nbsp;%</th>
+</tr></thead>
+<tbody>
+
+<tr>
+  <td>1</td><td>1</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td>1</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+<td class="zero">0</td>
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>2</td><td>4</td>
+  <td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">1<span class="k"><b>2</b>:1</span></td>
+  <td>3</td>
+<td class="zero">0</td>
+  <td>25</td>
+
+</tr>
+
+<tr>
+  <td>3</td><td>15</td>
+  <td class="zero">0</td><td>5</td><td>3</td><td>7</td>
+  <td class="l zero">0</td>
+  <td class="zero">0</td>
+<td class="zero">0</td>
+  <td>100</td>
+
+</tr>
+
+<tr>
+  <td>4</td><td>78</td>
+  <td>1</td><td class="zero">0</td><td class="zero">0</td><td>14</td>
+  <td class="l">1<span class="k"><b>3</b>:1</span></td>
+  <td>61</td>
+<td>1</td>
+  <td>21</td>
+
+</tr>
+
+<tr>
+  <td>5</td><td>450</td>
+  <td>10</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">11<span class="k"><b>3</b>:9</span><span class="k"><b>6</b>:2</span></td>
+  <td>428</td>
+<td>1</td>
+  <td>2.7</td>
+
+</tr>
+
+<tr>
+  <td>6</td><td>2 876</td>
+  <td>123</td><td>90</td><td>178</td><td>439</td>
+  <td class="l">32<span class="k"><b>2</b>:15</span><span class="k"><b>3</b>:16</span><span class="k"><b>4</b>:1</span></td>
+  <td>2 014</td>
+<td class="zero">0</td>
+  <td>27</td>
+
+</tr>
+
+<tr>
+  <td>7</td><td>18 792</td>
+  <td>1 190</td><td class="zero">0</td><td class="zero">0</td><td>441</td>
+  <td class="l">16<span class="k"><b>3</b>:13</span><span class="k"><b>6</b>:3</span></td>
+  <td>17 145</td>
+<td class="zero">0</td>
+  <td>2.6</td>
+
+</tr>
+
+<tr>
+  <td>8</td><td>126 593</td>
+  <td>11 022</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td>
+  <td class="l">27<span class="k"><b>2</b>:3</span><span class="k"><b>3</b>:24</span></td>
+  <td>115 544</td>
+<td class="zero">0</td>
+  <td>0.02</td>
+
+</tr>
+
+</tbody>
+</table></div>
+
+
+
+
+
 </main>
 <footer class="site">
-  Generated 15 November 2026 from 350 classification rows
+  Generated 17 November 2026 from 358 classification rows
   (81 682 298 shapes) by <code>site/build.py</code>; every number on this
   site is computed from the dataset at build time.
   Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
