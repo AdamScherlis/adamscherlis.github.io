@@ -911,67 +911,145 @@ lets the search go where a full sweep cannot:
 
 <tr><td>13</td><td>44</td>
 
+
 <td>0</td><td>0</td><td>0</td>
 <td class="zero">0</td>
+
+
 <td>24</td><td>23</td><td>1</td>
-<td class="zero">0</td></tr>
+<td class="zero">0</td>
+</tr>
 
 <tr><td>14</td><td>126</td>
 
+
 <td>19</td><td>18</td><td>0</td>
 <td>1</td>
+
+
 <td>75</td><td>58</td><td>16</td>
-<td>1</td></tr>
+<td>1</td>
+</tr>
 
 <tr><td>15</td><td>671</td>
 
+
 <td>49</td><td>49</td><td>0</td>
 <td class="zero">0</td>
+
+
 <td>354</td><td>338</td><td>16</td>
-<td class="zero">0</td></tr>
+<td class="zero">0</td>
+</tr>
 
 <tr><td>16</td><td>2 079</td>
 
+
 <td>288</td><td>283</td><td>5</td>
 <td class="zero">0</td>
+
+
 <td>1 179</td><td>1 059</td><td>120</td>
-<td class="zero">0</td></tr>
+<td class="zero">0</td>
+</tr>
 
 <tr><td>17</td><td>9 720</td>
 
+
 <td>1 021</td><td>1 020</td><td>1</td>
 <td class="zero">0</td>
+
+
 <td>4 962</td><td>4 847</td><td>115</td>
-<td class="zero">0</td></tr>
+<td class="zero">0</td>
+</tr>
 
 <tr><td>18</td><td>32 478</td>
 
+
 <td>4 735</td><td>4 673</td><td>62</td>
 <td class="zero">0</td>
+
+
 <td>17 561</td><td>16 758</td><td>803</td>
-<td class="zero">0</td></tr>
+<td class="zero">0</td>
+</tr>
 
 <tr><td>19</td><td>142 660</td>
 
+
 <td>18 070</td><td>18 058</td><td>12</td>
 <td class="zero">0</td>
+
+
 <td>70 274</td><td>69 619</td><td>655</td>
-<td class="zero">0</td></tr>
+<td class="zero">0</td>
+</tr>
+
+<tr><td>20</td><td>501 104</td>
+
+
+<td>76 612</td><td>76 019</td><td>592</td>
+<td>1</td>
+
+<td class="zero" colspan="4" style="text-align:center">not run</td></tr>
 
 </tbody></table></div>
 <div class="prose">
 <p>
-The only polygon it leaves unsettled is
-Tile(1,&nbsp;1) itself, which it finds at 14 edges in both branches. Up to
-19 edges there is no second one.
+Everything it leaves unsettled belongs to the hat's
+own family:
+Tile(1,&nbsp;1) at 14 edges, Tile(1,&nbsp;2) at 20 edges.
+Tile(1,&nbsp;2) is the hat's polygon with one class of edges twice as long as the other,
+drawn here with unit edges; it is a known aperiodic monotile, and the search found it
+without being told the family exists. Up to 20
+edges there is nothing outside the family.
 The sieve is a bet about <em>how</em> a tile would be aperiodic; a tile that managed it
 some other way would slip through, and only the full sweeps above would catch it.
 </p>
 
 <p>
+The same sieve without the restriction to the hat's turns — every turn that is a multiple
+of 30°, angle balance in place of the three types:
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th rowspan="2">edges</th><th rowspan="2">angle-balanced polygons</th>
+<th colspan="4" style="text-align:center">hat's branch</th><th colspan="4" style="text-align:center">Spectre's branch</th></tr>
+<tr><th>pass the sieve</th><th>non-tilers</th><th>periodic</th><th>?</th><th>pass the sieve</th><th>non-tilers</th><th>periodic</th><th>?</th></tr></thead>
+<tbody>
+
+<tr><td>9</td><td>1 552</td>
+
+<td>132</td><td>121</td><td>11</td>
+<td class="zero">0</td>
+<td>511</td><td>393</td><td>118</td>
+<td class="zero">0</td></tr>
+
+<tr><td>10</td><td>9 438</td>
+
+<td>1 017</td><td>850</td><td>167</td>
+<td class="zero">0</td>
+<td>3 525</td><td>2 512</td><td>1 013</td>
+<td class="zero">0</td></tr>
+
+<tr><td>11</td><td>54 043</td>
+
+<td>5 265</td><td>4 985</td><td>280</td>
+<td class="zero">0</td>
+<td>18 316</td><td>16 667</td><td>1 649</td>
+<td class="zero">0</td></tr>
+
+</tbody></table></div>
+<div class="prose">
+<p>Nothing unsettled there either, up to
+11 edges.</p>
+
+
+<p>
 Under the 19 restrictions with no threefold rotation and two kinds of copy there is
 no bet to make. The equation decides: across polygons of 12 to
-16 edges there are 24 555 pairs of a polygon and
+17 edges there are 97 923 pairs of a polygon and
 a restriction for which no periodic tiling is arithmetically possible, so that tiling at
 all would mean tiling aperiodically.
 None of them can even be surrounded once.
