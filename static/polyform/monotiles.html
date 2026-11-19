@@ -958,6 +958,30 @@ division of the edges.
 Nothing else turned up: decorating Tile(1,&nbsp;1) finds the two known monotiles and no
 third.
 </p>
+
+<p>
+At the other extreme from Tile(1,&nbsp;1) are the regular polygons, which tile in only one
+way, so that a decorated one is a single tile on a lattice with nothing to choose but
+which way round it sits. Here the question can be closed, because the list of decorations
+is finite: no more kinds of curve can be used than there are edges.
+A regular triangle has 23 decorations
+in all; 4 cannot be surrounded once and the other
+19 tile periodically, with at most six tiles in a
+period.
+A regular square has 133 decorations
+in all; 29 cannot be surrounded once and the other
+104 tile periodically, with at most eight tiles in a
+period.
+A regular hexagon has 4 954 decorations
+in all; 4 073 cannot be surrounded once and the other
+881 tile periodically, with at most four tiles in a
+period.
+So no regular triangle, square or hexagon becomes an aperiodic monotile by
+shaping its edges, whatever the curves. (The one known hexagonal monotile, Socolar and
+Taylor's, uses rules between tiles that do not share an edge, and cannot be cut out as a
+single piece.)
+</p>
+
 <p>
 Then every smaller polygon that tiles, with every pattern of S and Z and every pattern of
 bumps and dents:
@@ -1109,16 +1133,59 @@ bumps and dents:
 <td>0</td>
 <td class="zero">0</td></tr>
 
+<tr><td>90° only</td><td>10</td><td>6</td><td>bump or dent</td>
+<td>6 144</td><td>307</td><td>307</td>
+<td>0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>90° only</td><td>10</td><td>6</td><td>S or Z</td>
+<td>6 144</td><td>1 197</td><td>1 197</td>
+<td>0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>90° only</td><td>12</td><td>25</td><td>bump or dent</td>
+<td>102 400</td><td>2 083</td><td>2 083</td>
+<td>0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>90° only</td><td>12</td><td>25</td><td>S or Z</td>
+<td>102 400</td><td>10 940</td><td>10 940</td>
+<td>0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>60° only</td><td>9</td><td>34</td><td>bump or dent</td>
+<td>17 408</td><td>0</td><td>0</td>
+<td>0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>60° only</td><td>9</td><td>34</td><td>S or Z</td>
+<td>17 408</td><td>2 326</td><td>2 324</td>
+<td>2</td>
+<td class="zero">0</td></tr>
+
+<tr><td>60° only</td><td>10</td><td>116</td><td>bump or dent</td>
+<td>118 784</td><td>3 079</td><td>3 079</td>
+<td>0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>60° only</td><td>10</td><td>116</td><td>S or Z</td>
+<td>118 784</td><td>12 211</td><td>12 210</td>
+<td>1</td>
+<td class="zero">0</td></tr>
+
 </tbody></table></div>
 <div class="prose">
 <p>
-“Polygons” are the ones that tile when undecorated. “Patterns” counts every assignment
+The rows marked “only” are lattice shapes with more edges: polyominoes (90° turns) and
+polyiamonds, polyhexes and their kin (60° turns), which are as far from the hat as this
+page gets. “Polygons” are the ones that tile when undecorated. “Patterns” counts every assignment
 before symmetries are removed; most are cut before they are finished, because some edge is
 left with no edge it could lie against. “Surroundable” are the distinct decorated tiles
 that pass the first corona.
-Nine decorated polygons were first left unsettled
-and then settled, by decorating them further or by looking at how their columns repeat;
-each such tiling is stored and checked.
+Fourteen decorated polygons were first left unsettled
+and then settled — by decorating them further, by a deeper surround, or by a more
+patient reading of the period, which for some holds twelve tiles — and each such tiling
+is stored and checked.
 One
 remains unsettled:
 a 30° polygon of 8 edges with the
@@ -1414,7 +1481,7 @@ the polygem idea past the sizes already tabulated.</li>
 
 </main>
 <footer class="site">
-  Generated 18 November 2026 from 358 classification rows
+  Generated 19 November 2026 from 358 classification rows
   (81 682 298 shapes) by <code>site/build.py</code>; every number on this
   site is computed from the dataset at build time.
   Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
