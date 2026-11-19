@@ -1205,6 +1205,83 @@ Tile(1,&nbsp;1) and its family.</strong>
 
 
 
+<h3 id="descent">Every decoration at once</h3>
+<p>
+Trying one kind of curve at a time leaves the combinations untried, and there are far too
+many to list. They do not need listing. All a decoration does is forbid some of the ways
+two copies of the plain polygon can lie edge against edge, so a decorated tile is, as far
+as its tilings go, a set of permitted ways; and every such set has a <em>finest</em>
+decoration that permits exactly it, which can be written down. Decorating further only
+removes ways. So the decorations of one polygon form a ladder that can be walked from the
+plain polygon downwards, one refusal at a time, visiting each distinct family of tilings
+once. And only the bottom rungs matter: a periodic tiling of a decorated tile is also a
+tiling of every coarser decoration, so <strong>a polygon can be decorated into an
+aperiodic monotile exactly when one of its finest decorations that still tile has no
+periodic tiling</strong>. Those are rigid tiles, the easy kind to settle.
+</p>
+
+<p>
+For Tile(1,&nbsp;1) the walk visits ten families of
+tilings in all. Eight are periodic. The other
+two are the finest of all, and they are the hat's
+division of the edges into two kinds and the Spectre — found here with no hint, as the
+only two ways of shaping the edges of this polygon that force aperiodicity. The Spectre
+comes out in its sharpest form, an asymmetric curve whose variants alternate round the
+tile, which imposes the S rule and the bump rule together.
+</p>
+
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th style="text-align:left">polygons that tile</th><th>how many</th><th>families of tilings</th>
+<th>finest decorations</th><th>of those, periodic</th><th>most tiles in a period</th><th>unsettled</th></tr></thead>
+<tbody>
+
+<tr><td style="text-align:left">30° turns, up to 8 edges</td><td>336</td><td>19 251</td>
+<td>2 491</td><td>2 491</td><td>24</td>
+<td>0
+(+1 polygons not finished)</td></tr>
+
+<tr><td style="text-align:left">45° turns, up to 8 edges</td><td>57</td><td>8 193</td>
+<td>765</td><td>765</td><td>12</td>
+<td class="zero">0</td></tr>
+
+<tr><td style="text-align:left">36° turns, up to 8 edges</td><td>120</td><td>8 787</td>
+<td>1 097</td><td>1 097</td><td>12</td>
+<td class="zero">0</td></tr>
+
+<tr><td style="text-align:left">polyominoes of perimeter 10 and 12</td><td>31</td><td>19 681</td>
+<td>1 060</td><td>1 060</td><td>16</td>
+<td class="zero">0</td></tr>
+
+<tr><td style="text-align:left">60° turns only, 10 edges</td><td>116</td><td>12 254</td>
+<td>1 254</td><td>1 254</td><td>16</td>
+<td class="zero">0</td></tr>
+
+<tr><td style="text-align:left">36° turns, 9 edges</td><td>74</td><td>229</td>
+<td>112</td><td>112</td><td>8</td>
+<td class="zero">0</td></tr>
+
+<tr><td style="text-align:left">30° turns, 9 edges</td><td>492</td><td>3 356</td>
+<td>1 043</td><td>1 043</td><td>16</td>
+<td class="zero">0</td></tr>
+
+</tbody></table></div>
+<div class="prose">
+<p>
+Across these 1 226 polygons there
+are 71 751 families of decorated tilings and
+7 822 finest decorations, and every one tiles periodically,
+shown by an explicit tiling. No way of shaping the edges of any of them, with any curves
+in any combination, gives an aperiodic monotile.
+(One polygon
+could not be finished — the walk ran out of memory or time — and
+is not covered by that statement.)
+A further 86 sets of permitted ways pass a first ring of
+neighbours but not a second; they are not tilers and are not counted.
+</p>
+
+
+
 <h2 id="arithmetic">What arithmetic says</h2>
 <p>
 Sweeping every polygon is honest and slow. A little mathematics goes further. The edges of
