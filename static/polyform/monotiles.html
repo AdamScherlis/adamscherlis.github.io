@@ -1617,6 +1617,30 @@ all would mean tiling aperiodically.
 None of them can even be surrounded once.
 </p>
 
+<h3 id="restriction">Why six directions, and not five or twelve</h3>
+<p>
+The same argument says which symmetries the <em>statistics</em> of a one-tile tiling can
+have. Take any polygon, and a tiling by it in which the directions the tile points in are
+equally common under some rotation. Lifted to enough dimensions, such a tiling follows a
+plane. The rotation acts on that plane, and on the leftover dimensions. If it turns some
+of the leftover dimensions by a different angle than it turns the plane, the plane has no
+room to tilt into them, and the tiling can exist only if a certain conjugate of the tile's
+area is zero — which it never is. A rotation by a third, a quarter or a sixth of a turn
+is exactly the kind that turns everything alike. So the list of possible symmetries is the
+one crystals have: two-, three-, four- and six-fold, and nothing else, whatever ring of
+points the corners lie in.
+</p>
+<p>
+So the hat has six orientations for a reason. The Spectre, which uses all twelve, cannot
+use them evenly, and does not: its tilings come in two families that a 30° turn exchanges,
+with the odd turns in the minority by the factor 4&nbsp;+&nbsp;√15 above. And a single
+polygon cannot do what the two Penrose tiles do, with any angles and any edge lengths: the
+two Penrose tiles have conjugate areas of opposite sign that cancel, and one tile has
+nothing to cancel against. No polygon, used in finitely many directions in settled
+proportions, tiles with five-fold, eight-fold or twelve-fold order.
+This is why the search was pointed at the 30° and 45° polygons whose edges fall in two
+classes, where a monotile's tilings have room to exist.
+</p>
 <p>
 The proofs are in <code>docs/notes/area-norm.md</code> in the repository.
 </p>
@@ -1696,8 +1720,8 @@ the polygem idea past the sizes already tabulated.</li>
 
 </main>
 <footer class="site">
-  Generated 20 November 2026 from 358 classification rows
-  (81 682 298 shapes) by <code>site/build.py</code>; every number on this
+  Generated 21 November 2026 from 399 classification rows
+  (108 176 213 shapes) by <code>site/build.py</code>; every number on this
   site is computed from the dataset at build time.
   Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
   Reference tables: J.&nbsp;Myers, <a href="https://www.polyomino.org.uk/mathematics/polyform-tiling/">Polyform tiling</a>.
