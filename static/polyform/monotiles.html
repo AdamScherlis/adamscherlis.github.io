@@ -1685,6 +1685,152 @@ The proofs are in <code>docs/notes/area-norm.md</code> in the repository.
 </p>
 
 
+<h3 id="rings">More classes of edge</h3>
+<p>
+The hat's edges fall into two classes, 30° apart, and the argument above is about the
+two shadows they cast. Nothing limits a polygon to two. With turns of 20° the edges of a
+unit-edge polygon fall into three classes; with 22.5°, 18°, 15° or 12° into four; and
+these are the only finer angles for which a tiling can still look the same every 60° or
+every 90°, which the theorem above requires. Lifted, such a polygon lives in six or
+eight dimensions instead of four, and where the hat had one equation for the proportion
+of its two kinds of copy there are now fifteen, or seventy, which must all agree. Almost
+no polygon satisfies them at all. The search enumerates every polygon, keeps the pairs
+of a polygon and a set of allowed placements whose equations have irrational solutions
+and no others, and gives only those to the geometry.
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>turns</th><th>dimensions</th><th>edges</th><th>polygons</th><th>pairs the equations allow</th>
+<th>of which with a first corona</th><th>tile periodically after all</th><th>do not tile</th><th>unsettled</th></tr></thead>
+<tbody>
+
+<tr><td>20°</td><td>6</td><td>5–12</td>
+<td>10 981 599</td><td>771 510</td>
+<td>15 527</td><td>15 527</td>
+<td>0</td><td>0</td></tr>
+
+<tr><td>22.5°</td><td>8</td><td>6–12</td>
+<td>1 743 940</td><td>37 097</td>
+<td>4 295</td><td>4 295</td>
+<td>0</td><td>0</td></tr>
+
+<tr><td>15°</td><td>8</td><td>5–10</td>
+<td>485 196</td><td>42 226</td>
+<td>5 165</td><td>5 165</td>
+<td>0</td><td>0</td></tr>
+
+<tr><td>18°</td><td>8</td><td>5–10</td>
+<td>99 631</td><td>2 275</td>
+<td>297</td><td>297</td>
+<td>0</td><td>0</td></tr>
+
+<tr><td>12°</td><td>8</td><td>5–9</td>
+<td>148 041</td><td>5 077</td>
+<td>388</td><td>388</td>
+<td>0</td><td>0</td></tr>
+
+<tr><td>25.7°</td><td>6</td><td>7–11</td>
+<td>44 714</td><td>168</td>
+<td>0</td><td>0</td>
+<td>0</td><td>0</td></tr>
+
+</tbody></table></div>
+<div class="prose">
+<p>
+"Periodically after all" is not a contradiction. Where the placements include a rotation
+by 60° or 90°, the equations assume that the tiling uses the tile's rotations evenly, as
+the hat's tilings do; a polygon can fail them and still tile in stripes that favour one
+direction, and every one of these does. Where the placements are only translations,
+half-turns and one mirror image (or quarter-turns), nothing is assumed:
+652 750 of the pairs are of that kind, and
+not one of them has a first corona.
+</p>
+
+
+<p>
+The Spectre has no mirror images; its two kinds of copy are the tile and the tile turned
+by 30°. In these rings the analogue has three or four kinds — a tile and its turns by
+20°, or by 15°, 30° and 45° — and the equations for their proportions no longer reduce
+to one quadratic. They can still be solved exactly: there are finitely many solutions,
+usually four, and one can tell whether any is rational.
+
+With 20° turns, 5 to 10 edges:
+131 103 pairs of a polygon and such a set of placements survive a first
+test of the equations and 13 646 of them have a first corona. For
+4 of those the equations have no solution, for
+371 a rational one, for 13 271 they leave a
+curve of solutions and decide nothing, and for
+none only irrational ones.
+
+With 22.5° turns, 6 to 10 edges:
+68 867 pairs of a polygon and such a set of placements survive a first
+test of the equations and 39 749 of them have a first corona. For
+2 304 of those the equations have no solution, for
+26 431 a rational one, for 10 501 they leave a
+curve of solutions and decide nothing, and for
+513 only irrational ones; of that last group
+513 tile periodically with uneven
+statistics.
+
+With 15° turns, 5 to 8 edges:
+31 795 pairs of a polygon and such a set of placements survive a first
+test of the equations and 18 300 of them have a first corona. For
+2 124 of those the equations have no solution, for
+9 343 a rational one, for 6 369 they leave a
+curve of solutions and decide nothing, and for
+464 only irrational ones; of that last group
+464 tile periodically with uneven
+statistics.
+
+</p>
+
+<p>
+One simplification came out of the mathematics rather than the search. The angle between
+two classes of edge is not a property the lifted tiling can see: turn every edge of one
+class by the same amount and the tile and all its tilings deform together. So two
+classes 15° or 20° apart are the hat's 30° family, bent. Only at 30° is there a mirror
+that keeps both classes, which is why the hat is there and nowhere else.
+</p>
+
+
+<h3 id="mixed">Edges that are not unit steps</h3>
+<p>
+That simplification points somewhere else. If more classes of edge are old ground in
+disguise, the hat's own family may still be larger than it looks. Lifted, the hat is a
+closed path in a four-dimensional lattice that splits as a pair of triangular lattices,
+and every step of the path moves in one of the two and stands still in the other: that
+is what "two classes of edge" means. Nothing in the argument needs it. A step may move
+in both at once; in the plane it is then an edge of a new length, in a direction halfway
+between the old ones, joining two points of the same set of points as before. With
+30° turns that makes four edge lengths (1, 1.93, 1.41 and 0.52) and 48 possible steps
+where the hat has 12; with 45° turns, three lengths and 24 steps. The tiles are things
+no grid produces: polygons cut from squares, triangles and half-squares together.
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>corners in the points of</th><th>steps</th><th>edges</th><th>polygons with a new edge</th>
+<th>with a first corona</th><th>tile periodically</th><th>do not tile</th><th>unsettled</th></tr></thead>
+<tbody>
+
+<tr><td>45° turns</td><td>24</td><td>3–8</td>
+<td>105 528</td><td>17 943</td><td>17 941</td>
+<td>2</td><td class="zero">0</td></tr>
+
+</tbody></table></div>
+<div class="prose">
+<p>
+
+With 45° turns, 12 300 pairs of one of these polygons and a
+restricted set of placements (the hat's, the Spectre's, or the class-exchanging mirrors)
+have a frequency equation with only irrational roots:
+9 414 tile periodically with uneven statistics,
+2 886 do not tile.
+
+This family grows by a factor of ten to twenty for every edge, and the hat has fourteen; what
+has been covered here is its shallow end.
+</p>
+
+
 
 <h2 id="polygems">Polygems</h2>
 <p>
@@ -1759,7 +1905,7 @@ the polygem idea past the sizes already tabulated.</li>
 
 </main>
 <footer class="site">
-  Generated 21 November 2026 from 400 classification rows
+  Generated 22 November 2026 from 400 classification rows
   (115 025 990 shapes) by <code>site/build.py</code>; every number on this
   site is computed from the dataset at build time.
   Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
