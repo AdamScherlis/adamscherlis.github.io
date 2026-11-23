@@ -1700,49 +1700,62 @@ and no others, and gives only those to the geometry.
 </p>
 </div>
 <div class="tablewrap"><table>
-<thead><tr><th>turns</th><th>dimensions</th><th>edges</th><th>polygons</th><th>pairs the equations allow</th>
-<th>of which with a first corona</th><th>tile periodically after all</th><th>do not tile</th><th>unsettled</th></tr></thead>
+<thead><tr><th>turns</th><th>dimensions</th><th>edges</th><th>polygons</th><th>tile by a criterion</th>
+<th>pairs the equations allow</th><th>of which fundamental domains</th><th>others with a first corona</th>
+<th>tile periodically after all</th><th>do not tile</th><th>unsettled</th></tr></thead>
 <tbody>
 
 <tr><td>20°</td><td>6</td><td>5–12</td>
-<td>10 981 599</td><td>771 510</td>
-<td>15 527</td><td>15 527</td>
-<td>0</td><td>0</td></tr>
+<td>10 981 599</td><td>233 332</td><td>756 054</td>
+<td>0</td><td>71</td><td>71</td>
+<td>0</td><td class="zero">0</td></tr>
 
 <tr><td>22.5°</td><td>8</td><td>6–12</td>
-<td>1 743 940</td><td>37 097</td>
-<td>4 295</td><td>4 295</td>
-<td>0</td><td>0</td></tr>
+<td>1 743 940</td><td>104 127</td><td>32 803</td>
+<td>0</td><td>1</td><td>1</td>
+<td>0</td><td class="zero">0</td></tr>
 
-<tr><td>15°</td><td>8</td><td>5–10</td>
-<td>485 196</td><td>42 226</td>
-<td>5 165</td><td>5 165</td>
-<td>0</td><td>0</td></tr>
+<tr><td>15°</td><td>8</td><td>5–11</td>
+<td>5 366 348</td><td>78 648</td><td>320 173</td>
+<td>0</td><td>93</td><td>93</td>
+<td>0</td><td class="zero">0</td></tr>
 
-<tr><td>18°</td><td>8</td><td>5–10</td>
-<td>99 631</td><td>2 275</td>
-<td>297</td><td>297</td>
-<td>0</td><td>0</td></tr>
+<tr><td>18°</td><td>8</td><td>5–11</td>
+<td>566 403</td><td>16 597</td><td>10 598</td>
+<td>0</td><td>0</td><td>0</td>
+<td>0</td><td class="zero">0</td></tr>
 
 <tr><td>12°</td><td>8</td><td>5–9</td>
-<td>148 041</td><td>5 077</td>
-<td>388</td><td>388</td>
-<td>0</td><td>0</td></tr>
+<td>148 041</td><td>7 096</td><td>4 703</td>
+<td>0</td><td>14</td><td>14</td>
+<td>0</td><td class="zero">0</td></tr>
 
-<tr><td>25.7°</td><td>6</td><td>7–11</td>
-<td>44 714</td><td>168</td>
-<td>0</td><td>0</td>
-<td>0</td><td>0</td></tr>
+<tr><td>25.7°</td><td>6</td><td>7–12</td>
+<td>751 756</td><td>53 444</td><td>12 415</td>
+<td>0</td><td>0</td><td>0</td>
+<td>0</td><td class="zero">0</td></tr>
 
 </tbody></table></div>
 <div class="prose">
 <p>
+"Tile by a criterion": a polygon whose boundary can be cut into pieces that fit each
+other under translations and half-turns — the classical criteria of Conway and of
+Beauquier and Nivat — tiles periodically whatever placements are allowed, and is set
+aside before anything else. (These are theorems; as a check on the code, the tiling was
+also built and verified for several thousand polygons of the smaller sizes.) The candidate pairs
+are counted among the rest. "Fundamental domains": for a candidate pair, the edges of the
+polygon can be matched to each other by placements of that set so that the corners close
+up round every vertex; by a theorem of Poincaré the polygon then tiles, with every tile
+in the same position relative to the whole. Those tile periodically too, and are set
+aside.
+</p>
+<p>
 "Periodically after all" is not a contradiction. Where the placements include a rotation
 by 60° or 90°, the equations assume that the tiling uses the tile's rotations evenly, as
 the hat's tilings do; a polygon can fail them and still tile in stripes that favour one
-direction, and every one of these does. Where the placements are only translations,
-half-turns and one mirror image (or quarter-turns), nothing is assumed:
-652 750 of the pairs are of that kind, and
+direction. Where the placements are only translations, half-turns and one mirror image
+(or quarter-turns), nothing is assumed:
+844 893 of the pairs are of that kind, and
 not one of them has a first corona.
 </p>
 
@@ -1754,35 +1767,36 @@ by 30°. In these rings the analogue has three or four kinds — a tile and its 
 to one quadratic. They can still be solved exactly: there are finitely many solutions,
 usually four, and one can tell whether any is rational.
 
-With 20° turns, 5 to 10 edges:
-131 103 pairs of a polygon and such a set of placements survive a first
-test of the equations and 13 646 of them have a first corona. For
+With 20° turns, 5 to 11 edges:
+1 143 257 pairs of a polygon and such a set of placements survive a first
+test of the equations and 116 of them have a first corona. For
 4 of those the equations have no solution, for
-371 a rational one, for 13 271 they leave a
+19 a rational one, for 93 they leave a
 curve of solutions and decide nothing, and for
 none only irrational ones.
 
 With 22.5° turns, 6 to 10 edges:
-68 867 pairs of a polygon and such a set of placements survive a first
-test of the equations and 39 749 of them have a first corona. For
-2 304 of those the equations have no solution, for
-26 431 a rational one, for 10 501 they leave a
+31 878 pairs of a polygon and such a set of placements survive a first
+test of the equations and 19 of them have a first corona. For
+10 of those the equations have no solution, for
+0 a rational one, for 7 they leave a
 curve of solutions and decide nothing, and for
-513 only irrational ones; of that last group
-513 tile periodically with uneven
+2 only irrational ones; of that last group
+2 tile periodically with uneven
 statistics.
 
-With 15° turns, 5 to 8 edges:
-31 795 pairs of a polygon and such a set of placements survive a first
-test of the equations and 18 300 of them have a first corona. For
-2 124 of those the equations have no solution, for
-9 343 a rational one, for 6 369 they leave a
+With 15° turns, 5 to 9 edges:
+129 608 pairs of a polygon and such a set of placements survive a first
+test of the equations and 99 of them have a first corona. For
+17 of those the equations have no solution, for
+4 a rational one, for 53 they leave a
 curve of solutions and decide nothing, and for
-464 only irrational ones; of that last group
-464 tile periodically with uneven
+25 only irrational ones; of that last group
+25 tile periodically with uneven
 statistics.
 
 </p>
+
 
 <p>
 One simplification came out of the mathematics rather than the search. The angle between
@@ -1808,37 +1822,270 @@ no grid produces: polygons cut from squares, triangles and half-squares together
 </p>
 </div>
 <div class="tablewrap"><table>
-<thead><tr><th>corners in the points of</th><th>steps</th><th>edges</th><th>polygons with a new edge</th>
-<th>with a first corona</th><th>tile periodically</th><th>do not tile</th><th>unsettled</th></tr></thead>
+<thead><tr><th>corners in the points of</th><th>steps</th><th>edges</th><th>polygons</th>
+<th>tile by a criterion</th><th>fundamental domains</th><th>others with a first corona</th>
+<th>tile periodically</th><th>do not tile</th><th>unsettled</th></tr></thead>
 <tbody>
 
 <tr><td>30° turns</td><td>48</td><td>3–6</td>
-<td>26 556</td><td>7 957</td><td>7 956</td>
+<td>26 586</td><td>6 631</td><td>1 279</td>
+<td>71</td><td>70</td>
 <td>1</td><td class="zero">0</td></tr>
 
-<tr><td>45° turns</td><td>24</td><td>3–8</td>
-<td>105 528</td><td>17 943</td><td>17 941</td>
+<tr><td>45° turns</td><td>24</td><td>3–9</td>
+<td>1 211 654</td><td>28 326</td><td>8 679</td>
+<td>332</td><td>330</td>
 <td>2</td><td class="zero">0</td></tr>
 
 </tbody></table></div>
 <div class="prose">
 <p>
 
-With 30° turns, 5 834 pairs of one of these polygons and a
-restricted set of placements (the hat's, the Spectre's, or the class-exchanging mirrors)
-have a frequency equation with only irrational roots:
-4 988 tile periodically with uneven statistics,
-846 do not tile.
+With 30° turns, 90 pairs of one of the remaining polygons
+and a restricted set of placements (the hat's, the Spectre's, or the class-exchanging
+mirrors) have a frequency equation with only irrational roots:
+56 tile periodically with uneven statistics,
+34 do not tile.
 
-With 45° turns, 12 300 pairs of one of these polygons and a
-restricted set of placements (the hat's, the Spectre's, or the class-exchanging mirrors)
-have a frequency equation with only irrational roots:
-9 414 tile periodically with uneven statistics,
-2 886 do not tile.
+With one new edge, 9 to 11 edges
+(30°): 3 482 633 polygons, too many to test each, so only pairs of
+a polygon and a set of placements whose equation forbids an evenly spread period were
+tried: 7 119 787 pairs, 0 of them fundamental domains,
+0 others with a first corona.
+
+With 45° turns, 173 pairs of one of the remaining polygons
+and a restricted set of placements (the hat's, the Spectre's, or the class-exchanging
+mirrors) have a frequency equation with only irrational roots:
+0 tile periodically with uneven statistics,
+173 do not tile.
+
+With one new edge, 10 to 13 edges
+(45°): 1 528 870 polygons, too many to test each, so only pairs of
+a polygon and a set of placements whose equation forbids an evenly spread period were
+tried: 2 045 401 pairs, 0 of them fundamental domains,
+0 others with a first corona.
 
 This family grows by a factor of ten to twenty for every edge, and the hat has fourteen; what
 has been covered here is its shallow end.
 </p>
+
+
+<h3 id="again">The first search again, with better tools</h3>
+<p>
+Three things built for the larger rings apply just as well to the polygons this page
+began with: the criteria that recognise a periodic tiler from its boundary, the search
+for a pairing of the edges that makes a polygon a fundamental domain, and a compiled test
+for the first corona. With them the hunt among 30°, 45° and 36° polygons runs ten to
+twenty times faster, and was run again from the start and further than before.
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>turns</th><th>which polygons</th><th>edges</th><th>polygons</th><th>tile by a criterion</th>
+<th>pairs the equations allow</th><th>of which fundamental domains</th><th>others with a first corona</th>
+<th>tile periodically after all</th><th>do not tile</th><th>unsettled</th></tr></thead>
+<tbody>
+
+<tr><td>30°</td><td>every turn</td><td>9–12</td>
+<td>702 890</td><td>38 321</td><td>1 265 379</td>
+<td>0</td><td>152</td><td>152</td>
+<td>0</td><td class="zero">0</td></tr>
+
+<tr><td>30°</td><td>the hat's turns</td><td>12–17</td>
+<td>39 084</td><td>3 113</td><td>84 514</td>
+<td>0</td><td>5</td><td>3</td>
+<td>0</td><td>2</td></tr>
+
+<tr><td>45°</td><td>every turn</td><td>8–14</td>
+<td>253 501</td><td>28 023</td><td>256 717</td>
+<td>0</td><td>6</td><td>6</td>
+<td>0</td><td class="zero">0</td></tr>
+
+<tr><td>36°</td><td>every turn</td><td>9–14</td>
+<td>2 360 443</td><td>103 432</td><td>1 554 267</td>
+<td>0</td><td>0</td><td>0</td>
+<td>0</td><td class="zero">0</td></tr>
+
+</tbody></table></div>
+<div class="prose">
+<p>
+
+The unsettled pairs are 2 sightings of one polygon, Tile(1,&nbsp;1): in the
+hat's branch, where the equations give reflected tiles a share of 0.1273, and in the
+Spectre's, where they give the odd turns 0.1127. That is the search finding what it was
+built on, from nothing but the list of polygons.
+
+Nothing else is left.
+</p>
+
+<h3 id="free">And once more, assuming nothing</h3>
+<p>
+Every hunt above begins with a sieve: only a polygon whose frequency equations force an
+irrational share of some kind of copy gets any geometry. That is how the hat and the
+Spectre fail to be periodic, but it is one way, and outside the half-turn branches it
+also assumes the tiling's statistics are as symmetric as the branch. A tile could be
+aperiodic for another reason &mdash; a hierarchy that doubles its period for ever has
+rational statistics throughout &mdash; and no sieve built on irrationality would let it
+through.
+</p>
+<p>
+With the compiled tests the sieve is no longer needed. Here every polygon of each size
+is taken through every branch of its ring: with all placements allowed, with rotations
+only, and with each restricted set of placements the hunts use. A polygon that tiles by
+a criterion, or is a fundamental domain in the branch, is periodic there. One with no
+first corona when all placements are allowed has none in any branch, which is why the
+extra branches cost little. What remains is classified. The first corona is now decided
+in compiled code by the same rule the engine uses &mdash; a neighbour counts only while
+some corona holds both it and the view back from it, and all of a corona's tiles are
+such neighbours of each other &mdash; and agrees with the engine on every polygon it
+was compared on.
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>turns</th><th>which polygons</th><th>edge lengths</th><th>edges</th><th>polygons</th>
+<th>tile by a criterion</th><th>branches</th><th>fundamental domains (polygon, branch)</th>
+<th>others with a first corona</th><th>tile periodically</th><th>most tiles in a period</th>
+<th>do not tile</th><th>unsettled</th></tr></thead>
+<tbody>
+
+<tr><td>30°</td><td>the hat's turns</td><td>1</td>
+<td>12–19</td><td>548 743</td><td>16 634</td>
+<td>14</td><td>13 906</td><td>738</td>
+<td>690</td><td>12</td>
+<td>46</td><td>2</td></tr>
+
+<tr><td>30°</td><td>the hat's turns</td><td>1 and √3</td>
+<td>6–14</td><td>8 482 564</td><td>80 628</td>
+<td>14</td><td>115 546</td><td>4 837</td>
+<td>4 764</td><td>16</td>
+<td>69</td><td>4</td></tr>
+
+<tr><td>30°</td><td>every turn</td><td>1</td>
+<td>3–13</td><td>4 780 262</td><td>82 811</td>
+<td>14</td><td>168 064</td><td>2 000</td>
+<td>1 893</td><td>24</td>
+<td>105</td><td>2</td></tr>
+
+<tr><td>30°</td><td>every turn</td><td>1 and √3</td>
+<td>4–9</td><td>406 830</td><td>20 485</td>
+<td>14</td><td>23 210</td><td>1 654</td>
+<td>1 618</td><td>12</td>
+<td>36</td><td class="zero">0</td></tr>
+
+<tr><td>45°</td><td>every turn</td><td>1</td>
+<td>4–14</td><td>253 509</td><td>28 031</td>
+<td>9</td><td>33 462</td><td>739</td>
+<td>739</td><td>12</td>
+<td>0</td><td class="zero">0</td></tr>
+
+<tr><td>45°</td><td>every turn</td><td>1 and √2</td>
+<td>4–10</td><td>203 162</td><td>19 885</td>
+<td>9</td><td>24 440</td><td>936</td>
+<td>928</td><td>16</td>
+<td>8</td><td class="zero">0</td></tr>
+
+<tr><td>36°</td><td>every turn</td><td>1</td>
+<td>4–12</td><td>76 322</td><td>10 194</td>
+<td>7</td><td>9 339</td><td>287</td>
+<td>283</td><td>8</td>
+<td>2</td><td>2</td></tr>
+
+<tr><td>36°</td><td>every turn</td><td>1 and φ</td>
+<td>4–9</td><td>204 145</td><td>11 226</td>
+<td>7</td><td>6 532</td><td>619</td>
+<td>616</td><td>20</td>
+<td>3</td><td class="zero">0</td></tr>
+
+<tr><td>20°</td><td>every turn</td><td>1</td>
+<td>3–11</td><td>1 166 459</td><td>28 280</td>
+<td>14</td><td>33 258</td><td>487</td>
+<td>447</td><td>12</td>
+<td>40</td><td class="zero">0</td></tr>
+
+<tr><td>22.5°</td><td>every turn</td><td>1</td>
+<td>4–11</td><td>31 023</td><td>6 666</td>
+<td>16</td><td>6 118</td><td>20</td>
+<td>20</td><td>8</td>
+<td>0</td><td class="zero">0</td></tr>
+
+<tr><td>15°</td><td>every turn</td><td>1</td>
+<td>3–9</td><td>45 507</td><td>3 874</td>
+<td>27</td><td>4 982</td><td>191</td>
+<td>179</td><td>8</td>
+<td>12</td><td class="zero">0</td></tr>
+
+<tr><td>18°</td><td>every turn</td><td>1</td>
+<td>4–9</td><td>6 378</td><td>861</td>
+<td>18</td><td>1 095</td><td>46</td>
+<td>44</td><td>8</td>
+<td>2</td><td class="zero">0</td></tr>
+
+<tr><td>12°</td><td>every turn</td><td>1</td>
+<td>3–8</td><td>12 760</td><td>3 126</td>
+<td>22</td><td>4 279</td><td>127</td>
+<td>108</td><td>6</td>
+<td>18</td><td>1</td></tr>
+
+<tr><td>25.7°</td><td>every turn</td><td>1</td>
+<td>4–10</td><td>16 222</td><td>3 863</td>
+<td>9</td><td>2 592</td><td>18</td>
+<td>18</td><td>8</td>
+<td>0</td><td class="zero">0</td></tr>
+
+</tbody></table></div>
+<div class="prose">
+<p>
+Counting a polygon once for each row it appears in (one with 60° turns is a polygon of the
+30° ring and of the 15° ring, and the hat's turns are among all turns), that is
+16 233 886 polygons and
+223 727 899 pairs of a polygon and a branch.
+
+The unsettled pairs are
+Tile(1,&nbsp;1)
+(30°, one length) in
+2 branches &mdash; rotations only,
+which is the Spectre, and the hat's own placements; the hat
+(30°, two lengths) in
+2 branches; the turtle
+(30°, two lengths) in
+2 branches.
+These are the known monotiles, found again with no arithmetic to point at them.
+ 5 further pairs are unsettled and
+listed in the data (<code>data/equilateral/free-*.jsonl</code>):
+the 11-gon with turns 0 1 1 1 5 11 0 11 0 5 1 (in units of 30°)
+with rotations only, which has 180 ways to sit beside a copy of itself; 
+the 13-gon with turns 1 1 1 4 11 1 1 11 11 5 1 1 11 (in units of 30°)
+with every placement, which has 315 ways to sit beside a copy of itself; 
+the 12-gon with turns 1 1 1 3 3 7 9 9 3 1 3 9 (in units of 36°)
+with every placement, which has 111 ways to sit beside a copy of itself; 
+the 12-gon with turns 1 1 1 3 1 7 1 1 3 9 3 9 (in units of 36°)
+with every placement, which has 121 ways to sit beside a copy of itself; 
+the 8-gon with turns 1 2 13 1 28 3 14 28 (in units of 12°)
+with every placement.
+
+
+
+Tile(1,&nbsp;1) has 35 such ways. On a polygon as flexible as these the search for a
+period runs out of time or memory, and so far that is all that is known: nothing is claimed about them.
+</p>
+<p>
+One assumption is left, and for these polygons it is not one. The engine only builds
+tilings in which whole edges lie against whole edges. If all edges have one length, a
+tiling that breaks this has a staggered contact somewhere; following the line of that
+contact, the sides on its two banks are whole numbers of edges long, so if the line of
+boundaries ended anywhere the two banks would start there together and could not be
+staggered. It is therefore a full line across the tiling, two such lines cannot cross,
+and the parallel ones can all be slid shut, keeping a periodic tiling periodic. So a
+polygon with one edge length tiles, or tiles periodically, exactly when it does so edge
+to edge. With two lengths this fails &mdash; sides 1, √3 can lie against √3, 1 &mdash; and
+there "does not tile" means "has no edge-to-edge tiling".
+</p>
+<p>
+Two-length polygons are where the hat itself lives: its sides are 1 and √3 long, with
+turns of 60° and 90°, and one side of length 2 that counts here as two edges in a line,
+fourteen in all. The same family at 36° has edges 1 and the golden ratio, the lengths of
+the Penrose tiles.
+</p>
+
 
 
 
@@ -1915,7 +2162,7 @@ the polygem idea past the sizes already tabulated.</li>
 
 </main>
 <footer class="site">
-  Generated 22 November 2026 from 400 classification rows
+  Generated 23 November 2026 from 400 classification rows
   (115 025 990 shapes) by <code>site/build.py</code>; every number on this
   site is computed from the dataset at build time.
   Source and data: <a href="https://github.com/AdamScherlis/polyform">github.com/AdamScherlis/polyform</a>.
