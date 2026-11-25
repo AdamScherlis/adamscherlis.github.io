@@ -2350,6 +2350,80 @@ the Penrose tiles.
 
 
 
+<h3 id="polydoms">A different kind of order: every orientation</h3>
+<p>
+Every search above has a finite list of orientations built in: the polygons live in a
+ring of points with a rotation of finite order. There is a kind of order they cannot
+see. The pinwheel tiling of Conway and Radin is made of one right triangle, with legs 1
+and 2, in infinitely many orientations: each level of its hierarchy is turned by
+arctan&nbsp;½, which is no rational part of a turn. The triangle itself tiles
+periodically, so it is no monotile; but a polygon made of a few such triangles &mdash; a
+<em>polydom</em> &mdash; inherits the possibility. Two triangles that share a
+hypotenuse can form a kite as well as a rectangle, and across the kite the directions
+of the legs turn by 2&nbsp;arctan&nbsp;½. So the tilings of a polydom are not confined to
+any grid, and no table of polyforms and no engine on this site had looked at them.
+</p>
+<p>
+A small exact engine does (points are integers in units of a power of 1/5, and an
+orientation is a Gaussian rational of norm one, so nothing is rounded). It was run on
+every polydom of up to 7 triangles, joined along whole equal sides, with
+copies meeting edge to edge in any orientation at all.
+</p>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th>triangles</th><th>polydoms</th><th>tile periodically</th><th>&hellip; by a criterion on the polygon</th>
+<th>&hellip; on two copies, or a period found</th><th>cannot be surrounded</th><th>surrounded once only</th>
+<th>surrounded twice or more, no tiling found</th><th>unfinished</th></tr></thead>
+<tbody>
+
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td>
+<td>0</td><td>0</td><td class="zero">0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>2</td><td>6</td><td>6</td><td>6</td><td>0</td>
+<td>0</td><td>0</td><td class="zero">0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>3</td><td>10</td><td>10</td><td>10</td><td>0</td>
+<td>0</td><td>0</td><td class="zero">0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>4</td><td>53</td><td>45</td><td>40</td><td>5</td>
+<td>8</td><td>0</td><td class="zero">0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>5</td><td>185</td><td>87</td><td>78</td><td>9</td>
+<td>97</td><td>1</td><td class="zero">0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>6</td><td>896</td><td>350</td><td>320</td><td>30</td>
+<td>543</td><td>3</td><td class="zero">0</td>
+<td class="zero">0</td></tr>
+
+<tr><td>7</td><td>4 005</td><td>519</td><td>491</td><td>28</td>
+<td>3 450</td><td>36</td><td class="zero">0</td>
+<td class="zero">0</td></tr>
+
+</tbody></table></div>
+<div class="prose">
+<p>
+Of 5 156 polydoms, 1 018 tile periodically (each
+certified: three or four sides, Conway's criterion for the polygon or for two copies
+joined, or a period checked by area and overlap &mdash; often a tiling in two frames, off
+any grid, and periodic all the same) and 4 138 cannot be
+surrounded twice.
+Nothing lies between: no polydom of these sizes is surrounded twice without tiling
+periodically. So this kind of order begins exactly as the other did, with a sharp division and
+no exception yet; the hat needed eight kites. What a proof would look like here is
+short: the triangles of a tiling fall into domains with a common frame, separated by
+walls of hypotenuses, and a wall of one of the two possible families always leads to a
+frame turned one step further. A polydom whose every domain must have walls of both
+families has every frame in every tiling, hence infinitely many orientations, hence no
+period.
+</p>
+
+
+
 <h2 id="polygems">Polygems</h2>
 <p>
 The hat is four <em>gems</em>, a gem being two kites joined along a long edge — a
